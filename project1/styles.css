@@ -1,0 +1,691 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    perspective: 2000px;
+    perspective-origin: 50% 50%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Chinese font fallback */
+body:lang(zh),
+.name-link:lang(zh),
+.quote:lang(zh) {
+    font-family: 'Noto Serif TC', 'Cormorant Garamond', 'Playfair Display', serif;
+}
+
+/* Main Content Container - Premium Layout */
+.main-content {
+    position: relative;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+/* Profile Image Container with Flip Effect */
+.profile-image-container {
+    margin-bottom: 32px;
+    perspective: 1000px;
+    width: 130px;
+    height: 130px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.profile-flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fadeInScaleImage 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.0s forwards;
+    opacity: 0;
+    transform: rotateY(0deg);
+}
+
+.profile-image-container:hover .profile-flip-card,
+.profile-image-container:focus .profile-flip-card {
+    transform: rotateY(180deg);
+}
+
+/* Ensure hover works on touch devices */
+@media (hover: hover) {
+    .profile-image-container:hover .profile-flip-card {
+        transform: rotateY(180deg);
+    }
+}
+
+/* For touch devices, use active state */
+@media (hover: none) {
+    .profile-image-container:active .profile-flip-card {
+        transform: rotateY(180deg);
+    }
+}
+
+.profile-flip-front,
+.profile-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 50%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.profile-flip-back {
+    transform: rotateY(180deg);
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.12),
+                0 0 120px rgba(255, 255, 255, 0.06),
+                0 0 180px rgba(255, 255, 255, 0.03),
+                inset 0 0 80px rgba(255, 255, 255, 0.04);
+}
+
+/* Profile Image - Premium Styling */
+.profile-image {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: 50%;
+    display: block;
+    visibility: visible;
+    background: rgba(255, 255, 255, 0.02);
+    border: none;
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.12),
+                0 0 120px rgba(255, 255, 255, 0.06),
+                0 0 180px rgba(255, 255, 255, 0.03),
+                inset 0 0 80px rgba(255, 255, 255, 0.04);
+    filter: blur(0px);
+}
+
+/* LinkedIn Icon */
+.linkedin-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.linkedin-icon {
+    width: 60px;
+    height: 60px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.linkedin-icon-link:hover .linkedin-icon {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.linkedin-icon-link:hover {
+    opacity: 1;
+}
+
+/* Show placeholder if image fails to load */
+.profile-image[src=""],
+.profile-image:not([src]) {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background-image: none;
+}
+
+@media (max-width: 768px) {
+    .profile-image-container {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .linkedin-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+
+/* Container for all nebula elements */
+.nebula-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    z-index: -1;
+}
+
+/* Cloud styles - will be created dynamically */
+.nebula-cloud {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px); /* Reduced blur - Gaussian curve provides natural smoothness */
+    opacity: 0;
+    pointer-events: none;
+    /* Hint browser to pre-render blur calculation before animation starts */
+    will-change: filter, opacity, transform;
+    /* z-index is set dynamically in JavaScript: all clouds at -99 (second-to-last layer) */
+    /* All clouds are between star (z-index -100) and name (z-index 10000) */
+}
+
+/* Star styles - single bright star at top center */
+.nebula-star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    pointer-events: none;
+    /* Centering - horizontal center, top position */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Stronger, brighter glow effect */
+    box-shadow: 0 0 30px white, 
+                0 0 60px white, 
+                0 0 90px white, 
+                0 0 120px rgba(255, 255, 255, 0.8),
+                0 0 160px rgba(255, 255, 255, 0.5);
+    filter: blur(0.3px);
+    z-index: -100; /* Last layer, behind everything (lowest) */
+}
+
+.name-link {
+    font-size: 1.15rem; /* Desktop size */
+    font-weight: 400;
+    letter-spacing: 0.12em; /* Increased letter spacing for elegance */
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    z-index: 10000;
+    display: block;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.15),
+                 0 4px 40px rgba(255, 255, 255, 0.08); /* Subtle text glow */
+    opacity: 0;
+    transform: scale(0.98);
+    animation: fadeInScale 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards;
+    font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* Style second line (city) smaller - Premium Typography */
+.name-city {
+    display: block;
+    font-size: 0.65em; /* Smaller than before (was 0.75em) */
+    line-height: 1;
+    margin-top: 0.4em; /* Reduced spacing */
+    font-weight: 300; /* Lighter weight for hierarchy */
+    letter-spacing: 0.1em;
+    opacity: 0.75; /* More subtle for premium hierarchy */
+    text-shadow: 0 1px 10px rgba(255, 255, 255, 0.1);
+    font-feature-settings: "liga" 1, "kern" 1;
+}
+
+.name-link:hover {
+    opacity: 0.85;
+    text-shadow: 0 2px 25px rgba(255, 255, 255, 0.2),
+                 0 4px 50px rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px); /* Subtle lift on hover */
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+    
+    .profile-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 28px;
+    }
+    
+    .name-link {
+        font-size: 1.0rem;
+        letter-spacing: 0.1em;
+        max-width: 90%;
+        animation: fadeInScale 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards;
+    }
+    
+    .name-city {
+        font-size: 0.65em;
+        margin-top: 0.45em;
+    }
+    
+    .language-selector {
+        bottom: 24px;
+        left: 24px;
+    }
+    
+    .quote {
+        font-size: 0.95rem;
+        max-width: 85%;
+        padding: 20px 28px;
+    }
+}
+
+/* Fade-in and scale up animation */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInScaleImage {
+    0% {
+        opacity: 0;
+        transform: scale(1.33);
+        filter: blur(4px);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.34);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.35);
+        filter: blur(0px);
+    }
+}
+
+/* Pulse animation - desktop (only opacity/color, no scale) */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        color: #ffffff;
+    }
+    50% {
+        opacity: 0.15;
+        color: #ff6b9d;
+    }
+}
+
+/* Left Column Container - for Audio Player and Language Selector */
+.left-column {
+    position: fixed;
+    left: 32px;
+    bottom: 32px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: row; /* Horizontal layout: language and audio button side by side */
+    align-items: center; /* Vertically center items */
+    gap: 24px; /* Space between language and audio button */
+    width: auto;
+}
+
+/* Audio Player - Premium Style */
+.audio-player-container {
+    position: relative; /* Relative to left-column */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-control-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+    padding: 0;
+    margin: 0;
+}
+
+.audio-control-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.audio-control-btn:active {
+    transform: scale(0.95);
+}
+
+.audio-icon {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.audio-control-btn.playing .play-icon {
+    display: none !important;
+}
+
+.audio-control-btn.playing .pause-icon {
+    display: block !important;
+}
+
+.audio-control-btn:not(.playing) .play-icon {
+    display: block !important;
+}
+
+.audio-control-btn:not(.playing) .pause-icon {
+    display: none !important;
+}
+
+/* Ensure icons are visible by default */
+.audio-icon {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .left-column {
+        left: 24px;
+        bottom: 24px;
+        gap: 16px;
+    }
+    
+    .audio-control-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .audio-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Language Selector - Premium 2040 Style */
+.language-selector {
+    position: relative; /* Relative to left-column */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    min-width: 100px; /* Ensure consistent width */
+}
+
+.language-trigger {
+    position: relative;
+    cursor: pointer;
+    padding: 8px 0; /* No horizontal padding - text starts at same position */
+    background: transparent; /* No background */
+    backdrop-filter: none;
+    border: none; /* No border */
+    border-radius: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: auto; /* No minimum width - text determines width */
+}
+
+.language-trigger:hover {
+    background: transparent; /* No background on hover */
+    border: none;
+    transform: translateY(-2px);
+    box-shadow: none;
+}
+
+.language-text {
+    font-size: 0.8rem;
+    font-weight: 300; /* Lighter for subtlety */
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.12em;
+    text-transform: none;
+    font-variant-numeric: normal;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    white-space: nowrap; /* Prevent text wrapping */
+    display: inline-block; /* Ensure consistent positioning - text starts at same pixel */
+}
+
+.language-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3),
+                0 0 20px rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+}
+
+.language-selector.open .language-indicator {
+    background: rgba(100, 200, 255, 0.8);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.language-dropdown {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%; /* Center horizontally relative to trigger */
+    transform: translateX(-50%) translateY(10px) scale(0.95); /* Center and initial position */
+    min-width: 180px;
+    background: transparent; /* No background */
+    backdrop-filter: none;
+    border: none; /* No border */
+    border-radius: 0;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none; /* No shadow */
+    overflow: visible;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.language-selector.open .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1); /* Center horizontally when open */
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+    background: transparent; /* No background */
+}
+
+.lang-option::before {
+    display: none; /* Remove indicator bar */
+}
+
+.lang-option:hover {
+    background: transparent; /* No background on hover */
+    transform: translateX(4px);
+}
+
+.lang-option.active {
+    background: transparent; /* No background for active */
+}
+
+.lang-code {
+    font-size: 0.75rem;
+    font-weight: 400; /* Same weight as name */
+    color: rgba(255, 255, 255, 0.7);
+    min-width: 32px;
+    font-variant-numeric: normal;
+    letter-spacing: 0.1em; /* Same as name */
+}
+
+.lang-name {
+    font-size: 0.85rem;
+    font-weight: 400; /* Same weight as name */
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.1em; /* Same as name */
+}
+
+.lang-option:hover .lang-code,
+.lang-option.active .lang-code {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: none; /* No glow */
+}
+
+.lang-option:hover .lang-name,
+.lang-option.active .lang-name {
+    color: #ffffff;
+}
+
+/* Quote Container */
+.quote-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999; /* Below name/image, above clouds */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.quote {
+    position: absolute;
+    max-width: 280px; /* Reduced from 650px - quotes break earlier */
+    text-align: justify; /* Blocksatz */
+    text-align-last: center; /* Letzte Zeile (Autor) zentriert */
+    font-size: 1.05rem;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.95);
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-style: normal;
+    font-weight: 300; /* Lighter for elegance */
+    letter-spacing: 0.08em;
+    padding: 20px 24px;
+    background: transparent;
+    border-radius: 0;
+    backdrop-filter: none;
+    border: none;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 1px 15px rgba(255, 255, 255, 0.12),
+                 0 2px 30px rgba(255, 255, 255, 0.06);
+    font-feature-settings: "liga" 1, "kern" 1;
+    hyphens: auto; /* Automatische Silbentrennung für Blocksatz */
+    word-spacing: 0.05em; /* Leicht erhöhter Wortabstand für Blocksatz */
+}
+
+/* Quote author styling - on last line */
+.quote-author {
+    display: block;
+    text-align: center;
+    margin-top: 0.4em; /* Reduced spacing */
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    opacity: 0.85;
+    line-height: 1;
+}
+
+.quote.visible {
+    animation: quoteFadeIn 2s ease-out forwards;
+}
+
+.quote.fadeOut {
+    animation: quoteFadeOut 2s ease-in forwards;
+}
+
+@keyframes quoteFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes quoteFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .quote {
+        font-size: 0.9rem;
+        max-width: 90%;
+        padding: 15px 20px;
+    }
+    
+    .language-selector {
+        bottom: 15px;
+        left: 15px;
+        font-size: 0.65rem;
+    }
+    
+    .lang-btn {
+        padding: 3px 8px;
+        font-size: 0.65rem;
+    }
+}
+
+
+/* Pulse animation - mobile (only opacity/color, no scale) */
+@keyframes pulseMobile {
+    0%, 100% {
+        opacity: 1;
+        color: #ffffff;
+    }
+    50% {
+        opacity: 0.15;
+        color: #ff6b9d;
+    }
+}

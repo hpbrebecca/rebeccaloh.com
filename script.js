@@ -16,18 +16,18 @@
         return /Android/i.test(navigator.userAgent);
     }
 
-    // Get the link element
-    const link = document.querySelector('.name-link');
-    
-    if (link) {
+    // Function to setup LinkedIn link with deep linking
+    function setupLinkedInLink(linkElement) {
+        if (!linkElement) return;
+        
         const webUrl = 'https://ch.linkedin.com/in/rebiloh';
         
         if (isMobileDevice()) {
             // Set href to web URL (LinkedIn Universal Links should auto-open app)
-            link.href = webUrl;
+            linkElement.href = webUrl;
             
             // Try multiple methods to open app on click
-            link.addEventListener('click', function(e) {
+            linkElement.addEventListener('click', function(e) {
                 e.preventDefault();
                 
                 let appOpened = false;
@@ -91,7 +91,28 @@
             });
         } else {
             // Desktop: use web link
-            link.href = webUrl;
+            linkElement.href = webUrl;
+        }
+    }
+    
+    // Setup LinkedIn link for name
+    const nameLink = document.querySelector('.name-link');
+    if (nameLink) {
+        setupLinkedInLink(nameLink);
+    }
+    
+    // Setup LinkedIn link for icon (wait for DOM to be ready)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            const iconLink = document.querySelector('.linkedin-icon-link');
+            if (iconLink) {
+                setupLinkedInLink(iconLink);
+            }
+        });
+    } else {
+        const iconLink = document.querySelector('.linkedin-icon-link');
+        if (iconLink) {
+            setupLinkedInLink(iconLink);
         }
     }
 })();

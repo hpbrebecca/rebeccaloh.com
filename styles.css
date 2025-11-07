@@ -10,12 +10,650 @@ html, body {
 }
 
 body {
-    background-color: #001f3f;
+    background: #0a0e27;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
     color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Deep space layer - flowing gas that appears and disappears */
+html::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        /* Large flowing gas clouds - appear and disappear */
+        radial-gradient(circle at 40% 30%, 
+            rgba(70, 90, 130, 0.6) 0%, 
+            rgba(65, 85, 125, 0.5) 8%,
+            rgba(60, 80, 120, 0.4) 15%,
+            rgba(55, 75, 115, 0.3) 22%,
+            rgba(50, 70, 110, 0.25) 30%,
+            rgba(45, 65, 105, 0.2) 40%,
+            rgba(40, 60, 100, 0.15) 50%,
+            rgba(35, 55, 95, 0.1) 60%,
+            rgba(30, 50, 90, 0.05) 70%,
+            transparent 85%),
+        radial-gradient(circle at 20% 80%, 
+            rgba(45, 65, 105, 0.55) 0%,
+            rgba(42, 62, 102, 0.45) 10%,
+            rgba(38, 58, 98, 0.35) 20%,
+            rgba(35, 55, 95, 0.28) 30%,
+            rgba(32, 52, 92, 0.2) 40%,
+            rgba(30, 50, 90, 0.15) 50%,
+            rgba(28, 48, 88, 0.1) 60%,
+            transparent 75%),
+        radial-gradient(circle at 70% 50%, 
+            rgba(55, 75, 115, 0.5) 0%,
+            rgba(52, 72, 112, 0.4) 12%,
+            rgba(48, 68, 108, 0.3) 25%,
+            rgba(45, 65, 105, 0.25) 38%,
+            rgba(40, 60, 100, 0.18) 50%,
+            rgba(35, 55, 95, 0.1) 62%,
+            transparent 80%),
+        
+        /* Temporary gas clouds - appear and fade */
+        radial-gradient(circle at 60% 20%, 
+            rgba(80, 50, 110, 0.5) 0%,
+            rgba(75, 48, 108, 0.4) 12%,
+            rgba(70, 45, 105, 0.3) 24%,
+            rgba(65, 42, 102, 0.2) 36%,
+            transparent 50%),
+        radial-gradient(circle at 30% 70%, 
+            rgba(45, 95, 115, 0.45) 0%,
+            rgba(42, 90, 112, 0.35) 18%,
+            rgba(38, 85, 108, 0.25) 36%,
+            transparent 55%),
+        
+        /* Dark dust clouds - irregular shapes */
+        radial-gradient(ellipse 600px 300px at 50% 60%, 
+            rgba(5, 8, 15, 0.4) 0%,
+            rgba(8, 12, 20, 0.3) 25%,
+            rgba(10, 15, 25, 0.2) 50%,
+            transparent 70%),
+        radial-gradient(ellipse 400px 500px at 80% 30%, 
+            rgba(8, 10, 18, 0.35) 0%,
+            rgba(10, 13, 22, 0.25) 30%,
+            transparent 60%),
+        
+        /* Many stars */
+        radial-gradient(circle 1.5px at 12% 22%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 1px at 28% 38%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 2px at 45% 12%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
+        radial-gradient(circle 1px at 62% 28%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 78% 45%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 15% 58%, rgba(255, 255, 255, 0.7) 0%, transparent 100%),
+        radial-gradient(circle 2px at 35% 72%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 1px at 55% 88%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 72% 65%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 88% 82%, rgba(255, 255, 255, 0.75) 0%, transparent 100%);
+    animation: universeFlow 14s ease-in-out infinite, gasAppear 18s ease-in-out infinite;
+    z-index: -2;
+}
+
+/* Animated universe background - abstract flowing gas and stars */
+body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        /* Abstract gas clouds with many gradient stops for smooth flow */
+        radial-gradient(circle at 25% 35%, 
+            rgba(60, 80, 120, 0.75) 0%,
+            rgba(58, 78, 118, 0.7) 6%,
+            rgba(55, 75, 115, 0.65) 12%,
+            rgba(52, 72, 112, 0.6) 18%,
+            rgba(48, 68, 108, 0.55) 24%,
+            rgba(45, 65, 105, 0.5) 30%,
+            rgba(42, 62, 102, 0.45) 36%,
+            rgba(40, 60, 100, 0.4) 42%,
+            rgba(38, 58, 98, 0.35) 48%,
+            rgba(35, 55, 95, 0.3) 54%,
+            rgba(32, 52, 92, 0.25) 60%,
+            rgba(30, 50, 90, 0.2) 66%,
+            rgba(28, 48, 88, 0.15) 72%,
+            rgba(25, 45, 85, 0.1) 78%,
+            transparent 88%),
+        radial-gradient(circle at 75% 65%, 
+            rgba(50, 70, 110, 0.7) 0%,
+            rgba(48, 68, 108, 0.65) 8%,
+            rgba(45, 65, 105, 0.6) 16%,
+            rgba(42, 62, 102, 0.55) 24%,
+            rgba(40, 60, 100, 0.5) 32%,
+            rgba(38, 58, 98, 0.45) 40%,
+            rgba(35, 55, 95, 0.4) 48%,
+            rgba(32, 52, 92, 0.35) 56%,
+            rgba(30, 50, 90, 0.3) 64%,
+            rgba(28, 48, 88, 0.25) 72%,
+            rgba(25, 45, 85, 0.2) 80%,
+            transparent 90%),
+        radial-gradient(circle at 50% 50%, 
+            rgba(20, 30, 60, 0.8) 0%,
+            rgba(22, 32, 62, 0.75) 7%,
+            rgba(24, 34, 64, 0.7) 14%,
+            rgba(25, 35, 66, 0.65) 21%,
+            rgba(25, 35, 68, 0.6) 28%,
+            rgba(24, 34, 66, 0.55) 35%,
+            rgba(22, 32, 64, 0.5) 42%,
+            rgba(20, 30, 62, 0.45) 49%,
+            rgba(18, 28, 60, 0.4) 56%,
+            rgba(16, 26, 58, 0.35) 63%,
+            rgba(15, 25, 56, 0.3) 70%,
+            rgba(15, 25, 54, 0.25) 77%,
+            rgba(15, 25, 52, 0.2) 84%,
+            transparent 92%),
+        radial-gradient(circle at 10% 20%, 
+            rgba(45, 65, 105, 0.65) 0%,
+            rgba(43, 63, 103, 0.6) 10%,
+            rgba(40, 60, 100, 0.55) 20%,
+            rgba(38, 58, 98, 0.5) 30%,
+            rgba(35, 55, 95, 0.45) 40%,
+            rgba(32, 52, 92, 0.4) 50%,
+            rgba(30, 50, 90, 0.35) 60%,
+            rgba(28, 48, 88, 0.3) 70%,
+            transparent 82%),
+        
+        /* Many stars scattered */
+        radial-gradient(circle 1.5px at 20% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 2px at 40% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 60% 40%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 80% 60%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 1px at 30% 70%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
+        radial-gradient(circle 2px at 70% 80%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 50% 10%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 90% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 1px at 18% 48%, rgba(255, 255, 255, 0.7) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 52% 62%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 38% 18%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
+        radial-gradient(circle 2px at 68% 52%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        
+        /* Purple/violet gas clouds with smooth gradients */
+        radial-gradient(circle at 70% 25%, 
+            rgba(80, 50, 110, 0.55) 0%,
+            rgba(75, 48, 108, 0.45) 12%,
+            rgba(70, 45, 105, 0.35) 24%,
+            rgba(65, 42, 102, 0.25) 36%,
+            rgba(60, 38, 98, 0.18) 48%,
+            transparent 62%),
+        radial-gradient(circle at 15% 75%, 
+            rgba(70, 45, 100, 0.5) 0%,
+            rgba(65, 42, 97, 0.4) 15%,
+            rgba(60, 38, 93, 0.3) 30%,
+            rgba(55, 35, 90, 0.2) 45%,
+            transparent 60%),
+        
+        /* Teal/cyan gas clouds with smooth flow */
+        radial-gradient(circle at 85% 40%, 
+            rgba(40, 90, 110, 0.5) 0%,
+            rgba(38, 87, 108, 0.4) 14%,
+            rgba(35, 83, 105, 0.3) 28%,
+            rgba(32, 80, 102, 0.2) 42%,
+            transparent 58%),
+        radial-gradient(circle at 20% 85%, 
+            rgba(35, 85, 105, 0.45) 0%,
+            rgba(33, 82, 103, 0.35) 18%,
+            rgba(30, 78, 100, 0.25) 36%,
+            transparent 52%),
+        
+        /* Base gradient with smooth structure */
+        linear-gradient(135deg, 
+            #0a0e27 0%, 
+            #0d1229 4%,
+            #10132b 8%,
+            #1a1f3a 12%, 
+            #151a2e 16%,
+            #0f1528 20%,
+            #12172a 24%,
+            #0f1528 28%, 
+            #14192c 32%,
+            #1a1f3a 36%,
+            #1f2540 40%,
+            #1d233e 44%,
+            #1f2540 45%, 
+            #222642 48%,
+            #252a45 52%,
+            #232843 56%,
+            #252a45 62%, 
+            #21263f 66%,
+            #1d233a 70%,
+            #1a2035 74%,
+            #1a2035 78%, 
+            #171d32 82%,
+            #151a2f 86%,
+            #12172a 90%,
+            #151a2f 92%, 
+            #0f1528 96%,
+            #0a0e27 100%);
+    animation: universeFlow2 16s ease-in-out infinite, gasFlow 20s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Alternative version - flowing, organic universe with appearing/disappearing gas */
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        /* Large flowing gas clouds - pinkish like nebula (but subtle) */
+        radial-gradient(circle at 30% 40%, 
+            rgba(90, 70, 130, 0.5) 0%,
+            rgba(85, 68, 127, 0.45) 5%,
+            rgba(80, 65, 123, 0.4) 10%,
+            rgba(75, 62, 120, 0.35) 15%,
+            rgba(70, 58, 116, 0.3) 20%,
+            rgba(65, 55, 113, 0.25) 25%,
+            rgba(60, 52, 110, 0.2) 30%,
+            rgba(55, 48, 106, 0.15) 35%,
+            rgba(50, 45, 103, 0.1) 40%,
+            rgba(45, 42, 100, 0.05) 45%,
+            transparent 55%),
+        radial-gradient(circle at 70% 60%, 
+            rgba(75, 55, 115, 0.48) 0%,
+            rgba(72, 53, 112, 0.42) 6%,
+            rgba(68, 50, 108, 0.36) 12%,
+            rgba(65, 48, 105, 0.3) 18%,
+            rgba(62, 45, 102, 0.24) 24%,
+            rgba(58, 42, 98, 0.18) 30%,
+            rgba(55, 40, 95, 0.12) 36%,
+            transparent 48%),
+        radial-gradient(circle at 50% 20%, 
+            rgba(100, 60, 140, 0.4) 0%,
+            rgba(95, 58, 137, 0.35) 8%,
+            rgba(90, 55, 133, 0.3) 16%,
+            rgba(85, 52, 130, 0.25) 24%,
+            rgba(80, 50, 127, 0.2) 32%,
+            rgba(75, 47, 123, 0.15) 40%,
+            transparent 52%),
+        
+        /* Purple/magenta gas - appears and disappears */
+        radial-gradient(circle at 15% 70%, 
+            rgba(110, 50, 130, 0.45) 0%,
+            rgba(105, 48, 127, 0.38) 10%,
+            rgba(100, 45, 123, 0.3) 20%,
+            rgba(95, 42, 120, 0.22) 30%,
+            rgba(90, 40, 117, 0.15) 40%,
+            transparent 52%),
+        radial-gradient(circle at 85% 30%, 
+            rgba(95, 45, 125, 0.42) 0%,
+            rgba(90, 43, 122, 0.35) 12%,
+            rgba(85, 40, 118, 0.28) 24%,
+            rgba(80, 38, 115, 0.2) 36%,
+            transparent 48%),
+        
+        /* Teal/cyan flowing gas */
+        radial-gradient(circle at 60% 80%, 
+            rgba(50, 100, 130, 0.4) 0%,
+            rgba(48, 97, 127, 0.33) 9%,
+            rgba(45, 93, 123, 0.26) 18%,
+            rgba(42, 90, 120, 0.19) 27%,
+            rgba(40, 87, 117, 0.12) 36%,
+            transparent 46%),
+        radial-gradient(circle at 25% 25%, 
+            rgba(45, 95, 125, 0.38) 0%,
+            rgba(42, 92, 122, 0.3) 11%,
+            rgba(40, 88, 118, 0.22) 22%,
+            rgba(38, 85, 115, 0.15) 33%,
+            transparent 44%),
+        
+        /* Dark dust clouds - irregular, organic shapes */
+        radial-gradient(ellipse 800px 400px at 55% 50%, 
+            rgba(8, 10, 18, 0.5) 0%,
+            rgba(10, 12, 20, 0.4) 20%,
+            rgba(12, 14, 22, 0.3) 40%,
+            rgba(10, 12, 20, 0.2) 60%,
+            transparent 75%),
+        radial-gradient(ellipse 600px 500px at 20% 80%, 
+            rgba(6, 8, 15, 0.45) 0%,
+            rgba(8, 10, 18, 0.35) 25%,
+            rgba(10, 12, 20, 0.25) 50%,
+            transparent 70%),
+        
+        /* Many stars - varying brightness */
+        radial-gradient(circle 1.5px at 8% 15%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
+        radial-gradient(circle 1px at 22% 28%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 2px at 38% 12%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
+        radial-gradient(circle 1px at 52% 35%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 68% 22%, rgba(255, 255, 255, 0.88) 0%, transparent 100%),
+        radial-gradient(circle 1px at 82% 48%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
+        radial-gradient(circle 2px at 15% 62%, rgba(255, 255, 255, 0.92) 0%, transparent 100%),
+        radial-gradient(circle 1px at 35% 78%, rgba(255, 255, 255, 0.82) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 58% 88%, rgba(255, 255, 255, 0.87) 0%, transparent 100%),
+        radial-gradient(circle 1px at 75% 72%, rgba(255, 255, 255, 0.78) 0%, transparent 100%),
+        radial-gradient(circle 2px at 42% 18%, rgba(255, 255, 255, 0.93) 0%, transparent 100%),
+        radial-gradient(circle 1px at 88% 35%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
+        radial-gradient(circle 1.5px at 28% 52%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
+        radial-gradient(circle 1px at 65% 58%, rgba(255, 255, 255, 0.77) 0%, transparent 100%),
+        radial-gradient(circle 2px at 48% 75%, rgba(255, 255, 255, 0.91) 0%, transparent 100%),
+        
+        /* Base gradient - smooth transitions */
+        linear-gradient(135deg, 
+            #0a0e27 0%, 
+            #0d1229 3%,
+            #10132b 6%,
+            #13162d 9%,
+            #1a1f3a 12%, 
+            #171c35 15%,
+            #151a2e 18%,
+            #0f1528 21%,
+            #12172a 24%,
+            #14192c 27%,
+            #0f1528 28%, 
+            #161b2f 31%,
+            #14192c 32%,
+            #1a1f3a 36%,
+            #1d223d 39%,
+            #1f2540 42%,
+            #1d233e 44%,
+            #1f2540 45%, 
+            #212640 47%,
+            #222642 48%,
+            #242844 51%,
+            #252a45 54%,
+            #232843 56%,
+            #252a45 62%, 
+            #222640 65%,
+            #21263f 66%,
+            #1e243a 69%,
+            #1d233a 70%,
+            #1b2137 73%,
+            #1a2035 76%,
+            #1a2035 78%, 
+            #181e33 81%,
+            #171d32 82%,
+            #151b2f 85%,
+            #151a2f 88%,
+            #13182c 91%,
+            #12172a 94%,
+            #151a2f 92%, 
+            #0f1528 96%,
+            #0c1125 98%,
+            #0a0e27 100%);
+    animation: universeFlowOrganic 11s ease-in-out infinite, gasEmerge 13s ease-in-out infinite, gasDissolve 17s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Flowing, organic animations - appearing, disappearing, merging */
+@keyframes universeFlow {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.7;
+    }
+    12.5% {
+        transform: translate(5%, -3%) rotate(2deg) scale(1.15);
+        opacity: 0.85;
+    }
+    25% {
+        transform: translate(-4%, 6%) rotate(-3deg) scale(0.9);
+        opacity: 0.6;
+    }
+    37.5% {
+        transform: translate(7%, 4%) rotate(4deg) scale(1.2);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translate(-6%, -5%) rotate(-2deg) scale(0.85);
+        opacity: 0.5;
+    }
+    62.5% {
+        transform: translate(3%, 8%) rotate(3deg) scale(1.1);
+        opacity: 0.75;
+    }
+    75% {
+        transform: translate(-7%, 2%) rotate(-4deg) scale(0.95);
+        opacity: 0.65;
+    }
+    87.5% {
+        transform: translate(4%, -6%) rotate(2deg) scale(1.18);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.7;
+    }
+}
+
+@keyframes universeFlow2 {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
+        opacity: 0.6;
+    }
+    15% {
+        transform: translate(-5%, 7%) rotate(-3deg) scale(1.25) skew(2deg);
+        opacity: 0.8;
+    }
+    30% {
+        transform: translate(8%, -4%) rotate(5deg) scale(0.8) skew(-3deg);
+        opacity: 0.4;
+    }
+    45% {
+        transform: translate(-3%, -8%) rotate(-2deg) scale(1.3) skew(4deg);
+        opacity: 0.85;
+    }
+    60% {
+        transform: translate(6%, 5%) rotate(4deg) scale(0.88) skew(-2deg);
+        opacity: 0.55;
+    }
+    75% {
+        transform: translate(-8%, 3%) rotate(-5deg) scale(1.15) skew(3deg);
+        opacity: 0.75;
+    }
+    90% {
+        transform: translate(4%, -7%) rotate(2deg) scale(0.92) skew(-1deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
+        opacity: 0.6;
+    }
+}
+
+@keyframes gasAppear {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    20% {
+        opacity: 0.6;
+        transform: scale(1.2);
+    }
+    40% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    60% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+    80% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes gasFlow {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+    20% {
+        transform: translate(12%, -8%) rotate(6deg) scale(1.3);
+        opacity: 0.75;
+    }
+    40% {
+        transform: translate(-10%, 10%) rotate(-5deg) scale(0.7);
+        opacity: 0.3;
+    }
+    60% {
+        transform: translate(8%, 12%) rotate(4deg) scale(1.4);
+        opacity: 0.85;
+    }
+    80% {
+        transform: translate(-12%, -6%) rotate(-7deg) scale(0.8);
+        opacity: 0.4;
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+}
+
+/* Organic flowing animation - continuous change in direction, size, speed */
+@keyframes universeFlowOrganic {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
+        opacity: 0.6;
+    }
+    10% {
+        transform: translate(4%, -2%) rotate(1.5deg) scale(1.08) skew(1deg);
+        opacity: 0.7;
+    }
+    20% {
+        transform: translate(-3%, 5%) rotate(-2deg) scale(0.92) skew(-1.5deg);
+        opacity: 0.5;
+    }
+    30% {
+        transform: translate(6%, 3%) rotate(2.5deg) scale(1.15) skew(2deg);
+        opacity: 0.75;
+    }
+    40% {
+        transform: translate(-5%, -4%) rotate(-1.5deg) scale(0.88) skew(-2deg);
+        opacity: 0.55;
+    }
+    50% {
+        transform: translate(3%, 7%) rotate(3deg) scale(1.2) skew(2.5deg);
+        opacity: 0.8;
+    }
+    60% {
+        transform: translate(-7%, 2%) rotate(-2.5deg) scale(0.85) skew(-1deg);
+        opacity: 0.45;
+    }
+    70% {
+        transform: translate(5%, -6%) rotate(1.8deg) scale(1.12) skew(1.5deg);
+        opacity: 0.7;
+    }
+    80% {
+        transform: translate(-4%, 4%) rotate(-3deg) scale(0.9) skew(-2.5deg);
+        opacity: 0.6;
+    }
+    90% {
+        transform: translate(2%, -3%) rotate(2deg) scale(1.05) skew(1deg);
+        opacity: 0.65;
+    }
+    100% {
+        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
+        opacity: 0.6;
+    }
+}
+
+/* Gas emerging - appears and grows */
+@keyframes gasEmerge {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    15% {
+        opacity: 0.4;
+        transform: scale(0.6);
+    }
+    30% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+    45% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    60% {
+        opacity: 0.75;
+        transform: scale(1.15);
+    }
+    75% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+    90% {
+        opacity: 0.3;
+        transform: scale(0.7);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+}
+
+/* Gas dissolving - fades away */
+@keyframes gasDissolve {
+    0% {
+        opacity: 0.7;
+        transform: scale(1.2);
+    }
+    20% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    40% {
+        opacity: 0.6;
+        transform: scale(0.9);
+    }
+    60% {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+    80% {
+        opacity: 0.2;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+}
+
+/* Temporary gas layer - appears and disappears */
+.universe-temp {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        /* Temporary purple gas - appears and fades */
+        radial-gradient(circle at 65% 35%, 
+            rgba(90, 55, 125, 0.5) 0%,
+            rgba(85, 52, 122, 0.4) 15%,
+            rgba(80, 48, 118, 0.3) 30%,
+            transparent 50%),
+        radial-gradient(circle at 25% 55%, 
+            rgba(70, 45, 105, 0.45) 0%,
+            rgba(65, 42, 102, 0.35) 18%,
+            rgba(60, 38, 98, 0.25) 36%,
+            transparent 55%),
+        /* Temporary teal gas */
+        radial-gradient(circle at 75% 65%, 
+            rgba(50, 100, 120, 0.4) 0%,
+            rgba(47, 95, 117, 0.3) 20%,
+            rgba(43, 90, 113, 0.2) 40%,
+            transparent 60%),
+        radial-gradient(circle at 40% 80%, 
+            rgba(45, 95, 115, 0.35) 0%,
+            rgba(42, 90, 112, 0.25) 22%,
+            transparent 45%);
+    animation: gasAppear 15s ease-in-out infinite, gasFlow 19s ease-in-out infinite;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .name-link {
@@ -26,15 +664,65 @@ body {
     text-decoration: none;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 1;
+    
+    /* Initial state - invisible and slightly scaled down */
+    opacity: 0;
+    transform: scale(0.98);
+    
+    /* Fade-in animation - starts after 1.0s */
+    animation: fadeInScale 0.8s ease-out 1.0s forwards,
+               pulse 4.5s ease-in-out 1.8s infinite;
 }
 
 .name-link:hover {
     opacity: 0.8;
 }
 
+/* Fade-in and scale up animation */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Pulse animation - desktop (only opacity/color, no scale) */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        color: #ffffff;
+    }
+    50% {
+        opacity: 0.15;
+        color: #4a6fa5;
+    }
+}
+
 /* Responsive - make it slightly smaller on mobile but still readable */
 @media (max-width: 768px) {
     .name-link {
         font-size: 1.25rem;
+        
+        /* More subtle pulse on mobile - max scale 1.01 */
+        animation: fadeInScale 0.8s ease-out 1.0s forwards,
+                   pulseMobile 4.5s ease-in-out 1.8s infinite;
+    }
+}
+
+/* Pulse animation - mobile (only opacity/color, no scale) */
+@keyframes pulseMobile {
+    0%, 100% {
+        opacity: 1;
+        color: #ffffff;
+    }
+    50% {
+        opacity: 0.15;
+        color: #4a6fa5;
     }
 }
