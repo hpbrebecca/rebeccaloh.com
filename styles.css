@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #001f3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    color: #ffffff;
+}
+
+.name-link {
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.name-link:hover {
+    opacity: 0.8;
+}
+
+/* Responsive - make it slightly smaller on mobile but still readable */
+@media (max-width: 768px) {
+    .name-link {
+        font-size: 1.25rem;
+    }
+}
