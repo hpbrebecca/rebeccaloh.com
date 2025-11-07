@@ -23,58 +23,71 @@
         const webUrl = 'https://ch.linkedin.com/in/rebiloh';
         
         if (isMobileDevice()) {
-            // Different deep link formats for iOS and Android
-            let appUrl;
-            if (isIOS()) {
-                // iOS LinkedIn app deep link
-                appUrl = 'linkedin://profile/rebiloh';
-            } else if (isAndroid()) {
-                // Android LinkedIn app deep link
-                appUrl = 'linkedin://in/rebiloh';
-            } else {
-                // Fallback for other mobile devices
-                appUrl = 'linkedin://in/rebiloh';
-            }
-            
-            // Set href to web URL as fallback
+            // Set href to web URL (LinkedIn Universal Links should auto-open app)
             link.href = webUrl;
             
-            // Override click behavior to try app first
+            // Try multiple methods to open app on click
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Try to open the app
-                const startTime = Date.now();
                 let appOpened = false;
                 
-                // Listen for page visibility change (app opened)
-                const visibilityHandler = function() {
-                    if (document.hidden) {
-                        appOpened = true;
-                    }
-                };
-                document.addEventListener('visibilitychange', visibilityHandler);
-                
-                // Try opening the app
-                window.location = appUrl;
-                
-                // Fallback to web if app doesn't open
-                setTimeout(function() {
-                    document.removeEventListener('visibilitychange', visibilityHandler);
-                    if (!appOpened) {
-                        // Try alternative deep link format
-                        if (isIOS()) {
-                            window.location = 'linkedin://in/rebiloh';
-                            setTimeout(function() {
-                                if (!document.hidden) {
-                                    window.location = webUrl;
-                                }
-                            }, 500);
-                        } else {
-                            window.location = webUrl;
+                // Method 1: Try Android Intent URL (for Android)
+                if (isAndroid()) {
+                    const intentUrl = 'intent://linkedin.com/in/rebiloh#Intent;scheme=https;package=com.linkedin.android;end';
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = intentUrl;
+                    document.body.appendChild(iframe);
+                    
+                    setTimeout(function() {
+                        document.body.removeChild(iframe);
+                        if (!appOpened) {
+                            // Method 2: Try standard deep link
+                            tryOpenApp('linkedin://in/rebiloh');
                         }
-                    }
-                }, 800);
+                    }, 500);
+                } else if (isIOS()) {
+                    // Method 1: Try iOS deep link
+                    tryOpenApp('linkedin://profile/rebiloh');
+                } else {
+                    // Try standard deep link
+                    tryOpenApp('linkedin://in/rebiloh');
+                }
+                
+                function tryOpenApp(appUrl) {
+                    // Listen for page visibility change (app opened)
+                    const visibilityHandler = function() {
+                        if (document.hidden) {
+                            appOpened = true;
+                        }
+                    };
+                    document.addEventListener('visibilitychange', visibilityHandler);
+                    
+                    // Try opening the app using iframe method (more reliable)
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = appUrl;
+                    document.body.appendChild(iframe);
+                    
+                    // Fallback to direct location change
+                    setTimeout(function() {
+                        if (!appOpened) {
+                            window.location.href = appUrl;
+                        }
+                    }, 100);
+                    
+                    // Final fallback to web
+                    setTimeout(function() {
+                        document.removeEventListener('visibilitychange', visibilityHandler);
+                        if (iframe.parentNode) {
+                            document.body.removeChild(iframe);
+                        }
+                        if (!appOpened && !document.hidden) {
+                            window.location.href = webUrl;
+                        }
+                    }, 1500);
+                }
             });
         } else {
             // Desktop: use web link
