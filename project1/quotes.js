@@ -103,12 +103,24 @@
         fr: "Langue",
         zh: "語言"
     };
+    
+    // Navigation labels in all languages
+    const navigationLabels = {
+        about: {
+            de: "Über mich",
+            en: "About",
+            fr: "À propos",
+            zh: "關於"
+        },
+        quotes: {
+            de: "Zitate",
+            en: "Quotes",
+            fr: "Citations",
+            zh: "引言"
+        }
+    };
 
         let currentLang = 'en';
-        let currentQuote = null;
-        let currentQuoteIndex = null; // Store index of currently displayed quote
-        let quoteTimeout = null;
-        let usedQuotes = [];
 
     const quoteContainer = document.getElementById('quoteContainer');
     const nameLink = document.getElementById('nameLink');
@@ -117,6 +129,7 @@
     const languageText = document.getElementById('languageText');
     const languageDropdown = document.getElementById('languageDropdown');
     const langOptions = document.querySelectorAll('.lang-option');
+    const navLinks = document.querySelectorAll('.nav-text');
 
     // Update language display
     function updateLanguageDisplay(lang) {
@@ -131,6 +144,14 @@
         // Update active option
         langOptions.forEach(opt => {
             opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+        });
+        
+        // Update navigation labels
+        navLinks.forEach(nav => {
+            const langKey = nav.getAttribute('data-lang-key');
+            if (langKey && navigationLabels[langKey]) {
+                nav.textContent = navigationLabels[langKey][lang];
+            }
         });
     }
 
@@ -152,22 +173,27 @@
             }, 100);
             
             // Immediately remove old quote and show same quote in new language
+            // Access variables from outer scope (defined below)
+            const quoteElement = window.currentQuoteElement;
+            const quoteTimeout = window.currentQuoteTimeout;
+            const quoteIndex = window.currentQuoteIndex;
+            
             if (quoteTimeout) {
                 clearTimeout(quoteTimeout);
-                quoteTimeout = null;
+                window.currentQuoteTimeout = null;
             }
             
-            if (currentQuote) {
+            if (quoteElement) {
                 // Remove immediately without fade out
-                if (currentQuote.parentNode) {
-                    currentQuote.parentNode.removeChild(currentQuote);
+                if (quoteElement.parentNode) {
+                    quoteElement.parentNode.removeChild(quoteElement);
                 }
-                currentQuote = null;
+                window.currentQuoteElement = null;
             }
             
             // Show same quote in new language (if we have a current quote index)
-            if (currentQuoteIndex !== null) {
-                showQuoteByIndex(currentQuoteIndex);
+            if (quoteIndex !== null && quoteIndex !== undefined) {
+                showQuoteByIndex(quoteIndex);
             } else {
                 // No quote was showing, show a new one
                 showNextQuote();
@@ -216,105 +242,59 @@
     // Initialize with default language
     updateLanguageDisplay('en');
 
-    // Get position in clock positions (1-15) around the center
-    // Like a clock: 12 o'clock = position 1, 3 o'clock = position 4, etc.
-    // Quotes positioned in a circular/elliptical ring between image and screen edge
-    function getClockPosition(positionNumber) {
+    // Track the current quote (only one at a time) - declared in window scope for language switching
+    window.currentQuoteElement = null;
+    window.currentQuoteTimeout = null;
+    window.currentQuoteIndex = null;
+    
+    // Get random centered position (relatively centered on screen)
+    function getRandomPosition() {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
+        
+        // Center area: 40-60% of screen width and height (relatively centered)
+        const centerAreaWidth = viewportWidth * 0.2; // 20% of screen width around center
+        const centerAreaHeight = viewportHeight * 0.2; // 20% of screen height around center
+        
+        // Random position within center area
         const centerX = viewportWidth / 2;
         const centerY = viewportHeight / 2;
         
-        // Image is 130px (desktop) or 100px (mobile), so radius is 65px or 50px
-        // We want quotes between image edge and screen edge
-        const imageSize = window.innerWidth <= 768 ? 100 : 130;
-        const imageRadius = imageSize / 2;
+        const x = centerX + (Math.random() - 0.5) * centerAreaWidth;
+        const y = centerY + (Math.random() - 0.5) * centerAreaHeight;
         
-        // Minimum distance: image edge + margin (quotes should be further from image)
-        const minDistance = imageRadius + 100; // 100px margin from image edge
-        
-        // Maximum distance: closer to screen edge but with margin
-        // Use elliptical shape: wider horizontally, taller vertically
-        const maxDistanceX = (viewportWidth / 2) - 80; // 80px margin from screen edge
-        const maxDistanceY = (viewportHeight / 2) - 80; // 80px margin from screen edge
-        
-        // Calculate angle: 15 positions around circle (360° / 15 = 24° per position)
-        // Position 1 = 12 o'clock (top), position 4 = 3 o'clock (right), etc.
-        const angleStep = (360 / 15); // 24 degrees per position
-        const angle = (positionNumber - 1) * angleStep - 90; // -90 to start at top (12 o'clock)
-        const angleRad = (angle * Math.PI) / 180;
-        
-        // Use elliptical positioning for more natural distribution
-        // Distance varies based on angle to create elliptical ring
-        const cosAngle = Math.cos(angleRad);
-        const sinAngle = Math.sin(angleRad);
-        
-        // Calculate distance for elliptical shape (between min and max based on direction)
-        const distanceX = minDistance + (maxDistanceX - minDistance) * 0.7; // 70% of max horizontal
-        const distanceY = minDistance + (maxDistanceY - minDistance) * 0.7; // 70% of max vertical
-        
-        // Calculate position using elliptical coordinates
-        const x = centerX + distanceX * cosAngle;
-        const y = centerY + distanceY * sinAngle;
-        
-        // Ensure position is not too close to edges (margin from screen edges)
-        const margin = 50; // 50px margin from screen edges
-        const clampedX = Math.max(margin, Math.min(viewportWidth - margin, x));
-        const clampedY = Math.max(margin, Math.min(viewportHeight - margin, y));
-        
-        return { x: clampedX, y: clampedY };
-    }
-    
-    // Get random position from clock positions 1-15
-    function getRandomPosition() {
-        // Random position from 1 to 15 (like clock positions)
-        const randomPosition = Math.floor(Math.random() * 15) + 1;
-        return getClockPosition(randomPosition);
+        return { x: x, y: y };
     }
 
     function showNextQuote() {
-        // Clear any existing timeout
-        if (quoteTimeout) {
-            clearTimeout(quoteTimeout);
-        }
-
         // Get quotes for current language
         const langQuotes = quotes[currentLang];
         
-        // Reset if all quotes used
-        if (usedQuotes.length >= langQuotes.length) {
-            usedQuotes = [];
-        }
+        // Get random quote index
+        const randomIndex = Math.floor(Math.random() * langQuotes.length);
 
-        // Get random unused quote
-        let availableQuotes = langQuotes.filter((_, index) => !usedQuotes.includes(index));
-        if (availableQuotes.length === 0) {
-            availableQuotes = langQuotes;
-            usedQuotes = [];
-        }
-
-        const randomIndex = Math.floor(Math.random() * availableQuotes.length);
-        const quoteText = availableQuotes[randomIndex];
-        const originalIndex = langQuotes.indexOf(quoteText);
-        usedQuotes.push(originalIndex);
-
-        // Show quote by index
-        showQuoteByIndex(originalIndex);
+        // Show quote by index in a random position
+        showQuoteByIndex(randomIndex);
     }
 
-    // Show quote by index (same quote in different languages)
+    // Show quote by index in one of the 4 random sections
     function showQuoteByIndex(index) {
         // Clear any existing timeout
-        if (quoteTimeout) {
-            clearTimeout(quoteTimeout);
+        if (window.currentQuoteTimeout) {
+            clearTimeout(window.currentQuoteTimeout);
+            window.currentQuoteTimeout = null;
         }
 
-        // Remove current quote if exists
-        if (currentQuote) {
-            if (currentQuote.parentNode) {
-                currentQuote.parentNode.removeChild(currentQuote);
-            }
-            currentQuote = null;
+        // Remove existing quote if any
+        if (window.currentQuoteElement) {
+            window.currentQuoteElement.classList.remove('visible');
+            window.currentQuoteElement.classList.add('fadeOut');
+            setTimeout(() => {
+                if (window.currentQuoteElement.parentNode) {
+                    window.currentQuoteElement.parentNode.removeChild(window.currentQuoteElement);
+                }
+                window.currentQuoteElement = null;
+            }, 2000);
         }
 
         // Get quotes for current language
@@ -326,9 +306,9 @@
         }
 
         const quoteText = langQuotes[index];
-        currentQuoteIndex = index; // Store current index
+        window.currentQuoteIndex = index; // Store current index
 
-        // Format quote: split at dash/em-dash and put dash + author on new line
+        // Format quote: split at dash/em-dash, put blank line, then dash + author
         let formattedQuote = quoteText;
         // Match various dash types: – (en dash), — (em dash), - (hyphen), —— (Chinese dash)
         const dashPattern = /[–—\-]|——/;
@@ -338,22 +318,26 @@
             const dashIndex = quoteText.indexOf(dashMatch[0]);
             const quotePart = quoteText.substring(0, dashIndex).trim(); // Quote ends before dash
             const dashAndAuthor = quoteText.substring(dashIndex).trim(); // Dash + author together
-            formattedQuote = quotePart + '<br><span class="quote-author">' + dashAndAuthor + '</span>';
+            // Blank line (small spacing) then dash + author (dash comes after blank line)
+            formattedQuote = quotePart + '<br><br class="quote-blank-line"><span class="quote-author">' + dashAndAuthor + '</span>';
         }
 
-        // Create quote element
-        const quoteEl = document.createElement('div');
-        quoteEl.className = 'quote';
-        quoteEl.setAttribute('lang', currentLang); // Set lang for proper font rendering
-        quoteEl.innerHTML = formattedQuote; // Use innerHTML to support <br> and <span>
-
-        // Get random position that doesn't overlap with image/name
-        const position = getRandomPosition();
-        quoteEl.style.left = position.x + 'px';
-        quoteEl.style.top = position.y + 'px';
-        quoteEl.style.transform = 'translate(-50%, -50%)';
-
+            // Create quote element - centered in viewport like project2
+            const quoteEl = document.createElement('div');
+            quoteEl.className = 'quote';
+            quoteEl.setAttribute('lang', currentLang); // Set lang for proper font rendering
+            quoteEl.innerHTML = formattedQuote; // Use innerHTML to support <br> and <span>
+            quoteEl.dataset.quoteIndex = index; // Store quote index for tracking
+            
+            // Center in viewport (like project2)
+            quoteEl.style.left = '50%';
+            quoteEl.style.top = '50%';
+        
+        // Append to container
         quoteContainer.appendChild(quoteEl);
+
+        // Store reference
+        window.currentQuoteElement = quoteEl;
 
         // Trigger fade in
         setTimeout(() => {
@@ -366,7 +350,7 @@
         // Start fading out before next quote appears (overlap)
         const fadeOutDelay = showDuration - 2000; // Start fade out 2s before next quote
 
-        quoteTimeout = setTimeout(() => {
+        window.currentQuoteTimeout = setTimeout(() => {
             quoteEl.classList.remove('visible');
             quoteEl.classList.add('fadeOut');
 
@@ -375,19 +359,18 @@
                 if (quoteEl.parentNode) {
                     quoteEl.parentNode.removeChild(quoteEl);
                 }
-                currentQuote = null;
-                currentQuoteIndex = null; // Reset index
+                window.currentQuoteElement = null;
+                window.currentQuoteIndex = null;
                 
-                // Show next quote immediately (overlap)
+                // Show next quote in a random section
                 showNextQuote();
             }, 2000);
         }, fadeOutDelay);
-
-        currentQuote = quoteEl;
     }
 
-    // Start showing quotes after page load
+    // Start showing quotes after page load - show only one quote at a time
     setTimeout(() => {
+        // Show first quote
         showNextQuote();
     }, 3000); // Start after 3 seconds
 

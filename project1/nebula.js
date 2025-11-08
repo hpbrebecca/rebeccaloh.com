@@ -215,38 +215,8 @@
         }
     }
     
-    // Create a single small, very bright white star at the top, centered
-    function createStars() {
-        const star = document.createElement('div');
-        star.className = 'nebula-star';
-        
-        // Slightly larger size (4-6px) and brighter
-        const size = Math.random() * 2 + 4; // 4px to 6px (was 3-5px)
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        
-        // Position at top center - ensure horizontal centering
-        star.style.position = 'absolute';
-        star.style.left = '50%';
-        star.style.top = '10%'; // Top of screen
-        star.style.transform = 'translate(-50%, -50%)';
-        star.style.marginLeft = '0';
-        
-        // Very bright white with stronger, larger glow
-        star.style.background = 'white';
-        star.style.boxShadow = '0 0 30px white, 0 0 60px white, 0 0 90px white, 0 0 120px rgba(255, 255, 255, 0.8), 0 0 160px rgba(255, 255, 255, 0.5)';
-        star.style.opacity = '1';
-        
-        // Lowest z-index (last layer, behind everything)
-        // Star is in the last layer, clouds are between star and name
-        star.style.zIndex = '-100';
-        
-        container.appendChild(star);
-    }
-    
-    // Initialize
-    createClouds();
-    createStars();
+        // Initialize
+        createClouds();
 })();
 
 // Add CSS animations dynamically
