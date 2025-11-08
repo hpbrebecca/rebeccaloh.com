@@ -79,10 +79,10 @@
     };
     
     const languageLabels = {
-        de: "Sprache",
+        de: "Sprache | Language",
         en: "Language",
-        fr: "Langue",
-        zh: "語言"
+        fr: "Langue | Language",
+        zh: "語言｜Language"
     };
     
     // Navigation labels in all languages
@@ -239,10 +239,10 @@
         },
         recommendations: {
             title: {
-                de: "Erstklassige Dienstleistungen, die ich in der Schweiz entdeckt habe.",
-                en: "Best in class services I’ve discovered in Switzerland.",
-                fr: "Des services d’excellence découverts en Suisse.",
-                zh: "我在瑞士發現的頂尖優質服務。"
+                de: "Recommendations",
+                en: "Recommendations",
+                fr: "Recommendations",
+                zh: "Recommendations"
             },
             services: {
                 en: [

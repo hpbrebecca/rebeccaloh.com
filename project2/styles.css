@@ -600,7 +600,7 @@ body:lang(zh),
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.92);
-    margin: 0 0 4px;
+    margin: 24px 0 6px;
 }
 
 .recommendations-grid {
@@ -701,6 +701,12 @@ body:lang(zh),
     color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
     /* Elegant serif - matches premium aesthetic, appeals to 25-35 year old design professionals */
+}
+
+.control-label::before {
+    content: "\1F310";
+    margin-right: 8px;
+    font-size: 0.9em;
 }
 
 .control-indicator {

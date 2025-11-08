@@ -1,4 +1,4 @@
-// Quotes System with Multi-language Support
+ver// Quotes System with Multi-language Support
 (function() {
     // Extract all quotes from the provided HTML structure
     const quotes = {
