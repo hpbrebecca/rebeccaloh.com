@@ -288,6 +288,14 @@
     const languageDropdown = document.getElementById('languageDropdownFuture');
     const langOptions = document.querySelectorAll('.control-option');
     const navLinks = document.querySelectorAll('.nav-text');
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+
+    const closeLanguageDropdown = (event) => {
+        if (languageSelector && !languageSelector.contains(event.target)) {
+            languageSelector.classList.remove('open');
+            document.removeEventListener('click', closeLanguageDropdown);
+        }
+    };
 
     const QUOTE_TOTAL_DURATION = 4000; // total time per quote (ms)
     const QUOTE_FADE_DURATION = 600;   // fade in/out duration (ms)
@@ -339,6 +347,9 @@
             
             setTimeout(() => {
                 languageSelector.classList.remove('open');
+                if (!supportsHover) {
+                    document.removeEventListener('click', closeLanguageDropdown);
+                }
             }, 100);
             
             // Update quote in new language
@@ -350,38 +361,58 @@
         });
     });
 
-    // Hover dropdown
+    // Hover / touch dropdown behavior
     let dropdownTimeout = null;
-    
-    languageTrigger.addEventListener('mouseenter', () => {
-        if (dropdownTimeout) {
-            clearTimeout(dropdownTimeout);
-            dropdownTimeout = null;
-        }
-        languageSelector.classList.add('open');
-    });
 
-    languageTrigger.addEventListener('mouseleave', () => {
-        dropdownTimeout = setTimeout(() => {
-            languageSelector.classList.remove('open');
-            dropdownTimeout = null;
-        }, 200);
-    });
-    
-    languageDropdown.addEventListener('mouseenter', () => {
-        if (dropdownTimeout) {
-            clearTimeout(dropdownTimeout);
-            dropdownTimeout = null;
+    if (supportsHover) {
+        languageTrigger.addEventListener('mouseenter', () => {
+            if (dropdownTimeout) {
+                clearTimeout(dropdownTimeout);
+                dropdownTimeout = null;
+            }
+            languageSelector.classList.add('open');
+        });
+
+        languageTrigger.addEventListener('mouseleave', () => {
+            dropdownTimeout = setTimeout(() => {
+                languageSelector.classList.remove('open');
+                dropdownTimeout = null;
+            }, 200);
+        });
+
+        languageDropdown.addEventListener('mouseenter', () => {
+            if (dropdownTimeout) {
+                clearTimeout(dropdownTimeout);
+                dropdownTimeout = null;
+            }
+            languageSelector.classList.add('open');
+        });
+
+        languageDropdown.addEventListener('mouseleave', () => {
+            dropdownTimeout = setTimeout(() => {
+                languageSelector.classList.remove('open');
+                dropdownTimeout = null;
+            }, 200);
+        });
+    } else {
+        languageTrigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            const willOpen = !languageSelector.classList.contains('open');
+            languageSelector.classList.toggle('open', willOpen);
+            if (willOpen) {
+                document.addEventListener('click', closeLanguageDropdown);
+            } else {
+                document.removeEventListener('click', closeLanguageDropdown);
+            }
+        });
+
+        if (languageDropdown) {
+            languageDropdown.addEventListener('click', (event) => {
+                event.stopPropagation();
+            });
         }
-        languageSelector.classList.add('open');
-    });
-    
-    languageDropdown.addEventListener('mouseleave', () => {
-        dropdownTimeout = setTimeout(() => {
-            languageSelector.classList.remove('open');
-            dropdownTimeout = null;
-        }, 200);
-    });
+    }
 
     // Initialize
     updateLanguageDisplay('en');
