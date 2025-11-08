@@ -4,28 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rebecca Loh</title>
+    <meta name="description" content="Rebecca Loh is a Swiss CFO and strategist based in Zurich. Discover her background, philosophy, and curated recommendations.">
+    <link rel="canonical" href="https://rebeccaloh.com/">
+    <meta name="theme-color" content="#000000">
     <link rel="icon" type="image/jpeg" href="../project1/profile.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../project1/profile.jpg">
+    <link rel="preload" href="../project1/nebula.js" as="script">
+    <link rel="preload" href="quotes.js" as="script">
+    <link rel="preload" href="../script.js" as="script">
+    <link rel="manifest" href="/manifest.webmanifest">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rebecca Loh",
+        "alternateName": "羅碧嘉",
+        "jobTitle": "Chief Financial Officer",
+        "url": "https://rebeccaloh.com/",
+        "image": "https://rebeccaloh.com/project1/profile.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Zurich",
+            "addressCountry": "Switzerland"
+        },
+        "knowsAbout": [
+            "Financial Strategy",
+            "Business Development",
+            "Controlling",
+            "Regulatory Compliance",
+            "Process Optimization"
+        ],
+        "sameAs": [
+            "https://www.linkedin.com/in/rebiloh"
+        ]
+    }
+    </script>
 </head>
 <body>
+    <a href="#connectSection" class="skip-link">Skip to main content</a>
     <!-- Holographic Background Grid -->
     <div class="holographic-grid"></div>
     
     <!-- Profile Corner - Top Left -->
     <div class="profile-corner">
         <div class="profile-orb-container-small">
-            <div class="profile-orb-small">
-                <img src="../project1/profile.jpg" alt="Rebecca Loh" class="profile-image-corner" id="profileImageFuture">
+            <div class="profile-orb-small" data-linkedin="profile" role="link" tabindex="0" aria-label="Open LinkedIn profile">
+                <img src="../project1/profile.jpg" alt="Portrait of Rebecca Loh" class="profile-image-corner" id="profileImageFuture" loading="lazy" decoding="async">
             </div>
         </div>
         <!-- Name and Location in Corner -->
         <div class="name-corner-section">
-            <h1 class="name-corner" id="nameLinkFuture">
+            <h1 class="name-corner" id="nameLinkFuture" data-linkedin="profile" tabindex="0" role="link" aria-label="Rebecca Loh on LinkedIn">
                 <span class="name-main-corner">Rebecca Loh</span>
-                <span class="name-location-corner" id="nameLocation">Zurich, Switzerland</span>
+                <span class="name-location-corner" id="nameLocation" data-linkedin="profile">Zurich, Switzerland</span>
             </h1>
         </div>
     </div>
@@ -51,8 +86,8 @@
         <!-- Connect Section - Primary Landing -->
         <div class="about-section-designer" id="connectSection" style="display: flex;">
             <div class="about-content">
-                <p class="about-description" id="connectDescription">Connect with me on LinkedIn to learn more about my work.</p>
-                <a href="https://ch.linkedin.com/in/rebiloh" class="linkedin-connection-btn" id="linkedinConnectionBtn" target="_blank" aria-label="LinkedIn">
+                <p class="about-description" id="connectDescription">Connect on LinkedIn to learn more about my work.</p>
+                <a href="https://ch.linkedin.com/in/rebiloh" class="linkedin-connection-btn" id="linkedinConnectionBtn" target="_blank" rel="noopener noreferrer" data-linkedin="profile" aria-label="Open LinkedIn profile">
                     <svg class="linkedin-icon-btn" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" fill="currentColor"/>
                     </svg>
@@ -62,21 +97,21 @@
                 <div class="logo-marquee-container">
                     <div class="logo-marquee">
                         <!-- FINMA -->
-                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" data-fallback="FINMA" onerror="handleLogoError(this);">
+                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" data-fallback="FINMA" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- IBA AG -->
-                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" data-fallback="IBA AG" onerror="handleLogoError(this);">
+                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" data-fallback="IBA AG" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- Gemeinde Köniz -->
-                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" data-fallback="Gemeinde Köniz" onerror="handleLogoError(this);">
+                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" data-fallback="Gemeinde Köniz" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- FICAS AG -->
-                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" data-fallback="FICAS AG" onerror="handleLogoError(this);">
+                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" data-fallback="FICAS AG" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- Swisscom -->
-                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" data-fallback="Swisscom" onerror="handleLogoError(this);">
+                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" data-fallback="Swisscom" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- Continental -->
-                        <img src="logos/continental.svg" alt="Continental" class="company-logo-img" data-fallback="Continental" onerror="handleLogoError(this);">
+                        <img src="logos/continental.svg" alt="Continental" class="company-logo-img" data-fallback="Continental" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- Lekkerland -->
-                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" data-fallback="Lekkerland" onerror="handleLogoError(this);">
+                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" data-fallback="Lekkerland" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                         <!-- SRF -->
-                        <img src="logos/srf.svg" alt="SRF" class="company-logo-img" data-fallback="SRF" onerror="handleLogoError(this);">
+                        <img src="logos/srf.svg" alt="SRF" class="company-logo-img" data-fallback="SRF" loading="lazy" decoding="async" onerror="handleLogoError(this);">
                     </div>
                 </div>
             </div>
@@ -147,7 +182,7 @@
             
             <!-- Audio Control -->
             <div class="control-item audio-control" id="audioPlayerContainerFuture">
-                <audio id="backgroundMusicFuture" loop muted>
+                <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience">
                     <source src="../project1/music.mp3" type="audio/mpeg">
                 </audio>
                 <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
@@ -164,9 +199,9 @@
     </div>
     
     <!-- Nebula Background -->
-    <script src="../project1/nebula.js"></script>
-    <script src="quotes.js"></script>
-    <script src="../script.js"></script>
+    <script src="../project1/nebula.js" defer></script>
+    <script src="quotes.js" defer></script>
+    <script src="../script.js" defer></script>
     <script>
         // Navigation functionality
         const navLinks = document.querySelectorAll('.nav-link');
@@ -185,10 +220,10 @@
 
         const aboutContent = window.aboutContent ? window.aboutContent : {
             description: {
-                de: "Vernetzen Sie sich mit mir auf LinkedIn.",
-                en: "Connect with me on LinkedIn.",
-                fr: "Connectez-vous avec moi sur LinkedIn.",
-                zh: "在 LinkedIn 上與我建立連結。"
+                de: "Auf LinkedIn vernetzen.",
+                en: "Connect on LinkedIn.",
+                fr: "Se connecter sur LinkedIn.",
+                zh: "在 LinkedIn 上建立連結。"
             },
             intro: {
                 de: "",
@@ -509,23 +544,41 @@
         }
         
         // Profile and Name LinkedIn Links
-        const profileOrb = document.querySelector('.profile-orb');
-        const nameLink = document.getElementById('nameLinkFuture');
-        const linkedinUrl = 'https://ch.linkedin.com/in/rebiloh';
-        
-        if (profileOrb) {
-            profileOrb.style.cursor = 'pointer';
-            profileOrb.addEventListener('click', () => {
-                window.open(linkedinUrl, '_blank');
-            });
+        const LINKEDIN_WEB_URL = 'https://www.linkedin.com/in/rebiloh';
+        const LINKEDIN_APP_URL = 'linkedin://in/rebiloh';
+
+        function openLinkedInProfile(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                const fallbackTimer = setTimeout(() => {
+                    window.location.href = LINKEDIN_WEB_URL;
+                }, 700);
+
+                window.location.href = LINKEDIN_APP_URL;
+
+                setTimeout(() => {
+                    clearTimeout(fallbackTimer);
+                }, 1500);
+            } else {
+                window.open(LINKEDIN_WEB_URL, '_blank', 'noopener');
+            }
         }
-        
-        if (nameLink) {
-            nameLink.style.cursor = 'pointer';
-            nameLink.addEventListener('click', () => {
-                window.open(linkedinUrl, '_blank');
+
+        const linkedinTargets = document.querySelectorAll('[data-linkedin="profile"]');
+        linkedinTargets.forEach(target => {
+            target.addEventListener('click', openLinkedInProfile);
+            target.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    openLinkedInProfile(event);
+                }
             });
-        }
+        });
     </script>
 </body>
 </html>

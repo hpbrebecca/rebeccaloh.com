@@ -1,3 +1,22 @@
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    z-index: 10005;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.skip-link:focus {
+    left: 16px;
+    transform: translateY(0);
+    opacity: 1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -99,6 +118,12 @@ body {
     .company-logo-img {
         height: 30px;
         max-width: 110px;
+    }
+
+    .quote-future {
+        max-width: calc(100vw - 36px);
+        font-size: clamp(1.2rem, 5vw, 1.8rem);
+        line-height: 1.25;
     }
 }
 
@@ -216,6 +241,19 @@ body:lang(zh),
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
     /* Modern sans-serif - shows typography expertise */
+}
+
+[data-linkedin="profile"] {
+    cursor: pointer;
+}
+
+[data-linkedin="profile"]:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 4px;
+}
+
+[data-linkedin="profile"][role="link"] {
+    text-decoration: none;
 }
 
 /* Main Content */
@@ -528,9 +566,9 @@ body:lang(zh),
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: calc(100vw - 32px);
-    font-size: 1.02rem;
-    line-height: 1.4;
+    max-width: min(72rem, calc(100vw - 24px));
+    font-size: clamp(1.35rem, 2.6vw, 2.2rem);
+    line-height: 1.2;
     color: rgba(255, 255, 255, 0.98);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 300;
@@ -541,6 +579,8 @@ body:lang(zh),
     pointer-events: none;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
     font-feature-settings: "liga" 1, "kern" 1;
+    text-wrap: balance;
+    white-space: normal;
     /* Minimalist typography */
 }
 
@@ -985,8 +1025,8 @@ body:lang(zh),
     }
 
     .main-content-designer {
-        top: 152px;
-        bottom: 120px;
+        top: 188px;
+        bottom: 140px;
         left: 0;
         right: 0;
         width: calc(100vw - 40px);

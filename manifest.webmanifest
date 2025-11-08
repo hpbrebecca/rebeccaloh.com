@@ -1,0 +1,17 @@
+{
+  "name": "Rebecca Loh",
+  "short_name": "Rebecca Loh",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "description": "The personal site of Rebecca Loh, Swiss CFO and strategist based in Zurich.",
+  "icons": [
+    {
+      "src": "/project1/profile.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
+

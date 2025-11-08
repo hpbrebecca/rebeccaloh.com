@@ -122,10 +122,10 @@
     // About section content in all languages
     const aboutContent = {
         description: {
-            de: "Vernetzen Sie sich mit mir auf LinkedIn.",
-            en: "Connect with me on LinkedIn.",
-            fr: "Connectez-vous avec moi sur LinkedIn.",
-            zh: "在 LinkedIn 上與我建立連結。"
+            de: "Auf LinkedIn vernetzen.",
+            en: "Connect on LinkedIn.",
+            fr: "Se connecter sur LinkedIn.",
+            zh: "在 LinkedIn 上建立連結。"
         },
         intro: {
             de: "",
