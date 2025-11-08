@@ -45,7 +45,7 @@
     </script>
 </head>
 <body>
-    <a href="#connectSection" class="skip-link">Skip to main content</a>
+    <a href="#aboutSection" class="skip-link">Skip to main content</a>
     <!-- Holographic Background Grid -->
     <div class="holographic-grid"></div>
     
@@ -60,7 +60,7 @@
         <div class="name-corner-section">
             <h1 class="name-corner" id="nameLinkFuture" data-linkedin="profile" tabindex="0" role="link" aria-label="Rebecca Loh on LinkedIn">
                 <span class="name-main-corner">Rebecca Loh</span>
-                <span class="name-location-corner" id="nameLocation" data-linkedin="profile">Zurich, Switzerland</span>
+                <span class="name-location-corner" id="nameLocation" data-linkedin="profile" role="link" tabindex="0" aria-label="Zurich, Switzerland — open LinkedIn profile">Zurich, Switzerland</span>
             </h1>
         </div>
     </div>
@@ -203,381 +203,345 @@
     <script src="quotes.js" defer></script>
     <script src="../script.js" defer></script>
     <script>
-        // Navigation functionality
-        const navLinks = document.querySelectorAll('.nav-link');
-        const connectSection = document.getElementById('connectSection');
-        const aboutSection = document.getElementById('aboutSection');
-        const quotesSection = document.getElementById('quotesSection');
-        const recommendationsSection = document.getElementById('recommendationsSection');
-        const connectDescription = document.getElementById('connectDescription');
-        const aboutIntro = document.getElementById('aboutIntro');
-        const aboutAccordion = document.getElementById('aboutAccordion');
-        const recommendationsGrid = document.getElementById('recommendationsGrid');
-        const disclaimerSection = document.getElementById('disclaimerSection');
-        const disclaimerHeadingEl = document.getElementById('disclaimerHeading');
-        const disclaimerCopyEl = document.getElementById('disclaimerCopy');
-        const disclaimerMiniEl = document.getElementById('disclaimerMini');
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const connectSection = document.getElementById('connectSection');
+            const aboutSection = document.getElementById('aboutSection');
+            const quotesSection = document.getElementById('quotesSection');
+            const recommendationsSection = document.getElementById('recommendationsSection');
+            const connectDescription = document.getElementById('connectDescription');
+            const aboutIntro = document.getElementById('aboutIntro');
+            const aboutAccordion = document.getElementById('aboutAccordion');
+            const recommendationsGrid = document.getElementById('recommendationsGrid');
+            const disclaimerSection = document.getElementById('disclaimerSection');
+            const disclaimerHeadingEl = document.getElementById('disclaimerHeading');
+            const disclaimerCopyEl = document.getElementById('disclaimerCopy');
+            const disclaimerMiniEl = document.getElementById('disclaimerMini');
 
-        const aboutContent = window.aboutContent ? window.aboutContent : {
-            description: {
-                de: "Auf LinkedIn vernetzen.",
-                en: "Connect on LinkedIn.",
-                fr: "Se connecter sur LinkedIn.",
-                zh: "在 LinkedIn 上建立連結。"
-            },
-            intro: {
-                de: "",
-                en: "",
-                fr: "",
-                zh: ""
-            },
-            sections: {
-                en: [],
-                de: [],
-                fr: [],
-                zh: []
-            },
-            recommendations: {
-                title: {
-                    de: "Recommendations",
-                    en: "Recommendations",
-                    fr: "Recommendations",
-                    zh: "Recommendations"
+            const fallbackAboutContent = {
+                description: {
+                    de: "Vernetzen Sie sich mit mir auf LinkedIn.",
+                    en: "Connect with me on LinkedIn.",
+                    fr: "Connectez-vous avec moi sur LinkedIn.",
+                    zh: "在 LinkedIn 上與我建立連結。"
                 },
-                services: {
-                    en: [
-                        { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                        { label: "– Cosmetics at softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
-                    ],
-                    de: [
-                        { label: "– Traditionelle Chinesische Medizin bei TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                        { label: "– Kosmetik bei softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
-                    ],
-                    fr: [
-                        { label: "– Médecine traditionnelle chinoise chez TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                        { label: "– Cosmétique chez softlinecosmetics by Sarolta, Berne", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
-                    ],
-                    zh: [
-                        { label: "– 傳統中醫 TCM SinoCare，伯恩", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                        { label: "– 美容服務 softlinecosmetics by Sarolta，伯恩", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
-                    ]
+                intro: { de: "", en: "", fr: "", zh: "" },
+                sections: { de: [], en: [], fr: [], zh: [] },
+                recommendations: {
+                    title: {
+                        de: "Recommendations",
+                        en: "Recommendations",
+                        fr: "Recommendations",
+                        zh: "Recommendations"
+                    },
+                    services: {
+                        en: [
+                            { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
+                            { label: "– Cosmetics at softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
+                        ],
+                        de: [
+                            { label: "– Traditionelle Chinesische Medizin bei TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
+                            { label: "– Kosmetik bei softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
+                        ],
+                        fr: [
+                            { label: "– Médecine traditionnelle chinoise chez TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
+                            { label: "– Cosmétique chez softlinecosmetics by Sarolta, Berne", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
+                        ],
+                        zh: [
+                            { label: "– 傳統中醫 TCM SinoCare，伯恩", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
+                            { label: "– 美容服務 softlinecosmetics by Sarolta，伯恩", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
+                        ]
+                    },
+                    disclaimer: {
+                        title: {
+                            de: "Disclaimer",
+                            en: "Disclaimer",
+                            fr: "Avertissement",
+                            zh: "法律聲明"
+                        },
+                        body: {
+                            de: "Alle Marken, Logos und Firmennamen sind Eigentum ihrer jeweiligen Inhaber. Verweise oder Links auf Webseiten Dritter erfolgen ausschliesslich zur Information; wir übernehmen keine Verantwortung oder Haftung für deren Inhalte oder Nutzung.",
+                            en: "All trademarks, logos, and brand names are the property of their respective owners. References or links to third-party websites are provided for convenience only; we assume no responsibility or liability for their content or use.",
+                            fr: "Toutes les marques, logos et noms de sociétés appartiennent à leurs propriétaires respectifs. Les références ou liens vers des sites tiers sont fournies à titre informatif ; nous déclinons toute responsabilité quant à leur contenu ou leur utilisation.",
+                            zh: "所有商標、標誌與品牌名稱皆屬其各自擁有者所有。提及或連結至第三方網站僅為方便之用，本網站對其內容與使用不承擔任何責任。"
+                        }
+                    }
+                }
+            };
+
+            const aboutContent = window.aboutContent || fallbackAboutContent;
+
+            function getCurrentLanguage() {
+                return window.currentLang || 'en';
+            }
+
+            function buildDetails(accordion, entries) {
+                accordion.innerHTML = '';
+                entries.forEach(entry => {
+                    const details = document.createElement('details');
+                    details.className = 'about-detail';
+                    details.open = false;
+
+                    const summary = document.createElement('summary');
+                    summary.className = 'about-detail-summary';
+                    summary.textContent = entry.title;
+                    details.appendChild(summary);
+
+                    const body = document.createElement('div');
+                    body.className = 'about-detail-body';
+                    (entry.paragraphs || []).forEach(text => {
+                        const p = document.createElement('p');
+                        p.textContent = text;
+                        body.appendChild(p);
+                    });
+
+                    details.appendChild(body);
+                    accordion.appendChild(details);
+                });
+            }
+
+            function buildRecommendations(list, services) {
+                list.innerHTML = '';
+                if (!services.length) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'recommendation-card';
+                    placeholder.textContent = 'Details coming soon.';
+                    list.appendChild(placeholder);
+                    return;
+                }
+
+                services.forEach(service => {
+                    const card = document.createElement('div');
+                    card.className = 'recommendation-card';
+
+                    const label = document.createElement('span');
+                    label.className = 'service-label';
+                    label.textContent = service.label;
+
+                    const link = document.createElement('a');
+                    link.className = 'service-link';
+                    link.href = service.href || '#';
+                    link.textContent = service.linkText;
+                    link.setAttribute('aria-label', service.label);
+
+                    card.appendChild(label);
+                    card.appendChild(link);
+                    list.appendChild(card);
+                });
+            }
+
+            function updateAboutContent(lang) {
+                const language = lang || 'en';
+
+                if (connectDescription && aboutContent.description) {
+                    connectDescription.textContent = aboutContent.description[language] || aboutContent.description.en;
+                }
+
+                if (aboutIntro && aboutContent.intro) {
+                    const introCopy = aboutContent.intro[language] || aboutContent.intro.en || '';
+                    aboutIntro.textContent = introCopy;
+                    aboutIntro.style.display = introCopy ? 'block' : 'none';
+                }
+
+                if (aboutAccordion) {
+                    const entries = aboutContent.sections && (aboutContent.sections[language] || aboutContent.sections.en || []);
+                    buildDetails(aboutAccordion, entries);
+                }
+
+                if (recommendationsGrid && aboutContent.recommendations && aboutContent.recommendations.services) {
+                    const services = aboutContent.recommendations.services[language] || aboutContent.recommendations.services.en || [];
+                    buildRecommendations(recommendationsGrid, services);
+                }
+
+                const disclaimerContent = aboutContent.recommendations && aboutContent.recommendations.disclaimer;
+                if (disclaimerContent) {
+                    const title = disclaimerContent.title ? (disclaimerContent.title[language] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
+                    const body = disclaimerContent.body ? (disclaimerContent.body[language] || disclaimerContent.body.en || '') : '';
+
+                    if (disclaimerHeadingEl) {
+                        disclaimerHeadingEl.textContent = title;
+                    }
+
+                    if (disclaimerCopyEl) {
+                        disclaimerCopyEl.textContent = body;
+                    }
+
+                    if (disclaimerMiniEl) {
+                        disclaimerMiniEl.textContent = title;
+                        disclaimerMiniEl.setAttribute('aria-expanded', 'false');
+                    }
                 }
             }
-        };
 
-        function getCurrentLanguage() {
-            return window.currentLang || 'en';
-        }
+            window.updateAboutContent = updateAboutContent;
 
-        function buildDetails(accordion, entries) {
-            accordion.innerHTML = '';
-            entries.forEach(entry => {
-                const details = document.createElement('details');
-                details.className = 'about-detail';
-                details.open = false;
+            const sections = {
+                connect: { element: connectSection, display: 'flex' },
+                about: { element: aboutSection, display: 'flex' },
+                quotes: { element: quotesSection, display: 'flex' },
+                recommendations: { element: recommendationsSection, display: 'flex' },
+                disclaimer: { element: disclaimerSection, display: 'flex' }
+            };
 
-                const summary = document.createElement('summary');
-                summary.className = 'about-detail-summary';
-                summary.textContent = entry.title;
-                details.appendChild(summary);
+            function showSection(section) {
+                const target = sections[section] ? section : 'connect';
 
-                const body = document.createElement('div');
-                body.className = 'about-detail-body';
-                (entry.paragraphs || []).forEach(text => {
-                    const p = document.createElement('p');
-                    p.textContent = text;
-                    body.appendChild(p);
+                Object.entries(sections).forEach(([key, value]) => {
+                    if (!value.element) return;
+                    value.element.style.display = key === target ? value.display : 'none';
                 });
 
-                details.appendChild(body);
-                accordion.appendChild(details);
-            });
-        }
-
-        function buildRecommendations(list, services) {
-            list.innerHTML = '';
-            if (!services.length) {
-                const placeholder = document.createElement('div');
-                placeholder.className = 'recommendation-card';
-                placeholder.textContent = 'Details coming soon.';
-                list.appendChild(placeholder);
-                return;
-            }
-
-            services.forEach(service => {
-                const card = document.createElement('div');
-                card.className = 'recommendation-card';
-
-                const label = document.createElement('span');
-                label.className = 'service-label';
-                label.textContent = service.label;
-
-                const link = document.createElement('a');
-                link.className = 'service-link';
-                link.href = service.href || '#';
-                link.textContent = service.linkText;
-                link.setAttribute('aria-label', service.label);
-
-                card.appendChild(label);
-                card.appendChild(link);
-                list.appendChild(card);
-            });
-        }
-
-        function updateAboutContent(lang) {
-            const language = lang || 'en';
-
-            if (connectDescription && aboutContent.description) {
-                connectDescription.textContent = aboutContent.description[language] || aboutContent.description.en;
-            }
-
-            if (aboutIntro && aboutContent.intro) {
-                const introCopy = aboutContent.intro[language] || aboutContent.intro.en || '';
-                aboutIntro.textContent = introCopy;
-                aboutIntro.style.display = introCopy ? 'block' : 'none';
-            }
-
-            if (aboutAccordion) {
-                const entries = aboutContent.sections && (aboutContent.sections[language] || aboutContent.sections.en || []);
-                buildDetails(aboutAccordion, entries);
-            }
-
-            if (recommendationsGrid && aboutContent.recommendations && aboutContent.recommendations.services) {
-                const services = aboutContent.recommendations.services[language] || aboutContent.recommendations.services.en || [];
-                buildRecommendations(recommendationsGrid, services);
-            }
-
-            if (aboutContent.recommendations && aboutContent.recommendations.disclaimer) {
-                const disclaimerContent = aboutContent.recommendations.disclaimer;
-                const title = disclaimerContent.title ? (disclaimerContent.title[language] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
-                const body = disclaimerContent.body ? (disclaimerContent.body[language] || disclaimerContent.body.en || '') : '';
-
-                if (disclaimerHeadingEl) {
-                    disclaimerHeadingEl.textContent = title;
+                const container = document.querySelector('.main-content-designer');
+                if (container) {
+                    container.scrollTop = 0;
+                    const needsScroll = target === 'about' || target === 'disclaimer';
+                    container.classList.toggle('scrollable', needsScroll);
                 }
 
-                if (disclaimerCopyEl) {
-                    disclaimerCopyEl.textContent = body;
-                }
-
-                if (disclaimerMiniEl) {
-                    disclaimerMiniEl.textContent = title;
-                    disclaimerMiniEl.setAttribute('aria-expanded', 'false');
+                if (target === 'quotes') {
+                    if (window.currentQuoteElement) {
+                        window.currentQuoteElement.style.display = 'block';
+                    } else if (typeof window.showNextQuote === 'function') {
+                        window.showNextQuote();
+                    }
+                } else {
+                    if (window.currentQuoteTimeout) {
+                        clearTimeout(window.currentQuoteTimeout);
+                        window.currentQuoteTimeout = null;
+                    }
+                    if (window.currentQuoteElement) {
+                        window.currentQuoteElement.style.display = 'none';
+                    }
                 }
             }
-        }
 
-        window.updateAboutContent = updateAboutContent;
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const section = link.getAttribute('data-section') || 'connect';
 
-        const sections = {
-            connect: { element: connectSection, display: 'flex' },
-            about: { element: aboutSection, display: 'flex' },
-            quotes: { element: quotesSection, display: 'flex' },
-            recommendations: { element: recommendationsSection, display: 'flex' },
-            disclaimer: { element: disclaimerSection, display: 'flex' }
-        };
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    link.classList.add('active');
 
-        function showSection(section) {
-            const target = sections[section] ? section : 'connect';
+                    if (disclaimerMiniEl) {
+                        disclaimerMiniEl.setAttribute('aria-expanded', 'false');
+                    }
 
-            Object.entries(sections).forEach(([key, value]) => {
-                if (!value.element) return;
-                value.element.style.display = key === target ? value.display : 'none';
+                    showSection(section);
+                });
             });
 
-            const container = document.querySelector('.main-content-designer');
-            if (container) {
-                container.scrollTop = 0;
-                const needsScroll = target === 'about' || target === 'disclaimer';
-                container.classList.toggle('scrollable', needsScroll);
+            if (disclaimerMiniEl) {
+                disclaimerMiniEl.addEventListener('click', () => {
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    showSection('disclaimer');
+                    disclaimerMiniEl.setAttribute('aria-expanded', 'true');
+                });
             }
 
-            if (target === 'quotes') {
-                if (window.currentQuoteElement) {
-                    window.currentQuoteElement.style.display = 'block';
-                } else if (typeof window.showNextQuote === 'function') {
-                    window.showNextQuote();
+            updateAboutContent(getCurrentLanguage());
+            showSection('about');
+
+            window.handleLogoError = function handleLogoError(img) {
+                const fallback = img.getAttribute('data-fallback');
+                if (!fallback) {
+                    return;
                 }
-            } else {
-                if (window.currentQuoteTimeout) {
-                    clearTimeout(window.currentQuoteTimeout);
-                    window.currentQuoteTimeout = null;
-                }
-                if (window.currentQuoteElement) {
-                    window.currentQuoteElement.style.display = 'none';
-                }
-            }
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.getAttribute('data-section') || 'connect';
-
-                navLinks.forEach(nl => nl.classList.remove('active'));
-                link.classList.add('active');
-
-                if (disclaimerMiniEl) {
-                    disclaimerMiniEl.setAttribute('aria-expanded', 'false');
-                }
-
-                showSection(section);
-            });
-        });
-
-        if (disclaimerMiniEl) {
-            disclaimerMiniEl.addEventListener('click', () => {
-                navLinks.forEach(nl => nl.classList.remove('active'));
-                showSection('disclaimer');
-                disclaimerMiniEl.setAttribute('aria-expanded', 'true');
-            });
-        }
-
-        // Initialize landing state
-        updateAboutContent(getCurrentLanguage());
-        showSection('about');
-    </script>
-    <script>
-        // Logo error handler - shows fallback text if logo fails to load
-        function handleLogoError(img) {
-            const fallback = img.getAttribute('data-fallback');
-            if (fallback) {
                 img.style.display = 'none';
                 const fallbackDiv = document.createElement('div');
                 fallbackDiv.className = 'logo-fallback';
                 fallbackDiv.textContent = fallback.replace(' ', '\n');
                 img.parentNode.insertBefore(fallbackDiv, img.nextSibling);
-            }
-        }
-    </script>
-    <script>
-        // Audio Control
-        const audioPlayer = document.getElementById('backgroundMusicFuture');
-        const audioBtn = document.getElementById('audioControlBtnFuture');
-        
-        if (audioPlayer && audioBtn) {
-            let audioStarted = false;
-            
-            function startAudio() {
-                if (audioStarted || !audioPlayer.paused) return;
-                // Force unmute and play
-                audioPlayer.muted = false;
-                audioPlayer.volume = 0.5;
-                const playPromise = audioPlayer.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        audioStarted = true;
-                        audioBtn.classList.add('playing');
-                    }).catch(() => {
-                        // If autoplay fails, try again on any interaction
-                        audioPlayer.muted = true;
-                    });
-                }
-            }
-            
-            // Try immediately
-            startAudio();
-            
-            // Try on DOM ready
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    setTimeout(startAudio, 100);
-                    setTimeout(startAudio, 300);
-                });
-            } else {
-                setTimeout(startAudio, 100);
-                setTimeout(startAudio, 300);
-            }
-            
-            // Try on window load
-            window.addEventListener('load', () => {
-                setTimeout(startAudio, 100);
-                setTimeout(startAudio, 500);
-            });
-            
-            // Try on any minimal interaction
-            const interactionEvents = ['mousemove', 'mousedown', 'touchstart', 'touchmove', 'click', 'keydown', 'scroll', 'wheel', 'pointermove'];
-            const startOnInteraction = () => {
-                if (!audioStarted) {
-                    startAudio();
-                    interactionEvents.forEach(e => {
-                        document.removeEventListener(e, startOnInteraction);
-                        window.removeEventListener(e, startOnInteraction);
-                        document.body.removeEventListener(e, startOnInteraction);
-                    });
-                }
             };
-            
-            interactionEvents.forEach(e => {
-                document.addEventListener(e, startOnInteraction, { once: true, passive: true });
-                window.addEventListener(e, startOnInteraction, { once: true, passive: true });
-                document.body.addEventListener(e, startOnInteraction, { once: true, passive: true });
-            });
-            
-            // Try on visibility change
-            document.addEventListener('visibilitychange', () => {
-                if (!document.hidden && !audioStarted) {
-                    startAudio();
+
+            const LINKEDIN_WEB_URL = 'https://www.linkedin.com/in/rebiloh';
+            const LINKEDIN_APP_URL = 'linkedin://in/rebiloh';
+
+            function openLinkedInProfile(event) {
+                if (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
                 }
-            });
-            
-            // Try on focus
-            window.addEventListener('focus', () => {
-                if (!audioStarted) {
-                    startAudio();
-                }
-            });
-            
-            audioBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (audioPlayer.paused) {
-                    audioPlayer.muted = false;
-                    audioPlayer.play().then(() => {
-                        audioBtn.classList.add('playing');
-                        audioStarted = true;
-                    });
+
+                const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+                if (isMobile) {
+                    const fallbackTimer = setTimeout(() => {
+                        window.location.href = LINKEDIN_WEB_URL;
+                    }, 700);
+
+                    window.location.href = LINKEDIN_APP_URL;
+
+                    setTimeout(() => {
+                        clearTimeout(fallbackTimer);
+                    }, 1500);
                 } else {
-                    audioPlayer.pause();
-                    audioBtn.classList.remove('playing');
+                    window.open(LINKEDIN_WEB_URL, '_blank', 'noopener');
                 }
-            });
-        }
-        
-        // Profile and Name LinkedIn Links
-        const LINKEDIN_WEB_URL = 'https://www.linkedin.com/in/rebiloh';
-        const LINKEDIN_APP_URL = 'linkedin://in/rebiloh';
-
-        function openLinkedInProfile(event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
             }
 
-            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-            if (isMobile) {
-                const fallbackTimer = setTimeout(() => {
-                    window.location.href = LINKEDIN_WEB_URL;
-                }, 700);
-
-                window.location.href = LINKEDIN_APP_URL;
-
-                setTimeout(() => {
-                    clearTimeout(fallbackTimer);
-                }, 1500);
-            } else {
-                window.open(LINKEDIN_WEB_URL, '_blank', 'noopener');
-            }
-        }
-
-        const linkedinTargets = document.querySelectorAll('[data-linkedin="profile"]');
-        linkedinTargets.forEach(target => {
-            target.addEventListener('click', openLinkedInProfile);
-            target.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    openLinkedInProfile(event);
-                }
+            const linkedinTargets = document.querySelectorAll('[data-linkedin="profile"]');
+            linkedinTargets.forEach(target => {
+                target.addEventListener('click', openLinkedInProfile);
+                target.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        openLinkedInProfile(event);
+                    }
+                });
             });
+
+            const audioPlayer = document.getElementById('backgroundMusicFuture');
+            const audioBtn = document.getElementById('audioControlBtnFuture');
+
+            if (audioPlayer && audioBtn) {
+                let audioInitialized = false;
+
+                const interactionEvents = ['mousedown', 'touchstart', 'pointerdown', 'keydown'];
+
+                const attemptAudio = () => {
+                    if (audioInitialized) return;
+                    audioPlayer.muted = false;
+                    const playPromise = audioPlayer.play();
+                    if (playPromise) {
+                        playPromise.then(() => {
+                            audioBtn.classList.add('playing');
+                        }).catch(() => {
+                            audioPlayer.muted = true;
+                            audioBtn.classList.remove('playing');
+                        });
+                    } else {
+                        audioBtn.classList.add('playing');
+                    }
+                    audioInitialized = true;
+                };
+
+                interactionEvents.forEach(eventName => {
+                    document.addEventListener(eventName, attemptAudio, { once: true });
+                });
+
+                audioBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (audioPlayer.paused) {
+                        audioPlayer.muted = false;
+                        const playPromise = audioPlayer.play();
+                        if (playPromise) {
+                            playPromise.then(() => {
+                                audioBtn.classList.add('playing');
+                            }).catch(() => {
+                                audioPlayer.muted = true;
+                                audioBtn.classList.remove('playing');
+                            });
+                        } else {
+                            audioBtn.classList.add('playing');
+                        }
+                        audioInitialized = true;
+                    } else {
+                        audioPlayer.pause();
+                        audioBtn.classList.remove('playing');
+                    }
+                });
+            }
         });
     </script>
 </body>
