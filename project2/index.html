@@ -84,7 +84,6 @@
         <!-- Recommendations Section -->
         <div class="recommendations-section" id="recommendationsSection" style="display: none;">
             <div class="recommendations-content">
-                <h2 class="recommendations-title" id="recommendationsTitle">Recommendations</h2>
                 <div class="recommendations-grid" id="recommendationsGrid"></div>
             </div>
         </div>
@@ -164,7 +163,6 @@
         const connectDescription = document.getElementById('connectDescription');
         const aboutIntro = document.getElementById('aboutIntro');
         const aboutAccordion = document.getElementById('aboutAccordion');
-        const recommendationsTitle = document.getElementById('recommendationsTitle');
         const recommendationsGrid = document.getElementById('recommendationsGrid');
 
         const aboutContent = window.aboutContent ? window.aboutContent : {
@@ -293,10 +291,6 @@
             if (aboutAccordion) {
                 const entries = aboutContent.sections && (aboutContent.sections[language] || aboutContent.sections.en || []);
                 buildDetails(aboutAccordion, entries);
-            }
-
-            if (recommendationsTitle && aboutContent.recommendations && aboutContent.recommendations.title) {
-                recommendationsTitle.textContent = aboutContent.recommendations.title[language] || aboutContent.recommendations.title.en;
             }
 
             if (recommendationsGrid && aboutContent.recommendations && aboutContent.recommendations.services) {
