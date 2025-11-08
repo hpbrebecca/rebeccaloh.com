@@ -859,35 +859,24 @@ body:lang(zh),
     }
     
     .main-navigation {
-        top: 84px;
-        gap: 24px;
+        top: 140px;
+        gap: 18px;
+        padding: 0 16px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        width: calc(100vw - 32px);
+    }
+
+    .main-navigation::-webkit-scrollbar {
+        display: none;
     }
 
     .nav-link {
-        font-size: 0.78rem;
-        padding: 6px 0;
+        white-space: nowrap;
     }
 
     .main-content-designer {
-        top: 104px;
-        bottom: 56px;
-        width: calc(100vw - 28px);
-        padding: 0 12px;
-    }
-
-    .main-content-designer.scrollable {
-        padding-right: 12px;
-    }
-
-    .main-content-designer.scrollable::-webkit-scrollbar {
-        margin: 20px 0;
-    }
-
-    .quote-future {
-        max-width: 92vw;
-        font-size: 1rem;
-        padding: 18px 16px;
-        line-height: 1.45;
+        top: 170px;
     }
  
     .about-card {
