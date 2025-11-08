@@ -2,8 +2,8 @@
 (function() {
     const container = document.body;
     
-    // Color palettes for clouds (red, pink, blue, violet, orange)
-    // More blue and violet tones added
+    // Color palette for clouds (red, pink, blue, violet, deep midnight blues)
+    // More cool blue and violet tones added, all warm oranges removed
     const cloudColors = [
         // Deep reds (H II regions)
         { r: 180, g: 40, b: 60 },
@@ -51,11 +51,11 @@
         { r: 130, g: 40, b: 100 },
         { r: 190, g: 70, b: 160 },
         { r: 160, g: 55, b: 130 },
-        
-        // Oranges
-        { r: 200, g: 100, b: 60 },
-        { r: 220, g: 120, b: 80 },
-        { r: 180, g: 90, b: 50 }
+
+        // Deep midnight blues (replacing warm tones)
+        { r: 40, g: 60, b: 140 },
+        { r: 30, g: 50, b: 120 },
+        { r: 50, g: 70, b: 160 }
     ];
     
     // Calculate parameters for 2-5 clouds visible at any moment
