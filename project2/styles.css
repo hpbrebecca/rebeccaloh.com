@@ -680,8 +680,8 @@ body:lang(zh),
 .service-link {
     font-family: 'Inter', sans-serif;
     font-size: 0.72rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-transform: none;
     color: rgba(123, 195, 255, 0.9);
     text-decoration: none;
     transition: color 0.3s ease;
@@ -1005,8 +1005,8 @@ body:lang(zh),
     }
 
     .main-content-designer {
-        top: 148px;
-        bottom: 150px;
+        top: 152px;
+        bottom: 120px;
         left: 0;
         right: 0;
         width: calc(100vw - 40px);
@@ -1043,8 +1043,8 @@ body:lang(zh),
         bottom: 24px;
         right: 16px;
         left: 16px;
-        gap: 10px;
-        align-items: stretch;
+        gap: 12px;
+        align-items: center;
         width: calc(100vw - 32px);
     }
 
@@ -1054,16 +1054,19 @@ body:lang(zh),
         justify-content: space-between;
         gap: 12px;
         width: 100%;
+        flex-wrap: nowrap;
     }
 
     .control-item {
-        flex: 1 1 auto;
-        width: 100%;
+        flex: 0 1 auto;
+        width: auto;
     }
 
     .disclaimer-mini {
+        flex: 0 0 auto;
         text-align: center;
         font-size: 0.58rem;
+        white-space: nowrap;
     }
 
     .disclaimer-section {
