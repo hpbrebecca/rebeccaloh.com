@@ -277,6 +277,7 @@
     let currentQuoteTimeout = null;
     let currentQuoteIndex = null;
     let lastQuoteCategory = null;
+    let currentFadeTimeout = null;
 
     const quoteContainer = document.getElementById('quoteContainerFuture');
     const nameLink = document.getElementById('nameLinkFuture');
@@ -413,6 +414,11 @@
             currentQuoteTimeout = null;
         }
 
+        if (currentFadeTimeout) {
+            clearTimeout(currentFadeTimeout);
+            currentFadeTimeout = null;
+        }
+
         const langQuotes = quotes[currentLang];
         const safeIndex = (index >= 0 && index < langQuotes.length) ? index : 0;
 
@@ -459,13 +465,14 @@
                 quoteEl.classList.remove('visible');
                 quoteEl.classList.add('fadeOut');
 
-                setTimeout(() => {
+                currentFadeTimeout = setTimeout(() => {
                     if (quoteEl.parentNode) {
                         quoteEl.parentNode.removeChild(quoteEl);
                     }
                     if (currentQuoteElement === quoteEl) {
                         currentQuoteElement = null;
                         currentQuoteIndex = null;
+                        currentFadeTimeout = null;
                     }
                     showNextQuote();
                 }, QUOTE_FADE_DURATION);
@@ -494,7 +501,9 @@
 
     // Start showing quotes - faster initial appearance
     setTimeout(() => {
-        showNextQuote();
+        if (!currentQuoteElement) {
+            showNextQuote();
+        }
     }, 300);
 
     window.showNextQuote = showNextQuote;
