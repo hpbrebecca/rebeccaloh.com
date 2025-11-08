@@ -453,7 +453,7 @@ body:lang(zh),
 .about-detail-body p {
     margin: 0;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-small);
+    font-size: calc(var(--font-small) + 0.12rem);
     letter-spacing: 0.04em;
     line-height: 1.75;
     color: rgba(255, 255, 255, 0.78);
@@ -1069,6 +1069,11 @@ body:lang(zh),
 
     .about-detail {
         padding: 10px 0 12px;
+    }
+
+    .about-detail-body p {
+        font-size: calc(var(--font-small) + 0.24rem);
+        line-height: 1.8;
     }
 
     .recommendations-content {
