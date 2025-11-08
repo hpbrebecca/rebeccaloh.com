@@ -30,6 +30,22 @@
         </div>
     </div>
     
+    <!-- Navigation - Top Center -->
+    <nav class="main-navigation" id="mainNavigation">
+        <a href="#connect" class="nav-link active" data-section="connect">
+            <span class="nav-text" data-lang-key="connect">Connect</span>
+        </a>
+        <a href="#about" class="nav-link" data-section="about">
+            <span class="nav-text" data-lang-key="about">About</span>
+        </a>
+        <a href="#quotes" class="nav-link" data-section="quotes">
+            <span class="nav-text" data-lang-key="quotes">Quotes</span>
+        </a>
+        <a href="#recommendations" class="nav-link" data-section="recommendations">
+            <span class="nav-text" data-lang-key="recommendations">Recommendations</span>
+        </a>
+    </nav>
+
     <!-- Main Content - Dynamic Sections -->
     <div class="main-content-designer">
         <!-- Connect Section - Primary Landing -->
@@ -97,69 +113,54 @@
                 <p class="disclaimer-copy" id="disclaimerCopy"></p>
             </div>
         </div>
+
     </div>
     
-        <!-- Navigation - Top Center -->
-        <nav class="main-navigation" id="mainNavigation">
-            <a href="#connect" class="nav-link active" data-section="connect">
-                <span class="nav-text" data-lang-key="connect">Connect</span>
-            </a>
-            <a href="#about" class="nav-link" data-section="about">
-                <span class="nav-text" data-lang-key="about">About</span>
-            </a>
-            <a href="#quotes" class="nav-link" data-section="quotes">
-                <span class="nav-text" data-lang-key="quotes">Quotes</span>
-            </a>
-            <a href="#recommendations" class="nav-link" data-section="recommendations">
-                <span class="nav-text" data-lang-key="recommendations">Recommendations</span>
-            </a>
-            <a href="#disclaimer" class="nav-link" data-section="disclaimer">
-                <span class="nav-text" data-lang-key="disclaimer">Disclaimer</span>
-            </a>
-        </nav>
-    
-    <!-- Control Panel - Bottom Left -->
+    <!-- Control Panel - Bottom Right -->
     <div class="control-panel">
-        <!-- Language Selector -->
-        <div class="control-item language-control" id="languageSelectorFuture">
-            <div class="control-trigger" id="languageTriggerFuture">
-                <span class="control-label" id="languageTextFuture">Language</span>
-                <div class="control-indicator"></div>
+        <div class="control-row">
+            <!-- Language Selector -->
+            <div class="control-item language-control" id="languageSelectorFuture">
+                <div class="control-trigger" id="languageTriggerFuture">
+                    <span class="control-label" id="languageTextFuture">Language</span>
+                    <div class="control-indicator"></div>
+                </div>
+                <div class="control-dropdown" id="languageDropdownFuture">
+                    <div class="control-option" data-lang="en">
+                        <span class="option-code">EN</span>
+                        <span class="option-name">English</span>
+                    </div>
+                    <div class="control-option" data-lang="de">
+                        <span class="option-code">DE</span>
+                        <span class="option-name">Deutsch</span>
+                    </div>
+                    <div class="control-option" data-lang="fr">
+                        <span class="option-code">FR</span>
+                        <span class="option-name">Français</span>
+                    </div>
+                    <div class="control-option" data-lang="zh">
+                        <span class="option-code">中文</span>
+                        <span class="option-name">中文</span>
+                    </div>
+                </div>
             </div>
-            <div class="control-dropdown" id="languageDropdownFuture">
-                <div class="control-option" data-lang="en">
-                    <span class="option-code">EN</span>
-                    <span class="option-name">English</span>
-                </div>
-                <div class="control-option" data-lang="de">
-                    <span class="option-code">DE</span>
-                    <span class="option-name">Deutsch</span>
-                </div>
-                <div class="control-option" data-lang="fr">
-                    <span class="option-code">FR</span>
-                    <span class="option-name">Français</span>
-                </div>
-                <div class="control-option" data-lang="zh">
-                    <span class="option-code">中文</span>
-                    <span class="option-name">中文</span>
-                </div>
+            
+            <!-- Audio Control -->
+            <div class="control-item audio-control" id="audioPlayerContainerFuture">
+                <audio id="backgroundMusicFuture" loop muted>
+                    <source src="../project1/music.mp3" type="audio/mpeg">
+                </audio>
+                <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
+                    <svg class="icon-play" viewBox="0 0 24 24" fill="none">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+                    </svg>
+                </button>
             </div>
         </div>
-        
-        <!-- Audio Control -->
-        <div class="control-item audio-control" id="audioPlayerContainerFuture">
-            <audio id="backgroundMusicFuture" loop muted>
-                <source src="../project1/music.mp3" type="audio/mpeg">
-            </audio>
-            <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
-                <svg class="icon-play" viewBox="0 0 24 24" fill="none">
-                    <path d="M8 5v14l11-7z" fill="currentColor"/>
-                </svg>
-                <svg class="icon-pause" viewBox="0 0 24 24" fill="none">
-                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
-                </svg>
-            </button>
-        </div>
+        <button type="button" class="disclaimer-mini" id="disclaimerMini" aria-label="Open disclaimer"></button>
     </div>
     
     <!-- Nebula Background -->
@@ -177,6 +178,10 @@
         const aboutIntro = document.getElementById('aboutIntro');
         const aboutAccordion = document.getElementById('aboutAccordion');
         const recommendationsGrid = document.getElementById('recommendationsGrid');
+        const disclaimerSection = document.getElementById('disclaimerSection');
+        const disclaimerHeadingEl = document.getElementById('disclaimerHeading');
+        const disclaimerCopyEl = document.getElementById('disclaimerCopy');
+        const disclaimerMiniEl = document.getElementById('disclaimerMini');
 
         const aboutContent = window.aboutContent ? window.aboutContent : {
             description: {
@@ -208,22 +213,22 @@
                     en: [
                         { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                         { label: "– Legal & Regulatory Consulting at LawBear Consulting, near Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                        { label: "– Cosmetics at Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                        { label: "– Cosmetics at softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                     ],
                     de: [
                         { label: "– Traditionelle Chinesische Medizin bei TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                         { label: "– Legal & Regulatory Consulting bei LawBear Consulting, nahe Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                        { label: "– Kosmetik bei Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                        { label: "– Kosmetik bei softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                     ],
                     fr: [
                         { label: "– Médecine traditionnelle chinoise chez TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                         { label: "– Conseil juridique et réglementaire chez LawBear Consulting, près de Berne", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                        { label: "– Cosmétique chez Purabelle by Sarolta, Berne", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                        { label: "– Cosmétique chez softlinecosmetics by Sarolta, Berne", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                     ],
                     zh: [
                         { label: "– 傳統中醫 TCM SinoCare，伯恩", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                         { label: "– 法律與監管顧問 LawBear Consulting，伯恩附近", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                        { label: "– 美容服務 Purabelle by Sarolta，伯恩", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                        { label: "– 美容服務 softlinecosmetics by Sarolta，伯恩", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                     ]
                 }
             }
@@ -310,6 +315,25 @@
                 const services = aboutContent.recommendations.services[language] || aboutContent.recommendations.services.en || [];
                 buildRecommendations(recommendationsGrid, services);
             }
+
+            if (aboutContent.recommendations && aboutContent.recommendations.disclaimer) {
+                const disclaimerContent = aboutContent.recommendations.disclaimer;
+                const title = disclaimerContent.title ? (disclaimerContent.title[language] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
+                const body = disclaimerContent.body ? (disclaimerContent.body[language] || disclaimerContent.body.en || '') : '';
+
+                if (disclaimerHeadingEl) {
+                    disclaimerHeadingEl.textContent = title;
+                }
+
+                if (disclaimerCopyEl) {
+                    disclaimerCopyEl.textContent = body;
+                }
+
+                if (disclaimerMiniEl) {
+                    disclaimerMiniEl.textContent = title;
+                    disclaimerMiniEl.setAttribute('aria-expanded', 'false');
+                }
+            }
         }
 
         window.updateAboutContent = updateAboutContent;
@@ -318,7 +342,8 @@
             connect: { element: connectSection, display: 'flex' },
             about: { element: aboutSection, display: 'flex' },
             quotes: { element: quotesSection, display: 'flex' },
-            recommendations: { element: recommendationsSection, display: 'flex' }
+            recommendations: { element: recommendationsSection, display: 'flex' },
+            disclaimer: { element: disclaimerSection, display: 'flex' }
         };
 
         function showSection(section) {
@@ -332,7 +357,7 @@
             const container = document.querySelector('.main-content-designer');
             if (container) {
                 container.scrollTop = 0;
-                const needsScroll = target === 'about';
+                const needsScroll = target === 'about' || target === 'disclaimer';
                 container.classList.toggle('scrollable', needsScroll);
             }
 
@@ -361,9 +386,21 @@
                 navLinks.forEach(nl => nl.classList.remove('active'));
                 link.classList.add('active');
 
+                if (disclaimerMiniEl) {
+                    disclaimerMiniEl.setAttribute('aria-expanded', 'false');
+                }
+
                 showSection(section);
             });
         });
+
+        if (disclaimerMiniEl) {
+            disclaimerMiniEl.addEventListener('click', () => {
+                navLinks.forEach(nl => nl.classList.remove('active'));
+                showSection('disclaimer');
+                disclaimerMiniEl.setAttribute('aria-expanded', 'true');
+            });
+        }
 
         // Initialize landing state
         updateAboutContent(getCurrentLanguage());

@@ -248,22 +248,22 @@
                 en: [
                     { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                     { label: "– Legal & Regulatory Consulting at LawBear, near Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                    { label: "– Cosmetics at Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                    { label: "– Cosmetics at softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                 ],
                 de: [
                     { label: "– Traditionelle Chinesische Medizin bei TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                     { label: "– Legal & Regulatory Consulting bei LawBear, nahe Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                    { label: "– Kosmetik bei Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                    { label: "– Kosmetik bei softlinecosmetics by Sarolta, Bern", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                 ],
                 fr: [
                     { label: "– Médecine traditionnelle chinoise chez TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                     { label: "– Conseil juridique et réglementaire chez LawBear, près de Berne", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                    { label: "– Cosmétique chez Purabelle by Sarolta, Berne", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                    { label: "– Cosmétique chez softlinecosmetics by Sarolta, Berne", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                 ],
                 zh: [
                     { label: "– 傳統中醫 TCM SinoCare，伯恩", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
                     { label: "– 法律與監管顧問 LawBear，伯恩附近", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
-                    { label: "– 美容服務 Purabelle by Sarolta，伯恩", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
+                    { label: "– 美容服務 softlinecosmetics by Sarolta，伯恩", linkText: "www.softlinecosmetics.ch", href: "https://softlinecosmetics.ch/" }
                 ]
             },
             disclaimer: {
@@ -302,8 +302,7 @@
     const languageDropdown = document.getElementById('languageDropdownFuture');
     const langOptions = document.querySelectorAll('.control-option');
     const navLinks = document.querySelectorAll('.nav-text');
-    const disclaimerHeading = document.getElementById('disclaimerHeading');
-    const disclaimerCopy = document.getElementById('disclaimerCopy');
+    const disclaimerMini = document.getElementById('disclaimerMini');
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
     const closeLanguageDropdown = (event) => {
@@ -355,12 +354,11 @@
             window.updateAboutContent(lang);
         }
 
-        if (disclaimerHeading && navigationLabels.disclaimer) {
-            disclaimerHeading.textContent = navigationLabels.disclaimer[lang] || navigationLabels.disclaimer.en;
-        }
-
-        if (disclaimerCopy && disclaimerTexts) {
-            disclaimerCopy.textContent = disclaimerTexts[lang] || disclaimerTexts.en;
+        const disclaimerContent = aboutContent.recommendations && aboutContent.recommendations.disclaimer;
+        if (disclaimerMini && disclaimerContent) {
+            const title = disclaimerContent.title ? (disclaimerContent.title[lang] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
+            disclaimerMini.textContent = title;
+            disclaimerMini.setAttribute('aria-label', title);
         }
     }
 

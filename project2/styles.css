@@ -30,7 +30,6 @@ body {
     display: flex;
     gap: 48px;
     align-items: center;
-    /* Premium spacing - shows attention to detail */
 }
 
 .nav-link {
@@ -75,6 +74,26 @@ body {
 
     .nav-link {
         white-space: nowrap;
+    }
+
+    .logo-marquee-container {
+        height: 56px;
+        margin-top: 36px;
+    }
+
+    .logo-marquee-container::before,
+    .logo-marquee-container::after {
+        width: 80px;
+    }
+
+    .logo-marquee {
+        gap: 40px;
+        animation-duration: 20s;
+    }
+
+    .company-logo-img {
+        height: 30px;
+        max-width: 110px;
     }
 }
 
@@ -428,74 +447,83 @@ body:lang(zh),
 .logo-marquee-container {
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 68px;
+    margin-top: 48px;
     overflow: hidden;
-    margin-top: 40px;
-    /* Clean container - no background needed with inverted logos */
+}
+
+.logo-marquee-container::before,
+.logo-marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.logo-marquee-container::after {
+    right: 0;
+    transform: rotate(180deg);
+}
+
+.logo-marquee-container::before {
+    left: 0;
 }
 
 .logo-marquee {
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 56px;
     position: absolute;
     white-space: nowrap;
     will-change: transform;
-    animation: scrollLogos 25s linear infinite;
-    /* Continuous animation from right to left */
-}
-
-/* Duplicate logos for seamless loop */
-.logo-marquee::after {
-    content: '';
-    display: none;
+    animation: scrollLogos 24s linear infinite;
 }
 
 .company-logo-img {
-    height: 50px;
+    height: 36px;
     width: auto;
-    max-width: 150px;
-    opacity: 0.9;
-    filter: brightness(1.3) saturate(1.1);
+    max-width: 130px;
+    opacity: 0.58;
+    filter: grayscale(1) brightness(1.35) contrast(1.05);
     object-fit: contain;
     flex-shrink: 0;
-    transition: all 0.4s ease;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    /* Original colors preserved - enhanced brightness on subtle glass background */
+    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+    padding: 0;
+    border: none;
+    background: transparent;
+    mix-blend-mode: screen;
 }
 
 .company-logo-img:hover {
-    opacity: 1;
-    filter: brightness(1.5) saturate(1.2);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.2);
-    /* Subtle interaction - colors become more vibrant */
+    opacity: 0.9;
+    filter: grayscale(0.15) brightness(1.5) contrast(1.1);
+    transform: translateY(-2px);
 }
 
 .logo-fallback {
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.42);
     text-align: center;
-    padding: 16px 24px;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    min-width: 120px;
-    min-height: 50px;
+    padding: 0;
+    min-width: 110px;
+    min-height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
     flex-shrink: 0;
-    /* Fallback if logo image fails to load */
+    backdrop-filter: none;
 }
 
 @keyframes scrollLogos {
@@ -679,26 +707,21 @@ body:lang(zh),
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 28px;
 }
 
 .disclaimer-card {
     width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 18px;
-    padding: 36px 44px;
-    background: radial-gradient(120% 120% at 12% 8%, rgba(30, 60, 120, 0.36), rgba(6, 8, 20, 0.72)),
-                linear-gradient(135deg, rgba(18, 28, 54, 0.48), rgba(12, 20, 38, 0.36));
-    backdrop-filter: blur(26px);
+    padding: 32px 38px;
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    gap: 16px;
 }
 
 .disclaimer-heading {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: 1.05rem;
-    letter-spacing: 0.28em;
+    font-size: 1.02rem;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.92);
     margin: 0;
@@ -706,9 +729,9 @@ body:lang(zh),
 
 .disclaimer-copy {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     letter-spacing: 0.08em;
-    line-height: 1.8;
+    line-height: 1.75;
     color: rgba(255, 255, 255, 0.78);
     margin: 0;
     text-align: justify;
@@ -723,10 +746,48 @@ body:lang(zh),
     display: flex;
     flex-direction: column;
     gap: 16px;
+    align-items: flex-end;
+    width: auto;
+    max-width: min(420px, calc(100vw - 96px));
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    justify-content: flex-end;
 }
 
 .control-item {
     position: relative;
+}
+
+.disclaimer-mini {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.6;
+    max-width: 360px;
+    text-align: right;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.disclaimer-mini:hover,
+.disclaimer-mini:focus {
+    color: rgba(255, 255, 255, 0.88);
+    opacity: 0.9;
+    outline: none;
+}
+
+.disclaimer-mini:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 4px;
 }
 
 /* Language Control */
@@ -975,25 +1036,49 @@ body:lang(zh),
         gap: 20px;
     }
 
+    .control-panel {
+        bottom: 24px;
+        right: 24px;
+        left: 24px;
+        gap: 14px;
+        align-items: stretch;
+        width: auto;
+    }
+
+    .control-row {
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .control-item {
+        flex: 1 1 160px;
+    }
+
+    .disclaimer-mini {
+        text-align: left;
+        font-size: 0.6rem;
+    }
+
+    .disclaimer-section {
+        padding: 0 12px;
+        min-height: 240px;
+    }
+
     .disclaimer-card {
-        padding: 28px;
-        border-radius: 16px;
+        padding: 24px;
+        gap: 14px;
     }
 
     .disclaimer-heading {
-        font-size: 0.95rem;
-        letter-spacing: 0.24em;
+        font-size: 0.9rem;
+        letter-spacing: 0.22em;
     }
 
     .disclaimer-copy {
-        font-size: 0.85rem;
-        line-height: 1.7;
-    }
- 
-    .control-panel {
-        bottom: 24px;
-        left: 24px;
-        gap: 12px;
+        font-size: 0.8rem;
+        line-height: 1.6;
     }
 
     .about-section-designer.about-long-form {
@@ -1001,7 +1086,7 @@ body:lang(zh),
     }
 
     .language-control {
-        margin-top: 16px;
+        margin-top: 0;
     }
     
     .control-button {
