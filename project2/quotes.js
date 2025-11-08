@@ -110,6 +110,12 @@
             en: "Recommendations",
             fr: "Recommandations",
             zh: "推薦"
+        },
+        disclaimer: {
+            de: "Disclaimer",
+            en: "Disclaimer",
+            fr: "Avertissement",
+            zh: "法律聲明"
         }
     };
     
@@ -296,7 +302,8 @@
     const languageDropdown = document.getElementById('languageDropdownFuture');
     const langOptions = document.querySelectorAll('.control-option');
     const navLinks = document.querySelectorAll('.nav-text');
-    const recommendationsDisclaimer = document.getElementById('recommendationsDisclaimer');
+    const disclaimerHeading = document.getElementById('disclaimerHeading');
+    const disclaimerCopy = document.getElementById('disclaimerCopy');
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
     const closeLanguageDropdown = (event) => {
@@ -346,6 +353,14 @@
 
         if (window.updateAboutContent) {
             window.updateAboutContent(lang);
+        }
+
+        if (disclaimerHeading && navigationLabels.disclaimer) {
+            disclaimerHeading.textContent = navigationLabels.disclaimer[lang] || navigationLabels.disclaimer.en;
+        }
+
+        if (disclaimerCopy && disclaimerTexts) {
+            disclaimerCopy.textContent = disclaimerTexts[lang] || disclaimerTexts.en;
         }
     }
 
