@@ -247,22 +247,22 @@
             services: {
                 en: [
                     { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                    { label: "– Legal & Regulatory Consulting at LawBear Consulting, near Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
+                    { label: "– Legal & Regulatory Consulting at LawBear, near Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
                     { label: "– Cosmetics at Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
                 ],
                 de: [
                     { label: "– Traditionelle Chinesische Medizin bei TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                    { label: "– Legal & Regulatory Consulting bei LawBear Consulting, nahe Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
+                    { label: "– Legal & Regulatory Consulting bei LawBear, nahe Bern", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
                     { label: "– Kosmetik bei Purabelle by Sarolta, Bern", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
                 ],
                 fr: [
                     { label: "– Médecine traditionnelle chinoise chez TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                    { label: "– Conseil juridique et réglementaire chez LawBear Consulting, près de Berne", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
+                    { label: "– Conseil juridique et réglementaire chez LawBear, près de Berne", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
                     { label: "– Cosmétique chez Purabelle by Sarolta, Berne", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
                 ],
                 zh: [
                     { label: "– 傳統中醫 TCM SinoCare，伯恩", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
-                    { label: "– 法律與監管顧問 LawBear Consulting，伯恩附近", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
+                    { label: "– 法律與監管顧問 LawBear，伯恩附近", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
                     { label: "– 美容服務 Purabelle by Sarolta，伯恩", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
                 ]
             }
