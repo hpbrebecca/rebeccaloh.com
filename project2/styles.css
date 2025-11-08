@@ -463,7 +463,7 @@ body:lang(zh),
     z-index: 1;
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.28) 0%,
         rgba(0, 0, 0, 0) 100%
     );
 }
@@ -829,6 +829,7 @@ body:lang(zh),
     content: "\1F310";
     margin-right: 8px;
     font-size: 0.9em;
+    filter: grayscale(1) brightness(0.65) contrast(0.9);
 }
 
 .control-indicator {
@@ -1004,19 +1005,21 @@ body:lang(zh),
     }
 
     .main-content-designer {
-        top: 176px;
-        bottom: 56px;
+        top: 148px;
+        bottom: 150px;
         left: 0;
         right: 0;
-        width: calc(100vw - 28px);
-        padding: 0 14px;
-        overflow: hidden;
+        width: calc(100vw - 40px);
+        padding: 0 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        scrollbar-width: thin;
     }
- 
+
+    .quote-section-designer {
+        min-height: 200px;
+    }
+
     .about-card {
         padding: 20px 18px;
         gap: 18px;
@@ -1038,27 +1041,29 @@ body:lang(zh),
 
     .control-panel {
         bottom: 24px;
-        right: 24px;
-        left: 24px;
-        gap: 14px;
+        right: 16px;
+        left: 16px;
+        gap: 10px;
         align-items: stretch;
-        width: auto;
+        width: calc(100vw - 32px);
     }
 
     .control-row {
+        flex-direction: row;
+        align-items: center;
         justify-content: space-between;
         gap: 12px;
-        flex-wrap: wrap;
         width: 100%;
     }
 
     .control-item {
-        flex: 1 1 160px;
+        flex: 1 1 auto;
+        width: 100%;
     }
 
     .disclaimer-mini {
-        text-align: left;
-        font-size: 0.6rem;
+        text-align: center;
+        font-size: 0.58rem;
     }
 
     .disclaimer-section {
