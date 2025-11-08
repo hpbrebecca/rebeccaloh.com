@@ -58,6 +58,11 @@ body {
     /* Minimalist active state */
 }
 
+.logo-marquee-container::before,
+.logo-marquee-container::after {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .main-navigation {
         top: 138px;
