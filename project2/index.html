@@ -32,11 +32,11 @@
     
     <!-- Navigation - Top Center -->
     <nav class="main-navigation" id="mainNavigation">
-        <a href="#connect" class="nav-link active" data-section="connect">
-            <span class="nav-text" data-lang-key="connect">Connect</span>
-        </a>
-        <a href="#about" class="nav-link" data-section="about">
+        <a href="#about" class="nav-link active" data-section="about">
             <span class="nav-text" data-lang-key="about">About</span>
+        </a>
+        <a href="#connect" class="nav-link" data-section="connect">
+            <span class="nav-text" data-lang-key="connect">Connect</span>
         </a>
         <a href="#quotes" class="nav-link" data-section="quotes">
             <span class="nav-text" data-lang-key="quotes">Quotes</span>
@@ -400,7 +400,7 @@
 
         // Initialize landing state
         updateAboutContent(getCurrentLanguage());
-        showSection('connect');
+        showSection('about');
     </script>
     <script>
         // Logo error handler - shows fallback text if logo fails to load
