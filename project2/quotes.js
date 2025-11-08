@@ -95,9 +95,9 @@
         },
         about: {
             de: "Über mich",
-            en: "About me",
-            fr: "À propos de moi",
-            zh: "關於我"
+            en: "About",
+            fr: "À propos",
+            zh: "關於"
         },
         quotes: {
             de: "Zitate",
