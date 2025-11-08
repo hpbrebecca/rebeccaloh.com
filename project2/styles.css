@@ -108,8 +108,8 @@ body:lang(zh),
 
 .profile-orb-container-small {
     position: relative;
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     /* Slightly larger - confident presence */
 }
 
@@ -859,16 +859,14 @@ body:lang(zh),
     }
     
     .main-content-designer {
-        top: 120px;
-        bottom: 72px;
-        left: 0;
-        right: 0;
-        width: calc(100vw - 32px);
-        padding: 0 12px;
+        top: 108px;
+        bottom: 60px;
+        width: calc(100vw - 28px);
+        padding: 0 10px;
     }
 
     .main-content-designer.scrollable {
-        padding-right: 14px;
+        padding-right: 10px;
     }
 
     .main-content-designer.scrollable::-webkit-scrollbar {
@@ -876,28 +874,28 @@ body:lang(zh),
     }
 
     .quote-future {
-        max-width: 88vw;
-        font-size: 1.05rem;
-        padding: 22px 20px;
-        line-height: 1.5;
+        max-width: 92vw;
+        font-size: 1rem;
+        padding: 18px 16px;
+        line-height: 1.45;
     }
  
     .about-card {
-        padding: 28px 26px;
-        gap: 22px;
+        padding: 20px 18px;
+        gap: 18px;
     }
 
     .about-detail {
-        padding: 16px 18px;
+        padding: 14px 0;
     }
 
     .recommendations-content {
-        padding: 0 16px;
-        gap: 26px;
+        padding: 0 12px;
+        gap: 20px;
     }
 
     .recommendations-grid {
-        gap: 20px;
+        gap: 16px;
     }
  
     .control-panel {
@@ -914,6 +912,12 @@ body:lang(zh),
     .control-button svg {
         width: 20px;
         height: 20px;
+    }
+
+    .profile-corner {
+        top: 28px;
+        left: 18px;
+        gap: 10px;
     }
 }
 
