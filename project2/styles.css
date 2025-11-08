@@ -894,7 +894,7 @@ body:lang(zh),
     }
     
     .main-navigation {
-        top: 150px;
+        top: 138px;
         gap: 18px;
         padding: 0 18px;
         overflow-x: auto;
@@ -911,7 +911,7 @@ body:lang(zh),
     }
 
     .main-content-designer {
-        top: 188px;
+        top: 176px;
         bottom: 56px;
         left: 0;
         right: 0;
@@ -980,7 +980,28 @@ body:lang(zh),
     .profile-corner {
         top: 24px;
         left: 16px;
-        gap: 8px;
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .name-corner-section {
+        margin-top: 0;
+        align-items: flex-start;
+    }
+
+    .name-corner {
+        gap: 4px;
+    }
+
+    .name-main-corner {
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+    }
+
+    .name-location-corner {
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
     }
 }
 
