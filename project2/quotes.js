@@ -79,10 +79,10 @@
     };
     
     const languageLabels = {
-        de: "Sprache | Language",
-        en: "Language",
-        fr: "Langue | Language",
-        zh: "語言｜Language"
+        de: "語言",
+        en: "語言",
+        fr: "語言",
+        zh: "Language"
     };
     
     // Navigation labels in all languages
@@ -295,7 +295,13 @@
     // Update language display
     function updateLanguageDisplay(lang) {
         currentLang = lang;
-        languageText.textContent = languageLabels[lang];
+        if (languageText) {
+            if (lang === 'zh') {
+                languageText.textContent = 'Language';
+            } else {
+                languageText.textContent = '語言';
+            }
+        }
         
         const translation = nameTranslations[lang];
         const nameMain = nameLink.querySelector('.name-main-corner');
