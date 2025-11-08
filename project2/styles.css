@@ -40,6 +40,7 @@ body {
     --font-display: clamp(1.3rem, 2vw, 2rem);
     --font-body: clamp(1rem, 1.4vw, 1.2rem);
     --font-small: clamp(0.72rem, 1vw, 0.85rem);
+    --control-height: 40px;
 }
 
 /* Main Navigation - Premium Design */
@@ -571,7 +572,7 @@ body:lang(zh),
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: min(82rem, 90vw);
+    width: min(90rem, 92vw);
     font-size: clamp(1.45rem, 2.8vw, 2.2rem);
     line-height: 1.22;
     color: rgba(255, 255, 255, 0.98);
@@ -841,7 +842,8 @@ body:lang(zh),
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 16px;
+    padding: 0 16px;
+    height: var(--control-height);
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -955,8 +957,8 @@ body:lang(zh),
 }
 
 .control-button {
-    width: 40px;
-    height: 40px;
+    width: var(--control-height);
+    height: var(--control-height);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
@@ -1093,6 +1095,7 @@ body:lang(zh),
         gap: 12px;
         align-items: center;
         width: calc(100vw - 32px);
+        --control-height: 36px;
     }
 
     .control-row {
@@ -1151,13 +1154,13 @@ body:lang(zh),
     }
     
     .control-button {
-        width: 48px;
-        height: 48px;
+        width: var(--control-height);
+        height: var(--control-height);
     }
     
     .control-button svg {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
     }
 
     .profile-corner {
