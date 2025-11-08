@@ -594,6 +594,13 @@ body:lang(zh),
     box-shadow: none;
 }
 
+.recommendations-body {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
 .recommendations-title {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: 1.05rem;
@@ -608,6 +615,7 @@ body:lang(zh),
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1 1 60%;
 }
 
 .recommendation-card {
@@ -651,6 +659,27 @@ body:lang(zh),
 
 .service-link:hover {
     color: rgba(255, 255, 255, 0.95);
+}
+
+.recommendations-disclaimer {
+    flex: 0 0 260px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.58);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    padding-left: 20px;
+    opacity: 0.85;
+}
+
+.recommendations-disclaimer p {
+    margin: 0 0 12px;
+    text-align: justify;
+}
+
+.recommendations-disclaimer p:last-child {
+    margin-bottom: 0;
 }
 
 /* Control Panel - Bottom Right */
@@ -910,7 +939,26 @@ body:lang(zh),
     }
 
     .recommendations-grid {
-        gap: 14px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .recommendations-body {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .recommendations-disclaimer {
+        flex: none;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-left: 0;
+        padding-top: 16px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        opacity: 0.78;
     }
  
     .control-panel {

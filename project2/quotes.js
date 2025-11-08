@@ -265,6 +265,12 @@
                     { label: "– 法律與監管顧問 LawBear，伯恩附近", linkText: "lawbear.squarespace.com", href: "https://lawbear.squarespace.com" },
                     { label: "– 美容服務 Purabelle by Sarolta，伯恩", linkText: "www.purabelle.ch", href: "https://www.purabelle.ch" }
                 ]
+            },
+            disclaimer: {
+                en: "All trademarks, logos, and brand names are the property of their respective owners. References or links to third-party websites are provided for convenience only; we assume no responsibility or liability for their content or use.",
+                de: "Alle Marken, Logos und Firmennamen sind Eigentum ihrer jeweiligen Inhaber. Verweise oder Links auf Webseiten Dritter erfolgen ausschliesslich zur Information; wir übernehmen keine Verantwortung oder Haftung für deren Inhalte oder Nutzung.",
+                fr: "Toutes les marques, logos et noms de sociétés appartiennent à leurs propriétaires respectifs. Les références ou liens vers des sites tiers sont fournis à titre informatif ; nous déclinons toute responsabilité quant à leur contenu ou leur utilisation.",
+                zh: "所有商標、標誌與品牌名稱皆屬其各自擁有者所有。提及或連結至第三方網站僅為方便之用，本網站對其內容與使用不承擔任何責任。"
             }
         }
     };
@@ -288,6 +294,7 @@
     const languageDropdown = document.getElementById('languageDropdownFuture');
     const langOptions = document.querySelectorAll('.control-option');
     const navLinks = document.querySelectorAll('.nav-text');
+    const recommendationsDisclaimer = document.getElementById('recommendationsDisclaimer');
     const supportsHover = window.matchMedia('(hover: hover)').matches;
 
     const closeLanguageDropdown = (event) => {
@@ -303,6 +310,7 @@
     // Update language display
     function updateLanguageDisplay(lang) {
         currentLang = lang;
+        window.currentLang = currentLang;
         if (languageText) {
             if (lang === 'zh') {
                 languageText.textContent = 'Language';
