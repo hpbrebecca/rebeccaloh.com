@@ -102,26 +102,32 @@
                     </svg>
                 </a>
 
-                <!-- Company Logos - Animated Marquee -->
-                <div class="logo-marquee-container">
-                    <div class="logo-marquee">
-                        <!-- FINMA -->
-                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" data-fallback="FINMA" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- IBA AG -->
-                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" data-fallback="IBA AG" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- Gemeinde Köniz -->
-                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" data-fallback="Gemeinde Köniz" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- FICAS AG -->
-                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" data-fallback="FICAS AG" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- Swisscom -->
-                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" data-fallback="Swisscom" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- Continental -->
-                        <img src="logos/continental.svg" alt="Continental" class="company-logo-img" data-fallback="Continental" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- Lekkerland -->
-                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" data-fallback="Lekkerland" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                        <!-- SRF -->
-                        <img src="logos/srf.svg" alt="SRF" class="company-logo-img" data-fallback="SRF" loading="lazy" decoding="async" onerror="handleLogoError(this);">
-                    </div>
+                <!-- Company Logos - Static layout -->
+                <div class="logo-grid">
+                    <figure class="logo-card">
+                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/continental.svg" alt="Continental" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
+                    <figure class="logo-card">
+                        <img src="logos/srf.svg" alt="SRF" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                    </figure>
                 </div>
             </div>
         </div>
@@ -162,6 +168,24 @@
     <!-- Control Panel - Bottom Right -->
     <div class="control-panel">
         <div class="control-row">
+            <div class="control-item disclaimer-control">
+                <button type="button" class="disclaimer-mini" id="disclaimerMini" aria-label="Open disclaimer"></button>
+            </div>
+
+            <div class="control-item audio-control" id="audioPlayerContainerFuture">
+                <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience">
+                    <source src="../project1/music.mp3" type="audio/mpeg">
+                </audio>
+                <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
+                    <svg class="icon-play" viewBox="0 0 24 24" fill="none">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+
             <!-- Language Selector -->
             <div class="control-item language-control" id="languageSelectorFuture">
                 <div class="control-trigger" id="languageTriggerFuture">
@@ -186,25 +210,6 @@
                         <span class="option-name">中文</span>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Audio Control -->
-            <div class="control-item audio-control" id="audioPlayerContainerFuture">
-                <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience">
-                    <source src="../project1/music.mp3" type="audio/mpeg">
-                </audio>
-                <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
-                    <svg class="icon-play" viewBox="0 0 24 24" fill="none">
-                        <path d="M8 5v14l11-7z" fill="currentColor"/>
-                    </svg>
-                    <svg class="icon-pause" viewBox="0 0 24 24" fill="none">
-                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="currentColor"/>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="control-item disclaimer-control">
-                <button type="button" class="disclaimer-mini" id="disclaimerMini" aria-label="Open disclaimer"></button>
             </div>
         </div>
     </div>
