@@ -596,11 +596,11 @@ body:lang(zh),
 
 .recommendations-title {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.92);
-    margin: 0 0 6px;
+    margin: 0 0 4px;
 }
 
 .recommendations-grid {
@@ -859,9 +859,9 @@ body:lang(zh),
     }
     
     .main-navigation {
-        top: 140px;
+        top: 150px;
         gap: 18px;
-        padding: 0 16px;
+        padding: 0 18px;
         overflow-x: auto;
         justify-content: flex-start;
         width: calc(100vw - 32px);
@@ -876,13 +876,12 @@ body:lang(zh),
     }
 
     .main-content-designer {
-        top: 104px;
+        top: 188px;
         bottom: 56px;
         left: 0;
         right: 0;
-        margin: 0 auto;
-        width: min(760px, calc(100vw - 40px));
-        padding: 0 16px;
+        width: calc(100vw - 28px);
+        padding: 0 14px;
         overflow: hidden;
         display: flex;
         align-items: center;
