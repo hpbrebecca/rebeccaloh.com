@@ -174,17 +174,17 @@
                     title: "Globaler Blick & Weiterbildung",
                     paragraphs: [
                         "Nach der Lehre engagierte sie sich ein halbes Jahr freiwillig in Südafrika. In einem Team aus 16 Nationalitäten vertiefte sie ihr Verständnis für Menschen und Vielfalt und stärkte den Wunsch, in der Schweiz eine Karriere zu gestalten, die Stabilität schafft und Chancen auch für Menschen in Entwicklungsregionen eröffnet.",
-                        "Anschliessend absolvierte sie den Bachelor of Science in Industrial Engineering und gehörte zu den ersten Studierenden, die ein Auslandssemester in die reguläre Studienzeit integrierten. An der University of Hong Kong studierte sie im Department of Data and Systems Engineering mit Fokus auf Industrial Engineering und Logistics Management – eine Erfahrung, die sie ihrer asiatischen Herkunft näherbrachte und einen nachhaltigen Eindruck von Disziplin und Studienkultur hinterliess.",
-                        "Im Rahmen ihres Studiums nahm sie am POLE-Projekt teil, einer internationalen und interdisziplinären Zusammenarbeit zwischen der Schweiz und Continental Guadalajara in Mexiko. Ihr Team entwickelte frühe Prototypen für die Interaktion mit fahrzeugintegrierter Digitaltechnologie und antizipierte damit spätere Head-up-Displays.",
-                        "Später absolvierte sie den Master of Science in Business Administration an der Berner Fachhochschule mit Schwerpunkt Business Development. Zwischen 2020 und 2022 erwarb sie den eidgenössischen Titel Chartered Expert in Financial and Managerial Accounting and Reporting an der Controller Akademie Zürich."
+                        "Anschliessend absolvierte sie den Bachelor of Science in Industrial Engineering und gehörte zu den ersten Studierenden, die ein Auslandssemester in die reguläre Studienzeit integrierten. An der University of Hong Kong studierte sie im Department of Data and Systems Engineering, spécialisée en génie industriel et gestion logistique. Cette période lui permit de renouer avec son héritage asiatique et de découvrir la rigueur et la discipline du modèle académique local.",
+                        "Dans le cadre de ses études, elle participa au projet POLE, une collaboration internationale et interdisciplinaire entre la Suisse et Continental Guadalajara au Mexique. Son équipe développa des concepts d’interaction entre l’humain et la technologie embarquée, préfigurant les systèmes d’affichage tête haute d’aujourd’hui.",
+                        "Elle compléta ensuite un Master of Science en administration des affaires à la Haute école spécialisée bernoise, spécialisation en développement des affaires, et obtint en 2022 le titre fédéral d’experte en comptabilité et controlling à la Controller Akademie Zürich."
                     ]
                 },
                 {
                     title: "Karriere & Arbeitsweise",
                     paragraphs: [
-                        "Bevor sie zu FiCAS AG wechselte, arbeitete sie als Teamleiterin Controlling bei der Gemeinde Köniz, als Financial Controller bei der Eidgenössischen Finanzmarktaufsicht (FINMA) sowie bei der iba ag, Büro Services. In allen Positionen wurde sie für ihre empathische Art, ihren lösungsorientierten Ansatz und die Fähigkeit geschätzt, komplexe Aufgaben für andere zu vereinfachen. Sie motiviert konstruktive Ergebnisse, indem sie zuhört, Bedürfnisse erkennt und Brücken zwischen Perspektiven baut; ihr nahbarer Führungsstil fördert Vertrauen und Zusammenarbeit.",
-                        "Seit August 2024 ist sie Chief Financial Officer der FiCAS AG, einem von der FINMA zugelassenen Schweizer Asset Manager für aktiv verwaltete Krypto-Anlageprodukte. In diesem dynamischen Umfeld verbindet sie Erfahrungen aus dem öffentlichen und privaten Sektor, gestaltet Prozesse neu und stärkt die finanzielle Governance in einem sich rasch entwickelnden Markt.",
-                        "Sie ist bekannt für ihren analytischen Blick und ihre kreative Herangehensweise an Herausforderungen. Sie hat Freude daran, Prozesse zu gestalten und zu verfeinern, die Klarheit, Stabilität und langfristige Effizienz bringen – Arbeit, in der sie Präzision und Intuition verbindet und Strukturen in nachhaltigen Fortschritt verwandelt."
+                        "Bevor sie zu FiCAS AG wechselte, arbeitete sie als Teamleiterin Controlling bei der Gemeinde Köniz, als Financial Controller bei der Eidgenössischen Finanzmarktaufsicht (FINMA) sowie bei der iba ag, Büro Services. In allen Positionen wurde sie für ihre empathische Art, ihren lösungsorientierten Ansatz und die Fähigkeit geschätzt, komplexe Aufgaben für andere zu vereinfachen. Elle privilégie le dialogue et la recherche de solutions constructives, son leadership accessible crée des environnements de travail fondés sur la confiance.",
+                        "Depuis août 2024, elle exerce la fonction de Chief Financial Officer au sein de FiCAS AG, un gestionnaire d’actifs suisse agréé par la FINMA, spécialisé dans les produits crypto gérés activement. Dans un secteur dynamique et novateur, elle met à profit son expérience publique et privée pour renforcer la gouvernance financière, affiner les processus et accompagner le développement de l’entreprise dans une perspective durable.",
+                        "Sie ist bekannt für ihren analytischen Blick und ihre kreative Herangehensweise an Herausforderungen. Elle aime concevoir et perfectionner des processus qui apportent clarté, stabilité et efficacité à long terme, combinant précision et intuition pour transformer la structure en progrès durable."
                     ]
                 }
             ],
@@ -308,8 +308,9 @@
         }
     };
 
-    const QUOTE_TOTAL_DURATION = 4000; // total time per quote (ms)
+    const QUOTE_TOTAL_DURATION = 5000; // total time per quote (ms)
     const QUOTE_FADE_DURATION = 600;   // fade in/out duration (ms)
+    const QUOTE_GAP_DURATION = 1000;   // extra gap between quotes (ms)
 
     // Update language display
     function updateLanguageDisplay(lang) {
@@ -530,7 +531,7 @@
                         currentQuoteIndex = null;
                         currentFadeTimeout = null;
                     }
-                    showNextQuote();
+                    setTimeout(showNextQuote, QUOTE_GAP_DURATION);
                 }, QUOTE_FADE_DURATION);
             }, fadeOutDelay);
         };
@@ -548,7 +549,7 @@
                     currentQuoteElement = null;
                     currentQuoteIndex = null;
                 }
-                renderQuote();
+                setTimeout(renderQuote, QUOTE_GAP_DURATION);
             }, QUOTE_FADE_DURATION);
         } else {
             renderQuote();
@@ -560,7 +561,7 @@
         if (!currentQuoteElement) {
             showNextQuote();
         }
-    }, 300);
+    }, 300 + QUOTE_GAP_DURATION);
 
     window.showNextQuote = showNextQuote;
 })();
