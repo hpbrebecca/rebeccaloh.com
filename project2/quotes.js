@@ -238,12 +238,6 @@
             ]
         },
         recommendations: {
-            title: {
-                de: "Recommendations",
-                en: "Recommendations",
-                fr: "Recommendations",
-                zh: "Recommendations"
-            },
             services: {
                 en: [
                     { label: "– Traditional Chinese Medicine at TCM SinoCare, Bern", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
@@ -267,10 +261,18 @@
                 ]
             },
             disclaimer: {
-                en: "All trademarks, logos, and brand names are the property of their respective owners. References or links to third-party websites are provided for convenience only; we assume no responsibility or liability for their content or use.",
-                de: "Alle Marken, Logos und Firmennamen sind Eigentum ihrer jeweiligen Inhaber. Verweise oder Links auf Webseiten Dritter erfolgen ausschliesslich zur Information; wir übernehmen keine Verantwortung oder Haftung für deren Inhalte oder Nutzung.",
-                fr: "Toutes les marques, logos et noms de sociétés appartiennent à leurs propriétaires respectifs. Les références ou liens vers des sites tiers sont fournis à titre informatif ; nous déclinons toute responsabilité quant à leur contenu ou leur utilisation.",
-                zh: "所有商標、標誌與品牌名稱皆屬其各自擁有者所有。提及或連結至第三方網站僅為方便之用，本網站對其內容與使用不承擔任何責任。"
+                title: {
+                    en: "Disclaimer",
+                    de: "Disclaimer",
+                    fr: "Avertissement",
+                    zh: "法律聲明"
+                },
+                body: {
+                    en: "All trademarks, logos, and brand names are the property of their respective owners. References or links to third-party websites are provided for convenience only; we assume no responsibility or liability for their content or use.",
+                    de: "Alle Marken, Logos und Firmennamen sind Eigentum ihrer jeweiligen Inhaber. Verweise oder Links auf Webseiten Dritter erfolgen ausschliesslich zur Information; wir übernehmen keine Verantwortung oder Haftung für deren Inhalte oder Nutzung.",
+                    fr: "Toutes les marques, logos et noms de sociétés appartiennent à leurs propriétaires respectifs. Les références ou liens vers des sites tiers sont fournies à titre informatif ; nous déclinons toute responsabilité quant à leur contenu ou leur utilisation.",
+                    zh: "所有商標、標誌與品牌名稱皆屬其各自擁有者所有。提及或連結至第三方網站僅為方便之用，本網站對其內容與使用不承擔任何責任。"
+                }
             }
         }
     };
