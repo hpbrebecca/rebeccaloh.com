@@ -1,18 +1,58 @@
-// Rezepte App
+// Rezepte App - Neue Version
 let recipes = [];
+let currentFilter = 'all';
+let searchQuery = '';
 
-// Initialize app
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     loadRecipes();
     setupEventListeners();
     
-    // If no recipes exist, initialize with existing images
     if (recipes.length === 0) {
-        initializeDefaultRecipes();
+        initDefaultRecipes();
     }
     
     renderRecipes();
+    updateCategories();
 });
+
+// Event Listeners
+function setupEventListeners() {
+    // New recipe button
+    document.getElementById('newRecipeBtn').addEventListener('click', openRecipeModal);
+    
+    // Modal close buttons
+    document.getElementById('closeModal').addEventListener('click', closeRecipeModal);
+    document.getElementById('closeViewModal').addEventListener('click', closeViewModal);
+    document.getElementById('cancelBtn').addEventListener('click', closeRecipeModal);
+    
+    // Close on overlay click
+    document.getElementById('recipeModal').addEventListener('click', (e) => {
+        if (e.target.id === 'recipeModal') closeRecipeModal();
+    });
+    document.getElementById('viewModal').addEventListener('click', (e) => {
+        if (e.target.id === 'viewModal') closeViewModal();
+    });
+    
+    // Form submission
+    document.getElementById('recipeForm').addEventListener('submit', handleFormSubmit);
+    
+    // Search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase();
+        renderRecipes();
+    });
+    
+    // Category filters
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentFilter = e.target.dataset.category;
+            renderRecipes();
+        });
+    });
+}
 
 // Load recipes from localStorage
 function loadRecipes() {
@@ -27,16 +67,21 @@ function saveRecipes() {
     localStorage.setItem('recipes', JSON.stringify(recipes));
 }
 
-// Initialize with default recipes (using existing images)
-function initializeDefaultRecipes() {
+// Initialize with default recipes
+function initDefaultRecipes() {
     recipes = [
         {
             id: Date.now(),
             name: 'Rezept 1',
             image: 'Rezept1.jpg',
-            description: 'Ein leckeres Rezept aus meiner Sammlung.',
-            ingredients: ['Zutat 1', 'Zutat 2', 'Zutat 3'],
-            instructions: ['Schritt 1: Beschreibung', 'Schritt 2: Beschreibung', 'Schritt 3: Beschreibung'],
+            category: 'Hauptgericht',
+            description: 'Ein köstliches Hauptgericht aus meiner Sammlung.',
+            ingredients: ['Zutat 1', 'Zutat 2', 'Zutat 3', 'Zutat 4'],
+            instructions: [
+                'Schritt 1: Erste Anweisung für die Zubereitung',
+                'Schritt 2: Zweite Anweisung für die Zubereitung',
+                'Schritt 3: Dritte Anweisung für die Zubereitung'
+            ],
             time: 30,
             servings: 4
         },
@@ -44,9 +89,13 @@ function initializeDefaultRecipes() {
             id: Date.now() + 1,
             name: 'Rezept 2',
             image: 'Rezept2.jpg',
-            description: 'Ein weiteres köstliches Rezept.',
+            category: 'Dessert',
+            description: 'Ein süßes Dessert für besondere Anlässe.',
             ingredients: ['Zutat A', 'Zutat B', 'Zutat C'],
-            instructions: ['Schritt 1: Beschreibung', 'Schritt 2: Beschreibung'],
+            instructions: [
+                'Schritt 1: Erste Anweisung',
+                'Schritt 2: Zweite Anweisung'
+            ],
             time: 45,
             servings: 2
         },
@@ -54,100 +103,139 @@ function initializeDefaultRecipes() {
             id: Date.now() + 2,
             name: 'Rezept 3',
             image: 'Rezept3.jpg',
-            description: 'Ein besonderes Rezept für besondere Anlässe.',
-            ingredients: ['Zutat X', 'Zutat Y', 'Zutat Z'],
-            instructions: ['Schritt 1: Beschreibung', 'Schritt 2: Beschreibung', 'Schritt 3: Beschreibung', 'Schritt 4: Beschreibung'],
-            time: 60,
-            servings: 6
+            category: 'Vorspeise',
+            description: 'Eine leichte Vorspeise zum Genießen.',
+            ingredients: ['Zutat X', 'Zutat Y', 'Zutat Z', 'Zutat W'],
+            instructions: [
+                'Schritt 1: Erste Anweisung',
+                'Schritt 2: Zweite Anweisung',
+                'Schritt 3: Dritte Anweisung',
+                'Schritt 4: Vierte Anweisung'
+            ],
+            time: 20,
+            servings: 4
         },
         {
             id: Date.now() + 3,
             name: 'Rezept 4',
             image: 'Rezept4.jpg',
-            description: 'Ein schnelles und einfaches Rezept.',
+            category: 'Snack',
+            description: 'Ein schneller Snack für zwischendurch.',
             ingredients: ['Zutat 1', 'Zutat 2'],
-            instructions: ['Schritt 1: Beschreibung', 'Schritt 2: Beschreibung'],
-            time: 20,
+            instructions: [
+                'Schritt 1: Erste Anweisung',
+                'Schritt 2: Zweite Anweisung'
+            ],
+            time: 15,
             servings: 2
         }
     ];
     saveRecipes();
 }
 
-// Setup event listeners
-function setupEventListeners() {
-    // Add recipe button
-    document.getElementById('addRecipeBtn').addEventListener('click', () => {
-        openAddModal();
-    });
-
-    // Close modals
-    document.getElementById('closeModal').addEventListener('click', closeAddModal);
-    document.getElementById('closeDetailModal').addEventListener('click', closeDetailModal);
-
-    // Close modal when clicking outside
-    document.getElementById('addRecipeModal').addEventListener('click', (e) => {
-        if (e.target.id === 'addRecipeModal') {
-            closeAddModal();
-        }
-    });
-
-    document.getElementById('recipeDetailModal').addEventListener('click', (e) => {
-        if (e.target.id === 'recipeDetailModal') {
-            closeDetailModal();
-        }
-    });
-
-    // Form submission
-    document.getElementById('recipeForm').addEventListener('submit', handleFormSubmit);
-}
-
-// Open add recipe modal
-function openAddModal() {
-    document.getElementById('addRecipeModal').classList.add('active');
-    document.getElementById('recipeForm').reset();
-}
-
-// Close add recipe modal
-function closeAddModal() {
-    document.getElementById('addRecipeModal').classList.remove('active');
-}
-
-// Open recipe detail modal
-function openDetailModal(recipe) {
-    const modal = document.getElementById('recipeDetailModal');
-    const content = document.getElementById('recipeDetailContent');
+// Update category list
+function updateCategories() {
+    const categories = ['all', ...new Set(recipes.map(r => r.category))];
+    const categoryList = document.getElementById('categoryList');
     
-    content.innerHTML = `
-        <div class="recipe-detail">
-            <img src="${recipe.image}" alt="${recipe.name}" class="recipe-detail-image" onerror="this.src='https://via.placeholder.com/800x400?text=Rezept+Bild'">
-            <h2 class="recipe-detail-title">${recipe.name}</h2>
-            ${recipe.description ? `<p class="recipe-detail-description">${recipe.description}</p>` : ''}
-            <div class="recipe-detail-meta">
-                ${recipe.time ? `<span>⏱️ ${recipe.time} Min.</span>` : ''}
-                ${recipe.servings ? `<span>🍽️ ${recipe.servings} Portionen</span>` : ''}
+    categoryList.innerHTML = categories.map(cat => {
+        const label = cat === 'all' ? 'Alle' : cat;
+        return `<button class="category-btn ${cat === 'all' ? 'active' : ''}" data-category="${cat}">${label}</button>`;
+    }).join('');
+    
+    // Re-attach event listeners
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentFilter = e.target.dataset.category;
+            renderRecipes();
+        });
+    });
+}
+
+// Render recipes
+function renderRecipes() {
+    const container = document.getElementById('recipesContainer');
+    
+    let filtered = recipes.filter(recipe => {
+        const matchesSearch = !searchQuery || 
+            recipe.name.toLowerCase().includes(searchQuery) ||
+            recipe.description?.toLowerCase().includes(searchQuery) ||
+            recipe.ingredients.some(ing => ing.toLowerCase().includes(searchQuery));
+        
+        const matchesCategory = currentFilter === 'all' || recipe.category === currentFilter;
+        
+        return matchesSearch && matchesCategory;
+    });
+    
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state" style="grid-column: 1 / -1;">
+                <h2>Keine Rezepte gefunden</h2>
+                <p>Versuche eine andere Suche oder füge ein neues Rezept hinzu.</p>
             </div>
-            <div class="recipe-section">
-                <h3>Zutaten</h3>
-                <ul class="ingredients-list">
-                    ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
-                </ul>
+        `;
+        return;
+    }
+    
+    container.innerHTML = filtered.map(recipe => `
+        <div class="recipe-card" onclick="viewRecipe(${recipe.id})">
+            <div class="recipe-image-wrapper">
+                <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image" 
+                     onerror="this.src='https://via.placeholder.com/400x200?text=Rezept'">
             </div>
-            <div class="recipe-section">
-                <h3>Zubereitung</h3>
-                <ol class="instructions-list">
-                    ${recipe.instructions.map(inst => `<li>${inst}</li>`).join('')}
-                </ol>
+            <div class="recipe-card-body">
+                <h3 class="recipe-card-title">${recipe.name}</h3>
+                <p class="recipe-card-description">${recipe.description || ''}</p>
+                <div class="recipe-card-footer">
+                    <div class="recipe-meta">
+                        ${recipe.time ? `<span>⏱️ ${recipe.time} Min</span>` : ''}
+                        ${recipe.servings ? `<span>🍽️ ${recipe.servings} Port.</span>` : ''}
+                    </div>
+                    <span class="recipe-category">${recipe.category}</span>
+                </div>
             </div>
         </div>
-    `;
+    `).join('');
+}
+
+// Open recipe modal
+function openRecipeModal(recipeId = null) {
+    const modal = document.getElementById('recipeModal');
+    const form = document.getElementById('recipeForm');
+    const title = document.getElementById('modalTitle');
+    
+    if (recipeId) {
+        const recipe = recipes.find(r => r.id === recipeId);
+        if (recipe) {
+            title.textContent = 'Rezept bearbeiten';
+            populateForm(recipe);
+        }
+    } else {
+        title.textContent = 'Neues Rezept';
+        form.reset();
+    }
     
     modal.classList.add('active');
 }
 
-// Close recipe detail modal
-function closeDetailModal() {
-    document.getElementById('recipeDetailModal').classList.remove('active');
+// Close recipe modal
+function closeRecipeModal() {
+    document.getElementById('recipeModal').classList.remove('active');
+    document.getElementById('recipeForm').reset();
+}
+
+// Populate form with recipe data
+function populateForm(recipe) {
+    document.getElementById('recipeName').value = recipe.name;
+    document.getElementById('recipeImage').value = recipe.image || '';
+    document.getElementById('recipeCategory').value = recipe.category || 'Hauptgericht';
+    document.getElementById('recipeDescription').value = recipe.description || '';
+    document.getElementById('recipeTime').value = recipe.time || '';
+    document.getElementById('recipeServings').value = recipe.servings || '';
+    document.getElementById('recipeIngredients').value = recipe.ingredients.join('\n');
+    document.getElementById('recipeInstructions').value = recipe.instructions.join('\n');
 }
 
 // Handle form submission
@@ -157,7 +245,8 @@ function handleFormSubmit(e) {
     const recipe = {
         id: Date.now(),
         name: document.getElementById('recipeName').value,
-        image: document.getElementById('recipeImage').value,
+        image: document.getElementById('recipeImage').value || 'https://via.placeholder.com/400x200?text=Rezept',
+        category: document.getElementById('recipeCategory').value,
         description: document.getElementById('recipeDescription').value,
         ingredients: document.getElementById('recipeIngredients').value
             .split('\n')
@@ -174,47 +263,51 @@ function handleFormSubmit(e) {
     recipes.push(recipe);
     saveRecipes();
     renderRecipes();
-    closeAddModal();
+    updateCategories();
+    closeRecipeModal();
     
-    // Show success message
     showNotification('Rezept erfolgreich hinzugefügt!');
 }
 
-// Render all recipes
-function renderRecipes() {
-    const grid = document.getElementById('recipesGrid');
+// View recipe
+function viewRecipe(id) {
+    const recipe = recipes.find(r => r.id === id);
+    if (!recipe) return;
     
-    if (recipes.length === 0) {
-        grid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-                <h2>Noch keine Rezepte</h2>
-                <p>Klicke auf "+ Neues Rezept" um dein erstes Rezept hinzuzufügen!</p>
-            </div>
-        `;
-        return;
-    }
+    const modal = document.getElementById('viewModal');
+    const content = document.getElementById('viewRecipeContent');
+    const name = document.getElementById('viewRecipeName');
     
-    grid.innerHTML = recipes.map((recipe, index) => `
-        <div class="recipe-card" data-recipe-index="${index}">
-            <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image" onerror="this.src='https://via.placeholder.com/300x250?text=Rezept+Bild'">
-            <div class="recipe-info">
-                <h3 class="recipe-title">${recipe.name}</h3>
-                ${recipe.description ? `<p class="recipe-description">${recipe.description}</p>` : ''}
-                <div class="recipe-meta">
-                    ${recipe.time ? `<span>⏱️ ${recipe.time} Min.</span>` : ''}
-                    ${recipe.servings ? `<span>🍽️ ${recipe.servings} Port.</span>` : ''}
-                </div>
-            </div>
+    name.textContent = recipe.name;
+    
+    content.innerHTML = `
+        ${recipe.image ? `<img src="${recipe.image}" alt="${recipe.name}" class="recipe-view-image" onerror="this.style.display='none'">` : ''}
+        ${recipe.description ? `<p style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 1.5rem;">${recipe.description}</p>` : ''}
+        <div class="recipe-view-meta">
+            ${recipe.time ? `<span>⏱️ ${recipe.time} Minuten</span>` : ''}
+            ${recipe.servings ? `<span>🍽️ ${recipe.servings} Portionen</span>` : ''}
+            <span class="recipe-category">${recipe.category}</span>
         </div>
-    `).join('');
+        <div class="recipe-view-section">
+            <h3>Zutaten</h3>
+            <ul class="ingredients-list">
+                ${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+            </ul>
+        </div>
+        <div class="recipe-view-section">
+            <h3>Zubereitung</h3>
+            <ol class="instructions-list">
+                ${recipe.instructions.map(inst => `<li>${inst}</li>`).join('')}
+            </ol>
+        </div>
+    `;
     
-    // Add click listeners to recipe cards
-    document.querySelectorAll('.recipe-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const index = parseInt(card.getAttribute('data-recipe-index'));
-            openDetailModal(recipes[index]);
-        });
-    });
+    modal.classList.add('active');
+}
+
+// Close view modal
+function closeViewModal() {
+    document.getElementById('viewModal').classList.remove('active');
 }
 
 // Show notification
@@ -222,13 +315,13 @@ function showNotification(message) {
     const notification = document.createElement('div');
     notification.style.cssText = `
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #4ecdc4;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--secondary);
         color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow-lg);
         z-index: 2000;
         animation: slideIn 0.3s ease;
     `;
@@ -241,7 +334,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Add CSS animations for notification
+// Add CSS animations
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -266,4 +359,7 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Make viewRecipe globally available
+window.viewRecipe = viewRecipe;
 
