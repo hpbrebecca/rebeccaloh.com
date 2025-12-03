@@ -138,13 +138,14 @@ body {
 
     .quote-future {
         width: calc(100vw - 24px);
-        font-size: clamp(1.3rem, 4.5vw, 1.9rem);
-        line-height: 1.22;
-        padding: 0;
+        font-size: clamp(1.1rem, 4vw, 1.7rem);
+        line-height: 1.3;
+        padding: 0 8px;
     }
 
     .quote-author-future {
-        font-size: calc(var(--font-small) + 0.2rem);
+        font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+        margin-top: 12px;
     }
 }
 
@@ -553,8 +554,8 @@ body:lang(zh),
     height: 36px;
     width: auto;
     max-width: 130px;
-    opacity: 0.58;
-    filter: grayscale(1) brightness(1.35) contrast(1.05);
+    opacity: 0.75;
+    filter: grayscale(0.15) brightness(1.6) contrast(1.2);
     object-fit: contain;
     flex-shrink: 0;
     transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
@@ -564,9 +565,97 @@ body:lang(zh),
     mix-blend-mode: screen;
 }
 
+/* Fix for logos that disappear with mix-blend-mode */
+.logo-card img[src*="Gemeinde"],
+.logo-card .company-logo-img[src*="Gemeinde"],
+.logo-card img[alt*="Gemeinde"],
+.logo-card .company-logo-img[alt*="Gemeinde"] {
+    mix-blend-mode: normal !important;
+    filter: invert(1) grayscale(0.1) brightness(2.5) contrast(1.4) !important;
+    opacity: 1 !important;
+    background: transparent !important;
+}
+
+.logo-card img[src*="Gemeinde"]:hover,
+.logo-card .company-logo-img[src*="Gemeinde"]:hover,
+.logo-card img[alt*="Gemeinde"]:hover,
+.logo-card .company-logo-img[alt*="Gemeinde"]:hover {
+    opacity: 1 !important;
+    filter: invert(1) grayscale(0) brightness(2.8) contrast(1.5) !important;
+}
+
+/* Harmonized logo styles for balanced appearance */
+.logo-card img[src*="Continental"],
+.logo-card img[src*="SRF"],
+.logo-card .company-logo-img[src*="Continental"],
+.logo-card .company-logo-img[src*="SRF"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="finma"],
+.logo-card .company-logo-img[src*="finma"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.2) brightness(1.4) contrast(1.1) !important;
+    opacity: 0.7 !important;
+}
+
+.logo-card img[src*="ficas"],
+.logo-card .company-logo-img[src*="ficas"],
+.logo-card img[alt*="FICAS"],
+.logo-card .company-logo-img[alt*="FICAS"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.9) contrast(1.4) !important;
+    opacity: 0.85 !important;
+}
+
+.logo-card img[src*="lekkerland"],
+.logo-card .company-logo-img[src*="lekkerland"],
+.logo-card img[alt*="Lekkerland"],
+.logo-card .company-logo-img[alt*="Lekkerland"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.8) contrast(1.3) !important;
+    opacity: 0.85 !important;
+}
+
+.logo-card img[src*="swisscom"],
+.logo-card .company-logo-img[src*="swisscom"],
+.logo-card img[alt*="Swisscom"],
+.logo-card .company-logo-img[alt*="Swisscom"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.15) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="iba"],
+.logo-card .company-logo-img[src*="iba"],
+.logo-card img[alt*="IBA"],
+.logo-card .company-logo-img[alt*="IBA"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.15) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="ficas"]:hover,
+.logo-card .company-logo-img[src*="ficas"]:hover,
+.logo-card img[alt*="FICAS"]:hover,
+.logo-card .company-logo-img[alt*="FICAS"]:hover {
+    opacity: 1 !important;
+    filter: grayscale(0) brightness(2.1) contrast(1.5) !important;
+}
+
+.logo-card img[src*="lekkerland"]:hover,
+.logo-card .company-logo-img[src*="lekkerland"]:hover,
+.logo-card img[alt*="Lekkerland"]:hover,
+.logo-card .company-logo-img[alt*="Lekkerland"]:hover {
+    opacity: 1 !important;
+    filter: grayscale(0) brightness(2) contrast(1.4) !important;
+}
+
 .company-logo-img:hover {
-    opacity: 0.9;
-    filter: grayscale(0.15) brightness(1.5) contrast(1.1);
+    opacity: 1;
+    filter: grayscale(0) brightness(1.85) contrast(1.3);
     transform: translateY(-2px);
 }
 
@@ -1073,15 +1162,15 @@ body:lang(zh),
     }
     
     .main-navigation {
-        top: 138px;
-        gap: 18px;
-        padding: 0 18px;
+        top: 120px;
+        gap: 14px;
+        padding: 0 12px;
         overflow-x: auto;
         justify-content: flex-start;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        width: calc(100vw - 32px);
+        width: calc(100vw - 24px);
     }
 
     .main-navigation::-webkit-scrollbar {
@@ -1090,6 +1179,8 @@ body:lang(zh),
 
     .nav-link {
         white-space: nowrap;
+        font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        padding: 8px 0;
     }
 
     .main-content-designer {
@@ -1098,7 +1189,7 @@ body:lang(zh),
         left: var(--content-gutter);
         right: var(--content-gutter-right);
         width: auto;
-        padding: 0;
+        padding: 0 8px;
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
@@ -1117,28 +1208,47 @@ body:lang(zh),
         padding: 10px 0 12px;
     }
 
+    .about-detail-summary {
+        font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+        letter-spacing: 0.12em;
+        padding-right: 40px;
+    }
+
     .about-detail-body p {
         font-size: calc(var(--font-small) + 0.24rem);
         line-height: 1.8;
     }
 
     .recommendations-content {
-        padding: 0 10px;
-        gap: 20px;
+        padding: 0 8px;
+        gap: 18px;
     }
 
     .recommendations-body {
         flex-direction: column;
-        gap: 20px;
+        gap: 18px;
+    }
+
+    .recommendation-card {
+        padding: 14px 0;
+        gap: 8px;
+    }
+
+    .service-label {
+        font-size: clamp(0.9rem, 3vw, 1.05rem);
+    }
+
+    .service-link {
+        font-size: clamp(0.75rem, 2.5vw, 0.9rem);
     }
 
     .control-panel {
-        bottom: 24px;
-        right: 16px;
-        left: 16px;
-        gap: 12px;
+        bottom: 20px;
+        right: 12px;
+        left: 12px;
+        gap: 10px;
         align-items: center;
-        width: calc(100vw - 32px);
+        width: calc(100vw - 24px);
         --control-height: 36px;
     }
 
@@ -1146,9 +1256,9 @@ body:lang(zh),
         flex-direction: row;
         align-items: center;
         justify-content: flex-end;
-        gap: 8px;
+        gap: 6px;
         width: 100%;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
     }
 
     .control-item {
@@ -1164,9 +1274,10 @@ body:lang(zh),
 
     .disclaimer-mini {
         text-align: right;
-        font-size: 0.6rem;
+        font-size: clamp(0.55rem, 2vw, 0.65rem);
         white-space: nowrap;
-        margin-left: 10px;
+        margin-left: 8px;
+        padding: 2px 4px;
     }
 
     .disclaimer-section {
@@ -1175,18 +1286,18 @@ body:lang(zh),
     }
 
     .disclaimer-card {
-        padding: 24px;
-        gap: 14px;
+        padding: 20px;
+        gap: 12px;
     }
 
     .disclaimer-heading {
-        font-size: 0.9rem;
-        letter-spacing: 0.22em;
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+        letter-spacing: 0.2em;
     }
 
     .disclaimer-copy {
-        font-size: 0.8rem;
-        line-height: 1.6;
+        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+        line-height: 1.65;
     }
 
     .about-section-designer.about-long-form {
@@ -1223,11 +1334,16 @@ body:lang(zh),
     }
 
     .profile-corner {
-        top: 24px;
-        left: 16px;
+        top: 20px;
+        left: 12px;
         flex-direction: row;
         align-items: center;
-        gap: 14px;
+        gap: 12px;
+    }
+
+    .profile-orb-container-small {
+        width: 48px;
+        height: 48px;
     }
 
     .name-corner-section {
@@ -1236,26 +1352,143 @@ body:lang(zh),
     }
 
     .name-corner {
-        gap: 4px;
+        gap: 3px;
     }
 
     .name-main-corner {
-        font-size: 1rem;
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
         letter-spacing: 0.1em;
     }
 
     .name-location-corner {
-        font-size: 0.6rem;
-        letter-spacing: 0.18em;
+        font-size: clamp(0.55rem, 2.5vw, 0.65rem);
+        letter-spacing: 0.15em;
+    }
+
+    .about-content {
+        gap: 24px;
+        padding: 0 4px;
+    }
+
+    .about-description {
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+        max-width: 100%;
+        padding: 0 8px;
+    }
+
+    .linkedin-connection-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .linkedin-icon-btn {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-corner {
+        top: 16px;
+        left: 10px;
+        gap: 10px;
+    }
+
+    .profile-orb-container-small {
+        width: 42px;
+        height: 42px;
+    }
+
+    .name-main-corner {
+        font-size: 0.85rem;
+    }
+
+    .name-location-corner {
+        font-size: 0.5rem;
+    }
+
+    .about-content {
+        gap: 20px;
+    }
+
+    .about-description {
+        font-size: 0.9rem;
+        padding: 0 4px;
+    }
+
+    .linkedin-connection-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .linkedin-icon-btn {
+        width: 16px;
+        height: 16px;
+    }
+
+    .main-content-designer {
+        padding: 0 4px;
+    }
+
+    .about-section-designer {
+        min-height: 300px;
+    }
+
+    .about-card {
+        gap: 20px;
+    }
+
+    .about-detail {
+        padding: 14px 0;
+    }
+
+    .about-detail-summary {
+        font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        letter-spacing: 0.1em;
+        padding-right: 32px;
+    }
+
+    .about-detail-body p {
+        font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+        line-height: 1.7;
+    }
+
+    .quote-future {
+        font-size: clamp(1rem, 3.5vw, 1.5rem);
+        padding: 0 12px;
+    }
+
+    .quote-author-future {
+        font-size: clamp(0.7rem, 2.2vw, 0.85rem);
     }
 }
 
 .logo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 20px;
+    column-gap: 32px;
+    row-gap: 28px;
     justify-items: flex-start;
     width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 24px;
+        row-gap: 20px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 18px;
+        row-gap: 16px;
+    }
 }
 
 .logo-card {
@@ -1276,6 +1509,17 @@ body:lang(zh),
     width: auto;
     height: auto;
     object-fit: contain;
-    mix-blend-mode: screen;
+}
+
+@media (max-width: 768px) {
+    .logo-card img {
+        max-height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-card img {
+        max-height: 28px;
+    }
 }
 

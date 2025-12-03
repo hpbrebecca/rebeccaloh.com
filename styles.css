@@ -1,3 +1,22 @@
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    z-index: 10005;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.skip-link:focus {
+    left: 16px;
+    transform: translateY(0);
+    opacity: 1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -10,719 +29,1497 @@ html, body {
 }
 
 body {
-    background: #0a0e27;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    background: #000000;
+    font-family: 'Inter', 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', sans-serif;
     color: #ffffff;
     position: relative;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    --font-display: clamp(1.3rem, 2vw, 2rem);
+    --font-body: clamp(1rem, 1.4vw, 1.2rem);
+    --font-small: clamp(0.72rem, 1vw, 0.85rem);
+    --control-height: 40px;
 }
 
-/* Deep space layer - flowing gas that appears and disappears */
-html::before {
-    content: '';
+:root {
+     --content-gutter: clamp(0.5cm, 25vw, 10cm);
+     --content-gutter-right: clamp(0.5cm, 15vw, 8cm);
+     --content-offset: 4%;
+ }
+
+/* Main Navigation - Premium Design */
+.main-navigation {
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        /* Large flowing gas clouds - appear and disappear */
-        radial-gradient(circle at 40% 30%, 
-            rgba(70, 90, 130, 0.6) 0%, 
-            rgba(65, 85, 125, 0.5) 8%,
-            rgba(60, 80, 120, 0.4) 15%,
-            rgba(55, 75, 115, 0.3) 22%,
-            rgba(50, 70, 110, 0.25) 30%,
-            rgba(45, 65, 105, 0.2) 40%,
-            rgba(40, 60, 100, 0.15) 50%,
-            rgba(35, 55, 95, 0.1) 60%,
-            rgba(30, 50, 90, 0.05) 70%,
-            transparent 85%),
-        radial-gradient(circle at 20% 80%, 
-            rgba(45, 65, 105, 0.55) 0%,
-            rgba(42, 62, 102, 0.45) 10%,
-            rgba(38, 58, 98, 0.35) 20%,
-            rgba(35, 55, 95, 0.28) 30%,
-            rgba(32, 52, 92, 0.2) 40%,
-            rgba(30, 50, 90, 0.15) 50%,
-            rgba(28, 48, 88, 0.1) 60%,
-            transparent 75%),
-        radial-gradient(circle at 70% 50%, 
-            rgba(55, 75, 115, 0.5) 0%,
-            rgba(52, 72, 112, 0.4) 12%,
-            rgba(48, 68, 108, 0.3) 25%,
-            rgba(45, 65, 105, 0.25) 38%,
-            rgba(40, 60, 100, 0.18) 50%,
-            rgba(35, 55, 95, 0.1) 62%,
-            transparent 80%),
-        
-        /* Temporary gas clouds - appear and fade */
-        radial-gradient(circle at 60% 20%, 
-            rgba(80, 50, 110, 0.5) 0%,
-            rgba(75, 48, 108, 0.4) 12%,
-            rgba(70, 45, 105, 0.3) 24%,
-            rgba(65, 42, 102, 0.2) 36%,
-            transparent 50%),
-        radial-gradient(circle at 30% 70%, 
-            rgba(45, 95, 115, 0.45) 0%,
-            rgba(42, 90, 112, 0.35) 18%,
-            rgba(38, 85, 108, 0.25) 36%,
-            transparent 55%),
-        
-        /* Dark dust clouds - irregular shapes */
-        radial-gradient(ellipse 600px 300px at 50% 60%, 
-            rgba(5, 8, 15, 0.4) 0%,
-            rgba(8, 12, 20, 0.3) 25%,
-            rgba(10, 15, 25, 0.2) 50%,
-            transparent 70%),
-        radial-gradient(ellipse 400px 500px at 80% 30%, 
-            rgba(8, 10, 18, 0.35) 0%,
-            rgba(10, 13, 22, 0.25) 30%,
-            transparent 60%),
-        
-        /* Many stars */
-        radial-gradient(circle 1.5px at 12% 22%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 1px at 28% 38%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 2px at 45% 12%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
-        radial-gradient(circle 1px at 62% 28%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 78% 45%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 15% 58%, rgba(255, 255, 255, 0.7) 0%, transparent 100%),
-        radial-gradient(circle 2px at 35% 72%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 1px at 55% 88%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 72% 65%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 88% 82%, rgba(255, 255, 255, 0.75) 0%, transparent 100%);
-    animation: universeFlow 14s ease-in-out infinite, gasAppear 18s ease-in-out infinite;
-    z-index: -2;
+    top: 48px;
+    left: calc(var(--content-gutter) + var(--content-offset));
+    right: calc(var(--content-gutter-right) - var(--content-offset));
+    transform: none;
+    z-index: 10002;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    width: auto;
+    justify-content: space-between;
 }
 
-/* Animated universe background - abstract flowing gas and stars */
-body::before {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        /* Abstract gas clouds with many gradient stops for smooth flow */
-        radial-gradient(circle at 25% 35%, 
-            rgba(60, 80, 120, 0.75) 0%,
-            rgba(58, 78, 118, 0.7) 6%,
-            rgba(55, 75, 115, 0.65) 12%,
-            rgba(52, 72, 112, 0.6) 18%,
-            rgba(48, 68, 108, 0.55) 24%,
-            rgba(45, 65, 105, 0.5) 30%,
-            rgba(42, 62, 102, 0.45) 36%,
-            rgba(40, 60, 100, 0.4) 42%,
-            rgba(38, 58, 98, 0.35) 48%,
-            rgba(35, 55, 95, 0.3) 54%,
-            rgba(32, 52, 92, 0.25) 60%,
-            rgba(30, 50, 90, 0.2) 66%,
-            rgba(28, 48, 88, 0.15) 72%,
-            rgba(25, 45, 85, 0.1) 78%,
-            transparent 88%),
-        radial-gradient(circle at 75% 65%, 
-            rgba(50, 70, 110, 0.7) 0%,
-            rgba(48, 68, 108, 0.65) 8%,
-            rgba(45, 65, 105, 0.6) 16%,
-            rgba(42, 62, 102, 0.55) 24%,
-            rgba(40, 60, 100, 0.5) 32%,
-            rgba(38, 58, 98, 0.45) 40%,
-            rgba(35, 55, 95, 0.4) 48%,
-            rgba(32, 52, 92, 0.35) 56%,
-            rgba(30, 50, 90, 0.3) 64%,
-            rgba(28, 48, 88, 0.25) 72%,
-            rgba(25, 45, 85, 0.2) 80%,
-            transparent 90%),
-        radial-gradient(circle at 50% 50%, 
-            rgba(20, 30, 60, 0.8) 0%,
-            rgba(22, 32, 62, 0.75) 7%,
-            rgba(24, 34, 64, 0.7) 14%,
-            rgba(25, 35, 66, 0.65) 21%,
-            rgba(25, 35, 68, 0.6) 28%,
-            rgba(24, 34, 66, 0.55) 35%,
-            rgba(22, 32, 64, 0.5) 42%,
-            rgba(20, 30, 62, 0.45) 49%,
-            rgba(18, 28, 60, 0.4) 56%,
-            rgba(16, 26, 58, 0.35) 63%,
-            rgba(15, 25, 56, 0.3) 70%,
-            rgba(15, 25, 54, 0.25) 77%,
-            rgba(15, 25, 52, 0.2) 84%,
-            transparent 92%),
-        radial-gradient(circle at 10% 20%, 
-            rgba(45, 65, 105, 0.65) 0%,
-            rgba(43, 63, 103, 0.6) 10%,
-            rgba(40, 60, 100, 0.55) 20%,
-            rgba(38, 58, 98, 0.5) 30%,
-            rgba(35, 55, 95, 0.45) 40%,
-            rgba(32, 52, 92, 0.4) 50%,
-            rgba(30, 50, 90, 0.35) 60%,
-            rgba(28, 48, 88, 0.3) 70%,
-            transparent 82%),
-        
-        /* Many stars scattered */
-        radial-gradient(circle 1.5px at 20% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 2px at 40% 20%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 60% 40%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 80% 60%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 1px at 30% 70%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
-        radial-gradient(circle 2px at 70% 80%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 50% 10%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 90% 30%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 1px at 18% 48%, rgba(255, 255, 255, 0.7) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 52% 62%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 38% 18%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
-        radial-gradient(circle 2px at 68% 52%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        
-        /* Purple/violet gas clouds with smooth gradients */
-        radial-gradient(circle at 70% 25%, 
-            rgba(80, 50, 110, 0.55) 0%,
-            rgba(75, 48, 108, 0.45) 12%,
-            rgba(70, 45, 105, 0.35) 24%,
-            rgba(65, 42, 102, 0.25) 36%,
-            rgba(60, 38, 98, 0.18) 48%,
-            transparent 62%),
-        radial-gradient(circle at 15% 75%, 
-            rgba(70, 45, 100, 0.5) 0%,
-            rgba(65, 42, 97, 0.4) 15%,
-            rgba(60, 38, 93, 0.3) 30%,
-            rgba(55, 35, 90, 0.2) 45%,
-            transparent 60%),
-        
-        /* Teal/cyan gas clouds with smooth flow */
-        radial-gradient(circle at 85% 40%, 
-            rgba(40, 90, 110, 0.5) 0%,
-            rgba(38, 87, 108, 0.4) 14%,
-            rgba(35, 83, 105, 0.3) 28%,
-            rgba(32, 80, 102, 0.2) 42%,
-            transparent 58%),
-        radial-gradient(circle at 20% 85%, 
-            rgba(35, 85, 105, 0.45) 0%,
-            rgba(33, 82, 103, 0.35) 18%,
-            rgba(30, 78, 100, 0.25) 36%,
-            transparent 52%),
-        
-        /* Base gradient with smooth structure */
-        linear-gradient(135deg, 
-            #0a0e27 0%, 
-            #0d1229 4%,
-            #10132b 8%,
-            #1a1f3a 12%, 
-            #151a2e 16%,
-            #0f1528 20%,
-            #12172a 24%,
-            #0f1528 28%, 
-            #14192c 32%,
-            #1a1f3a 36%,
-            #1f2540 40%,
-            #1d233e 44%,
-            #1f2540 45%, 
-            #222642 48%,
-            #252a45 52%,
-            #232843 56%,
-            #252a45 62%, 
-            #21263f 66%,
-            #1d233a 70%,
-            #1a2035 74%,
-            #1a2035 78%, 
-            #171d32 82%,
-            #151a2f 86%,
-            #12172a 90%,
-            #151a2f 92%, 
-            #0f1528 96%,
-            #0a0e27 100%);
-    animation: universeFlow2 16s ease-in-out infinite, gasFlow 20s ease-in-out infinite;
-    z-index: -1;
-}
-
-/* Alternative version - flowing, organic universe with appearing/disappearing gas */
-body::after {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        /* Large flowing gas clouds - pinkish like nebula (but subtle) */
-        radial-gradient(circle at 30% 40%, 
-            rgba(90, 70, 130, 0.5) 0%,
-            rgba(85, 68, 127, 0.45) 5%,
-            rgba(80, 65, 123, 0.4) 10%,
-            rgba(75, 62, 120, 0.35) 15%,
-            rgba(70, 58, 116, 0.3) 20%,
-            rgba(65, 55, 113, 0.25) 25%,
-            rgba(60, 52, 110, 0.2) 30%,
-            rgba(55, 48, 106, 0.15) 35%,
-            rgba(50, 45, 103, 0.1) 40%,
-            rgba(45, 42, 100, 0.05) 45%,
-            transparent 55%),
-        radial-gradient(circle at 70% 60%, 
-            rgba(75, 55, 115, 0.48) 0%,
-            rgba(72, 53, 112, 0.42) 6%,
-            rgba(68, 50, 108, 0.36) 12%,
-            rgba(65, 48, 105, 0.3) 18%,
-            rgba(62, 45, 102, 0.24) 24%,
-            rgba(58, 42, 98, 0.18) 30%,
-            rgba(55, 40, 95, 0.12) 36%,
-            transparent 48%),
-        radial-gradient(circle at 50% 20%, 
-            rgba(100, 60, 140, 0.4) 0%,
-            rgba(95, 58, 137, 0.35) 8%,
-            rgba(90, 55, 133, 0.3) 16%,
-            rgba(85, 52, 130, 0.25) 24%,
-            rgba(80, 50, 127, 0.2) 32%,
-            rgba(75, 47, 123, 0.15) 40%,
-            transparent 52%),
-        
-        /* Purple/magenta gas - appears and disappears */
-        radial-gradient(circle at 15% 70%, 
-            rgba(110, 50, 130, 0.45) 0%,
-            rgba(105, 48, 127, 0.38) 10%,
-            rgba(100, 45, 123, 0.3) 20%,
-            rgba(95, 42, 120, 0.22) 30%,
-            rgba(90, 40, 117, 0.15) 40%,
-            transparent 52%),
-        radial-gradient(circle at 85% 30%, 
-            rgba(95, 45, 125, 0.42) 0%,
-            rgba(90, 43, 122, 0.35) 12%,
-            rgba(85, 40, 118, 0.28) 24%,
-            rgba(80, 38, 115, 0.2) 36%,
-            transparent 48%),
-        
-        /* Teal/cyan flowing gas */
-        radial-gradient(circle at 60% 80%, 
-            rgba(50, 100, 130, 0.4) 0%,
-            rgba(48, 97, 127, 0.33) 9%,
-            rgba(45, 93, 123, 0.26) 18%,
-            rgba(42, 90, 120, 0.19) 27%,
-            rgba(40, 87, 117, 0.12) 36%,
-            transparent 46%),
-        radial-gradient(circle at 25% 25%, 
-            rgba(45, 95, 125, 0.38) 0%,
-            rgba(42, 92, 122, 0.3) 11%,
-            rgba(40, 88, 118, 0.22) 22%,
-            rgba(38, 85, 115, 0.15) 33%,
-            transparent 44%),
-        
-        /* Dark dust clouds - irregular, organic shapes */
-        radial-gradient(ellipse 800px 400px at 55% 50%, 
-            rgba(8, 10, 18, 0.5) 0%,
-            rgba(10, 12, 20, 0.4) 20%,
-            rgba(12, 14, 22, 0.3) 40%,
-            rgba(10, 12, 20, 0.2) 60%,
-            transparent 75%),
-        radial-gradient(ellipse 600px 500px at 20% 80%, 
-            rgba(6, 8, 15, 0.45) 0%,
-            rgba(8, 10, 18, 0.35) 25%,
-            rgba(10, 12, 20, 0.25) 50%,
-            transparent 70%),
-        
-        /* Many stars - varying brightness */
-        radial-gradient(circle 1.5px at 8% 15%, rgba(255, 255, 255, 0.95) 0%, transparent 100%),
-        radial-gradient(circle 1px at 22% 28%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 2px at 38% 12%, rgba(255, 255, 255, 0.9) 0%, transparent 100%),
-        radial-gradient(circle 1px at 52% 35%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 68% 22%, rgba(255, 255, 255, 0.88) 0%, transparent 100%),
-        radial-gradient(circle 1px at 82% 48%, rgba(255, 255, 255, 0.75) 0%, transparent 100%),
-        radial-gradient(circle 2px at 15% 62%, rgba(255, 255, 255, 0.92) 0%, transparent 100%),
-        radial-gradient(circle 1px at 35% 78%, rgba(255, 255, 255, 0.82) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 58% 88%, rgba(255, 255, 255, 0.87) 0%, transparent 100%),
-        radial-gradient(circle 1px at 75% 72%, rgba(255, 255, 255, 0.78) 0%, transparent 100%),
-        radial-gradient(circle 2px at 42% 18%, rgba(255, 255, 255, 0.93) 0%, transparent 100%),
-        radial-gradient(circle 1px at 88% 35%, rgba(255, 255, 255, 0.8) 0%, transparent 100%),
-        radial-gradient(circle 1.5px at 28% 52%, rgba(255, 255, 255, 0.85) 0%, transparent 100%),
-        radial-gradient(circle 1px at 65% 58%, rgba(255, 255, 255, 0.77) 0%, transparent 100%),
-        radial-gradient(circle 2px at 48% 75%, rgba(255, 255, 255, 0.91) 0%, transparent 100%),
-        
-        /* Base gradient - smooth transitions */
-        linear-gradient(135deg, 
-            #0a0e27 0%, 
-            #0d1229 3%,
-            #10132b 6%,
-            #13162d 9%,
-            #1a1f3a 12%, 
-            #171c35 15%,
-            #151a2e 18%,
-            #0f1528 21%,
-            #12172a 24%,
-            #14192c 27%,
-            #0f1528 28%, 
-            #161b2f 31%,
-            #14192c 32%,
-            #1a1f3a 36%,
-            #1d223d 39%,
-            #1f2540 42%,
-            #1d233e 44%,
-            #1f2540 45%, 
-            #212640 47%,
-            #222642 48%,
-            #242844 51%,
-            #252a45 54%,
-            #232843 56%,
-            #252a45 62%, 
-            #222640 65%,
-            #21263f 66%,
-            #1e243a 69%,
-            #1d233a 70%,
-            #1b2137 73%,
-            #1a2035 76%,
-            #1a2035 78%, 
-            #181e33 81%,
-            #171d32 82%,
-            #151b2f 85%,
-            #151a2f 88%,
-            #13182c 91%,
-            #12172a 94%,
-            #151a2f 92%, 
-            #0f1528 96%,
-            #0c1125 98%,
-            #0a0e27 100%);
-    animation: universeFlowOrganic 11s ease-in-out infinite, gasEmerge 13s ease-in-out infinite, gasDissolve 17s ease-in-out infinite;
-    z-index: -1;
-}
-
-/* Flowing, organic animations - appearing, disappearing, merging */
-@keyframes universeFlow {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 0.7;
-    }
-    12.5% {
-        transform: translate(5%, -3%) rotate(2deg) scale(1.15);
-        opacity: 0.85;
-    }
-    25% {
-        transform: translate(-4%, 6%) rotate(-3deg) scale(0.9);
-        opacity: 0.6;
-    }
-    37.5% {
-        transform: translate(7%, 4%) rotate(4deg) scale(1.2);
-        opacity: 0.9;
-    }
-    50% {
-        transform: translate(-6%, -5%) rotate(-2deg) scale(0.85);
-        opacity: 0.5;
-    }
-    62.5% {
-        transform: translate(3%, 8%) rotate(3deg) scale(1.1);
-        opacity: 0.75;
-    }
-    75% {
-        transform: translate(-7%, 2%) rotate(-4deg) scale(0.95);
-        opacity: 0.65;
-    }
-    87.5% {
-        transform: translate(4%, -6%) rotate(2deg) scale(1.18);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 0.7;
-    }
-}
-
-@keyframes universeFlow2 {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
-        opacity: 0.6;
-    }
-    15% {
-        transform: translate(-5%, 7%) rotate(-3deg) scale(1.25) skew(2deg);
-        opacity: 0.8;
-    }
-    30% {
-        transform: translate(8%, -4%) rotate(5deg) scale(0.8) skew(-3deg);
-        opacity: 0.4;
-    }
-    45% {
-        transform: translate(-3%, -8%) rotate(-2deg) scale(1.3) skew(4deg);
-        opacity: 0.85;
-    }
-    60% {
-        transform: translate(6%, 5%) rotate(4deg) scale(0.88) skew(-2deg);
-        opacity: 0.55;
-    }
-    75% {
-        transform: translate(-8%, 3%) rotate(-5deg) scale(1.15) skew(3deg);
-        opacity: 0.75;
-    }
-    90% {
-        transform: translate(4%, -7%) rotate(2deg) scale(0.92) skew(-1deg);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
-        opacity: 0.6;
-    }
-}
-
-@keyframes gasAppear {
-    0%, 100% {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-    20% {
-        opacity: 0.6;
-        transform: scale(1.2);
-    }
-    40% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    60% {
-        opacity: 0.7;
-        transform: scale(1.1);
-    }
-    80% {
-        opacity: 0.4;
-        transform: scale(0.9);
-    }
-}
-
-@keyframes gasFlow {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 0.5;
-    }
-    20% {
-        transform: translate(12%, -8%) rotate(6deg) scale(1.3);
-        opacity: 0.75;
-    }
-    40% {
-        transform: translate(-10%, 10%) rotate(-5deg) scale(0.7);
-        opacity: 0.3;
-    }
-    60% {
-        transform: translate(8%, 12%) rotate(4deg) scale(1.4);
-        opacity: 0.85;
-    }
-    80% {
-        transform: translate(-12%, -6%) rotate(-7deg) scale(0.8);
-        opacity: 0.4;
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg) scale(1);
-        opacity: 0.5;
-    }
-}
-
-/* Organic flowing animation - continuous change in direction, size, speed */
-@keyframes universeFlowOrganic {
-    0% {
-        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
-        opacity: 0.6;
-    }
-    10% {
-        transform: translate(4%, -2%) rotate(1.5deg) scale(1.08) skew(1deg);
-        opacity: 0.7;
-    }
-    20% {
-        transform: translate(-3%, 5%) rotate(-2deg) scale(0.92) skew(-1.5deg);
-        opacity: 0.5;
-    }
-    30% {
-        transform: translate(6%, 3%) rotate(2.5deg) scale(1.15) skew(2deg);
-        opacity: 0.75;
-    }
-    40% {
-        transform: translate(-5%, -4%) rotate(-1.5deg) scale(0.88) skew(-2deg);
-        opacity: 0.55;
-    }
-    50% {
-        transform: translate(3%, 7%) rotate(3deg) scale(1.2) skew(2.5deg);
-        opacity: 0.8;
-    }
-    60% {
-        transform: translate(-7%, 2%) rotate(-2.5deg) scale(0.85) skew(-1deg);
-        opacity: 0.45;
-    }
-    70% {
-        transform: translate(5%, -6%) rotate(1.8deg) scale(1.12) skew(1.5deg);
-        opacity: 0.7;
-    }
-    80% {
-        transform: translate(-4%, 4%) rotate(-3deg) scale(0.9) skew(-2.5deg);
-        opacity: 0.6;
-    }
-    90% {
-        transform: translate(2%, -3%) rotate(2deg) scale(1.05) skew(1deg);
-        opacity: 0.65;
-    }
-    100% {
-        transform: translate(0, 0) rotate(0deg) scale(1) skew(0deg);
-        opacity: 0.6;
-    }
-}
-
-/* Gas emerging - appears and grows */
-@keyframes gasEmerge {
-    0% {
-        opacity: 0;
-        transform: scale(0.2);
-    }
-    15% {
-        opacity: 0.4;
-        transform: scale(0.6);
-    }
-    30% {
-        opacity: 0.7;
-        transform: scale(1.1);
-    }
-    45% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    60% {
-        opacity: 0.75;
-        transform: scale(1.15);
-    }
-    75% {
-        opacity: 0.6;
-        transform: scale(0.95);
-    }
-    90% {
-        opacity: 0.3;
-        transform: scale(0.7);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.2);
-    }
-}
-
-/* Gas dissolving - fades away */
-@keyframes gasDissolve {
-    0% {
-        opacity: 0.7;
-        transform: scale(1.2);
-    }
-    20% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    40% {
-        opacity: 0.6;
-        transform: scale(0.9);
-    }
-    60% {
-        opacity: 0.4;
-        transform: scale(0.7);
-    }
-    80% {
-        opacity: 0.2;
-        transform: scale(0.5);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.3);
-    }
-}
-
-/* Temporary gas layer - appears and disappears */
-.universe-temp {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-        /* Temporary purple gas - appears and fades */
-        radial-gradient(circle at 65% 35%, 
-            rgba(90, 55, 125, 0.5) 0%,
-            rgba(85, 52, 122, 0.4) 15%,
-            rgba(80, 48, 118, 0.3) 30%,
-            transparent 50%),
-        radial-gradient(circle at 25% 55%, 
-            rgba(70, 45, 105, 0.45) 0%,
-            rgba(65, 42, 102, 0.35) 18%,
-            rgba(60, 38, 98, 0.25) 36%,
-            transparent 55%),
-        /* Temporary teal gas */
-        radial-gradient(circle at 75% 65%, 
-            rgba(50, 100, 120, 0.4) 0%,
-            rgba(47, 95, 117, 0.3) 20%,
-            rgba(43, 90, 113, 0.2) 40%,
-            transparent 60%),
-        radial-gradient(circle at 40% 80%, 
-            rgba(45, 95, 115, 0.35) 0%,
-            rgba(42, 90, 112, 0.25) 22%,
-            transparent 45%);
-    animation: gasAppear 15s ease-in-out infinite, gasFlow 19s ease-in-out infinite;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.name-link {
-    font-size: 1.5rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    color: #ffffff;
+.nav-link {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: calc(var(--font-small) + 0.25rem);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1.5px solid transparent;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
-    transition: opacity 0.3s ease;
-    position: relative;
+    text-transform: uppercase;
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: rgba(255, 255, 255, 1);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+    /* Minimalist active state */
+}
+
+.logo-marquee-container::before,
+.logo-marquee-container::after {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .main-navigation {
+        top: 138px;
+        gap: 18px;
+        padding: 0 18px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100vw - 32px);
+    }
+
+    .main-navigation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-link {
+        white-space: nowrap;
+    }
+
+    .logo-marquee-container {
+        height: 56px;
+        margin-top: 36px;
+    }
+
+    .logo-marquee-container::before,
+    .logo-marquee-container::after {
+        width: 80px;
+    }
+
+    .logo-marquee {
+        gap: 40px;
+        animation-duration: 20s;
+    }
+
+    .company-logo-img {
+        height: 30px;
+        max-width: 110px;
+    }
+
+    .quote-future {
+        width: calc(100vw - 24px);
+        font-size: clamp(1.1rem, 4vw, 1.7rem);
+        line-height: 1.3;
+        padding: 0 8px;
+    }
+
+    .quote-author-future {
+        font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --content-gutter: 12px;
+        --content-gutter-right: 12px;
+        --content-offset: 0;
+    }
+}
+
+/* Chinese font fallback */
+body:lang(zh),
+.name-future:lang(zh),
+.quote-future:lang(zh) {
+    font-family: 'Noto Serif TC', 'Cormorant Garamond', 'Playfair Display', serif;
+}
+
+/* Holographic Grid Background - Very Subtle */
+.holographic-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(80, 150, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(80, 170, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
     z-index: 1;
-    
-    /* Initial state - invisible and slightly scaled down */
-    opacity: 0;
-    transform: scale(0.98);
-    
-    /* Fade-in animation - starts after 1.0s */
-    animation: fadeInScale 0.8s ease-out 1.0s forwards,
-               pulse 4.5s ease-in-out 1.8s infinite;
+    pointer-events: none;
+    opacity: 0.2;
+    /* Very subtle - minimalist approach */
 }
 
-.name-link:hover {
-    opacity: 0.8;
+/* Profile Corner - Top Left */
+.profile-corner {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
 }
 
-/* Fade-in and scale up animation */
-@keyframes fadeInScale {
+.profile-orb-container-small {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    /* Slightly larger - confident presence */
+}
+
+.profile-orb-small {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    /* Minimalist - no excessive shadows */
+}
+
+.profile-orb-small:hover {
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.2);
+    /* Subtle interaction */
+}
+
+.profile-image-corner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: block;
+}
+
+/* Name Corner Section - Premium Typography */
+.name-corner-section {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.name-corner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.name-corner:hover {
+    transform: translateX(2px);
+}
+
+.name-main-corner {
+    font-size: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.2;
+    font-feature-settings: "liga" 1, "kern" 1;
+    /* Minimalist typography */
+}
+
+.name-location-corner {
+    font-size: var(--font-small);
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.2;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    /* Modern sans-serif - shows typography expertise */
+}
+
+[data-linkedin="profile"] {
+    cursor: pointer;
+}
+
+[data-linkedin="profile"]:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 4px;
+}
+
+[data-linkedin="profile"][role="link"] {
+    text-decoration: none;
+}
+
+/* Main Content */
+.main-content-designer {
+    position: fixed;
+    top: calc(120px + 5vh);
+    bottom: 10vh;
+    left: calc(var(--content-gutter) + var(--content-offset));
+    right: calc(var(--content-gutter-right) - var(--content-offset));
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    scrollbar-width: none;
+}
+
+.main-content-designer.scrollable {
+    overflow-y: auto;
+    align-items: flex-start;
+    padding-bottom: 140px;
+}
+
+.main-content-designer.scrollable::-webkit-scrollbar {
+    width: 1px;
+    margin: 24px 0;
+    background: transparent;
+}
+
+.main-content-designer.scrollable::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+    .main-content-designer.scrollable::-webkit-scrollbar-thumb {
+        background: rgba(200, 200, 200, 0.18);
+    }
+}
+
+/* Quote Section */
+.quote-section-designer {
+    width: 100%;
+    max-width: none;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+}
+
+.quote-container-future {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* About Section - Premium LinkedIn Connection */
+.about-section-designer {
+    width: 100%;
+    min-height: 400px;
+    display: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    animation: fadeInAbout 0.6s ease-out forwards;
+}
+
+@keyframes fadeInAbout {
     0% {
         opacity: 0;
-        transform: scale(0.98);
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
     }
 }
 
-/* Pulse animation - desktop (only opacity/color, no scale) */
-@keyframes pulse {
-    0%, 100% {
+.about-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+}
+
+.about-description {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-body);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    max-width: 500px;
+    /* Concise - no title, just description */
+}
+
+.about-long-form .about-content {
+    width: 100%;
+    align-items: stretch;
+    text-align: justify;
+    gap: 32px;
+    padding: 0;
+}
+
+.about-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+.about-intro {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-body);
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.8;
+    margin: 0;
+}
+
+.about-accordion {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 2px 0 0;
+}
+
+.about-detail {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0;
+    background: none;
+    backdrop-filter: none;
+    padding: 18px 0;
+    transition: border-color 0.3s ease;
+}
+
+.about-detail:last-of-type {
+    border-bottom: none;
+}
+
+.about-detail[open] {
+    border-bottom-color: rgba(255, 255, 255, 0.35);
+}
+
+.about-detail-summary {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    padding-right: 48px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-body);
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.about-detail-summary::-webkit-details-marker {
+    display: none;
+}
+
+.about-detail-summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.about-detail[open] .about-detail-summary::after {
+    content: "–";
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.about-detail-body {
+    margin-top: 18px;
+    display: block;
+    column-count: 2;
+    column-gap: 40px;
+    column-fill: balance;
+    text-align: justify;
+    padding: 0;
+}
+
+.about-detail-body p {
+    font-size: calc(var(--font-small) + 0.12rem);
+    letter-spacing: 0.04em;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.78);
+    text-align: justify;
+    break-inside: avoid;
+    margin: 0 0 14px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+}
+
+/* LinkedIn Connection Button - Minimalist Design */
+.linkedin-connection-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    /* Minimalist - no excessive shadows or glows */
+}
+
+.linkedin-connection-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+    /* Subtle interaction - no flashy effects */
+}
+
+.linkedin-icon-btn {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* Company Logos - Animated Marquee (Right to Left) */
+.logo-marquee-container {
+    position: relative;
+    width: 100%;
+    height: 68px;
+    margin-top: 48px;
+    overflow: hidden;
+}
+
+.logo-marquee {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: scrollLogos 24s linear infinite;
+}
+
+.company-logo-img {
+    height: 36px;
+    width: auto;
+    max-width: 130px;
+    opacity: 0.75;
+    filter: grayscale(0.15) brightness(1.6) contrast(1.2);
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+    padding: 0;
+    border: none;
+    background: transparent;
+    mix-blend-mode: screen;
+}
+
+/* Fix for logos that disappear with mix-blend-mode */
+.logo-card img[src*="Gemeinde"],
+.logo-card .company-logo-img[src*="Gemeinde"],
+.logo-card img[alt*="Gemeinde"],
+.logo-card .company-logo-img[alt*="Gemeinde"] {
+    mix-blend-mode: normal !important;
+    filter: invert(1) grayscale(0.1) brightness(2.5) contrast(1.4) !important;
+    opacity: 1 !important;
+    background: transparent !important;
+}
+
+.logo-card img[src*="Gemeinde"]:hover,
+.logo-card .company-logo-img[src*="Gemeinde"]:hover,
+.logo-card img[alt*="Gemeinde"]:hover,
+.logo-card .company-logo-img[alt*="Gemeinde"]:hover {
+    opacity: 1 !important;
+    filter: invert(1) grayscale(0) brightness(2.8) contrast(1.5) !important;
+}
+
+/* Harmonized logo styles for balanced appearance */
+.logo-card img[src*="Continental"],
+.logo-card img[src*="SRF"],
+.logo-card .company-logo-img[src*="Continental"],
+.logo-card .company-logo-img[src*="SRF"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="finma"],
+.logo-card .company-logo-img[src*="finma"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.2) brightness(1.4) contrast(1.1) !important;
+    opacity: 0.7 !important;
+}
+
+.logo-card img[src*="ficas"],
+.logo-card .company-logo-img[src*="ficas"],
+.logo-card img[alt*="FICAS"],
+.logo-card .company-logo-img[alt*="FICAS"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.9) contrast(1.4) !important;
+    opacity: 0.85 !important;
+}
+
+.logo-card img[src*="lekkerland"],
+.logo-card .company-logo-img[src*="lekkerland"],
+.logo-card img[alt*="Lekkerland"],
+.logo-card .company-logo-img[alt*="Lekkerland"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.1) brightness(1.8) contrast(1.3) !important;
+    opacity: 0.85 !important;
+}
+
+.logo-card img[src*="swisscom"],
+.logo-card .company-logo-img[src*="swisscom"],
+.logo-card img[alt*="Swisscom"],
+.logo-card .company-logo-img[alt*="Swisscom"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.15) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="iba"],
+.logo-card .company-logo-img[src*="iba"],
+.logo-card img[alt*="IBA"],
+.logo-card .company-logo-img[alt*="IBA"] {
+    mix-blend-mode: normal !important;
+    filter: grayscale(0.15) brightness(1.7) contrast(1.25) !important;
+    opacity: 0.8 !important;
+}
+
+.logo-card img[src*="ficas"]:hover,
+.logo-card .company-logo-img[src*="ficas"]:hover,
+.logo-card img[alt*="FICAS"]:hover,
+.logo-card .company-logo-img[alt*="FICAS"]:hover {
+    opacity: 1 !important;
+    filter: grayscale(0) brightness(2.1) contrast(1.5) !important;
+}
+
+.logo-card img[src*="lekkerland"]:hover,
+.logo-card .company-logo-img[src*="lekkerland"]:hover,
+.logo-card img[alt*="Lekkerland"]:hover,
+.logo-card .company-logo-img[alt*="Lekkerland"]:hover {
+    opacity: 1 !important;
+    filter: grayscale(0) brightness(2) contrast(1.4) !important;
+}
+
+.company-logo-img:hover {
+    opacity: 1;
+    filter: grayscale(0) brightness(1.85) contrast(1.3);
+    transform: translateY(-2px);
+}
+
+.logo-fallback {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.42);
+    text-align: center;
+    padding: 0;
+    min-width: 110px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    backdrop-filter: none;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+    3% {
+        opacity: 0.7;
+    }
+    97% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.quote-future {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90rem, 92vw);
+    font-size: clamp(1.15rem, 2.1vw, 1.7rem);
+    line-height: 1.22;
+    color: rgba(255, 255, 255, 0.98);
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 0 8px;
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-wrap: balance;
+    white-space: normal;
+    word-spacing: 0.04em;
+    overflow-wrap: break-word;
+    /* Minimalist typography */
+}
+
+.quote-future.visible {
+    animation: quoteFadeInFuture 0.6s ease-out forwards;
+}
+
+.quote-future.fadeOut {
+    animation: quoteFadeOutFuture 0.6s ease-in forwards;
+}
+
+@keyframes quoteFadeInFuture {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(20px) scale(0.98);
+    }
+    100% {
         opacity: 1;
-        color: #ffffff;
-    }
-    50% {
-        opacity: 0.15;
-        color: #4a6fa5;
+        transform: translate(-50%, -50%) translateY(0) scale(1);
     }
 }
 
-/* Responsive - make it slightly smaller on mobile but still readable */
+@keyframes quoteFadeOutFuture {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateY(-20px) scale(0.98);
+    }
+}
+
+.quote-author-future {
+    display: block;
+    margin-top: 16px;
+    font-size: calc(var(--font-small) + 0.38rem);
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-weight: 400;
+}
+
+.recommendations-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    max-width: 900px;
+    width: 90%;
+    padding: 0 20px;
+}
+
+.recommendations-content {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    margin: 0 auto;
+}
+
+.recommendations-body {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.recommendations-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 24px 0 6px;
+}
+
+.recommendations-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 520px;
+}
+
+.recommendation-card {
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: none;
+}
+
+.recommendation-card:last-of-type {
+    border-bottom: none;
+}
+
+.service-label {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-body);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.service-link {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-small);
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: rgba(123, 195, 255, 0.9);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    width: fit-content;
+    margin-top: 2px;
+}
+
+.service-link::after {
+    content: '\2192';
+    margin-left: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 0;
+}
+
+.service-link:hover {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.disclaimer-section {
+    width: 100%;
+    max-width: 720px;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+}
+
+.disclaimer-card {
+    width: 100%;
+    padding: 32px 38px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.disclaimer-heading {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: 1.02rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
+}
+
+.disclaimer-copy {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-small);
+    letter-spacing: 0.08em;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.78);
+    margin: 0;
+    text-align: justify;
+}
+
+/* Control Panel - Bottom Right */
+.control-panel {
+    position: fixed;
+    bottom: calc(48px - 0.5cm);
+    left: 40px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    width: auto;
+    max-width: min(420px, calc(100vw - 80px));
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.control-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.control-item.disclaimer-control {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+}
+
+.disclaimer-control {
+    margin-left: 0;
+    justify-content: flex-end;
+}
+
+.disclaimer-mini {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: var(--font-small);
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.68);
+    line-height: 1.6;
+    max-width: 360px;
+    text-align: right;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    margin-left: 4px;
+}
+
+.disclaimer-mini:hover,
+.disclaimer-mini:focus {
+    color: rgba(255, 255, 255, 0.88);
+    opacity: 0.9;
+    outline: none;
+}
+
+.disclaimer-mini:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 4px;
+}
+
+/* Language Control */
+.language-control {
+    min-width: 120px;
+}
+
+.control-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 2px 8px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Minimalist - no excessive shadows */
+}
+
+.control-trigger:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    /* Subtle interaction */
+}
+
+.control-label {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: var(--font-small);
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    /* Elegant serif - matches premium aesthetic, appeals to 25-35 year old design professionals */
+}
+
+.control-label::before {
+    content: "\1F310";
+    margin-right: 2px;
+    font-size: 0.8em;
+    filter: grayscale(1) brightness(0.65) contrast(0.9);
+}
+
+.control-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.4s ease;
+    /* Minimalist indicator */
+}
+
+.language-control.open .control-indicator {
+    background: rgba(255, 255, 255, 0.8);
+    /* No glow effects */
+}
+
+.control-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    min-width: 140px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px) scale(0.94);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Minimalist - reduced shadows */
+}
+
+.language-control.open .control-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.control-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.control-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    /* Subtle hover */
+}
+
+.control-option.active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.option-code {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    min-width: 24px;
+    letter-spacing: 0.1em;
+}
+
+.option-name {
+    font-family: 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.08em;
+    /* Elegant serif - matches overall aesthetic, appeals to design professionals */
+}
+
+/* Audio Control */
+.audio-control {
+    display: flex;
+    align-items: center;
+}
+
+.control-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    padding: 0;
+    /* Minimalist - no excessive shadows */
+}
+
+.control-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+    /* Subtle interaction */
+}
+
+.control-button:active {
+    transform: scale(0.95);
+}
+
+.control-button svg {
+    width: 10px;
+    height: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.icon-play,
+.icon-pause {
+    position: absolute;
+}
+
+.audio-button.playing .icon-play {
+    display: none;
+}
+
+.audio-button.playing .icon-pause {
+    display: block;
+}
+
+.audio-button:not(.playing) .icon-play {
+    display: block;
+}
+
+.audio-button:not(.playing) .icon-pause {
+    display: none;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .name-link {
-        font-size: 1.25rem;
-        
-        /* More subtle pulse on mobile - max scale 1.01 */
-        animation: fadeInScale 0.8s ease-out 1.0s forwards,
-                   pulseMobile 4.5s ease-in-out 1.8s infinite;
+    .main-floating-card {
+        padding: 60px 40px;
+        gap: 40px;
+    }
+    
+    .profile-orb-container {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .name-main {
+        font-size: 1.5rem;
+    }
+    
+    .name-location {
+        font-size: 0.78rem;
+    }
+    
+    .main-navigation {
+        top: 120px;
+        gap: 14px;
+        padding: 0 12px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100vw - 24px);
+    }
+
+    .main-navigation::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-link {
+        white-space: nowrap;
+        font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        padding: 8px 0;
+    }
+
+    .main-content-designer {
+        top: calc(152px + 4vh);
+        bottom: calc(72px + 7vh);
+        left: var(--content-gutter);
+        right: var(--content-gutter-right);
+        width: auto;
+        padding: 0 8px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .quote-section-designer {
+        min-height: 200px;
+    }
+
+    .about-card {
+        padding: 20px 18px;
+        gap: 18px;
+    }
+
+    .about-detail {
+        padding: 10px 0 12px;
+    }
+
+    .about-detail-summary {
+        font-size: clamp(0.75rem, 2.8vw, 0.95rem);
+        letter-spacing: 0.12em;
+        padding-right: 40px;
+    }
+
+    .about-detail-body p {
+        font-size: calc(var(--font-small) + 0.24rem);
+        line-height: 1.8;
+    }
+
+    .recommendations-content {
+        padding: 0 8px;
+        gap: 18px;
+    }
+
+    .recommendations-body {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .recommendation-card {
+        padding: 14px 0;
+        gap: 8px;
+    }
+
+    .service-label {
+        font-size: clamp(0.9rem, 3vw, 1.05rem);
+    }
+
+    .service-link {
+        font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+    }
+
+    .control-panel {
+        bottom: 20px;
+        right: 12px;
+        left: 12px;
+        gap: 10px;
+        align-items: center;
+        width: calc(100vw - 24px);
+        --control-height: 36px;
+    }
+
+    .control-row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .control-item {
+        flex: 0 1 auto;
+        justify-content: flex-start;
+        min-width: 0;
+    }
+
+    .control-item.disclaimer-control {
+        flex: 0 0 auto;
+        justify-content: flex-end;
+    }
+
+    .disclaimer-mini {
+        text-align: right;
+        font-size: clamp(0.55rem, 2vw, 0.65rem);
+        white-space: nowrap;
+        margin-left: 8px;
+        padding: 2px 4px;
+    }
+
+    .disclaimer-section {
+        padding: 0 12px;
+        min-height: 240px;
+    }
+
+    .disclaimer-card {
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .disclaimer-heading {
+        font-size: clamp(0.85rem, 3vw, 0.95rem);
+        letter-spacing: 0.2em;
+    }
+
+    .disclaimer-copy {
+        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+        line-height: 1.65;
+    }
+
+    .about-section-designer.about-long-form {
+        padding-bottom: 80px;
+    }
+
+    .about-long-form .about-content {
+        max-width: calc(100vw - 16px);
+        align-items: flex-start;
+        text-align: justify;
+        gap: 32px;
+        padding: 0;
+    }
+
+    .about-detail-body {
+        display: block;
+        column-count: 1;
+        column-gap: 0;
+        padding: 0;
+    }
+
+    .language-control {
+        margin-top: 0;
+    }
+    
+    .control-button {
+        width: var(--control-height);
+        height: var(--control-height);
+    }
+    
+    .control-button svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .profile-corner {
+        top: 20px;
+        left: 12px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .profile-orb-container-small {
+        width: 48px;
+        height: 48px;
+    }
+
+    .name-corner-section {
+        margin-top: 0;
+        align-items: flex-start;
+    }
+
+    .name-corner {
+        gap: 3px;
+    }
+
+    .name-main-corner {
+        font-size: clamp(0.9rem, 4vw, 1.1rem);
+        letter-spacing: 0.1em;
+    }
+
+    .name-location-corner {
+        font-size: clamp(0.55rem, 2.5vw, 0.65rem);
+        letter-spacing: 0.15em;
+    }
+
+    .about-content {
+        gap: 24px;
+        padding: 0 4px;
+    }
+
+    .about-description {
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+        max-width: 100%;
+        padding: 0 8px;
+    }
+
+    .linkedin-connection-btn {
+        width: 44px;
+        height: 44px;
+    }
+
+    .linkedin-icon-btn {
+        width: 18px;
+        height: 18px;
     }
 }
 
-/* Pulse animation - mobile (only opacity/color, no scale) */
-@keyframes pulseMobile {
-    0%, 100% {
-        opacity: 1;
-        color: #ffffff;
+@media (max-width: 480px) {
+    .profile-corner {
+        top: 16px;
+        left: 10px;
+        gap: 10px;
     }
-    50% {
-        opacity: 0.15;
-        color: #4a6fa5;
+
+    .profile-orb-container-small {
+        width: 42px;
+        height: 42px;
+    }
+
+    .name-main-corner {
+        font-size: 0.85rem;
+    }
+
+    .name-location-corner {
+        font-size: 0.5rem;
+    }
+
+    .about-content {
+        gap: 20px;
+    }
+
+    .about-description {
+        font-size: 0.9rem;
+        padding: 0 4px;
+    }
+
+    .linkedin-connection-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .linkedin-icon-btn {
+        width: 16px;
+        height: 16px;
+    }
+
+    .main-content-designer {
+        padding: 0 4px;
+    }
+
+    .about-section-designer {
+        min-height: 300px;
+    }
+
+    .about-card {
+        gap: 20px;
+    }
+
+    .about-detail {
+        padding: 14px 0;
+    }
+
+    .about-detail-summary {
+        font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        letter-spacing: 0.1em;
+        padding-right: 32px;
+    }
+
+    .about-detail-body p {
+        font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+        line-height: 1.7;
+    }
+
+    .quote-future {
+        font-size: clamp(1rem, 3.5vw, 1.5rem);
+        padding: 0 12px;
+    }
+
+    .quote-author-future {
+        font-size: clamp(0.7rem, 2.2vw, 0.85rem);
     }
 }
+
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    column-gap: 32px;
+    row-gap: 28px;
+    justify-items: flex-start;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 24px;
+        row-gap: 20px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 18px;
+        row-gap: 16px;
+    }
+}
+
+.logo-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    width: 100%;
+    min-height: auto;
+}
+
+.logo-card img {
+    max-width: 100%;
+    max-height: 38px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .logo-card img {
+        max-height: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-card img {
+        max-height: 28px;
+    }
+}
+
