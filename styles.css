@@ -215,9 +215,38 @@ body:lang(zh),
 }
 
 .profile-orb-small:hover {
-    transform: scale(1.03);
     border-color: rgba(255, 255, 255, 0.2);
     /* Subtle interaction */
+}
+
+.profile-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.profile-orb-small:hover .profile-flip-inner {
+    transform: rotateY(180deg);
+}
+
+.profile-flip-front,
+.profile-flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-flip-back {
+    transform: rotateY(180deg);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
 }
 
 .profile-image-corner {
@@ -228,6 +257,13 @@ body:lang(zh),
     border-radius: 50%;
     background-color: #ffffff;
     display: block;
+}
+
+.linkedin-logo-flip {
+    width: 32px;
+    height: 32px;
+    fill: #ffffff;
+    filter: grayscale(1) brightness(1.2);
 }
 
 /* Name Corner Section - Premium Typography */
@@ -370,6 +406,23 @@ body:lang(zh),
     align-items: center;
     gap: 32px;
     width: 100%;
+}
+
+/* Increased spacing for connect section */
+#connectSection .about-content {
+    gap: 48px;
+}
+
+#connectSection .about-description {
+    margin-bottom: 8px;
+}
+
+#connectSection .linkedin-connection-btn {
+    margin-bottom: 16px;
+}
+
+#connectSection .connect-logos {
+    margin-top: 24px;
 }
 
 .about-description {
