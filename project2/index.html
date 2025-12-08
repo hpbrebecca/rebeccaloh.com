@@ -93,7 +93,7 @@
     <!-- Main Content - Dynamic Sections -->
     <div class="main-content-designer">
         <!-- Connect Section - Primary Landing -->
-        <div class="about-section-designer" id="connectSection" style="display: flex;">
+        <div class="about-section-designer" id="connectSection" style="display: none;">
             <div class="about-content">
                 <p class="about-description" id="connectDescription">Connect on LinkedIn to learn more about my work.</p>
                 <a href="https://ch.linkedin.com/in/rebiloh" class="linkedin-connection-btn" id="linkedinConnectionBtn" target="_blank" rel="noopener noreferrer" data-linkedin="profile" aria-label="Open LinkedIn profile">
@@ -133,7 +133,7 @@
         </div>
 
         <!-- About Section - Placeholder -->
-        <div class="about-section-designer about-long-form" id="aboutSection" style="display: none;">
+        <div class="about-section-designer about-long-form" id="aboutSection" style="display: flex;">
             <div class="about-content">
                 <div class="about-card">
                     <p class="about-intro" id="aboutIntro"></p>
@@ -400,7 +400,7 @@
             };
 
             function showSection(section) {
-                const target = sections[section] ? section : 'connect';
+                const target = sections[section] ? section : 'about';
 
                 Object.entries(sections).forEach(([key, value]) => {
                     if (!value.element) return;
@@ -434,7 +434,7 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const section = link.getAttribute('data-section') || 'connect';
+                    const section = link.getAttribute('data-section') || 'about';
 
                     navLinks.forEach(nl => nl.classList.remove('active'));
                     link.classList.add('active');
