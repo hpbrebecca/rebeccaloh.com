@@ -64,7 +64,7 @@
             <div class="profile-orb-small" data-linkedin="profile" role="link" tabindex="0" aria-label="Open LinkedIn profile">
                 <div class="profile-flip-inner">
                     <div class="profile-flip-front">
-                        <img src="project1/profile.jpg" alt="Portrait of Rebecca Loh" class="profile-image-corner" id="profileImageFuture" loading="lazy" decoding="async">
+                        <img src="project1/profile.jpg" alt="Portrait of Rebecca Loh" class="profile-image-corner" id="profileImageFuture" loading="eager" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     </div>
                     <div class="profile-flip-back">
                         <svg class="linkedin-logo-flip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,28 +115,28 @@
                 <!-- Company Logos - Static layout -->
                 <div class="logo-grid connect-logos">
                     <figure class="logo-card">
-                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/finma.jpg" alt="FINMA" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/iba.svg" alt="IBA AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/ficas.svg" alt="FICAS AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/swisscom.png" alt="Swisscom" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/Continental.png" alt="Continental" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/Continental.png" alt="Continental" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/lekkerland.svg" alt="Lekkerland" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="logos/SRF.jpg" alt="SRF" class="company-logo-img" loading="lazy" decoding="async" onerror="handleLogoError(this);">
+                        <img src="logos/SRF.jpg" alt="SRF" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                 </div>
             </div>
@@ -186,7 +186,7 @@
             </div>
 
             <div class="control-item audio-control" id="audioPlayerContainerFuture">
-                <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience">
+                <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience" autoplay="false">
                     <source src="project1/music.mp3" type="audio/mpeg">
                 </audio>
                 <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
@@ -630,6 +630,21 @@
             
             // Handle URL routing
             function handleRouting() {
+                // Check if we have a redirect parameter from 404.html
+                const urlParams = new URLSearchParams(window.location.search);
+                const redirectPath = urlParams.get('redirect');
+                
+                if (redirectPath) {
+                    // Restore the original URL from the redirect parameter
+                    // This happens when someone directly accesses a URL like /en/aboutme
+                    window.history.replaceState(null, '', redirectPath);
+                    // Remove the redirect parameter from the URL
+                    urlParams.delete('redirect');
+                    const newSearch = urlParams.toString();
+                    const newUrl = redirectPath + (newSearch ? '?' + newSearch : '');
+                    window.history.replaceState(null, '', newUrl);
+                }
+                
                 const path = window.location.pathname;
                 const hash = window.location.hash.replace('#', '');
                 
@@ -816,31 +831,11 @@
             const audioBtn = document.getElementById('audioControlBtnFuture');
 
             if (audioPlayer && audioBtn) {
-                let audioInitialized = false;
-
-                const interactionEvents = ['mousedown', 'touchstart', 'pointerdown', 'keydown'];
-
-                const attemptAudio = () => {
-                    if (audioInitialized) return;
-                    audioPlayer.muted = false;
-                    const playPromise = audioPlayer.play();
-                    if (playPromise) {
-                        playPromise.then(() => {
-                            audioBtn.classList.add('playing');
-                        }).catch(() => {
-                            audioPlayer.muted = true;
-                            audioBtn.classList.remove('playing');
-                        });
-                    } else {
-                        audioBtn.classList.add('playing');
-                    }
-                    audioInitialized = true;
-                };
-
-                interactionEvents.forEach(eventName => {
-                    document.addEventListener(eventName, attemptAudio, { once: true });
-                });
-
+                // Ensure audio is muted and paused by default
+                audioPlayer.muted = true;
+                audioPlayer.pause();
+                
+                // Only start music when user explicitly clicks the button
                 audioBtn.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
@@ -852,14 +847,15 @@
                                 audioBtn.classList.add('playing');
                             }).catch(() => {
                                 audioPlayer.muted = true;
+                                audioPlayer.pause();
                                 audioBtn.classList.remove('playing');
                             });
                         } else {
                             audioBtn.classList.add('playing');
                         }
-                        audioInitialized = true;
                     } else {
                         audioPlayer.pause();
+                        audioPlayer.muted = true;
                         audioBtn.classList.remove('playing');
                     }
                 });

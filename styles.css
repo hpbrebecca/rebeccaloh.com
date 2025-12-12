@@ -45,29 +45,29 @@ html, body {
    DESIGN TOKENS - Typography & Spacing
    ============================================ */
 :root {
-    /* Typography Scale - Perfect Mathematical Proportions */
-    --font-display: clamp(1.25rem, 2.4vw, 1.95rem);
-    --font-heading: clamp(1.5rem, 2.9vw, 2.15rem);
-    --font-body: clamp(1rem, 1.35vw, 1.18rem);
-    --font-small: clamp(0.75rem, 1.05vw, 0.875rem);
-    --font-tiny: clamp(0.5625rem, 0.9vw, 0.6875rem);
+    /* Typography Scale - Refined & Professional (Optimized for Space Efficiency) */
+    --font-display: clamp(1.25rem, 2.6vw, 2rem);
+    --font-heading: clamp(1.375rem, 2.4vw, 2rem);
+    --font-body: clamp(1rem, 1.4vw, 1.25rem);
+    --font-small: clamp(0.8125rem, 1.1vw, 0.9375rem);
+    --font-tiny: clamp(0.625rem, 0.85vw, 0.75rem);
     
-    /* Spacing Scale - Perfect 8px Grid System */
-    --space-xs: clamp(4px, 0.5vw, 8px);
-    --space-sm: clamp(8px, 1vw, 16px);
-    --space-md: clamp(16px, 2vw, 24px);
-    --space-lg: clamp(24px, 3vw, 32px);
-    --space-xl: clamp(32px, 4vw, 48px);
-    --space-2xl: clamp(48px, 6vw, 64px);
-    --space-3xl: clamp(64px, 8vw, 80px);
+    /* Spacing Scale - Professional & Sophisticated */
+    --space-xs: clamp(6px, 0.6vw, 10px);
+    --space-sm: clamp(10px, 1.2vw, 16px);
+    --space-md: clamp(16px, 2.2vw, 28px);
+    --space-lg: clamp(24px, 3.4vw, 40px);
+    --space-xl: clamp(32px, 4.6vw, 56px);
+    --space-2xl: clamp(48px, 6.8vw, 80px);
+    --space-3xl: clamp(64px, 9vw, 112px);
     
-    /* Layout Gutters - Perfect 8px Grid Alignment */
-    --content-gutter: clamp(16px, 25vw, 10cm);
-    --content-gutter-right: clamp(16px, 15vw, 8cm);
-    --content-offset: clamp(0%, 4vw, 4%);
+    /* Layout Gutters - Balanced Aesthetic Spacing */
+    --content-gutter: clamp(24px, 3.2vw, 48px);
+    --content-gutter-right: clamp(24px, 3.2vw, 48px);
+    --content-offset: clamp(0%, 1vw, 2%);
     
-    /* Control Heights - Perfect Proportions */
-    --control-height: clamp(36px, 4.2vw, 40px);
+    /* Control Heights - Professional Proportions */
+    --control-height: clamp(36px, 4.2vw, 44px);
     
     /* Z-Index Hierarchy - Clear & Logical */
     --z-background: 1;
@@ -132,19 +132,23 @@ body:lang(zh),
    ============================================ */
 .profile-corner {
     position: fixed;
-    top: clamp(24px, 3.2vw, 40px);
-    left: clamp(16px, 3.2vw, 40px);
+    top: clamp(16px, 2vw, 24px);
+    left: clamp(16px, 2vw, 24px);
+    bottom: auto;
     z-index: var(--z-profile);
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-md);
+    flex-direction: row;
+    align-items: center;
+    gap: clamp(10px, 1.2vw, 14px);
+    max-width: calc(50vw - clamp(200px, 25vw, 300px));
+    /* Professional top-left positioning */
 }
 
 .profile-orb-container-small {
     position: relative;
-    width: clamp(48px, 6.4vw, 64px);
-    height: clamp(48px, 6.4vw, 64px);
+    width: clamp(44px, 5.2vw, 56px);
+    height: clamp(44px, 5.2vw, 56px);
+    flex-shrink: 0;
 }
 
 .profile-orb-small {
@@ -207,6 +211,11 @@ body:lang(zh),
     border-radius: 50%;
     background-color: #ffffff;
     display: block;
+    /* Mobile image loading fix */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .linkedin-logo-flip {
@@ -222,6 +231,10 @@ body:lang(zh),
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .name-corner {
@@ -254,25 +267,33 @@ h1.name-corner {
 }
 
 .name-main-corner {
-    font-size: var(--font-display);
+    font-size: clamp(1.125rem, 2vw, 1.625rem);
     font-weight: 400;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.95);
-    line-height: 1.2;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.98);
+    line-height: 1.3;
     font-feature-settings: "liga" 1, "kern" 1;
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .name-location-corner {
-    font-size: var(--font-small);
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
     font-weight: 300;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.65);
-    line-height: 1.2;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.3;
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
     display: block;
-    margin-top: var(--space-xs);
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 [data-linkedin="profile"] {
@@ -289,38 +310,43 @@ h1.name-corner {
 }
 
 /* ============================================
-   NAVIGATION - Top Center
+   NAVIGATION - Top Center (same height as controls)
    ============================================ */
 .main-navigation {
     position: fixed;
-    top: clamp(40px, 5.2vw, 48px);
-    left: calc(var(--content-gutter) + var(--content-offset));
-    right: calc(var(--content-gutter-right) - var(--content-offset));
-    transform: none;
+    top: clamp(16px, 2vw, 24px);
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: var(--z-navigation);
     display: flex;
-    gap: clamp(24px, 4.8vw, 56px);
+    gap: clamp(8px, 1.2vw, 16px);
     align-items: center;
     width: auto;
     justify-content: center;
-    /* Premium centered navigation */
-    margin: 0 auto;
-    max-width: 100%;
+    margin: 0;
+    /* Professional top positioning - same height as controls */
+    min-width: clamp(200px, 25vw, 300px);
+    max-width: calc(100vw - clamp(280px, 35vw, 400px));
+    padding: 0;
+    flex-wrap: nowrap;
+    overflow: visible;
 }
 
 .nav-link {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.75rem, 1.35vw, calc(var(--font-small) + 0.25rem));
+    font-size: clamp(0.8125rem, 1.2vw, 1rem);
     font-weight: 300;
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.68);
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.72);
     text-decoration: none;
-    padding: clamp(12px, 1.4vw, 14px) clamp(6px, 0.9vw, 10px);
+    padding: clamp(6px, 0.8vw, 8px) clamp(6px, 0.8vw, 10px);
     border-bottom: 2px solid transparent;
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     text-transform: uppercase;
-    white-space: nowrap;
+    white-space: normal;
+    flex-shrink: 0;
     /* Premium typography */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -354,10 +380,10 @@ h1.name-corner {
    ============================================ */
 .main-content-designer {
     position: fixed;
-    top: calc(clamp(104px, 12.8vw, 120px) + 5vh);
-    bottom: clamp(64px, 8.4vw, 10vh);
-    left: calc(var(--content-gutter) + var(--content-offset));
-    right: calc(var(--content-gutter-right) - var(--content-offset));
+    top: clamp(88px, 10vw, 120px);
+    bottom: clamp(64px, 7.2vw, 80px);
+    left: var(--content-gutter);
+    right: var(--content-gutter-right);
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -366,7 +392,7 @@ h1.name-corner {
     justify-content: flex-start;
     scrollbar-width: none;
     z-index: var(--z-content);
-    /* Performance optimizations */
+    /* Professional vertical spacing - top for controls and navigation */
     contain: layout style paint;
     will-change: scroll-position;
     transform: translateZ(0);
@@ -376,7 +402,7 @@ h1.name-corner {
 .main-content-designer.scrollable {
     overflow-y: auto;
     align-items: flex-start;
-    padding-bottom: clamp(104px, 12.8vw, 144px);
+    padding-bottom: clamp(96px, 12vw, 144px);
 }
 
 .main-content-designer.scrollable::-webkit-scrollbar {
@@ -393,18 +419,28 @@ h1.name-corner {
 /* ============================================
    SECTIONS - Unified Styling with Fixed H2 Frame
    ============================================ */
-.about-section-designer {
+.about-section-designer,
+.quote-section-designer,
+.recommendations-section,
+#connectSection {
     width: 100%;
-    min-height: clamp(304px, 40.8vw, 400px);
+    max-width: 100%;
+    min-height: clamp(280px, 36vw, 400px);
     display: flex;
     align-items: flex-start;
     justify-content: center;
     animation: fadeInAbout 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    contain: layout style paint;
+    contain: layout style;
     will-change: opacity, transform;
-    /* Premium centered layout */
+    /* Professional frame with generous vertical space */
     margin: 0 auto;
     padding: 0;
+    /* Mobile performance optimizations */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: visible;
 }
 
 @keyframes fadeInAbout {
@@ -425,11 +461,14 @@ h1.name-corner {
     align-items: center;
     gap: var(--space-xl);
     width: 100%;
+    max-width: 100%;
     contain: layout style;
-    /* Premium spacing and alignment */
+    /* Professional spacing for sophisticated layout */
     padding: 0;
     margin: 0 auto;
-    max-width: 100%;
+    /* Mobile performance */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 /* ============================================
@@ -439,9 +478,9 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: var(--font-heading);
     font-weight: 400;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.95);
-    line-height: 1.5;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.98);
+    line-height: 1.35;
     margin: 0;
     padding: 0;
     text-transform: none;
@@ -450,12 +489,12 @@ h1.name-corner {
     font-feature-settings: "liga" 1, "kern" 1;
     contain: layout style;
     will-change: auto;
-    /* Fixed height frame - ensures identical positioning on all pages (perfect 8px grid) */
-    min-height: clamp(64px, 8.8vw, 88px);
+    /* Professional height with reduced spacing */
+    min-height: clamp(56px, 7.2vw, 88px);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-md);
     width: 100%;
     /* Premium typography refinement */
     text-rendering: optimizeLegibility;
@@ -463,15 +502,15 @@ h1.name-corner {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Increased spacing for connect section */
+/* Optimized spacing for connect section */
 #connectSection .about-content {
-    gap: clamp(40px, 5vw, 56px);
+    gap: clamp(32px, 4.6vw, 56px);
     align-items: center;
 }
 
 #connectSection .section-heading {
     text-align: center;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
 }
 
 #connectSection .about-description {
@@ -479,26 +518,30 @@ h1.name-corner {
 }
 
 #connectSection .linkedin-connection-btn {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
 }
 
 #connectSection .connect-logos {
-    margin-top: var(--space-md);
+    margin-top: var(--space-sm);
 }
 
 .about-description {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-body);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
     font-weight: 300;
-    letter-spacing: 0.06em;
-    color: rgba(255, 255, 255, 0.92);
-    line-height: 1.75;
-    max-width: clamp(432px, 53.6vw, 528px);
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.94);
+    line-height: 1.7;
+    max-width: clamp(520px, 68vw, 720px);
     margin: 0 auto;
     /* Premium typography */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Mobile performance */
+    contain: layout style;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .about-long-form .about-content {
@@ -507,13 +550,13 @@ h1.name-corner {
     text-align: left;
     gap: var(--space-xl);
     padding: 0;
-    /* Premium layout - centered heading, left-aligned content */
+    /* Professional layout - centered heading, left-aligned content */
 }
 
 .about-long-form .section-heading {
     /* H2 stays centered for consistency */
     text-align: center;
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-md);
 }
 
 .about-long-form .about-card {
@@ -527,22 +570,22 @@ h1.name-corner {
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: clamp(24px, 3.2vw, 32px);
+    gap: clamp(24px, 3.4vw, 40px);
     background: none;
     border: none;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
-    /* Premium spacing */
+    /* Professional spacing for sophisticated layout */
     margin: 0 auto;
 }
 
 .about-intro {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-body);
-    letter-spacing: 0.06em;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.85;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.7;
     margin: 0;
     /* Premium typography */
     text-rendering: optimizeLegibility;
@@ -566,7 +609,7 @@ h1.name-corner {
     border-radius: 0;
     background: none;
     backdrop-filter: none;
-    padding: clamp(16px, 2.2vw, 20px) 0;
+    padding: clamp(16px, 2.2vw, 24px) 0;
     transition: border-color 0.3s ease;
 }
 
@@ -582,17 +625,17 @@ h1.name-corner {
     list-style: none;
     cursor: pointer;
     position: relative;
-    padding-right: clamp(40px, 5vw, 48px);
+    padding-right: clamp(36px, 4.4vw, 44px);
     padding-left: 0;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-body);
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.92);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.94);
     text-transform: uppercase;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     /* Premium interaction */
     transition: color 0.3s ease;
 }
@@ -607,11 +650,11 @@ h1.name-corner {
 
 .about-detail-summary::after {
     content: "+";
-    font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
     font-weight: 300;
     color: rgba(255, 255, 255, 0.55);
     position: absolute;
-    right: clamp(6px, 1vw, 8px);
+    right: clamp(4px, 0.8vw, 6px);
     top: 50%;
     transform: translateY(-50%);
     transition: transform 0.3s ease, color 0.3s ease;
@@ -627,20 +670,20 @@ h1.name-corner {
     margin-top: var(--space-md);
     display: block;
     column-count: 2;
-    column-gap: clamp(28px, 4vw, 40px);
+    column-gap: clamp(32px, 4.6vw, 48px);
     column-fill: balance;
     text-align: justify;
     padding: 0;
 }
 
 .about-detail-body p {
-    font-size: clamp(0.875rem, 1.25vw, calc(var(--font-small) + 0.125rem));
-    letter-spacing: 0.04em;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.82);
+    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
     text-align: justify;
     break-inside: avoid;
-    margin: 0 0 clamp(16px, 2vw, 20px);
+    margin: 0 0 clamp(18px, 2.4vw, 24px);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     /* Premium typography */
     text-rendering: optimizeLegibility;
@@ -694,12 +737,16 @@ h1.name-corner {
 .logo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 12vw, 120px), 1fr));
-    column-gap: clamp(24px, 3vw, 32px);
-    row-gap: clamp(20px, 2.5vw, 28px);
+    column-gap: clamp(20px, 2.6vw, 28px);
+    row-gap: clamp(16px, 2.2vw, 24px);
     justify-items: flex-start;
     width: 100%;
-    max-width: 900px;
+    max-width: 100%;
     margin: 0 auto;
+    /* Mobile performance */
+    contain: layout style;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .logo-card {
@@ -740,6 +787,10 @@ h1.name-corner {
     will-change: opacity, filter, transform;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    /* Mobile image loading fix */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: block;
 }
 
 /* Logo-specific fixes */
@@ -857,25 +908,22 @@ h1.name-corner {
    QUOTE SECTION
    ============================================ */
 .quote-section-designer {
-    width: 100%;
-    max-width: none;
-    min-height: clamp(208px, 26vw, 256px);
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
     padding: 0 var(--space-md);
     gap: var(--space-xl);
-    contain: layout style paint;
-    /* Premium layout */
-    margin: 0 auto;
-    animation: fadeInAbout 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Professional spacing for quotes */
+    contain: layout style;
+    overflow: visible;
 }
 
 .quote-container-future {
     position: relative;
     width: 100%;
-    height: 100%;
+    min-height: clamp(220px, 28vw, 280px);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .quote-future {
@@ -884,13 +932,13 @@ h1.name-corner {
     left: 50%;
     transform: translate(-50%, -50%) translateZ(0);
     -webkit-transform: translate(-50%, -50%) translateZ(0);
-    width: min(90rem, 92vw);
-    font-size: clamp(1.05rem, 2.2vw, 1.6rem);
-    line-height: 1.4;
+    width: min(90rem, 96vw);
+    font-size: clamp(1.125rem, 2.2vw, 1.75rem);
+    line-height: 1.55;
     color: rgba(255, 255, 255, 0.98);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 300;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     text-align: center;
     padding: 0 clamp(6px, 1vw, 8px);
     opacity: 0;
@@ -903,9 +951,9 @@ h1.name-corner {
     overflow-wrap: break-word;
     word-break: break-word;
     hyphens: auto;
-    max-width: 95%;
-    /* Performance optimizations */
-    contain: layout style paint;
+    max-width: 98%;
+    /* Enhanced mobile performance optimizations */
+    contain: layout style;
     will-change: opacity, transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -943,10 +991,10 @@ h1.name-corner {
 
 .quote-author-future {
     display: block;
-    margin-top: var(--space-md);
-    font-size: clamp(0.9rem, 1.3vw, calc(var(--font-small) + 0.38rem));
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--space-sm);
+    font-size: clamp(0.875rem, 1.3vw, 1.125rem);
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.75);
     text-transform: uppercase;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 400;
@@ -955,43 +1003,36 @@ h1.name-corner {
 /* ============================================
    RECOMMENDATIONS SECTION
    ============================================ */
-.recommendations-section {
-    width: 100%;
-    max-width: 912px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 0;
-    margin: 0 auto;
-    contain: layout style;
-    /* Premium centered layout */
-    animation: fadeInAbout 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+/* .recommendations-section inherits unified frame from base selector above */
 
 .recommendations-content {
     width: 100%;
-    max-width: 768px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(24px, 3.2vw, 32px);
+    gap: clamp(24px, 3.4vw, 40px);
     background: none;
     border: none;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
     margin: 0 auto;
-    /* Premium centered content */
+    /* Professional centered content with generous spacing */
     text-align: center;
+    /* Mobile performance */
+    contain: layout style;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .recommendations-body {
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    /* Premium layout */
+    /* Optimized layout */
     margin: 0 auto;
 }
 
@@ -1006,22 +1047,27 @@ h1.name-corner {
 
 .recommendations-grid {
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: clamp(24px, 3vw, 32px);
-    max-width: 528px;
+    gap: clamp(20px, 2.8vw, 28px);
     margin: 0 auto;
-    /* Premium spacing */
+    /* Professional spacing - full width with generous gaps */
+    /* Mobile performance */
+    contain: layout style;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 .recommendation-card {
-    padding: clamp(16px, 2.4vw, 24px) 0;
+    padding: clamp(16px, 2.2vw, 24px) 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     flex-direction: column;
-    gap: clamp(12px, 1.4vw, 16px);
+    align-items: center;
+    gap: clamp(10px, 1.4vw, 16px);
     background: none;
-    /* Premium spacing */
+    /* Professional spacing - centered content */
     transition: border-color 0.3s ease;
 }
 
@@ -1035,27 +1081,29 @@ h1.name-corner {
 
 .service-label {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-body);
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.88);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.92);
     line-height: 1.6;
+    text-align: center;
     /* Premium typography */
     text-rendering: optimizeLegibility;
 }
 
 .service-link {
     font-family: 'Inter', sans-serif;
-    font-size: var(--font-small);
-    letter-spacing: 0.08em;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    letter-spacing: 0.05em;
     text-transform: none;
     color: rgba(123, 195, 255, 0.95);
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     width: fit-content;
-    margin-top: 4px;
-    /* Premium interaction */
+    margin: 4px auto 0;
+    /* Premium interaction - centered */
     display: inline-flex;
     align-items: center;
+    justify-content: center;
 }
 
 .service-link:hover {
@@ -1078,64 +1126,66 @@ h1.name-corner {
    ============================================ */
 .disclaimer-section {
     width: 100%;
-    max-width: 736px;
-    min-height: clamp(256px, 32vw, 336px);
+    max-width: 760px;
+    min-height: clamp(200px, 26vw, 280px);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 clamp(24px, 3.2vw, 32px);
+    padding: 0 clamp(20px, 2.8vw, 28px);
 }
 
 .disclaimer-card {
     width: 100%;
-    padding: clamp(24px, 3.2vw, 32px) clamp(32px, 4.4vw, 40px);
+    padding: clamp(20px, 2.6vw, 28px) clamp(24px, 3.4vw, 32px);
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .disclaimer-heading {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.9rem, 1.3vw, 1.02rem);
-    letter-spacing: 0.26em;
+    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.94);
     margin: 0;
 }
 
 .disclaimer-copy {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-small);
-    letter-spacing: 0.08em;
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
     margin: 0;
     text-align: justify;
 }
 
 /* ============================================
-   CONTROL PANEL - Bottom Left
+   CONTROL PANEL - Top Right
    ============================================ */
 .control-panel {
     position: fixed;
-    bottom: clamp(24px, 3.2vw, calc(48px - 0.5cm));
-    left: clamp(16px, 3.2vw, 40px);
+    top: clamp(16px, 2vw, 24px);
+    bottom: auto;
+    right: clamp(16px, 2vw, 24px);
     z-index: var(--z-controls);
     display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    align-items: flex-start;
+    flex-direction: row;
+    gap: clamp(8px, 1vw, 12px);
+    align-items: center;
     width: auto;
-    max-width: min(432px, calc(100vw - clamp(32px, 6.4vw, 80px)));
+    max-width: calc(100vw - clamp(32px, 4vw, 48px));
+    /* Professional top-right positioning */
 }
 
 .control-row {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: var(--space-xs);
+    justify-content: flex-end;
+    gap: clamp(6px, 0.8vw, 10px);
     flex-wrap: nowrap;
-    width: 100%;
+    width: auto;
 }
 
 .control-item {
@@ -1158,11 +1208,11 @@ h1.name-corner {
 
 .disclaimer-mini {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: var(--font-small);
-    letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.68);
-    line-height: 1.6;
-    max-width: clamp(280px, 35vw, 360px);
+    font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.4;
+    max-width: clamp(120px, 15vw, 160px);
     text-align: right;
     background: transparent;
     border: none;
@@ -1170,7 +1220,10 @@ h1.name-corner {
     cursor: pointer;
     text-transform: uppercase;
     transition: color 0.3s ease, opacity 0.3s ease;
-    margin-left: var(--space-xs);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .disclaimer-mini:hover,
@@ -1187,7 +1240,7 @@ h1.name-corner {
 
 /* Language Control */
 .language-control {
-    min-width: clamp(100px, 12vw, 120px);
+    min-width: clamp(80px, 10vw, 100px);
 }
 
 .control-trigger {
@@ -1211,10 +1264,10 @@ h1.name-corner {
 
 .control-label {
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-    font-size: var(--font-small);
+    font-size: clamp(0.75rem, 1vw, 0.875rem);
     font-weight: 300;
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.92);
     text-transform: uppercase;
 }
 
@@ -1362,50 +1415,162 @@ h1.name-corner {
 /* ============================================
    RESPONSIVE BREAKPOINTS
    ============================================ */
-@media (max-width: 768px) {
-    :root {
-        --content-gutter: 12px;
-        --content-gutter-right: 12px;
-        --content-offset: 0;
+
+/* Very large screens - ensure proper spacing */
+@media (min-width: 1920px) {
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        max-width: clamp(300px, 20vw, 400px);
     }
     
     .main-navigation {
-        top: clamp(104px, 15.2vw, 144px);
-        gap: clamp(16px, 2.2vw, 20px);
-        padding: 0 var(--space-md);
-        overflow-x: auto;
-        justify-content: flex-start;
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        max-width: calc(100vw - clamp(600px, 40vw, 800px));
+        min-width: clamp(300px, 25vw, 400px);
+    }
+}
+
+/* Large screens - prevent overlap */
+@media (max-width: 1919px) and (min-width: 1441px) {
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        max-width: clamp(280px, 18vw, 360px);
+    }
+    
+    .main-navigation {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        max-width: calc(100vw - clamp(500px, 35vw, 700px));
+        min-width: clamp(250px, 22vw, 350px);
+    }
+}
+
+/* Medium-large screens */
+@media (max-width: 1440px) and (min-width: 1025px) {
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        max-width: calc(35vw - clamp(100px, 12vw, 150px));
+    }
+    
+    .main-navigation {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        max-width: calc(100vw - clamp(380px, 45vw, 550px));
+        min-width: clamp(200px, 20vw, 300px);
+    }
+}
+
+/* Medium screens - prevent overlap */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        max-width: calc(40vw - clamp(80px, 10vw, 120px));
+    }
+    
+    .main-navigation {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        max-width: calc(100vw - clamp(320px, 40vw, 480px));
+        min-width: clamp(180px, 22vw, 260px);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --content-gutter: clamp(16px, 2vw, 24px);
+        --content-gutter-right: clamp(16px, 2vw, 24px);
+        --content-offset: 0;
+    }
+    
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        left: clamp(16px, 2vw, 24px);
+        max-width: calc(45vw - clamp(80px, 12vw, 140px));
+        gap: clamp(6px, 0.8vw, 10px);
+    }
+    
+    .profile-orb-container-small {
+        width: clamp(32px, 4vw, 40px);
+        height: clamp(32px, 4vw, 40px);
+    }
+    
+    .name-main-corner {
+        font-size: clamp(0.8125rem, 1.4vw, 1.125rem);
+    }
+    
+    .name-location-corner {
+        font-size: clamp(0.5625rem, 0.7vw, 0.6875rem);
+    }
+    
+    .main-navigation {
+        top: clamp(64px, 8vw, 80px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        padding: clamp(8px, 1vw, 12px) clamp(12px, 1.6vw, 16px);
+        overflow: visible;
+        justify-content: center;
         left: 50%;
         right: auto;
         transform: translateX(-50%);
-        width: calc(100vw - clamp(32px, 4.4vw, 40px));
+        width: calc(100vw - clamp(16px, 2vw, 24px));
+        min-width: auto;
+        max-width: calc(100vw - clamp(16px, 2vw, 24px));
+        flex-wrap: wrap;
     }
 
     .main-navigation::-webkit-scrollbar {
         display: none;
     }
 
+    .main-navigation .nav-link {
+        white-space: normal;
+        text-align: center;
+        min-width: fit-content;
+    }
+
     .main-content-designer {
-        top: calc(clamp(120px, 18.4vw, 160px) + 4vh);
-        bottom: calc(clamp(64px, 9.6vw, 80px) + 7vh);
+        top: clamp(120px, 14vw, 140px);
+        bottom: clamp(64px, 7.2vw, 80px);
         left: var(--content-gutter);
         right: var(--content-gutter-right);
         width: auto;
-        padding: 0 var(--space-xs);
+        padding: 0;
     }
 
     .main-content-designer.scrollable::-webkit-scrollbar-thumb {
         background: rgba(200, 200, 200, 0.18);
     }
 
+    .quote-section-designer,
+    .about-section-designer,
+    .recommendations-section,
+    #connectSection {
+        min-height: clamp(240px, 32vw, 320px);
+        contain: layout style;
+        overflow: visible;
+    }
+    
     .quote-section-designer {
-        min-height: 200px;
         gap: var(--space-lg);
+    }
+    
+    .quote-container-future {
+        min-height: clamp(180px, 24vw, 240px);
     }
     
     .quote-section-designer .section-heading {
         text-align: center;
-        margin-bottom: var(--space-lg);
+        margin-bottom: var(--space-md);
     }
 
     .about-card {
@@ -1413,13 +1578,13 @@ h1.name-corner {
     }
 
     .about-detail {
-        padding: clamp(12px, 1.8vw, 16px) 0;
+        padding: clamp(10px, 1.4vw, 14px) 0;
     }
 
     .about-detail-summary {
-        font-size: clamp(0.75rem, 2.8vw, 0.95rem);
-        letter-spacing: 0.12em;
-        padding-right: clamp(36px, 5vw, 44px);
+        font-size: clamp(0.9375rem, 1.8vw, 1.125rem);
+        letter-spacing: 0.1em;
+        padding-right: clamp(32px, 4.2vw, 40px);
     }
 
     .about-detail-body {
@@ -1428,19 +1593,24 @@ h1.name-corner {
     }
 
     .about-detail-body p {
-        font-size: clamp(0.84rem, 2.2vw, calc(var(--font-small) + 0.24rem));
-        line-height: 1.8;
+        font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+        line-height: 1.7;
     }
 
     .recommendations-content {
         padding: 0 var(--space-xs);
-        gap: var(--space-lg);
+        gap: var(--space-md);
         align-items: center;
+        max-width: 100%;
     }
     
     .recommendations-content .section-heading {
         text-align: center;
-        margin-bottom: var(--space-lg);
+        margin-bottom: var(--space-md);
+    }
+    
+    .recommendations-grid {
+        max-width: 100%;
     }
 
     .recommendations-body {
@@ -1449,26 +1619,28 @@ h1.name-corner {
     }
 
     .recommendation-card {
-        padding: clamp(14px, 2vw, 18px) 0;
-        gap: clamp(8px, 1.2vw, 12px);
+        padding: clamp(10px, 1.6vw, 14px) 0;
+        gap: clamp(6px, 1vw, 10px);
     }
 
     .service-label {
-        font-size: clamp(0.9rem, 3vw, 1.05rem);
+        font-size: clamp(1rem, 2vw, 1.25rem);
     }
 
     .service-link {
-        font-size: clamp(0.75rem, 2.5vw, 0.9rem);
+        font-size: clamp(0.875rem, 1.6vw, 1rem);
     }
 
     .control-panel {
-        bottom: 24px;
-        right: var(--space-md);
-        left: var(--space-md);
-        gap: clamp(8px, 1.4vw, 12px);
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        right: clamp(16px, 2vw, 24px);
+        left: auto;
+        gap: clamp(6px, 0.8vw, 10px);
         align-items: center;
-        width: calc(100vw - clamp(32px, 4.4vw, 40px));
-        --control-height: clamp(32px, 4.8vw, 40px);
+        width: auto;
+        flex-direction: row;
+        --control-height: clamp(28px, 3.2vw, 32px);
     }
 
     .control-row {
@@ -1482,47 +1654,47 @@ h1.name-corner {
 
     .disclaimer-mini {
         text-align: right;
-        font-size: clamp(0.55rem, 2vw, 0.65rem);
+        font-size: clamp(0.75rem, 1.6vw, 0.9375rem);
         white-space: nowrap;
         margin-left: var(--space-xs);
         padding: 2px var(--space-xs);
     }
 
     .disclaimer-section {
-        padding: 0 var(--space-md);
-        min-height: 240px;
+        padding: 0 var(--space-sm);
+        min-height: 200px;
     }
 
     .disclaimer-card {
-        padding: clamp(18px, 2.5vw, 20px);
-        gap: var(--space-md);
+        padding: clamp(16px, 2.2vw, 20px);
+        gap: var(--space-sm);
     }
 
     .disclaimer-heading {
-        font-size: clamp(0.85rem, 3vw, 0.95rem);
-        letter-spacing: 0.2em;
+        font-size: clamp(0.9375rem, 1.8vw, 1.125rem);
+        letter-spacing: 0.18em;
     }
 
     .disclaimer-copy {
-        font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-        line-height: 1.65;
+        font-size: clamp(0.875rem, 1.6vw, 1rem);
+        line-height: 1.7;
     }
 
     .about-section-designer.about-long-form {
-        padding-bottom: clamp(64px, 10.4vw, 88px);
+        padding-bottom: clamp(48px, 8vw, 72px);
     }
 
     .about-long-form .about-content {
         max-width: calc(100vw - clamp(12px, 2vw, 16px));
         align-items: center;
         text-align: left;
-        gap: var(--space-xl);
+        gap: var(--space-lg);
         padding: 0;
     }
     
     .about-long-form .section-heading {
         text-align: center;
-        margin-bottom: var(--space-lg);
+        margin-bottom: var(--space-md);
     }
 
     .control-button svg {
@@ -1531,52 +1703,65 @@ h1.name-corner {
     }
 
     .profile-corner {
-        top: 24px;
-        left: var(--space-md);
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        left: clamp(16px, 2vw, 24px);
+        right: auto;
         flex-direction: row;
         align-items: center;
-        gap: var(--space-md);
+        gap: clamp(6px, 0.8vw, 10px);
+        max-width: calc(45vw - clamp(80px, 12vw, 140px));
     }
-
+    
     .profile-orb-container-small {
-        width: clamp(44px, 5.6vw, 48px);
-        height: clamp(44px, 5.6vw, 48px);
+        width: clamp(32px, 4vw, 40px);
+        height: clamp(32px, 4vw, 40px);
     }
-
+    
     .name-corner-section {
         margin-top: 0;
         align-items: flex-start;
+        text-align: left;
     }
-
+    
     .name-corner {
-        gap: 3px;
+        gap: 2px;
     }
-
+    
     .name-main-corner {
-        font-size: clamp(0.9rem, 4vw, 1.1rem);
-        letter-spacing: 0.1em;
+        font-size: clamp(0.8125rem, 1.4vw, 1.125rem);
+        letter-spacing: 0.08em;
     }
-
+    
     .name-location-corner {
-        font-size: clamp(0.55rem, 2.5vw, 0.65rem);
-        letter-spacing: 0.15em;
+        font-size: clamp(0.5625rem, 0.7vw, 0.6875rem);
+        letter-spacing: 0.14em;
     }
 
     .about-content {
-        gap: var(--space-lg);
+        gap: var(--space-md);
         padding: 0 var(--space-xs);
         align-items: center;
     }
     
     .section-heading {
-        margin-bottom: var(--space-lg);
-        min-height: clamp(56px, 8vw, 80px);
+        margin-bottom: var(--space-md);
+        min-height: clamp(48px, 6.4vw, 72px);
+    }
+    
+    #connectSection .section-heading,
+    .quote-section-designer .section-heading,
+    .recommendations-content .section-heading {
+        margin-bottom: var(--space-md);
+        min-height: clamp(48px, 6.4vw, 72px);
     }
 
     .about-description {
-        font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+        font-size: clamp(1rem, 2vw, 1.25rem);
         max-width: 100%;
         padding: 0 var(--space-xs);
+        /* Mobile performance */
+        contain: layout style;
     }
 
     .logo-grid {
@@ -1591,41 +1776,105 @@ h1.name-corner {
     }
 }
 
+/* Small screens - stack profile vertically if needed */
+@media (max-width: 640px) and (min-width: 481px) {
+    .profile-corner {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        max-width: calc(45vw - clamp(80px, 12vw, 140px));
+    }
+    
+    .main-navigation {
+        top: clamp(64px, 8vw, 80px);
+        bottom: auto;
+        gap: clamp(8px, 1.2vw, 16px);
+        padding: clamp(8px, 1vw, 12px) clamp(12px, 1.6vw, 16px);
+        width: calc(100vw - clamp(16px, 2vw, 24px));
+        max-width: calc(100vw - clamp(16px, 2vw, 24px));
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+}
+
 @media (max-width: 480px) {
     .profile-corner {
-        top: 16px;
-        left: 12px;
-        gap: var(--space-sm);
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        left: clamp(12px, 1.6vw, 20px);
+        right: auto;
+        gap: clamp(6px, 0.8vw, 10px);
+        max-width: calc(45vw - clamp(60px, 10vw, 120px));
+    }
+    
+    .main-navigation {
+        top: clamp(60px, 7.5vw, 72px);
+        bottom: auto;
+        gap: clamp(6px, 1vw, 12px);
+        padding: clamp(6px, 0.8vw, 10px) clamp(8px, 1.2vw, 12px);
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100vw - clamp(12px, 1.6vw, 20px));
+        max-width: calc(100vw - clamp(12px, 1.6vw, 20px));
+        min-width: auto;
+        flex-wrap: wrap;
+        overflow: visible;
     }
 
     .profile-orb-container-small {
-        width: clamp(40px, 5.2vw, 44px);
-        height: clamp(40px, 5.2vw, 44px);
+        width: clamp(28px, 3.6vw, 36px);
+        height: clamp(28px, 3.6vw, 36px);
     }
 
     .name-main-corner {
-        font-size: clamp(0.8rem, 3.5vw, 0.85rem);
+        font-size: clamp(0.75rem, 2.8vw, 1rem);
     }
 
     .name-location-corner {
-        font-size: clamp(0.5rem, 2vw, 0.55rem);
+        font-size: clamp(0.5rem, 1.6vw, 0.625rem);
     }
 
     .about-content {
-        gap: clamp(16px, 2.5vw, 20px);
+        gap: clamp(14px, 2.2vw, 18px);
     }
 
     .about-description {
-        font-size: clamp(0.85rem, 3vw, 0.9rem);
+        font-size: clamp(0.9375rem, 1.8vw, 1.125rem);
         padding: 0 var(--space-xs);
+    }
+
+    .main-navigation .nav-link {
+        white-space: normal;
+        text-align: center;
+        min-width: fit-content;
     }
 
     .main-content-designer {
-        padding: 0 var(--space-xs);
+        top: clamp(112px, 13vw, 128px);
+        bottom: clamp(64px, 7.2vw, 80px);
+        padding: 0;
+    }
+    
+    .control-panel {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        right: clamp(16px, 2vw, 24px);
+        max-width: calc(100vw - clamp(32px, 4vw, 48px));
     }
 
-    .about-section-designer {
-        min-height: 300px;
+    .about-section-designer,
+    .quote-section-designer,
+    .recommendations-section,
+    #connectSection {
+        min-height: clamp(200px, 28vw, 280px);
+        /* Enhanced mobile performance */
+        contain: layout style;
+        will-change: auto;
+        overflow: visible;
+    }
+    
+    .quote-container-future {
+        min-height: clamp(160px, 22vw, 220px);
     }
 
     .about-card {
@@ -1637,25 +1886,25 @@ h1.name-corner {
     }
 
     .about-detail-summary {
-        font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+        font-size: clamp(0.875rem, 2vw, 1rem);
         letter-spacing: 0.1em;
-        padding-right: clamp(32px, 4.4vw, 36px);
+        padding-right: clamp(28px, 3.8vw, 32px);
     }
 
     .about-detail-body p {
-        font-size: clamp(0.75rem, 2.8vw, 0.9rem);
+        font-size: clamp(0.875rem, 1.8vw, 1rem);
         line-height: 1.7;
     }
 
     .quote-future {
-        font-size: clamp(0.95rem, 3.3vw, 1.4rem);
-        padding: 0 var(--space-md);
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        padding: 0 var(--space-sm);
         max-width: 95%;
-        line-height: 1.5;
+        line-height: 1.6;
     }
 
     .quote-author-future {
-        font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+        font-size: clamp(0.8125rem, 2vw, 1rem);
     }
 
     .logo-grid {
