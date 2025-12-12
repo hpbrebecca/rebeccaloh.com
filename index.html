@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rebecca Loh</title>
+    <title>Rebecca Loh – CFO, Zurich, Switzerland</title>
     <meta name="description" content="Rebecca Loh is a Swiss CFO and strategist based in Zurich. Discover her background, philosophy, and curated recommendations.">
     <link rel="canonical" href="https://rebeccaloh.com/">
     <meta name="theme-color" content="#000000">
@@ -77,18 +77,18 @@
         <!-- Name and Location in Corner -->
         <div class="name-corner-section">
             <h1 class="name-corner" id="nameLinkFuture" data-linkedin="profile" tabindex="0" role="link" aria-label="Rebecca Loh on LinkedIn">
-                <span class="name-main-corner">Rebecca Loh</span>
-                <span class="name-location-corner" id="nameLocation" data-linkedin="profile" role="link" tabindex="0" aria-label="Zurich, Switzerland — open LinkedIn profile">Zurich, Switzerland</span>
+                <span class="name-main-corner" id="h1Name">Rebecca Loh</span>
+                <span class="name-location-corner" id="h1Location">Zurich, Switzerland</span>
             </h1>
         </div>
     </div>
     
     <!-- Navigation - Top Center -->
     <nav class="main-navigation" id="mainNavigation">
-        <a href="#aboutme" class="nav-link" data-section="aboutme">
+        <a href="#aboutme" class="nav-link active" data-section="aboutme">
             <span class="nav-text" data-lang-key="aboutme">About Me</span>
         </a>
-        <a href="#connect" class="nav-link active" data-section="connect">
+        <a href="#connect" class="nav-link" data-section="connect">
             <span class="nav-text" data-lang-key="connect">Connect</span>
         </a>
         <a href="#quotes" class="nav-link" data-section="quotes">
@@ -102,8 +102,9 @@
     <!-- Main Content - Dynamic Sections -->
     <div class="main-content-designer">
         <!-- Connect Section - Primary Landing -->
-        <div class="about-section-designer" id="connectSection" style="display: flex;">
+        <div class="about-section-designer" id="connectSection" style="display: none;">
             <div class="about-content">
+                <h2 class="section-heading" id="connectHeading">Connect</h2>
                 <p class="about-description" id="connectDescription">Connect on LinkedIn to learn more about my work.</p>
                 <a href="https://ch.linkedin.com/in/rebiloh" class="linkedin-connection-btn" id="linkedinConnectionBtn" target="_blank" rel="noopener noreferrer" data-linkedin="profile" aria-label="Open LinkedIn profile">
                     <svg class="linkedin-icon-btn" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,8 +143,9 @@
         </div>
 
         <!-- About Me Section -->
-        <div class="about-section-designer about-long-form" id="aboutmeSection" style="display: none;">
+        <div class="about-section-designer about-long-form" id="aboutmeSection" style="display: flex;">
             <div class="about-content">
+                <h2 class="section-heading" id="aboutmeHeading">About Me</h2>
                 <div class="about-card">
                     <p class="about-intro" id="aboutIntro"></p>
                     <div class="about-accordion" id="aboutAccordion"></div>
@@ -153,12 +155,14 @@
 
         <!-- Quote Display - Centered, Prominent -->
         <div class="quote-section-designer" id="quotesSection" style="display: none;">
+            <h2 class="section-heading" id="quotesHeading">Quotes</h2>
             <div class="quote-container-future" id="quoteContainerFuture"></div>
         </div>
 
         <!-- Recommendations Section -->
         <div class="recommendations-section" id="recommendationsSection" style="display: none;">
             <div class="recommendations-content">
+                <h2 class="section-heading" id="recommendationsHeading">Recommendations</h2>
                 <div class="recommendations-body">
                     <div class="recommendations-grid" id="recommendationsGrid"></div>
                 </div>
@@ -297,8 +301,166 @@
             const aboutContent = window.aboutContent || fallbackAboutContent;
 
             function getCurrentLanguage() {
+                // Try to get language from URL first
+                const path = window.location.pathname;
+                const langMatch = path.match(/^\/(en|de|fr|zh)(\/|$)/);
+                if (langMatch) {
+                    return langMatch[1];
+                }
+                // Fallback to stored language or default
                 return window.currentLang || 'en';
             }
+            
+            function updateURLWithLanguage(lang, section) {
+                const basePath = `/${lang}/${section}`;
+                window.history.pushState({ lang: lang, section: section }, '', basePath);
+            }
+            
+            // Title translations for each section
+            const titleTranslations = {
+                aboutme: {
+                    en: "Rebecca Loh – CFO, Zurich, Switzerland",
+                    de: "Rebecca Loh – CFO, Zürich, Schweiz",
+                    fr: "Rebecca Loh – CFO, Zurich, Suisse",
+                    zh: "羅碧嘉 – 財務總監，蘇黎世，瑞士"
+                },
+                connect: {
+                    en: "Connect – Rebecca Loh, CFO",
+                    de: "Vernetzen – Rebecca Loh, CFO",
+                    fr: "Se connecter – Rebecca Loh, CFO",
+                    zh: "探索 – 羅碧嘉，財務總監"
+                },
+                quotes: {
+                    en: "Quotes – Rebecca Loh",
+                    de: "Zitate – Rebecca Loh",
+                    fr: "Citations – Rebecca Loh",
+                    zh: "引言 – 羅碧嘉"
+                },
+                recommendations: {
+                    en: "Recommendations – Rebecca Loh",
+                    de: "Empfehlungen – Rebecca Loh",
+                    fr: "Recommandations – Rebecca Loh",
+                    zh: "推薦 – 羅碧嘉"
+                }
+            };
+            
+            function updatePageTitle(lang, section) {
+                const currentSection = section || 'aboutme';
+                const sectionTitles = titleTranslations[currentSection] || titleTranslations.aboutme;
+                const title = sectionTitles[lang] || sectionTitles.en;
+                document.title = title;
+                
+                // Also update meta tags
+                const ogTitle = document.querySelector('meta[property="og:title"]');
+                const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', title);
+                if (twitterTitle) twitterTitle.setAttribute('content', title);
+            }
+            
+            // Expose globally for quotes.js
+            window.updatePageTitle = updatePageTitle;
+            
+            // H1 translations (split into name and location for visual display)
+            const h1Translations = {
+                name: {
+                    en: "Rebecca Loh",
+                    de: "Rebecca Loh",
+                    fr: "Rebecca Loh",
+                    zh: "羅碧嘉"
+                },
+                location: {
+                    en: "Zurich, Switzerland",
+                    de: "Zürich, Schweiz",
+                    fr: "Zurich, Suisse",
+                    zh: "蘇黎世，瑞士"
+                },
+                // Full text for SEO (hidden but accessible to screen readers)
+                full: {
+                    en: "Rebecca Loh, Zurich, Switzerland",
+                    de: "Rebecca Loh, Zürich, Schweiz",
+                    fr: "Rebecca Loh, Zurich, Suisse",
+                    zh: "羅碧嘉，蘇黎世，瑞士"
+                }
+            };
+            
+            // H2 translations (navigation titles)
+            const h2Translations = {
+                aboutme: {
+                    en: "About Me",
+                    de: "Über mich",
+                    fr: "À propos de moi",
+                    zh: "關於我"
+                },
+                connect: {
+                    en: "Connect",
+                    de: "Vernetzen",
+                    fr: "Se connecter",
+                    zh: "探索"
+                },
+                quotes: {
+                    en: "Quotes",
+                    de: "Zitate",
+                    fr: "Citations",
+                    zh: "引言"
+                },
+                recommendations: {
+                    en: "Recommendations",
+                    de: "Empfehlungen",
+                    fr: "Recommandations",
+                    zh: "推薦"
+                }
+            };
+            
+            function updateH1(lang) {
+                const h1Name = document.getElementById('h1Name');
+                const h1Location = document.getElementById('h1Location');
+                const h1Element = document.getElementById('nameLinkFuture');
+                
+                if (h1Name && h1Translations.name) {
+                    h1Name.textContent = h1Translations.name[lang] || h1Translations.name.en;
+                }
+                if (h1Location && h1Translations.location) {
+                    h1Location.textContent = h1Translations.location[lang] || h1Translations.location.en;
+                }
+                // Update aria-label with full text for screen readers
+                if (h1Element && h1Translations.full) {
+                    const fullText = h1Translations.full[lang] || h1Translations.full.en;
+                    h1Element.setAttribute('aria-label', `${fullText} - Open LinkedIn profile`);
+                }
+            }
+            
+            function updateH2(lang, section) {
+                const currentSection = section || 'aboutme';
+                const sectionH2 = h2Translations[currentSection] || h2Translations.aboutme;
+                const h2Text = sectionH2[lang] || sectionH2.en;
+                
+                // Update all H2 elements based on section
+                const aboutmeHeading = document.getElementById('aboutmeHeading');
+                const connectHeading = document.getElementById('connectHeading');
+                const quotesHeading = document.getElementById('quotesHeading');
+                const recommendationsHeading = document.getElementById('recommendationsHeading');
+                
+                // Only update the visible section's H2
+                if (currentSection === 'aboutme' && aboutmeHeading) {
+                    aboutmeHeading.textContent = h2Text;
+                } else if (currentSection === 'connect' && connectHeading) {
+                    connectHeading.textContent = h2Text;
+                } else if (currentSection === 'quotes' && quotesHeading) {
+                    quotesHeading.textContent = h2Text;
+                } else if (currentSection === 'recommendations' && recommendationsHeading) {
+                    recommendationsHeading.textContent = h2Text;
+                }
+                
+                // Update all H2s for consistency (optional - can be removed if you only want current section)
+                if (aboutmeHeading) aboutmeHeading.textContent = h2Translations.aboutme[lang] || h2Translations.aboutme.en;
+                if (connectHeading) connectHeading.textContent = h2Translations.connect[lang] || h2Translations.connect.en;
+                if (quotesHeading) quotesHeading.textContent = h2Translations.quotes[lang] || h2Translations.quotes.en;
+                if (recommendationsHeading) recommendationsHeading.textContent = h2Translations.recommendations[lang] || h2Translations.recommendations.en;
+            }
+            
+            // Expose globally for quotes.js
+            window.updateH1 = updateH1;
+            window.updateH2 = updateH2;
 
             function buildDetails(accordion, entries) {
                 accordion.innerHTML = '';
@@ -409,12 +571,24 @@
             };
 
             function showSection(section) {
-                const target = sections[section] ? section : 'connect';
+                const target = sections[section] ? section : 'aboutme';
+                const currentLang = getCurrentLanguage();
 
+                // Hide all sections first
                 Object.entries(sections).forEach(([key, value]) => {
-                    if (!value.element) return;
-                    value.element.style.display = key === target ? value.display : 'none';
+                    if (value.element) {
+                        value.element.style.display = 'none';
+                    }
                 });
+
+                // Show the target section
+                if (sections[target] && sections[target].element) {
+                    sections[target].element.style.display = sections[target].display;
+                }
+
+                // Update page title and H2 when section changes
+                updatePageTitle(currentLang, target);
+                updateH2(currentLang, target);
 
                 const container = document.querySelector('.main-content-designer');
                 if (container) {
@@ -448,23 +622,73 @@
                 });
             }
 
-            updateAboutContent(getCurrentLanguage());
+            const initialLang = getCurrentLanguage();
+            updateAboutContent(initialLang);
+            updatePageTitle(initialLang, 'aboutme');
+            updateH1(initialLang);
+            updateH2(initialLang, 'aboutme');
             
             // Handle URL routing
             function handleRouting() {
                 const path = window.location.pathname;
                 const hash = window.location.hash.replace('#', '');
                 
-                let targetSection = 'connect'; // default
+                // Extract language from URL (e.g., /en/aboutme, /de/connect)
+                const langMatch = path.match(/^\/(en|de|fr|zh)(\/|$)/);
+                let currentLang = langMatch ? langMatch[1] : 'en';
                 
-                if (path === '/aboutme' || path === '/aboutme/' || path.endsWith('/aboutme.html') || hash === 'aboutme') {
-                    targetSection = 'aboutme';
-                } else if (path === '/connect' || path === '/connect/' || path.endsWith('/connect.html') || hash === 'connect') {
-                    targetSection = 'connect';
-                } else if (path === '/quotes' || path === '/quotes/' || path.endsWith('/quotes.html') || hash === 'quotes') {
-                    targetSection = 'quotes';
-                } else if (path === '/recommendations' || path === '/recommendations/' || path.endsWith('/recommendations.html') || hash === 'recommendations') {
-                    targetSection = 'recommendations';
+                // Extract section from URL
+                let targetSection = 'aboutme'; // default
+                
+                // Check for language-prefixed paths
+                if (langMatch) {
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+                    if (sectionMatch) {
+                        targetSection = sectionMatch[2];
+                    } else if (path.match(/^\/(en|de|fr|zh)\/?$/)) {
+                        targetSection = 'aboutme'; // default section for language root
+                    }
+                } else {
+                    // Fallback: check for old-style paths without language
+                    if (path === '/aboutme' || path === '/aboutme/' || path.endsWith('/aboutme.html') || hash === 'aboutme') {
+                        targetSection = 'aboutme';
+                        // Redirect to language-prefixed URL
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, targetSection);
+                    } else if (path === '/connect' || path === '/connect/' || path.endsWith('/connect.html') || hash === 'connect') {
+                        targetSection = 'connect';
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, targetSection);
+                    } else if (path === '/quotes' || path === '/quotes/' || path.endsWith('/quotes.html') || hash === 'quotes') {
+                        targetSection = 'quotes';
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, targetSection);
+                    } else if (path === '/recommendations' || path === '/recommendations/' || path.endsWith('/recommendations.html') || hash === 'recommendations') {
+                        targetSection = 'recommendations';
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, targetSection);
+                    } else if (path === '/' || path === '') {
+                        // Root path: redirect to default language
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, 'aboutme');
+                        targetSection = 'aboutme';
+                    }
+                }
+                
+                // Update language if changed
+                if (window.currentLang !== currentLang) {
+                    window.currentLang = currentLang;
+                    if (window.updateLanguageDisplay) {
+                        window.updateLanguageDisplay(currentLang);
+                    }
+                    updateAboutContent(currentLang);
+                    updatePageTitle(currentLang, targetSection);
+                    updateH1(currentLang);
+                    updateH2(currentLang, targetSection);
+                } else {
+                    // Always update title and headings to ensure they're correct for current section
+                    updatePageTitle(currentLang, targetSection);
+                    updateH2(currentLang, targetSection);
                 }
                 
                 // Update active nav link
@@ -481,39 +705,63 @@
             handleRouting();
             window.addEventListener('popstate', handleRouting);
             
-            // Update nav links to use proper URLs
-            navLinks.forEach(link => {
-                const section = link.getAttribute('data-section');
-                if (section === 'aboutme') {
-                    link.setAttribute('href', '/aboutme');
-                } else if (section === 'connect') {
-                    link.setAttribute('href', '/connect');
-                } else if (section === 'quotes') {
-                    link.setAttribute('href', '/quotes');
-                } else if (section === 'recommendations') {
-                    link.setAttribute('href', '/recommendations');
+            // Also handle hash changes for direct navigation
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash.replace('#', '');
+                if (hash && ['aboutme', 'connect', 'quotes', 'recommendations'].includes(hash)) {
+                    const currentLang = getCurrentLanguage();
+                    updateURLWithLanguage(currentLang, hash);
+                    handleRouting();
                 }
             });
             
-            // Override nav link clicks to use pushState
-            navLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
+            // Update nav links to use proper URLs with language
+            function updateNavLinks() {
+                const currentLang = getCurrentLanguage();
+                navLinks.forEach(navLink => {
+                    const section = navLink.getAttribute('data-section');
+                    if (section) {
+                        navLink.setAttribute('href', `/${currentLang}/${section}`);
+                    }
+                });
+            }
+            
+            // Expose globally for quotes.js
+            window.updateNavLinks = updateNavLinks;
+            
+            // Initial update of nav links
+            updateNavLinks();
+            
+            // Override nav link clicks to use pushState with language
+            navLinks.forEach((navLink, index) => {
+                navLink.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const section = link.getAttribute('data-section') || 'connect';
+                    event.stopPropagation();
+                    const section = navLink.getAttribute('data-section') || 'aboutme';
+                    const currentLang = getCurrentLanguage();
+                    
+                    // Show the section immediately - this is the most important part
+                    showSection(section);
+                    
+                    // Update active state
+                    navLinks.forEach(nl => {
+                        nl.classList.remove('active');
+                    });
+                    navLink.classList.add('active');
                     
                     // Update URL without reload
-                    const url = '/' + section;
-                    window.history.pushState({ section: section }, '', url);
+                    updateURLWithLanguage(currentLang, section);
                     
-                    navLinks.forEach(nl => nl.classList.remove('active'));
-                    link.classList.add('active');
+                    // Update H1 and H2
+                    updateH1(currentLang);
+                    updateH2(currentLang, section);
                     
                     if (disclaimerMiniEl) {
                         disclaimerMiniEl.setAttribute('aria-expanded', 'false');
                     }
                     
-                    showSection(section);
-                });
+                    return false;
+                }, { passive: false });
             });
 
             window.handleLogoError = function handleLogoError(img) {

@@ -324,6 +324,23 @@
             languageText.textContent = lang === 'zh' ? 'Language' : '語言';
         }
         
+        // Update page title, H1 and H2 (get current section from URL)
+        if (window.updatePageTitle) {
+            const path = window.location.pathname;
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+            const currentSection = sectionMatch ? sectionMatch[2] : 'aboutme';
+            window.updatePageTitle(lang, currentSection);
+        }
+        if (window.updateH1) {
+            window.updateH1(lang);
+        }
+        if (window.updateH2) {
+            const path = window.location.pathname;
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+            const currentSection = sectionMatch ? sectionMatch[2] : 'aboutme';
+            window.updateH2(lang, currentSection);
+        }
+        
         const translation = nameTranslations[lang];
         const nameMain = nameLink.querySelector('.name-main-corner');
         const nameLoc = nameLink.querySelector('.name-location-corner');
@@ -364,6 +381,24 @@
         option.addEventListener('click', () => {
             const lang = option.getAttribute('data-lang');
             updateLanguageDisplay(lang);
+            
+            // Update URL with new language
+            const path = window.location.pathname;
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+            if (sectionMatch) {
+                const section = sectionMatch[2];
+                const newUrl = `/${lang}/${section}`;
+                window.history.pushState({ lang: lang, section: section }, '', newUrl);
+            } else {
+                // If no section in URL, default to aboutme
+                const newUrl = `/${lang}/aboutme`;
+                window.history.pushState({ lang: lang, section: 'aboutme' }, '', newUrl);
+            }
+            
+            // Update navigation links
+            if (window.updateNavLinks) {
+                window.updateNavLinks();
+            }
             
             setTimeout(() => {
                 languageSelector.classList.remove('open');

@@ -279,10 +279,26 @@ body:lang(zh),
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 0;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure H1 is properly structured for accessibility */
+.name-corner h1,
+h1.name-corner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
 }
 
 .name-corner:hover {
@@ -296,6 +312,7 @@ body:lang(zh),
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.2;
     font-feature-settings: "liga" 1, "kern" 1;
+    display: block;
     /* Minimalist typography */
 }
 
@@ -307,6 +324,8 @@ body:lang(zh),
     line-height: 1.2;
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
+    display: block;
+    margin-top: 6px;
     /* Modern sans-serif - shows typography expertise */
 }
 
@@ -368,9 +387,11 @@ body:lang(zh),
     max-width: none;
     min-height: 250px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0 12px;
+    gap: 32px;
 }
 
 .quote-container-future {
@@ -409,6 +430,37 @@ body:lang(zh),
     width: 100%;
 }
 
+.section-heading {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.4;
+    margin: 0 0 32px 0;
+    text-transform: none;
+    text-align: left;
+    font-feature-settings: "liga" 1, "kern" 1;
+    /* Elegant, readable heading */
+}
+
+/* Center headings for connect and quotes sections */
+#connectSection .section-heading,
+#quotesSection .section-heading {
+    text-align: center;
+}
+
+/* About Me section heading */
+#aboutmeSection .section-heading {
+    margin-bottom: 24px;
+}
+
+/* Recommendations section heading */
+#recommendationsSection .section-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
 /* Increased spacing for connect section */
 #connectSection .about-content {
     gap: 48px;
@@ -440,9 +492,13 @@ body:lang(zh),
 .about-long-form .about-content {
     width: 100%;
     align-items: stretch;
-    text-align: justify;
+    text-align: left;
     gap: 32px;
     padding: 0;
+}
+
+.about-long-form .section-heading {
+    text-align: left;
 }
 
 .about-card {
@@ -818,17 +874,13 @@ body:lang(zh),
 }
 
 .recommendations-section {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
     max-width: 900px;
-    width: 90%;
-    padding: 0 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0;
+    margin: 0 auto;
 }
 
 .recommendations-content {
