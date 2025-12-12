@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rebecca Loh – CFO, Zurich, Switzerland</title>
-    <meta name="description" content="Rebecca Loh is a Swiss CFO and strategist based in Zurich. Discover her background, philosophy, and curated recommendations.">
+    <title>Rebecca Loh, Zurich, Switzerland</title>
+    <meta name="description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
     <link rel="canonical" href="https://rebeccaloh.com/">
     <meta name="theme-color" content="#000000">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Rebecca Loh – CFO & Strategist">
-    <meta property="og:description" content="Zurich-based CFO Rebecca Loh combines public and private sector experience to drive clarity, stability, and long-term progress.">
+    <meta property="og:description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
     <meta property="og:url" content="https://rebeccaloh.com/">
     <meta property="og:image" content="https://rebeccaloh.com/project1/profile.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Rebecca Loh – CFO & Strategist">
-    <meta name="twitter:description" content="Zurich-based CFO Rebecca Loh combines public and private sector experience to drive clarity, stability, and long-term progress.">
+    <meta name="twitter:description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
     <meta name="twitter:image" content="https://rebeccaloh.com/project1/profile.jpg">
     <link rel="icon" type="image/jpeg" href="project1/profile.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="project1/profile.jpg">
@@ -319,16 +319,16 @@
             // Title translations for each section
             const titleTranslations = {
                 aboutme: {
-                    en: "Rebecca Loh – CFO, Zurich, Switzerland",
-                    de: "Rebecca Loh – CFO, Zürich, Schweiz",
-                    fr: "Rebecca Loh – CFO, Zurich, Suisse",
-                    zh: "羅碧嘉 – 財務總監，蘇黎世，瑞士"
+                    en: "Rebecca Loh, Zurich, Switzerland",
+                    de: "Rebecca Loh, Zürich, Schweiz",
+                    fr: "Rebecca Loh, Zurich, Suisse",
+                    zh: "羅碧嘉，蘇黎世，瑞士"
                 },
                 connect: {
-                    en: "Connect – Rebecca Loh, CFO",
-                    de: "Vernetzen – Rebecca Loh, CFO",
-                    fr: "Se connecter – Rebecca Loh, CFO",
-                    zh: "探索 – 羅碧嘉，財務總監"
+                    en: "Connect – Rebecca Loh",
+                    de: "Vernetzen – Rebecca Loh",
+                    fr: "Se connecter – Rebecca Loh",
+                    zh: "探索 – 羅碧嘉"
                 },
                 quotes: {
                     en: "Quotes – Rebecca Loh",
@@ -344,6 +344,14 @@
                 }
             };
             
+            // Meta description translations
+            const descriptionTranslations = {
+                en: "Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.",
+                de: "Rebecca Loh ist Schweizerin, Industrieingenieurin und diplomierte Expertin für Finanz- und Managementbuchhaltung sowie Rechnungslegung. Sie ist CFO bei einem FINMA-lizenzierten Portfolio Manager in Zug. Erfahren Sie mehr über ihren Hintergrund und ihre Philosophie.",
+                fr: "Rebecca Loh est ingénieure industrielle suisse et experte diplômée en comptabilité et reporting financier et de gestion. Elle occupe le poste de CFO chez un gestionnaire de portefeuille agréé FINMA à Zoug. Découvrez son parcours et sa philosophie.",
+                zh: "羅碧嘉是瑞士工業工程師，也是財務與管理會計及報告的認證專家。她目前擔任位於楚格的FINMA許可投資組合管理公司的財務總監。探索她的背景與理念。"
+            };
+            
             function updatePageTitle(lang, section) {
                 const currentSection = section || 'aboutme';
                 const sectionTitles = titleTranslations[currentSection] || titleTranslations.aboutme;
@@ -355,6 +363,16 @@
                 const twitterTitle = document.querySelector('meta[name="twitter:title"]');
                 if (ogTitle) ogTitle.setAttribute('content', title);
                 if (twitterTitle) twitterTitle.setAttribute('content', title);
+                
+                // Update meta descriptions
+                const metaDescription = document.querySelector('meta[name="description"]');
+                const ogDescription = document.querySelector('meta[property="og:description"]');
+                const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+                const description = descriptionTranslations[lang] || descriptionTranslations.en;
+                
+                if (metaDescription) metaDescription.setAttribute('content', description);
+                if (ogDescription) ogDescription.setAttribute('content', description);
+                if (twitterDescription) twitterDescription.setAttribute('content', description);
             }
             
             // Expose globally for quotes.js

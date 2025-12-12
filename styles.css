@@ -231,10 +231,10 @@ body:lang(zh),
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
+    max-width: none;
+    overflow: visible;
 }
 
 .name-corner {
@@ -291,9 +291,10 @@ h1.name-corner {
     display: block;
     margin-top: 3px;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
+    word-break: keep-all;
 }
 
 [data-linkedin="profile"] {
@@ -1495,7 +1496,8 @@ h1.name-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
         left: clamp(16px, 2vw, 24px);
-        max-width: calc(45vw - clamp(80px, 12vw, 140px));
+        max-width: calc(85vw - clamp(80px, 12vw, 140px));
+        min-width: fit-content;
         gap: clamp(6px, 0.8vw, 10px);
     }
     
@@ -1510,10 +1512,21 @@ h1.name-corner {
     
     .name-location-corner {
         font-size: clamp(0.5625rem, 0.7vw, 0.6875rem);
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        max-width: none;
+        line-height: 1.4;
+    }
+    
+    .name-corner-section {
+        max-width: none;
+        overflow: visible;
+        flex-shrink: 0;
     }
     
     .main-navigation {
-        top: clamp(64px, 8vw, 80px);
+        top: clamp(72px, 9vw, 88px);
         bottom: auto;
         gap: clamp(8px, 1.2vw, 16px);
         padding: clamp(8px, 1vw, 12px) clamp(12px, 1.6vw, 16px);
@@ -1539,7 +1552,7 @@ h1.name-corner {
     }
 
     .main-content-designer {
-        top: clamp(120px, 14vw, 140px);
+        top: clamp(130px, 15vw, 150px);
         bottom: clamp(64px, 7.2vw, 80px);
         left: var(--content-gutter);
         right: var(--content-gutter-right);
@@ -1803,11 +1816,12 @@ h1.name-corner {
         left: clamp(12px, 1.6vw, 20px);
         right: auto;
         gap: clamp(6px, 0.8vw, 10px);
-        max-width: calc(45vw - clamp(60px, 10vw, 120px));
+        max-width: calc(90vw - clamp(80px, 12vw, 140px));
+        min-width: fit-content;
     }
     
     .main-navigation {
-        top: clamp(60px, 7.5vw, 72px);
+        top: clamp(70px, 8.5vw, 85px);
         bottom: auto;
         gap: clamp(6px, 1vw, 12px);
         padding: clamp(6px, 0.8vw, 10px) clamp(8px, 1.2vw, 12px);
@@ -1832,6 +1846,17 @@ h1.name-corner {
 
     .name-location-corner {
         font-size: clamp(0.5rem, 1.6vw, 0.625rem);
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        max-width: none;
+        line-height: 1.4;
+    }
+    
+    .name-corner-section {
+        max-width: none;
+        overflow: visible;
+        flex-shrink: 0;
     }
 
     .about-content {
@@ -1850,7 +1875,7 @@ h1.name-corner {
     }
 
     .main-content-designer {
-        top: clamp(112px, 13vw, 128px);
+        top: clamp(130px, 15vw, 150px);
         bottom: clamp(64px, 7.2vw, 80px);
         padding: 0;
     }
