@@ -6,12 +6,22 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rebeccaloh.com/project1/</loc>
+    <loc>https://rebeccaloh.com/aboutme</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rebeccaloh.com/project2/</loc>
+    <loc>https://rebeccaloh.com/connect</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rebeccaloh.com/quotes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rebeccaloh.com/recommendations</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
