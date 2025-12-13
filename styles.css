@@ -73,9 +73,10 @@ html, body {
     --z-background: 1;
     --z-content: 10;
     --z-profile: 10001;
-    --z-controls: 10001;
+    /* Controls must stay clickable even when nav wraps on mobile */
+    --z-controls: 10004;
     --z-navigation: 10002;
-    --z-dropdown: 10003;
+    --z-dropdown: 10005;
     --z-skip-link: 10005;
 }
 
@@ -1507,6 +1508,7 @@ h1.name-corner {
     align-items: center;
     width: auto;
     max-width: calc(100vw - clamp(32px, 4vw, 48px));
+    overflow: visible;
     /* Professional top-right positioning */
 }
 
@@ -1525,6 +1527,7 @@ h1.name-corner {
     align-items: center;
     flex: 0 1 auto;
     min-width: 0;
+    overflow: visible;
 }
 
 .control-item.disclaimer-control {
@@ -1572,6 +1575,9 @@ h1.name-corner {
 /* Language Control */
 .language-control {
     min-width: clamp(80px, 10vw, 100px);
+    position: relative;
+    overflow: visible;
+    z-index: var(--z-dropdown);
 }
 
 .control-trigger {
@@ -1585,6 +1591,9 @@ h1.name-corner {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 999px;
     cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: auto;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -1610,38 +1619,47 @@ h1.name-corner {
 }
 
 .control-indicator {
-    width: clamp(4px, 0.5vw, 5px);
-    height: clamp(4px, 0.5vw, 5px);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transition: all 0.4s ease;
+    width: clamp(10px, 1.2vw, 12px);
+    height: clamp(10px, 1.2vw, 12px);
+    color: rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.control-trigger svg.control-indicator {
+    display: block;
 }
 
 .language-control.open .control-indicator {
-    background: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.95);
+    transform: rotate(180deg);
 }
 
 .control-dropdown {
     position: absolute;
-    bottom: calc(100% + var(--space-xs));
-    left: 0;
+    top: calc(100% + var(--space-xs));
+    right: 0;
+    left: auto;
     min-width: clamp(128px, 16vw, 144px);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
     padding: var(--space-xs);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px) scale(0.94);
+    transform: translateY(-8px) scale(0.94);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: var(--z-dropdown);
+    z-index: calc(var(--z-dropdown) + 1);
+    pointer-events: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .language-control.open .control-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
 .control-option {
@@ -1652,6 +1670,12 @@ h1.name-corner {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
 }
 
 .control-option:hover {
@@ -1868,7 +1892,7 @@ h1.name-corner {
         width: calc(100vw - clamp(16px, 2vw, 24px));
         min-width: auto;
         max-width: calc(100vw - clamp(16px, 2vw, 24px));
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
     .main-navigation::-webkit-scrollbar {
@@ -1876,9 +1900,13 @@ h1.name-corner {
     }
 
     .main-navigation .nav-link {
-        white-space: normal;
+        white-space: nowrap;
         text-align: center;
-        min-width: fit-content;
+        min-width: 0;
+        flex: 1 1 0;
+        font-size: clamp(0.68rem, 1.5vw, 0.86rem);
+        letter-spacing: 0.06em;
+        padding: 2px 4px;
     }
 
     .main-content-designer {
@@ -2198,7 +2226,7 @@ h1.name-corner {
         width: calc(100vw - clamp(12px, 1.6vw, 20px));
         max-width: calc(100vw - clamp(12px, 1.6vw, 20px));
         min-width: auto;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         overflow: visible;
     }
 
@@ -2236,9 +2264,17 @@ h1.name-corner {
     }
 
     .main-navigation .nav-link {
-        white-space: normal;
+        white-space: nowrap;
         text-align: center;
-        min-width: fit-content;
+        min-width: 0;
+        flex: 1 1 0;
+        font-size: clamp(0.5rem, 2.2vw, 0.65rem);
+        letter-spacing: 0.02em;
+        padding: clamp(2px, 0.3vw, 3px) clamp(2px, 0.4vw, 4px);
+    }
+    
+    .main-navigation .nav-text {
+        font-size: clamp(0.5rem, 2.2vw, 0.65rem);
     }
 
     .main-content-designer {

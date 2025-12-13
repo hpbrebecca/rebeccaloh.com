@@ -157,7 +157,7 @@
                 {
                     title: "Career & Approach",
                     paragraphs: [
-                        "Before joining FiCAS AG, she held positions as Team Lead Controlling at the Municipality of Köniz, Financial Controller at the Swiss Financial Market Supervisory Authority (FINMA), and Financial Controller at iba ag, Büro Services. Across these roles, she worked closely with hundreds of stakeholders and was appreciated for her understanding nature, solution-oriented mindset, and ability to make complex tasks easier for others. She motivates constructive outcomes by understanding where people are coming from, identifying their needs, and building bridges. Her approachable leadership style fostered trust and collaboration.",
+                        "Before joining FiCAS AG as Chief Financial Officer (CFO), she held positions as Team Lead Controlling at the Municipality of Köniz, Financial Controller at the Swiss Financial Market Supervisory Authority (FINMA), and Financial Controller at iba ag, Büro Services. Across these roles, she worked closely with hundreds of stakeholders and was appreciated for her empathetic nature, solution-oriented mindset, and ability to make complex tasks easier for others. She motivates constructive outcomes by understanding where people are coming from, identifying their needs, and building bridges. Her approachable leadership style fostered trust and collaboration.",
                         "Since August 2024, she has served as Chief Financial Officer at FiCAS AG, a FINMA-licensed Swiss asset manager specialising in actively managed crypto-asset investment products. Joining a fast-moving and innovative field, she brings together experience from both public and private sectors to help drive progress, shape processes, and strengthen financial governance in a rapidly evolving industry. The role offers a space where she can draw on everything she has learned.",
                         "Rebecca is known for her analytical mind and creative approach to problem-solving. She takes genuine pleasure in building and refining processes that bring clarity, stability, and long-term efficiency, work that allows her to combine precision with intuition and turn structure into sustainable progress."
                     ]
@@ -185,7 +185,7 @@
                 {
                     title: "Karriere & Arbeitsweise",
                     paragraphs: [
-                        "Bevor sie zur FiCAS AG kam, war sie als Teamleiterin Controlling bei der Gemeinde Köniz, als Financial Controller bei der Eidgenössischen Finanzmarktaufsicht (FINMA) sowie als Financial Controller bei der iba ag, Büro Services, tätig. In all diesen Funktionen arbeitete sie eng mit Hunderten von Anspruchsgruppen zusammen und wurde für ihre verständnisvolle Art, ihre lösungsorientierte Denkweise und ihre Fähigkeit geschätzt, komplexe Aufgaben für andere zu vereinfachen. Sie fördert konstruktive Ergebnisse, indem sie die Perspektiven anderer versteht, deren Bedürfnisse erkennt und Brücken baut. Ihr nahbarer Führungsstil schuf Vertrauen und Zusammenarbeit.",
+                        "Bevor sie als Chief Financial Officer (CFO) zur FiCAS AG wechselte, war sie als Teamleiterin Controlling bei der Gemeinde Köniz, als Financial Controller bei der Eidgenössischen Finanzmarktaufsicht (FINMA) sowie als Financial Controller bei der iba ag, Büro Services, tätig. In all diesen Funktionen arbeitete sie eng mit Hunderten von Anspruchsgruppen zusammen und wurde für ihre verständnisvolle Art, ihre lösungsorientierte Denkweise und ihre Fähigkeit geschätzt, komplexe Aufgaben für andere zu vereinfachen. Sie fördert konstruktive Ergebnisse, indem sie die Perspektiven anderer versteht, deren Bedürfnisse erkennt und Brücken baut. Ihr nahbarer Führungsstil schuf Vertrauen und Zusammenarbeit.",
                         "Seit August 2024 ist sie Chief Financial Officer der FiCAS AG, einem von der FINMA zugelassenen Schweizer Asset Manager, der sich auf aktiv verwaltete Krypto-Anlageprodukte spezialisiert hat. In einem dynamischen und innovativen Umfeld bringt sie ihre Erfahrung aus öffentlicher Verwaltung und Privatwirtschaft zusammen, um Fortschritt zu fördern, Prozesse zu gestalten und die finanzielle Governance in einer sich schnell entwickelnden Branche zu stärken. Die Rolle bietet ihr Raum, auf all ihren bisherigen Erfahrungen aufzubauen.",
                         "Rebecca ist bekannt für ihr analytisches Denken und ihre kreative Herangehensweise an Problemlösungen. Sie hat Freude daran, Prozesse zu gestalten und zu verfeinern, die Klarheit, Stabilität und langfristige Effizienz schaffen – eine Arbeit, die es ihr ermöglicht, Präzision mit Intuition zu verbinden und Struktur in nachhaltigen Fortschritt zu verwandeln."
                       ]
@@ -213,7 +213,7 @@
                 {
                     title: "Carrière & Approche",
                     paragraphs: [
-                        "Avant de rejoindre FiCAS AG, elle occupa des postes de responsabilité, notamment Team Lead Controlling à la commune de Köniz, Financial Controller à la FINMA et chez iba ag, Bureau Services. À travers ces expériences, elle travailla avec de nombreux acteurs et fut reconnue pour sa pensée structurée, son pragmatisme et sa capacité à rendre des processus complexes clairs et opérationnels. Elle privilégie le dialogue et la recherche de solutions constructives, son leadership accessible crée des environnements de travail fondés sur la confiance.",
+                        "Avant de rejoindre FiCAS AG en tant que Chief Financial Officer (CFO), elle occupa des postes de responsabilité, notamment Team Lead Controlling à la commune de Köniz, Financial Controller à la FINMA et chez iba ag, Bureau Services. À travers ces expériences, elle travailla avec de nombreux acteurs et fut reconnue pour sa pensée structurée, son pragmatisme et sa capacité à rendre des processus complexes clairs et opérationnels. Elle privilégie le dialogue et la recherche de solutions constructives, son leadership accessible crée des environnements de travail fondés sur la confiance.",
                         "Depuis août 2024, elle exerce la fonction de Chief Financial Officer au sein de FiCAS AG, un gestionnaire d’actifs suisse agréé par la FINMA, spécialisé dans les produits crypto gérés activement. Dans un secteur dynamique et novateur, elle met à profit son expérience publique et privée pour renforcer la gouvernance financière, affiner les processus et accompagner le développement de l’entreprise dans une perspective durable.",
                         "Rebecca se distingue par son esprit analytique et sa créativité dans la résolution de problèmes. Elle aime concevoir et perfectionner des processus qui apportent clarté, stabilité et efficacité à long terme, combinant précision et intuition pour transformer la structure en progrès durable."
                     ]
@@ -240,7 +240,7 @@
                 {
                     title: "職涯與專業理念",
                     paragraphs: [
-                        "加入 FiCAS AG 之前，羅碧嘉曾任柯尼茲市政府控管團隊主管、瑞士金融市場監管局（FINMA）財務控制師，以及 iba ag 財務控制師。她與眾多利害關係人合作，因其包容、務實與能將複雜議題化繁為簡而深受信任。她擅長理解不同觀點、辨識需求並建立橋樑，推動建設性的成果。",
+                        "在加入 FiCAS AG 擔任首席財務官（CFO）之前，羅碧嘉曾任柯尼茲市政府控管團隊主管、瑞士金融市場監管局（FINMA）財務控制師，以及 iba ag 財務控制師。她與眾多利害關係人合作，因其包容、務實與能將複雜議題化繁為簡而深受信任。她擅長理解不同觀點、辨識需求並建立橋樑，推動建設性的成果。",
                         "自 2024 年 8 月起，她擔任 FiCAS AG 的首席財務官。FiCAS 為獲 FINMA 認可的瑞士資產管理公司，專注於主動管理的加密資產投資產品。她結合公部門與私人企業的經驗，推動流程優化、強化治理並建立長期價值。",
                         "羅碧嘉以清晰的分析思維與創意解題聞名。她專注於設計與完善帶來清晰、穩定與持續效率的流程，結合精準與直覺，讓結構轉化為具體且可持續的進步。"
                     ]
@@ -296,18 +296,33 @@
     const quoteContainer = document.getElementById('quoteContainerFuture');
     const nameLink = document.getElementById('nameLinkFuture');
     const nameLocation = document.getElementById('nameLocation');
+    const navLinks = document.querySelectorAll('.nav-text');
+    const disclaimerMini = document.getElementById('disclaimerMini');
+    
+    // Language selector elements
     const languageSelector = document.getElementById('languageSelectorFuture');
     const languageTrigger = document.getElementById('languageTriggerFuture');
     const languageText = document.getElementById('languageTextFuture');
     const languageDropdown = document.getElementById('languageDropdownFuture');
-    const langOptions = document.querySelectorAll('.control-option');
-    const navLinks = document.querySelectorAll('.nav-text');
-    const disclaimerMini = document.getElementById('disclaimerMini');
-    const supportsHover = window.matchMedia('(hover: hover)').matches;
-
+    
+    // Language code mapping
+    const languageCodes = {
+        en: 'EN',
+        de: 'DE',
+        fr: 'FR',
+        zh: '中文'
+    };
+    
+    // Close dropdown when clicking outside
     const closeLanguageDropdown = (event) => {
-        if (languageSelector && !languageSelector.contains(event.target)) {
+        if (languageSelector && event && event.target && !languageSelector.contains(event.target)) {
             languageSelector.classList.remove('open');
+            if (languageTrigger) {
+                languageTrigger.setAttribute('aria-expanded', 'false');
+            }
+            if (languageDropdown) {
+                languageDropdown.setAttribute('aria-hidden', 'true');
+            }
             document.removeEventListener('click', closeLanguageDropdown);
         }
     };
@@ -320,8 +335,10 @@
     function updateLanguageDisplay(lang) {
         currentLang = lang;
         window.currentLang = currentLang;
-        if (languageText) {
-            languageText.textContent = lang === 'zh' ? 'Language' : '語言';
+        
+        // Update language button text
+        if (languageText && languageCodes[lang]) {
+            languageText.textContent = languageCodes[lang];
         }
         
         // Update page title, H1 and H2 (get current section from URL)
@@ -342,19 +359,25 @@
         }
         
         const translation = nameTranslations[lang];
-        const nameMain = nameLink.querySelector('.name-main-corner');
-        const nameLoc = nameLink.querySelector('.name-location-corner');
+        const nameMain = nameLink ? nameLink.querySelector('.name-main-corner') : null;
+        const nameLoc = nameLink ? nameLink.querySelector('.name-location-corner') : null;
         
         if (nameMain) nameMain.textContent = translation.name;
         if (nameLoc) nameLoc.textContent = translation.location;
         if (nameLocation) nameLocation.textContent = translation.location;
         
-        nameLink.setAttribute('lang', lang);
+        if (nameLink) {
+            nameLink.setAttribute('lang', lang);
+        }
         document.documentElement.setAttribute('lang', lang);
         
-        langOptions.forEach(opt => {
-            opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
-        });
+        // Update active state for language options
+        if (languageDropdown) {
+            const langOptions = languageDropdown.querySelectorAll('.control-option');
+            langOptions.forEach(opt => {
+                opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+            });
+        }
         
         // Update navigation labels
         navLinks.forEach(nav => {
@@ -376,97 +399,104 @@
         }
     }
 
-    // Language switching
-    langOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            const lang = option.getAttribute('data-lang');
-            updateLanguageDisplay(lang);
-            
-            // Update URL with new language
-            const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
-            if (sectionMatch) {
-                const section = sectionMatch[2];
-                const newUrl = `/${lang}/${section}`;
-                window.history.pushState({ lang: lang, section: section }, '', newUrl);
-            } else {
-                // If no section in URL, default to aboutme
-                const newUrl = `/${lang}/aboutme`;
-                window.history.pushState({ lang: lang, section: 'aboutme' }, '', newUrl);
-            }
-            
-            // Update navigation links
-            if (window.updateNavLinks) {
-                window.updateNavLinks();
-            }
-            
-            setTimeout(() => {
-                languageSelector.classList.remove('open');
-                if (!supportsHover) {
-                    document.removeEventListener('click', closeLanguageDropdown);
-                }
-            }, 100);
-            
-            // Update quote in new language
-            if (currentQuoteIndex !== null) {
-                showQuoteByIndex(currentQuoteIndex);
-            } else {
-                showNextQuote();
-            }
-        });
-    });
-
-    // Hover / touch dropdown behavior
-    let dropdownTimeout = null;
-
-    if (supportsHover) {
-        languageTrigger.addEventListener('mouseenter', () => {
-            if (dropdownTimeout) {
-                clearTimeout(dropdownTimeout);
-                dropdownTimeout = null;
-            }
-            languageSelector.classList.add('open');
-        });
-
-        languageTrigger.addEventListener('mouseleave', () => {
-            dropdownTimeout = setTimeout(() => {
-                languageSelector.classList.remove('open');
-                dropdownTimeout = null;
-            }, 200);
-        });
-
-        languageDropdown.addEventListener('mouseenter', () => {
-            if (dropdownTimeout) {
-                clearTimeout(dropdownTimeout);
-                dropdownTimeout = null;
-            }
-            languageSelector.classList.add('open');
-        });
-
-        languageDropdown.addEventListener('mouseleave', () => {
-            dropdownTimeout = setTimeout(() => {
-                languageSelector.classList.remove('open');
-                dropdownTimeout = null;
-            }, 200);
-        });
-    } else {
+    // Setup language dropdown - simple and robust
+    function setupLanguageDropdown() {
+        if (!languageSelector || !languageTrigger || !languageDropdown) {
+            console.warn('Language dropdown elements not found:', {
+                selector: !!languageSelector,
+                trigger: !!languageTrigger,
+                dropdown: !!languageDropdown
+            });
+            return;
+        }
+        
+        // Toggle dropdown on button click
         languageTrigger.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            const willOpen = !languageSelector.classList.contains('open');
-            languageSelector.classList.toggle('open', willOpen);
-            if (willOpen) {
-                document.addEventListener('click', closeLanguageDropdown);
-            } else {
+            
+            const isOpen = languageSelector.classList.contains('open');
+            
+            if (isOpen) {
+                // Close dropdown
+                languageSelector.classList.remove('open');
+                languageTrigger.setAttribute('aria-expanded', 'false');
+                languageDropdown.setAttribute('aria-hidden', 'true');
                 document.removeEventListener('click', closeLanguageDropdown);
+            } else {
+                // Open dropdown
+                languageSelector.classList.add('open');
+                languageTrigger.setAttribute('aria-expanded', 'true');
+                languageDropdown.setAttribute('aria-hidden', 'false');
+                
+                // Force reflow to ensure CSS transition works
+                void languageDropdown.offsetHeight;
+                
+                // Close on outside click
+                setTimeout(() => {
+                    document.addEventListener('click', closeLanguageDropdown);
+                }, 10);
             }
         });
-
-        if (languageDropdown) {
-            languageDropdown.addEventListener('click', (event) => {
+        
+        // Prevent dropdown from closing when clicking inside
+        languageDropdown.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+        
+        // Handle language option clicks
+        const langOptions = languageDropdown.querySelectorAll('.control-option');
+        langOptions.forEach(option => {
+            option.addEventListener('click', (event) => {
+                event.preventDefault();
                 event.stopPropagation();
+                
+                const lang = option.getAttribute('data-lang');
+                if (lang && lang !== currentLang) {
+                    // Update language
+                    updateLanguageDisplay(lang);
+                    
+                    // Update URL with new language
+                    const path = window.location.pathname;
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+                    if (sectionMatch) {
+                        const section = sectionMatch[2];
+                        const newUrl = `/${lang}/${section}`;
+                        window.history.pushState({ lang: lang, section: section }, '', newUrl);
+                    } else {
+                        const newUrl = `/${lang}/aboutme`;
+                        window.history.pushState({ lang: lang, section: 'aboutme' }, '', newUrl);
+                    }
+                    
+                    // Update navigation links
+                    if (window.updateNavLinks) {
+                        window.updateNavLinks();
+                    }
+                    
+                    // Close dropdown
+                    languageSelector.classList.remove('open');
+                    languageTrigger.setAttribute('aria-expanded', 'false');
+                    languageDropdown.setAttribute('aria-hidden', 'true');
+                    document.removeEventListener('click', closeLanguageDropdown);
+                    
+                    // Update quote in new language
+                    if (currentQuoteIndex !== null) {
+                        showQuoteByIndex(currentQuoteIndex);
+                    } else {
+                        showNextQuote();
+                    }
+                }
             });
-        }
+        });
+    }
+    
+    // Initialize language dropdown when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(setupLanguageDropdown, 50);
+        });
+    } else {
+        setTimeout(setupLanguageDropdown, 50);
     }
 
     // Initialize
