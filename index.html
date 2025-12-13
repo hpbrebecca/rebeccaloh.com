@@ -480,27 +480,245 @@
             window.updateH1 = updateH1;
             window.updateH2 = updateH2;
 
+            // Build a centered word-pyramid (user-defined rule):
+            // 1st line: 6 words
+            // 2nd line: 10 words
+            // 3rd line: 14 words
+            // ... (+4 each line)
+            // until the peak, then mirror back down in steps of 4.
+            function buildWordPyramidLines(words) {
+                const N = words.length;
+                if (N <= 0) return [];
+                if (N <= 6) return [words.join(' ')];
+
+                const base = 6;
+                const step = 4;
+                const maxLines = 80; // safety guard
+
+                // Build ascending counts: 6, 10, 14, 18, ... until capacity fits
+                const asc = [];
+                let sumAsc = 0;
+                for (let i = 0; i < maxLines; i++) {
+                    const c = base + (i * step);
+                    asc.push(c);
+                    sumAsc += c;
+                    const peak = c;
+                    const capacity = (2 * sumAsc) - peak; // mirror without double-counting peak
+                    if (capacity >= N) break;
+                }
+
+                // Mirror down: ..., 18, 14, 10, 6
+                const counts = asc.concat(asc.slice(0, -1).reverse());
+
+                // Build line strings
+                const lines = [];
+                let cursor = 0;
+                for (const c of counts) {
+                    if (cursor >= N) break;
+                    const take = Math.min(c, N - cursor);
+                    lines.push(words.slice(cursor, cursor + take).join(' '));
+                    cursor += take;
+                }
+                return lines;
+            }
+
+            // Layout text into a circle silhouette based on LINE HEIGHT.
+            // "cm" is implemented as CSS-cm equivalent: 1cm = 96/2.54 CSS pixels (web standard),
+            // then we quantize per-line widths to cm steps (2cm, 4cm, 6cm, 7cm, ...) by rounding.
+            const _circleMeasureCanvas = document.createElement('canvas');
+            const _circleMeasureCtx = _circleMeasureCanvas.getContext('2d');
+            const _PX_PER_CM = 96 / 2.54;
+
+            function _setCanvasFontFrom(el) {
+                const cs = window.getComputedStyle(el);
+                const fontStyle = cs.fontStyle || 'normal';
+                const fontWeight = cs.fontWeight || '400';
+                const fontSize = cs.fontSize || '16px';
+                const fontFamily = cs.fontFamily || 'sans-serif';
+                _circleMeasureCtx.font = `${fontStyle} ${fontWeight} ${fontSize} ${fontFamily}`;
+            }
+
+            function _measureTextPx(text, el) {
+                if (!_circleMeasureCtx) return text.length * 8;
+                _setCanvasFontFrom(el);
+                return _circleMeasureCtx.measureText(text).width;
+            }
+
+            function applyCircleSilhouette(circleContent) {
+                const paragraphs = Array.from(circleContent.querySelectorAll('.circle-paragraph'));
+                if (!paragraphs.length) return;
+
+                // Collect paragraph texts (preserve paragraph boundaries)
+                const paraWords = paragraphs.map(p => ({
+                    el: p,
+                    original: (p.dataset.originalText ?? p.textContent ?? '').trim(),
+                    words: (p.dataset.originalText ?? p.textContent ?? '').trim().split(/\s+/).filter(Boolean)
+                }));
+                if (!paraWords.some(p => p.words.length)) return;
+
+                const circle = circleContent.closest('.about-circle');
+                if (!circle) return;
+
+                const r = Math.max(0, Math.min(circle.clientWidth, circle.clientHeight) / 2);
+                const sampleEl = paraWords[0].el;
+                const cs = window.getComputedStyle(sampleEl);
+                const fontSizePx = parseFloat(cs.fontSize) || 16;
+                const lineHeightPx = parseFloat(cs.lineHeight) || (fontSizePx * 1.35);
+                const maxLines = Math.max(1, Math.floor((2 * r) / lineHeightPx));
+
+                // Precompute circle widths and quantize them to cm steps.
+                const rawWidthsPx = [];
+                const roundedWidthsPx = [];
+                const roundedWidthsCm = [];
+                for (let i = 0; i < maxLines; i++) {
+                    const y = (i - (maxLines - 1) / 2) * lineHeightPx;
+                    const w = 2 * Math.sqrt(Math.max(0, (r * r) - (y * y)));
+                    rawWidthsPx.push(w);
+                    const cm = Math.max(0, w / _PX_PER_CM);
+                    const cmRounded = Math.max(0, Math.round(cm));
+                    roundedWidthsCm.push(cmRounded);
+                    roundedWidthsPx.push(Math.min(w, cmRounded * _PX_PER_CM));
+                }
+
+                // Choose start/end so the first/last visible line is ~2cm (requested),
+                // but never exceed the computed circle.
+                const minStartCm = 2;
+                let startIdx = 0;
+                while (startIdx < maxLines && roundedWidthsCm[startIdx] < minStartCm) startIdx++;
+                let endIdx = maxLines - 1;
+                while (endIdx > startIdx && roundedWidthsCm[endIdx] < minStartCm) endIdx--;
+
+                // Enforce monotonic increase to the middle, then decrease (in cm steps)
+                const midIdx = Math.floor((startIdx + endIdx) / 2);
+                for (let i = startIdx + 1; i <= midIdx; i++) {
+                    if (roundedWidthsCm[i] < roundedWidthsCm[i - 1]) roundedWidthsCm[i] = roundedWidthsCm[i - 1];
+                }
+                for (let i = endIdx - 1; i > midIdx; i--) {
+                    if (roundedWidthsCm[i] < roundedWidthsCm[i + 1]) roundedWidthsCm[i] = roundedWidthsCm[i + 1];
+                }
+                // Mirror to keep symmetry
+                for (let i = 0; i <= (endIdx - startIdx); i++) {
+                    const a = startIdx + i;
+                    const b = endIdx - i;
+                    const v = Math.min(roundedWidthsCm[a], roundedWidthsCm[b]);
+                    roundedWidthsCm[a] = v;
+                    roundedWidthsCm[b] = v;
+                }
+
+                // Convert to px and clamp to raw circle widths
+                for (let i = startIdx; i <= endIdx; i++) {
+                    roundedWidthsPx[i] = Math.min(rawWidthsPx[i], roundedWidthsCm[i] * _PX_PER_CM);
+                }
+
+                // Clear paragraphs
+                paraWords.forEach(p => { p.el.innerHTML = ''; });
+
+                let pIndex = 0;
+                let wi = 0;
+                let currentWords = paraWords[pIndex].words;
+                let currentEl = paraWords[pIndex].el;
+
+                // Insert one "blank line" between paragraphs to visually show paragraph break
+                let pendingParaBreak = false;
+
+                for (let li = startIdx; li <= endIdx && pIndex < paraWords.length; li++) {
+                    const w = roundedWidthsPx[li];
+
+                    if (pendingParaBreak) {
+                        const br = document.createElement('span');
+                        br.className = 'circle-line circle-line-break';
+                        br.textContent = '';
+                        br.style.width = `${Math.max(0, w)}px`;
+                        br.style.maxWidth = `${Math.max(0, w)}px`;
+                        currentEl.appendChild(br);
+                        pendingParaBreak = false;
+                        continue;
+                    }
+
+                    // If current paragraph done, move to next
+                    while (pIndex < paraWords.length && wi >= currentWords.length) {
+                        pIndex++;
+                        if (pIndex >= paraWords.length) break;
+                        currentWords = paraWords[pIndex].words;
+                        wi = 0;
+                        currentEl = paraWords[pIndex].el;
+                        // add a blank line before new paragraph (counted in circle)
+                        pendingParaBreak = true;
+                    }
+                    if (pIndex >= paraWords.length) break;
+
+                    let line = '';
+                    while (wi < currentWords.length) {
+                        const candidate = line ? `${line} ${currentWords[wi]}` : currentWords[wi];
+                        if (line && _measureTextPx(candidate, currentEl) > w) break;
+                        line = candidate;
+                        wi++;
+                        if (_measureTextPx(line, currentEl) > w) break;
+                    }
+                    if (!line && wi < currentWords.length) {
+                        line = currentWords[wi];
+                        wi++;
+                    }
+
+                    const span = document.createElement('span');
+                    span.className = 'circle-line';
+                    span.textContent = line;
+                    // FIXED width so spacing can stretch to fit (circle silhouette)
+                    span.style.width = `${Math.max(0, w)}px`;
+                    span.style.maxWidth = `${Math.max(0, w)}px`;
+
+                    // If this is the last line of a paragraph (or we run out of words), don't justify it
+                    const isLastInParagraph = (wi >= currentWords.length);
+                    if (isLastInParagraph) {
+                        span.classList.add('is-last');
+                    }
+
+                    currentEl.appendChild(span);
+                }
+            }
+
+            function restoreCircleSilhouette(circleContent) {
+                const paragraphs = Array.from(circleContent.querySelectorAll('.circle-paragraph'));
+                paragraphs.forEach(p => {
+                    const original = (p.dataset.originalText ?? '').trim();
+                    p.textContent = original || p.textContent;
+                });
+            }
+            
             function buildDetails(accordion, entries) {
                 accordion.innerHTML = '';
-                entries.forEach(entry => {
+
+                // Restore "lines/accordion" version: titles in rows, content expands underneath.
+                (entries || []).forEach((entry) => {
                     const details = document.createElement('details');
                     details.className = 'about-detail';
-                    details.open = false;
 
                     const summary = document.createElement('summary');
                     summary.className = 'about-detail-summary';
-                    summary.textContent = entry.title;
-                    details.appendChild(summary);
+                    summary.textContent = entry.title || '';
 
                     const body = document.createElement('div');
                     body.className = 'about-detail-body';
-                    (entry.paragraphs || []).forEach(text => {
-                        const p = document.createElement('p');
-                        p.textContent = text;
-                        body.appendChild(p);
+                    (entry.paragraphs || [])
+                        .map(t => (t || '').trim())
+                        .filter(Boolean)
+                        .forEach((t) => {
+                            const p = document.createElement('p');
+                            p.textContent = t;
+                            body.appendChild(p);
+                        });
+
+                    details.appendChild(summary);
+                    details.appendChild(body);
+
+                    // Optional: only one open at a time
+                    details.addEventListener('toggle', () => {
+                        if (!details.open) return;
+                        accordion.querySelectorAll('details.about-detail[open]').forEach((d) => {
+                            if (d !== details) d.open = false;
+                        });
                     });
 
-                    details.appendChild(body);
                     accordion.appendChild(details);
                 });
             }

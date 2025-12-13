@@ -604,6 +604,336 @@ h1.name-corner {
     padding: 2px 0 0;
 }
 
+/* Circle Layout for About Me Sections */
+.about-circles-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(20px, 3vw, 40px);
+    flex-wrap: wrap;
+    padding: clamp(20px, 2.5vw, 30px) 0;
+    min-height: clamp(150px, 20vw, 250px);
+    position: relative;
+}
+
+/* Make non-expanded circles smaller when one is expanded */
+.about-circle-wrapper.other-expanded .about-circle {
+    width: clamp(70px, 8vw, 110px) !important;
+    height: clamp(70px, 8vw, 110px) !important;
+    transform: scale(0.6);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.about-circle-wrapper.other-expanded .about-circle-title {
+    font-size: clamp(0.7rem, 0.9vw, 0.9rem) !important;
+    padding: 0 !important;
+}
+
+/* Fallback for browsers that support :has() */
+.about-circles-container:has(.about-circle-wrapper.expanded) .about-circle-wrapper:not(.expanded) .about-circle {
+    width: clamp(70px, 8vw, 110px);
+    height: clamp(70px, 8vw, 110px);
+    transform: scale(0.6);
+}
+
+.about-circles-container:has(.about-circle-wrapper.expanded) .about-circle-wrapper:not(.expanded) .about-circle-title {
+    font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+    padding: 0;
+}
+
+.about-circle-wrapper {
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.about-circle {
+    width: clamp(260px, 28vw, 420px);
+    height: clamp(260px, 28vw, 420px);
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: visible;
+    box-shadow: none;
+}
+
+.about-circle-wrapper:not(.expanded) .about-circle {
+    width: clamp(260px, 28vw, 420px);
+    height: clamp(260px, 28vw, 420px);
+}
+
+.about-circle::before {
+    display: none;
+}
+
+.about-circle:hover {
+    transform: scale(1.05);
+}
+
+.about-circle-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    padding: 0;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(3px, 0.4vw, 5px);
+}
+
+.about-circle-title-text {
+    display: block;
+}
+
+.about-circle-title-icon {
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    user-select: none;
+}
+
+.about-circle-title-icon:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.2);
+}
+
+.about-circle-title-icon:active {
+    transform: scale(0.95);
+}
+
+.about-circle-title-text {
+    display: block;
+}
+
+.about-circle-wrapper.expanded .about-circle {
+    width: clamp(520px, 68vw, 860px);
+    height: clamp(520px, 68vw, 860px);
+    border: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* Subtle circle hint (no hard border) */
+.about-circle-wrapper.expanded .about-circle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 45%,
+            rgba(255, 255, 255, 0.09) 0%,
+            rgba(255, 255, 255, 0.045) 38%,
+            rgba(255, 255, 255, 0.018) 62%,
+            rgba(0, 0, 0, 0) 78%
+        );
+    filter: blur(10px);
+    opacity: 0.85;
+    transform: translateZ(0);
+}
+
+.about-circle-wrapper.expanded .about-circle-title {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.about-circle-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    padding: 0;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 0;
+    clip-path: none;
+}
+
+
+.about-circle-wrapper.expanded .about-circle-content {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.about-circle-content-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.5625rem, 0.8vw, 0.75rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 500;
+    padding: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(4px, 0.5vw, 6px);
+}
+
+.about-circle-content-title-text {
+    display: block;
+}
+
+.about-circle-content-title-icon {
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    user-select: none;
+}
+
+.about-circle-content-title-icon:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.2);
+}
+
+.about-circle-content-title-icon:active {
+    transform: scale(0.95);
+}
+
+.about-circle-content-title-text {
+    display: block;
+}
+
+.about-circle-content-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: visible;
+    padding: 0;
+    flex: 1;
+    min-height: 0;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    text-align: center;
+    margin-top: 0;
+}
+
+.about-circle-content-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.about-circle-content-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+}
+
+.about-circle-content-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.about-circle-content-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.circle-paragraph {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+    letter-spacing: 0.02em;
+    line-height: 1.35; /* drives the circle silhouette step */
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+.circle-line {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+    /* Make silhouette truly "round": expand spaces to fill the computed width */
+    text-align: justify;
+    text-justify: inter-word;
+    white-space: normal;
+}
+
+/* Force justify to take effect on a single line */
+.circle-line::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+}
+
+/* Last line of each paragraph should be centered (not stretched) */
+.circle-line.is-last {
+    text-align: center;
+}
+.circle-line.is-last::after {
+    display: none;
+}
+
+/* Paragraph separator line (invisible but keeps circle math spacing) */
+.circle-line-break {
+    opacity: 0;
+    height: 1em;
+}
+
+/* Word-pyramid: each line is centered */
+.pyramid-line {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+/* Shade-out behind the whole paragraph (independent of text, no "highlighter" effect) */
+/* No colored background/shade behind the pyramid text (requested). */
+
 .about-detail {
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -1127,8 +1457,8 @@ h1.name-corner {
    ============================================ */
 .disclaimer-section {
     width: 100%;
-    max-width: 760px;
-    min-height: clamp(200px, 26vw, 280px);
+    max-width: 1200px;
+    min-height: clamp(300px, 35vw, 400px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1609,6 +1939,43 @@ h1.name-corner {
         font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
         line-height: 1.7;
     }
+    
+    .about-circles-container {
+        gap: clamp(24px, 4vw, 40px);
+        padding: clamp(24px, 4vw, 40px) 0;
+        min-height: clamp(250px, 50vw, 400px);
+    }
+    
+    .about-circle-wrapper:not(.expanded) .about-circle {
+        width: clamp(160px, 20vw, 240px);
+        height: clamp(160px, 20vw, 240px);
+    }
+    
+    .about-circle-wrapper.expanded .about-circle {
+        width: clamp(420px, 78vw, 720px);
+        height: clamp(420px, 78vw, 720px);
+    }
+    
+    .about-circle-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 0;
+    }
+    
+    .about-circle-content-body {
+        max-height: 100%;
+        gap: clamp(8px, 1vw, 12px);
+    }
+    
+    .circle-paragraph {
+        font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+        line-height: 1.35;
+    }
+    
+    .about-circle-content-title {
+        margin-bottom: 0;
+    }
 
     .recommendations-content {
         padding: 0 var(--space-xs);
@@ -1919,6 +2286,54 @@ h1.name-corner {
     .about-detail-body p {
         font-size: clamp(0.875rem, 1.8vw, 1rem);
         line-height: 1.7;
+    }
+    
+    .about-circles-container {
+        gap: clamp(16px, 3vw, 24px);
+        padding: clamp(20px, 3vw, 32px) 0;
+        min-height: clamp(200px, 60vw, 350px);
+    }
+    
+    .about-circle-wrapper:not(.expanded) .about-circle {
+        width: clamp(140px, 26vw, 200px);
+        height: clamp(140px, 26vw, 200px);
+    }
+    
+    .about-circle-title {
+        font-size: clamp(0.95rem, 4vw, 1.2rem);
+        padding: 0;
+    }
+    
+    .about-circle-wrapper.expanded .about-circle {
+        width: clamp(360px, 88vw, 560px);
+        height: clamp(360px, 88vw, 560px);
+    }
+    
+    .about-circle-content-title {
+        font-size: clamp(1rem, 2.2vw, 1.375rem);
+        margin-bottom: clamp(16px, 2.5vw, 24px);
+    }
+    
+    .about-circle-content {
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 0;
+    }
+    
+    .about-circle-content-title {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        margin-bottom: clamp(8px, 1.2vw, 12px);
+    }
+    
+    .about-circle-content-body {
+        max-height: 100%;
+        gap: clamp(6px, 1vw, 10px);
+    }
+    
+    .circle-paragraph {
+        font-size: clamp(0.9rem, 3.6vw, 1.1rem);
+        line-height: 1.35;
     }
 
     .quote-future {
