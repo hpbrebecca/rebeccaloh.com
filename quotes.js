@@ -352,8 +352,19 @@
         // Update page title, H1 and H2 (get current section from URL)
         if (window.updatePageTitle) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
-            const currentSection = sectionMatch ? sectionMatch[2] : 'home';
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
+            // Map URL section names to internal section IDs
+            const urlToSectionMap = {
+                'bio': 'aboutme',
+                'aboutme': 'aboutme',
+                'contact': 'connect',
+                'connect': 'connect',
+                'quotes': 'quotes',
+                'recommendations': 'recommendations',
+                'home': 'home'
+            };
+            const urlSection = sectionMatch ? sectionMatch[2] : 'home';
+            const currentSection = urlToSectionMap[urlSection] || urlSection;
             window.updatePageTitle(lang, currentSection);
         }
         if (window.updateH1) {
@@ -361,8 +372,19 @@
         }
         if (window.updateH2) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
-            const currentSection = sectionMatch ? sectionMatch[2] : 'home';
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
+            // Map URL section names to internal section IDs
+            const urlToSectionMap = {
+                'bio': 'aboutme',
+                'aboutme': 'aboutme',
+                'contact': 'connect',
+                'connect': 'connect',
+                'quotes': 'quotes',
+                'recommendations': 'recommendations',
+                'home': 'home'
+            };
+            const urlSection = sectionMatch ? sectionMatch[2] : 'home';
+            const currentSection = urlToSectionMap[urlSection] || urlSection;
             window.updateH2(lang, currentSection);
         }
         if (window.updateHomeContent) {
@@ -487,7 +509,7 @@
                     
                     // Update URL with new language
                     const path = window.location.pathname;
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
                     if (sectionMatch) {
                         const section = sectionMatch[2];
                         const newUrl = `/${lang}/${section}`;

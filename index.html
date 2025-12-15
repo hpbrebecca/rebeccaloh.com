@@ -378,7 +378,16 @@
             }
             
             function updateURLWithLanguage(lang, section) {
-                const basePath = `/${lang}/${section}`;
+                // Map internal section IDs to URL-friendly names
+                const urlSectionMap = {
+                    'aboutme': 'bio',
+                    'connect': 'contact',
+                    'home': 'home',
+                    'quotes': 'quotes',
+                    'recommendations': 'recommendations'
+                };
+                const urlSection = urlSectionMap[section] || section;
+                const basePath = `/${lang}/${urlSection}`;
                 window.history.pushState({ lang: lang, section: section }, '', basePath);
             }
             
@@ -1094,7 +1103,7 @@
                 
                 // Check for language-prefixed paths
                 if (langMatch) {
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(home|aboutme|connect|quotes|recommendations)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(home|bio|aboutme|contact|connect|quotes|recommendations)/);
                     if (sectionMatch) {
                         targetSection = sectionMatch[2];
                     } else if (path.match(/^\/(en|de|fr|zh)\/?$/)) {
@@ -1110,7 +1119,7 @@
                         targetSection = 'aboutme';
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
-                    } else if (path === '/connect' || path === '/connect/' || path.endsWith('/connect.html') || hash === 'connect') {
+                    } else if (path === '/contact' || path === '/contact/' || path.endsWith('/contact.html') || hash === 'contact' || path === '/connect' || path === '/connect/' || path.endsWith('/connect.html') || hash === 'connect') {
                         targetSection = 'connect';
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
@@ -1163,7 +1172,7 @@
             // Also handle hash changes for direct navigation
             window.addEventListener('hashchange', () => {
                 const hash = window.location.hash.replace('#', '');
-                if (hash && ['home', 'aboutme', 'connect', 'quotes', 'recommendations'].includes(hash)) {
+                if (hash && ['home', 'aboutme', 'bio', 'connect', 'contact', 'quotes', 'recommendations'].includes(hash)) {
                     const currentLang = getCurrentLanguage();
                     updateURLWithLanguage(currentLang, hash);
                     handleRouting();
