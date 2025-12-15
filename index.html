@@ -91,14 +91,14 @@
         <a href="#aboutme" class="nav-link" data-section="aboutme">
             <span class="nav-text" data-lang-key="aboutme">Bio</span>
         </a>
-        <a href="#connect" class="nav-link" data-section="connect">
-            <span class="nav-text" data-lang-key="connect">Connect</span>
-        </a>
         <a href="#quotes" class="nav-link" data-section="quotes">
             <span class="nav-text" data-lang-key="quotes">Quotes</span>
         </a>
         <a href="#recommendations" class="nav-link" data-section="recommendations">
             <span class="nav-text" data-lang-key="recommendations">Links</span>
+        </a>
+        <a href="#connect" class="nav-link" data-section="connect">
+            <span class="nav-text" data-lang-key="connect">Contact</span>
         </a>
     </nav>
 
@@ -164,10 +164,10 @@
             </div>
         </div>
 
-        <!-- Connect Section -->
+        <!-- Contact Section -->
         <div class="about-section-designer" id="connectSection" style="display: none;">
             <div class="about-content">
-                <h2 class="section-heading" id="connectHeading">Connect</h2>
+                <h2 class="section-heading" id="connectHeading">Contact</h2>
                 <p class="about-description" id="connectDescription">Connect on LinkedIn to learn more about my work.</p>
                 <a href="https://ch.linkedin.com/in/rebiloh" class="linkedin-connection-btn" id="linkedinConnectionBtn" target="_blank" rel="noopener noreferrer" data-linkedin="profile" aria-label="Open LinkedIn profile">
                     <svg class="linkedin-icon-btn" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -315,10 +315,10 @@
 
             const fallbackAboutContent = {
                 description: {
-                    de: "Vernetzen Sie sich mit mir auf LinkedIn.",
-                    en: "Connect with me on LinkedIn.",
-                    fr: "Connectez-vous avec moi sur LinkedIn.",
-                    zh: "在 LinkedIn 上與我建立連結。"
+                    de: "Kontaktieren Sie mich auf LinkedIn.",
+                    en: "Contact me on LinkedIn.",
+                    fr: "Contactez-moi sur LinkedIn.",
+                    zh: "在 LinkedIn 上與我聯絡。"
                 },
                 intro: { de: "", en: "", fr: "", zh: "" },
                 sections: { de: [], en: [], fr: [], zh: [] },
@@ -397,10 +397,10 @@
                     zh: "簡介 – 羅碧嘉"
                 },
                 connect: {
-                    en: "Connect – Rebecca Loh",
-                    de: "Vernetzen – Rebecca Loh",
-                    fr: "Se connecter – Rebecca Loh",
-                    zh: "探索 – 羅碧嘉"
+                    en: "Contact – Rebecca Loh",
+                    de: "Kontakt – Rebecca Loh",
+                    fr: "Contact – Rebecca Loh",
+                    zh: "聯絡 – 羅碧嘉"
                 },
                 quotes: {
                     en: "Quotes – Rebecca Loh",
@@ -488,10 +488,10 @@
                     zh: "簡介"
                 },
                 connect: {
-                    en: "Connect",
-                    de: "Vernetzen",
-                    fr: "Se connecter",
-                    zh: "探索"
+                    en: "Contact",
+                    de: "Kontakt",
+                    fr: "Contact",
+                    zh: "聯絡"
                 },
                 quotes: {
                     en: "Quotes",
@@ -1007,7 +1007,15 @@
             }
 
             if (disclaimerMiniEl) {
-                disclaimerMiniEl.addEventListener('click', () => {
+                disclaimerMiniEl.addEventListener('click', (event) => {
+                    // Create local ripple effect
+                    if (window.createRipple) {
+                        window.createRipple(event, disclaimerMiniEl);
+                    }
+                    // Create global ripple effect
+                    if (window.createGlobalRipple) {
+                        window.createGlobalRipple(event);
+                    }
                     navLinks.forEach(nl => nl.classList.remove('active'));
                     showSection('disclaimer');
                     disclaimerMiniEl.setAttribute('aria-expanded', 'true');
@@ -1182,6 +1190,8 @@
             // Override nav link clicks to use pushState with language
             navLinks.forEach((navLink, index) => {
                 navLink.addEventListener('click', (event) => {
+                    // Ripple effects removed - no waves on navigation clicks
+                    
                     event.preventDefault();
                     event.stopPropagation();
                     const section = navLink.getAttribute('data-section') || 'aboutme';
@@ -1255,7 +1265,17 @@
 
             const linkedinTargets = document.querySelectorAll('[data-linkedin="profile"]');
             linkedinTargets.forEach(target => {
-                target.addEventListener('click', openLinkedInProfile);
+                target.addEventListener('click', (event) => {
+                    // Create local ripple effect
+                    if (window.createRipple) {
+                        window.createRipple(event, target);
+                    }
+                    // Create global ripple effect
+                    if (window.createGlobalRipple) {
+                        window.createGlobalRipple(event);
+                    }
+                    openLinkedInProfile(event);
+                });
                 target.addEventListener('keydown', (event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
                         openLinkedInProfile(event);
@@ -1392,6 +1412,14 @@
                 
                 // Only start music when user explicitly clicks the button
                 audioBtn.addEventListener('click', (event) => {
+                    // Create local ripple effect
+                    if (window.createRipple) {
+                        window.createRipple(event, audioBtn);
+                    }
+                    // Create global ripple effect
+                    if (window.createGlobalRipple) {
+                        window.createGlobalRipple(event);
+                    }
                     event.preventDefault();
                     event.stopPropagation();
                     if (audioPlayer.paused) {
@@ -1415,6 +1443,167 @@
                     }
                 });
             }
+        });
+        
+        // ============================================
+        // MODERN CURSOR - Gen Z Editorial Style
+        // ============================================
+        function initCustomCursor() {
+            // Only initialize on devices with mouse/trackpad
+            if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                const cursor = document.createElement('div');
+                cursor.classList.add('custom-cursor');
+                document.body.appendChild(cursor);
+                
+                let mouseX = 0;
+                let mouseY = 0;
+                let cursorX = 0;
+                let cursorY = 0;
+                
+                // Update cursor position smoothly
+                function updateCursor() {
+                    const dx = mouseX - cursorX;
+                    const dy = mouseY - cursorY;
+                    cursorX += dx * 0.15;
+                    cursorY += dy * 0.15;
+                    
+                    cursor.style.left = cursorX + 'px';
+                    cursor.style.top = cursorY + 'px';
+                    
+                    requestAnimationFrame(updateCursor);
+                }
+                
+                // Track mouse movement
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                });
+                
+                // Add hover effect - update dynamically as elements are added
+                // Cursor vergrößert sich beim Hover über interaktive Elemente
+                function updateHoverElements() {
+                    const hoverElements = document.querySelectorAll('a, button, .nav-link, .control-button, .disclaimer-mini, .control-trigger, .control-option, .profile-orb-small, .linkedin-connection-btn, [data-linkedin="profile"], .about-detail-summary');
+                    hoverElements.forEach(el => {
+                        // Remove existing listeners to avoid duplicates
+                        el.removeEventListener('mouseenter', () => {});
+                        el.removeEventListener('mouseleave', () => {});
+                        
+                        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                    });
+                }
+                
+                // Initial setup
+                updateHoverElements();
+                
+                // Update when DOM changes (for dynamically added elements)
+                const observer = new MutationObserver(() => {
+                    updateHoverElements();
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+                
+                // No click effect - cursor stays small (removed click class addition)
+                
+                // Start cursor animation
+                updateCursor();
+            }
+        }
+        
+        // ============================================
+        // GLOBAL PRISMA EFFECT - Transparent Glass Layer with Light Refraction
+        // ============================================
+        function createGlobalRipple(event) {
+            // Remove existing effects
+            const existingEffects = document.querySelectorAll('.global-ripple-effect');
+            existingEffects.forEach(effect => effect.remove());
+            
+            // Get click position
+            const x = event.clientX;
+            const y = event.clientY;
+            
+            // Create ripple container (full screen)
+            const rippleContainer = document.createElement('div');
+            rippleContainer.classList.add('global-ripple-effect');
+            
+            // Create prisma glass layer
+            const prismaLayer = document.createElement('div');
+            prismaLayer.classList.add('prisma-glass-layer');
+            prismaLayer.style.setProperty('--click-x', x + 'px');
+            prismaLayer.style.setProperty('--click-y', y + 'px');
+            
+            // Position the wave origin at click point
+            prismaLayer.style.setProperty('--origin-x', x + 'px');
+            prismaLayer.style.setProperty('--origin-y', y + 'px');
+            
+            rippleContainer.appendChild(prismaLayer);
+            
+            // Add to body
+            document.body.appendChild(rippleContainer);
+            
+            // Remove effect after animation
+            setTimeout(() => {
+                rippleContainer.remove();
+            }, 3000);
+        }
+        
+        // ============================================
+        // LOCAL RIPPLE EFFECT - For Clickable Elements
+        // ============================================
+        function createRipple(event, element) {
+            // Remove existing ripples
+            const existingRipples = element.querySelectorAll('.ripple-effect');
+            existingRipples.forEach(ripple => ripple.remove());
+            
+            // Get element position
+            const rect = element.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            // Create ripple element
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-effect');
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            
+            // Add to element
+            element.appendChild(ripple);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        }
+        
+        // Expose functions globally
+        window.createRipple = createRipple;
+        window.createGlobalRipple = createGlobalRipple;
+        
+        // Add ripple effect to all clickable elements
+        function addRippleEffect() {
+            // Just add the ripple-container class - ripple will be triggered by existing event handlers
+            document.querySelectorAll('.nav-link, .control-button, .disclaimer-mini, .control-trigger, .control-option, .profile-orb-small, .linkedin-connection-btn').forEach(element => {
+                element.classList.add('ripple-container');
+            });
+        }
+        
+        // Initialize effects when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize custom cursor
+            initCustomCursor();
+            
+            // Add ripple effect classes
+            setTimeout(addRippleEffect, 100);
+            
+            // Add global click listener for empty space
+            document.addEventListener('click', (event) => {
+                // Only create global ripple if clicking on body or non-interactive elements
+                const target = event.target;
+                const isInteractive = target.closest('a, button, .nav-link, .control-button, .disclaimer-mini, .control-trigger, .control-option, .profile-orb-small, .linkedin-connection-btn, input, textarea, select');
+                
+                if (!isInteractive) {
+                    createGlobalRipple(event);
+                }
+            });
         });
     </script>
 </body>

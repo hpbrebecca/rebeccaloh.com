@@ -346,7 +346,7 @@ h1.name-corner {
     transform: translateX(-50%);
     z-index: var(--z-navigation);
     display: flex;
-    gap: clamp(8px, 1.2vw, 16px);
+    gap: clamp(4px, 0.6vw, 8px);
     align-items: center;
     width: auto;
     justify-content: center;
@@ -354,7 +354,7 @@ h1.name-corner {
     /* Professional top positioning - same height as controls */
     min-width: clamp(200px, 25vw, 300px);
     max-width: calc(100vw - clamp(280px, 35vw, 400px));
-    padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
+    padding: clamp(4px, 0.6vw, 8px) clamp(12px, 1.5vw, 18px);
     background: var(--color-dark-primary);
     border-radius: 8px;
     flex-wrap: nowrap;
@@ -363,18 +363,19 @@ h1.name-corner {
 
 .nav-link {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.8125rem, 1.2vw, 1rem);
+    font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     font-weight: 300;
     letter-spacing: 0.1em;
     color: var(--color-white-content);
     text-decoration: none;
-    padding: clamp(6px, 0.8vw, 8px) clamp(6px, 0.8vw, 10px);
+    padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px);
     border-bottom: 2px solid transparent;
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     text-transform: uppercase;
     white-space: normal;
     flex-shrink: 0;
+    line-height: 1.4;
     /* Premium typography */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -389,7 +390,10 @@ h1.name-corner {
 .nav-link:hover {
     color: var(--color-accent-primary);
     border-bottom-color: var(--color-accent-primary);
-    transform: translateY(-3px) translateZ(0);
+    transform: translateY(-2px) translateZ(0);
+    opacity: 1;
+    /* Subtle glow effect instead of blur */
+    text-shadow: 0 0 8px rgba(59, 95, 204, 0.3);
 }
 
 .nav-link.active {
@@ -1245,7 +1249,7 @@ h1.name-corner {
 
 .about-detail-summary {
     list-style: none;
-    cursor: pointer;
+    cursor: none;
     position: relative;
     padding-right: clamp(36px, 4.4vw, 44px);
     padding-left: 0;
@@ -1259,11 +1263,12 @@ h1.name-corner {
     justify-content: flex-start;
     gap: var(--space-sm);
     /* Premium interaction */
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .about-detail-summary:hover {
     color: var(--color-accent-primary);
+    transform: translateX(4px);
 }
 
 .about-detail-summary::-webkit-details-marker {
@@ -1775,7 +1780,7 @@ h1.name-corner {
     font-size: clamp(0.875rem, 1.2vw, 1rem);
     letter-spacing: 0.04em;
     line-height: 1.7;
-    color: var(--color-dark-secondary);
+    color: rgba(255, 255, 255, 0.85);
     margin: 0;
     text-align: justify;
 }
@@ -1837,7 +1842,7 @@ h1.name-corner {
     text-align: right;
     background: transparent;
     border: none;
-    padding: 0;
+    padding: 2px 4px;
     cursor: pointer;
     text-transform: uppercase;
     transition: color 0.3s ease, opacity 0.3s ease;
@@ -1870,9 +1875,10 @@ h1.name-corner {
 .control-trigger {
     display: flex;
     align-items: center;
-    gap: clamp(8px, 1vw, 10px);
-    padding: 2px clamp(6px, 1vw, 8px);
-    height: var(--control-height);
+    gap: clamp(4px, 0.6vw, 6px);
+    padding: clamp(2px, 0.3vw, 3px) clamp(6px, 0.8vw, 8px);
+    height: auto;
+    min-height: clamp(28px, 3.2vw, 32px);
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1891,9 +1897,9 @@ h1.name-corner {
 
 .control-label {
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-    font-size: clamp(0.75rem, 1vw, 0.875rem);
+    font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     font-weight: 300;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--color-white-content);
     text-transform: uppercase;
 }
@@ -1954,7 +1960,7 @@ h1.name-corner {
     display: flex;
     align-items: center;
     gap: var(--space-md);
-    padding: var(--space-xs) clamp(8px, 1.2vw, 10px);
+    padding: clamp(4px, 0.5vw, 6px) clamp(6px, 0.8vw, 8px);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1998,8 +2004,8 @@ h1.name-corner {
 }
 
 .control-button {
-    width: var(--control-height);
-    height: var(--control-height);
+    width: clamp(28px, 3.2vw, 32px);
+    height: clamp(28px, 3.2vw, 32px);
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
@@ -2028,8 +2034,8 @@ h1.name-corner {
 }
 
 .control-button svg {
-    width: clamp(10px, 1.2vw, 12px);
-    height: clamp(10px, 1.2vw, 12px);
+    width: clamp(12px, 1.4vw, 14px);
+    height: clamp(12px, 1.4vw, 14px);
     color: rgba(255, 255, 255, 0.9);
     transition: all 0.3s ease;
 }
@@ -2070,7 +2076,7 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
+        gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(600px, 40vw, 800px));
         min-width: clamp(300px, 25vw, 400px);
     }
@@ -2087,7 +2093,7 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
+        gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(500px, 35vw, 700px));
         min-width: clamp(250px, 22vw, 350px);
     }
@@ -2104,7 +2110,7 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
+        gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(380px, 45vw, 550px));
         min-width: clamp(200px, 20vw, 300px);
     }
@@ -2121,7 +2127,7 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
+        gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(320px, 40vw, 480px));
         min-width: clamp(180px, 22vw, 260px);
     }
@@ -2160,17 +2166,17 @@ h1.name-corner {
     }
     
     .main-navigation {
-        gap: clamp(10px, 2vw, 18px); /* Increased gap for better spacing on tablets */
-        padding: clamp(10px, 1.5vw, 14px) clamp(12px, 1.8vw, 16px); /* More padding for touch targets */
+        gap: clamp(4px, 0.8vw, 8px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
     }
     
     .main-navigation .nav-link {
-        font-size: clamp(0.8125rem, 2.5vw, 1rem); /* Larger font on tablets */
-        padding: clamp(6px, 1vw, 10px) clamp(6px, 1vw, 10px);
+        font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+        padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px);
     }
     
     .main-navigation .nav-text {
-        font-size: clamp(0.8125rem, 2.5vw, 1rem); /* Larger font on tablets */
+        font-size: clamp(0.6875rem, 1.2vw, 0.8125rem);
         max-width: none;
         line-height: 1.4;
     }
@@ -2184,8 +2190,8 @@ h1.name-corner {
     .main-navigation {
         top: clamp(72px, 9vw, 88px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
-        padding: clamp(8px, 1vw, 12px) clamp(12px, 1.6vw, 16px);
+        gap: clamp(4px, 0.8vw, 8px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
         overflow: visible;
         justify-content: center;
         left: 50%;
@@ -2206,8 +2212,8 @@ h1.name-corner {
         text-align: center;
         min-width: 0;
         flex: 1 1 0;
-        font-size: clamp(0.68rem, 1.5vw, 0.86rem);
-        letter-spacing: 0.06em;
+        font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+        letter-spacing: 0.1em;
         padding: 2px 4px;
     }
 
@@ -2364,7 +2370,7 @@ h1.name-corner {
 
     .disclaimer-mini {
         text-align: right;
-        font-size: clamp(0.75rem, 1.6vw, 0.9375rem);
+        font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
         white-space: nowrap;
         margin-left: var(--space-xs);
         padding: 2px var(--space-xs);
@@ -2497,8 +2503,8 @@ h1.name-corner {
     .main-navigation {
         top: clamp(64px, 8vw, 80px);
         bottom: auto;
-        gap: clamp(8px, 1.2vw, 16px);
-        padding: clamp(8px, 1vw, 12px) clamp(12px, 1.6vw, 16px);
+        gap: clamp(4px, 0.8vw, 8px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
         width: calc(100vw - clamp(16px, 2vw, 24px));
         max-width: calc(100vw - clamp(16px, 2vw, 24px));
         flex-wrap: wrap;
@@ -2693,4 +2699,164 @@ h1.name-corner {
     .logo-card img {
         max-height: clamp(24px, 3vw, 28px);
     }
+}
+
+/* ============================================
+   MODERN CURSOR - Gen Z Editorial Style
+   ============================================ */
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none;
+    }
+
+    body {
+        cursor: none;
+    }
+}
+
+.custom-cursor {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+    mix-blend-mode: difference;
+    /* Kein Halo-Effekt */
+    box-shadow: none;
+}
+
+.custom-cursor.hover {
+    /* Cursor vergrößert sich beim Hover - leicht größer als größte Buchstaben */
+    /* Größte Schriftgröße ist clamp(1.25rem, 2.2vw, 1.75rem) für H1, also ca. 28px max */
+    /* Cursor wird ca. 32-36px groß */
+    width: clamp(24px, 2.5vw, 36px);
+    height: clamp(24px, 2.5vw, 36px);
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    backdrop-filter: none;
+    /* Kein Halo-Effekt */
+    box-shadow: none;
+}
+
+.custom-cursor.click {
+    /* Cursor bleibt klein - keine Vergrößerung beim Klick */
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    /* Kein Halo-Effekt */
+    box-shadow: none;
+}
+
+/* Fallback for elements that need default cursor */
+@media (hover: hover) and (pointer: fine) {
+    a, button, .nav-link, .control-button, .disclaimer-mini, 
+    .control-trigger, .control-option, .profile-orb-small, 
+    .linkedin-connection-btn, input, textarea, select,
+    details, summary, .about-detail-summary {
+        cursor: none;
+    }
+}
+
+/* ============================================
+   RIPPLE EFFECT - Water Drop in Still Lake
+   ============================================ */
+.ripple-container {
+    position: relative;
+    overflow: visible;
+    cursor: none;
+}
+
+/* Global ripple effect removed - no waves needed */
+
+/* Ripple rings removed - no waves needed */
+
+/* Local ripple effect for clickable elements */
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(59, 95, 204, 0.3);
+    transform: scale(0);
+    animation: ripple-animation 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    opacity: 0.8;
+}
+
+.ripple-effect::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(59, 95, 204, 0.15);
+    width: 100%;
+    height: 100%;
+    transform: scale(0);
+    animation: ripple-inner 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(8);
+        opacity: 0;
+    }
+}
+
+@keyframes ripple-inner {
+    to {
+        transform: scale(6);
+        opacity: 0;
+    }
+}
+
+/* Ripple effect for navigation links */
+.nav-link.ripple-container {
+    overflow: visible;
+}
+
+.nav-link .ripple-effect {
+    background: rgba(59, 95, 204, 0.3);
+}
+
+.nav-link.active .ripple-effect {
+    background: rgba(59, 95, 204, 0.5);
+}
+
+/* Ripple effect for buttons */
+.control-button.ripple-container,
+.disclaimer-mini.ripple-container,
+.control-trigger.ripple-container,
+.control-option.ripple-container {
+    overflow: visible;
+}
+
+.control-button .ripple-effect,
+.disclaimer-mini .ripple-effect,
+.control-trigger .ripple-effect,
+.control-option .ripple-effect {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ripple effect for profile orb */
+.profile-orb-small.ripple-container {
+    overflow: visible;
+}
+
+.profile-orb-small .ripple-effect {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Ripple effect for LinkedIn buttons */
+.linkedin-connection-btn.ripple-container {
+    overflow: visible;
+}
+
+.linkedin-connection-btn .ripple-effect {
+    background: rgba(59, 95, 204, 0.4);
 }

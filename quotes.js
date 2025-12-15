@@ -94,10 +94,10 @@
             zh: "首頁"
         },
         connect: {
-            de: "Vernetzen",
-            en: "Connect",
-            fr: "Se connecter",
-            zh: "探索"
+            de: "Kontakt",
+            en: "Contact",
+            fr: "Contact",
+            zh: "聯絡"
         },
         aboutme: {
             de: "Profil",
@@ -128,10 +128,10 @@
     // About section content in all languages
     const aboutContent = {
         description: {
-            de: "Auf LinkedIn vernetzen.",
-            en: "Connect on LinkedIn.",
-            fr: "Se connecter sur LinkedIn.",
-            zh: "在 LinkedIn 上建立連結。"
+            de: "Auf LinkedIn kontaktieren.",
+            en: "Contact on LinkedIn.",
+            fr: "Contacter sur LinkedIn.",
+            zh: "在 LinkedIn 上聯絡。"
         },
         intro: {
             de: "",
@@ -312,11 +312,13 @@
     const languageDropdown = document.getElementById('languageDropdownFuture');
     
     // Language code mapping
+    // For EN/DE/FR: show "語言" (Traditional Chinese)
+    // For ZH: show "LANGUAGE"
     const languageCodes = {
-        en: 'EN',
-        de: 'DE',
-        fr: 'FR',
-        zh: '中文'
+        en: '語言',
+        de: '語言',
+        fr: '語言',
+        zh: 'LANGUAGE'
     };
     
     // Close dropdown when clicking outside
@@ -421,6 +423,15 @@
         
         // Toggle dropdown on button click
         languageTrigger.addEventListener('click', (event) => {
+            // Create local ripple effect
+            if (window.createRipple) {
+                window.createRipple(event, languageTrigger);
+            }
+            // Create global ripple effect
+            if (window.createGlobalRipple) {
+                window.createGlobalRipple(event);
+            }
+            
             event.preventDefault();
             event.stopPropagation();
             
@@ -457,6 +468,15 @@
         const langOptions = languageDropdown.querySelectorAll('.control-option');
         langOptions.forEach(option => {
             option.addEventListener('click', (event) => {
+                // Create local ripple effect
+                if (window.createRipple) {
+                    window.createRipple(event, option);
+                }
+                // Create global ripple effect
+                if (window.createGlobalRipple) {
+                    window.createGlobalRipple(event);
+                }
+                
                 event.preventDefault();
                 event.stopPropagation();
                 
