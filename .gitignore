@@ -13,3 +13,10 @@ desktop.ini
 # Logs
 *.log
 
+# Test/Alternative Design Files
+design-alt/
+test-design/
+*-alt.html
+*-alt.css
+*-test.html
+*-test.css

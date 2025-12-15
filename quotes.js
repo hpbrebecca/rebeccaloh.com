@@ -87,6 +87,12 @@
     
     // Navigation labels in all languages
     const navigationLabels = {
+        home: {
+            de: "Startseite",
+            en: "Home",
+            fr: "Accueil",
+            zh: "首頁"
+        },
         connect: {
             de: "Vernetzen",
             en: "Connect",
@@ -94,10 +100,10 @@
             zh: "探索"
         },
         aboutme: {
-            de: "Über mich",
-            en: "About Me",
-            fr: "À propos de moi",
-            zh: "關於我"
+            de: "Profil",
+            en: "Bio",
+            fr: "Profil",
+            zh: "簡介"
         },
         quotes: {
             de: "Zitate",
@@ -106,10 +112,10 @@
             zh: "引言"
         },
         recommendations: {
-            de: "Empfehlungen",
-            en: "Recommendations",
-            fr: "Recommandations",
-            zh: "推薦"
+            de: "Links",
+            en: "Links",
+            fr: "Liens",
+            zh: "連結"
         },
         disclaimer: {
             de: "Disclaimer",
@@ -353,9 +359,12 @@
         }
         if (window.updateH2) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
-            const currentSection = sectionMatch ? sectionMatch[2] : 'aboutme';
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
+            const currentSection = sectionMatch ? sectionMatch[2] : 'home';
             window.updateH2(lang, currentSection);
+        }
+        if (window.updateHomeContent) {
+            window.updateHomeContent(lang);
         }
         
         const translation = nameTranslations[lang];

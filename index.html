@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rebecca Loh, Zurich, Switzerland</title>
-    <meta name="description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
+    <title>Rebecca Loh · CFO & Industrial Engineer · Switzerland</title>
+    <meta name="description" content="Rebecca Loh is a Chartered Expert in Financial and Managerial Accounting and Reporting and an Industrial Engineer, serving as CFO at FICAS AG, a FINMA-licensed portfolio manager focused on crypto-asset ETPs and ETIs.">
     <link rel="canonical" href="https://rebeccaloh.com/">
     <meta name="theme-color" content="#000000">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Rebecca Loh – CFO & Strategist">
-    <meta property="og:description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
+    <meta property="og:title" content="Rebecca Loh · CFO & Industrial Engineer · Switzerland">
+    <meta property="og:description" content="Rebecca Loh is a Chartered Expert in Financial and Managerial Accounting and Reporting and an Industrial Engineer, serving as CFO at FICAS AG, a FINMA-licensed portfolio manager focused on crypto-asset ETPs and ETIs.">
     <meta property="og:url" content="https://rebeccaloh.com/">
     <meta property="og:image" content="https://rebeccaloh.com/project1/profile.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Rebecca Loh – CFO & Strategist">
-    <meta name="twitter:description" content="Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.">
+    <meta name="twitter:title" content="Rebecca Loh · CFO & Industrial Engineer · Switzerland">
+    <meta name="twitter:description" content="Rebecca Loh is a Chartered Expert in Financial and Managerial Accounting and Reporting and an Industrial Engineer, serving as CFO at FICAS AG, a FINMA-licensed portfolio manager focused on crypto-asset ETPs and ETIs.">
     <meta name="twitter:image" content="https://rebeccaloh.com/project1/profile.jpg">
     <link rel="icon" type="image/jpeg" href="project1/profile.jpg">
     <link rel="apple-touch-icon" sizes="180x180" href="project1/profile.jpg">
@@ -85,8 +85,11 @@
     
     <!-- Navigation - Top Center -->
     <nav class="main-navigation" id="mainNavigation">
-        <a href="#aboutme" class="nav-link active" data-section="aboutme">
-            <span class="nav-text" data-lang-key="aboutme">About Me</span>
+        <a href="#home" class="nav-link active" data-section="home">
+            <span class="nav-text" data-lang-key="home">Home</span>
+        </a>
+        <a href="#aboutme" class="nav-link" data-section="aboutme">
+            <span class="nav-text" data-lang-key="aboutme">Bio</span>
         </a>
         <a href="#connect" class="nav-link" data-section="connect">
             <span class="nav-text" data-lang-key="connect">Connect</span>
@@ -95,13 +98,32 @@
             <span class="nav-text" data-lang-key="quotes">Quotes</span>
         </a>
         <a href="#recommendations" class="nav-link" data-section="recommendations">
-            <span class="nav-text" data-lang-key="recommendations">Recommendations</span>
+            <span class="nav-text" data-lang-key="recommendations">Links</span>
         </a>
     </nav>
 
     <!-- Main Content - Dynamic Sections -->
     <div class="main-content-designer">
-        <!-- Connect Section - Primary Landing -->
+        <!-- Home Section - Primary Landing -->
+        <div class="about-section-designer" id="homeSection" style="display: flex;">
+            <div class="about-content">
+                <h2 class="section-heading" id="homeHeading">Home</h2>
+                <div class="home-image-wrapper">
+                    <div class="home-image-container">
+                        <img src="Rebecca Loh.jpg" alt="Rebecca Loh" class="home-image" id="homeImage" loading="eager" decoding="async">
+                    </div>
+                    <!-- White Text Box - Partially overlapping image and extending beyond -->
+                    <div class="home-image-overlay-box">
+                        <h3 class="home-image-overlay-h3" id="homeH3"></h3>
+                        <p class="home-image-overlay-text" id="homeParagraph1"></p>
+                        <p class="home-image-overlay-text" id="homeParagraph2"></p>
+                        <p class="home-image-overlay-text" id="homeParagraph3"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connect Section -->
         <div class="about-section-designer" id="connectSection" style="display: none;">
             <div class="about-content">
                 <h2 class="section-heading" id="connectHeading">Connect</h2>
@@ -143,9 +165,9 @@
         </div>
 
         <!-- About Me Section -->
-        <div class="about-section-designer about-long-form" id="aboutmeSection" style="display: flex;">
+        <div class="about-section-designer about-long-form" id="aboutmeSection" style="display: none;">
             <div class="about-content">
-                <h2 class="section-heading" id="aboutmeHeading">About Me</h2>
+                <h2 class="section-heading" id="aboutmeHeading">Bio</h2>
                 <div class="about-card">
                     <p class="about-intro" id="aboutIntro"></p>
                     <div class="about-accordion" id="aboutAccordion"></div>
@@ -162,7 +184,7 @@
         <!-- Recommendations Section -->
         <div class="recommendations-section" id="recommendationsSection" style="display: none;">
             <div class="recommendations-content">
-                <h2 class="section-heading" id="recommendationsHeading">Recommendations</h2>
+                <h2 class="section-heading" id="recommendationsHeading">Links & Friends</h2>
                 <div class="recommendations-body">
                     <div class="recommendations-grid" id="recommendationsGrid"></div>
                 </div>
@@ -236,6 +258,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('.nav-link');
+            const homeSection = document.getElementById('homeSection');
             const connectSection = document.getElementById('connectSection');
             const aboutmeSection = document.getElementById('aboutmeSection');
             const quotesSection = document.getElementById('quotesSection');
@@ -320,11 +343,17 @@
             
             // Title translations for each section
             const titleTranslations = {
+                home: {
+                    en: "Rebecca Loh · CFO & Industrial Engineer · Switzerland",
+                    de: "Rebecca Loh · CFO & Wirtschaftsingenieurin · Schweiz",
+                    fr: "Rebecca Loh · CFO & Ingenieure en genie industriel · Suisse",
+                    zh: "羅碧嘉（Rebecca Loh）· 財務長（CFO）與工業工程師 · 瑞士"
+                },
                 aboutme: {
-                    en: "Rebecca Loh, Zurich, Switzerland",
-                    de: "Rebecca Loh, Zürich, Schweiz",
-                    fr: "Rebecca Loh, Zurich, Suisse",
-                    zh: "羅碧嘉，蘇黎世，瑞士"
+                    en: "Bio – Rebecca Loh",
+                    de: "Profil – Rebecca Loh",
+                    fr: "Profil – Rebecca Loh",
+                    zh: "簡介 – 羅碧嘉"
                 },
                 connect: {
                     en: "Connect – Rebecca Loh",
@@ -339,19 +368,19 @@
                     zh: "引言 – 羅碧嘉"
                 },
                 recommendations: {
-                    en: "Recommendations – Rebecca Loh",
-                    de: "Empfehlungen – Rebecca Loh",
-                    fr: "Recommandations – Rebecca Loh",
-                    zh: "推薦 – 羅碧嘉"
+                    en: "Links & Friends – Rebecca Loh",
+                    de: "Links & Freunde – Rebecca Loh",
+                    fr: "Liens & Amis – Rebecca Loh",
+                    zh: "連結與朋友 – 羅碧嘉"
                 }
             };
             
             // Meta description translations
             const descriptionTranslations = {
-                en: "Rebecca Loh is a Swiss Industrial Engineer and Chartered Expert in Financial and Managerial Accounting and Reporting. She serves as CFO at a FINMA-licensed portfolio manager in Zug. Discover her background and philosophy.",
-                de: "Rebecca Loh ist Schweizerin, Industrieingenieurin und diplomierte Expertin für Finanz- und Managementbuchhaltung sowie Rechnungslegung. Sie ist CFO bei einem FINMA-lizenzierten Portfolio Manager in Zug. Erfahren Sie mehr über ihren Hintergrund und ihre Philosophie.",
-                fr: "Rebecca Loh est ingénieure industrielle suisse et experte diplômée en comptabilité et reporting financier et de gestion. Elle occupe le poste de CFO chez un gestionnaire de portefeuille agréé FINMA à Zoug. Découvrez son parcours et sa philosophie.",
-                zh: "羅碧嘉是瑞士工業工程師，也是財務與管理會計及報告的認證專家。她目前擔任位於楚格的FINMA許可投資組合管理公司的財務總監。探索她的背景與理念。"
+                en: "Rebecca Loh is a Chartered Expert in Financial and Managerial Accounting and Reporting and an Industrial Engineer, serving as CFO at FICAS AG, a FINMA-licensed portfolio manager focused on crypto-asset ETPs and ETIs.",
+                de: "Rebecca Loh ist eidg. dipl. Expertin in Rechnungslegung und Controlling sowie Wirtschaftsingenieurin und arbeitet als CFO bei FICAS AG, einem FINMA-bewilligten Schweizer Vermoegensverwalter mit Fokus auf ETPs und ETIs mit Krypto-Assets als Basiswerte.",
+                fr: "Rebecca Loh est experte diplomee en finance et en controlling, diplome federal, ainsi qu'ingenieure en genie industriel, et exerce comme CFO chez FICAS AG, un gestionnaire de portefeuille suisse autorise par la FINMA, axe sur des ETP et ETI adosses a des crypto-actifs.",
+                zh: "羅碧嘉（Rebecca Loh）具財務與管理會計及報告特許專家（Chartered Expert in Financial and Managerial Accounting and Reporting）資格，亦為工業工程背景，現於菲卡斯（FICAS AG）擔任財務長（CFO）。菲卡斯為瑞士投資組合管理公司，經 FINMA 核准，聚焦以加密資產為標的的交易所交易產品（ETP）與交易所交易工具（ETI）。"
             };
             
             function updatePageTitle(lang, section) {
@@ -405,11 +434,17 @@
             
             // H2 translations (navigation titles)
             const h2Translations = {
+                home: {
+                    en: "CFO · Industrial Engineer",
+                    de: "CFO · Wirtschaftsingenieurin",
+                    fr: "CFO · Ingenieure en genie industriel",
+                    zh: "財務長（CFO）· 工業工程師"
+                },
                 aboutme: {
-                    en: "About Me",
-                    de: "Über mich",
-                    fr: "À propos de moi",
-                    zh: "關於我"
+                    en: "Bio",
+                    de: "Profil",
+                    fr: "Profil",
+                    zh: "簡介"
                 },
                 connect: {
                     en: "Connect",
@@ -424,11 +459,43 @@
                     zh: "引言"
                 },
                 recommendations: {
-                    en: "Recommendations",
-                    de: "Empfehlungen",
-                    fr: "Recommandations",
-                    zh: "推薦"
+                    en: "Links & Friends",
+                    de: "Links & Freunde",
+                    fr: "Liens & Amis",
+                    zh: "連結與朋友"
                 }
+            };
+            
+            // H3 translations (inside white box)
+            const h3Translations = {
+                en: "Rebecca Loh is a Chartered Expert in Financial and Managerial Accounting and Reporting as well as an Industrial Engineer, serving as a CFO for FICAS AG.",
+                de: "Rebecca Loh ist eidg. dipl. Expertin in Rechnungslegung und Controlling sowie Wirtschaftsingenieurin und arbeitet als CFO bei FICAS AG.",
+                fr: "Rebecca Loh est expert-e diplome-e en finance et en controlling, diplome federal, et ingenieure en genie industriel. Elle exerce comme CFO chez FICAS AG.",
+                zh: "Rebecca Loh 具瑞士聯邦文憑之會計與管理控制專家資格，並為工業工程師背景，目前於 FICAS AG 擔任財務長（CFO）。"
+            };
+            
+            // Paragraph 1 translations (what Rebecca Loh does)
+            const paragraph1Translations = {
+                en: "With experience across public and private institutions in Switzerland, Rebecca Loh is CFO and Head of Risk & Compliance at FICAS AG, a FINMA-licensed Swiss portfolio manager focused on crypto-asset ETPs and ETIs.",
+                de: "Mit Erfahrung in oeffentlichen und privaten Institutionen in der Schweiz ist Rebecca Loh CFO und Head of Risk & Compliance bei FICAS AG, einem FINMA-bewilligten Schweizer Vermoegensverwalter mit Fokus auf ETPs und ETIs mit Krypto-Assets als Basiswerte.",
+                fr: "Forte d'une experience dans des institutions publiques et privees en Suisse, Rebecca Loh est CFO et Head of Risk & Compliance chez FICAS AG, un gestionnaire de portefeuille suisse autorise par la FINMA, axe sur des ETP et ETI adosses a des crypto-actifs.",
+                zh: "Rebecca Loh 擁有在瑞士公私部門的工作經驗，現任 FICAS AG 財務長（CFO）及風險與合規主管（Head of Risk & Compliance）。FICAS AG 為 FINMA 核准的瑞士投資組合管理公司，專注以加密資產為標的的 ETP 與 ETI。"
+            };
+            
+            // Paragraph 2 translations (before FICAS AG)
+            const paragraph2Translations = {
+                en: "Before joining FICAS AG, she held controlling roles at the Municipality of Koeniz, the Swiss Financial Market Supervisory Authority (FINMA), and iba ag. Her work focused on financial planning and transparent, decision-ready reporting for executive management and the Board of Directors.",
+                de: "Vor FICAS AG hatte sie Controlling-Rollen bei der Gemeinde Koeniz, der Eidgenoessischen Finanzmarktaufsicht FINMA und bei iba ag. Ihr Schwerpunkt lag auf Finanzplanung sowie transparentem, entscheidungsreifem Reporting fuer Geschaeftsleitung und Verwaltungsrat.",
+                fr: "Avant FICAS AG, elle a occupe des fonctions de controlling a la commune de Koeniz, a l'Autorite federale de surveillance des marches financiers FINMA, et chez iba ag. Son axe principal etait la planification financiere et un reporting transparent, pret a la decision, pour la direction et le conseil d'administration.",
+                zh: "加入 FICAS AG 之前，她曾在 Koeniz 市政單位、瑞士金融市場監管機構 FINMA，以及 iba ag 擔任控制相關職務。她的核心工作在於財務規劃，並為管理階層與董事會提供透明、可決策的報告。"
+            };
+            
+            // Paragraph 3 translations (what Rebecca Loh cares about)
+            const paragraph3Translations = {
+                en: "Rebecca is committed to expanding opportunity in Switzerland by supporting women and strengthening inclusion for underrepresented groups and people with fewer financial resources through practical pathways. She is also interested in crypto assets and innovation, with a particular focus on AI, electric mobility, autonomous driving (FSD), and robotics.",
+                de: "Rebecca Loh setzt sich fuer mehr Chancengleichheit in der Schweiz ein, indem sie Frauen unterstuetzt und die Inklusion unterrepraesentierter Gruppen sowie von Menschen mit weniger finanziellen Ressourcen durch praktikable Wege staerkt. Zudem interessiert sie sich fuer Krypto-Assets und Innovationen, insbesondere AI, Elektromobilitaet, autonomes Fahren (FSD) und Robotik.",
+                fr: "Rebecca Loh s'engage pour renforcer l'egalite des chances en Suisse, en soutenant les femmes et en favorisant l'inclusion des groupes sous-representes ainsi que des personnes disposant de moins de ressources financieres, via des voies concretes. Elle s'interesse aussi aux crypto-actifs et a l'innovation, notamment a l'IA, a la mobilite electrique, a la conduite autonome (FSD) et a la robotique.",
+                zh: "Rebecca Loh 致力於在瑞士擴大機會，透過支持女性發展，並以務實途徑促進代表性不足族群及資源較少者的融入與向上流動。她也關注加密資產與創新，特別是 AI、電動交通、無人/自動駕駛（FSD）與機器人技術。"
             };
             
             function updateH1(lang) {
@@ -450,18 +517,21 @@
             }
             
             function updateH2(lang, section) {
-                const currentSection = section || 'aboutme';
-                const sectionH2 = h2Translations[currentSection] || h2Translations.aboutme;
+                const currentSection = section || 'home';
+                const sectionH2 = h2Translations[currentSection] || h2Translations.home;
                 const h2Text = sectionH2[lang] || sectionH2.en;
                 
                 // Update all H2 elements based on section
+                const homeHeading = document.getElementById('homeHeading');
                 const aboutmeHeading = document.getElementById('aboutmeHeading');
                 const connectHeading = document.getElementById('connectHeading');
                 const quotesHeading = document.getElementById('quotesHeading');
                 const recommendationsHeading = document.getElementById('recommendationsHeading');
                 
                 // Only update the visible section's H2
-                if (currentSection === 'aboutme' && aboutmeHeading) {
+                if (currentSection === 'home' && homeHeading) {
+                    homeHeading.textContent = h2Text;
+                } else if (currentSection === 'aboutme' && aboutmeHeading) {
                     aboutmeHeading.textContent = h2Text;
                 } else if (currentSection === 'connect' && connectHeading) {
                     connectHeading.textContent = h2Text;
@@ -478,9 +548,31 @@
                 if (recommendationsHeading) recommendationsHeading.textContent = h2Translations.recommendations[lang] || h2Translations.recommendations.en;
             }
             
+            // Update H3 and paragraphs in home section
+            function updateHomeContent(lang) {
+                const homeH3 = document.getElementById('homeH3');
+                const homeParagraph1 = document.getElementById('homeParagraph1');
+                const homeParagraph2 = document.getElementById('homeParagraph2');
+                const homeParagraph3 = document.getElementById('homeParagraph3');
+                
+                if (homeH3) {
+                    homeH3.textContent = h3Translations[lang] || h3Translations.en;
+                }
+                if (homeParagraph1) {
+                    homeParagraph1.textContent = paragraph1Translations[lang] || paragraph1Translations.en;
+                }
+                if (homeParagraph2) {
+                    homeParagraph2.textContent = paragraph2Translations[lang] || paragraph2Translations.en;
+                }
+                if (homeParagraph3) {
+                    homeParagraph3.textContent = paragraph3Translations[lang] || paragraph3Translations.en;
+                }
+            }
+            
             // Expose globally for quotes.js
             window.updateH1 = updateH1;
             window.updateH2 = updateH2;
+            window.updateHomeContent = updateHomeContent;
 
             // Build a centered word-pyramid (user-defined rule):
             // 1st line: 6 words
@@ -801,6 +893,7 @@
             window.updateAboutContent = updateAboutContent;
 
             const sections = {
+                home: { element: homeSection, display: 'flex' },
                 connect: { element: connectSection, display: 'flex' },
                 aboutme: { element: aboutmeSection, display: 'flex' },
                 quotes: { element: quotesSection, display: 'flex' },
@@ -809,7 +902,7 @@
             };
 
             function showSection(section) {
-                const target = sections[section] ? section : 'aboutme';
+                const target = sections[section] ? section : 'home';
                 const currentLang = getCurrentLanguage();
 
                 // Hide all sections first
@@ -827,6 +920,10 @@
                 // Update page title and H2 when section changes
                 updatePageTitle(currentLang, target);
                 updateH2(currentLang, target);
+                // Update home content (H3 and paragraphs) if showing home section
+                if (target === 'home' && window.updateHomeContent) {
+                    window.updateHomeContent(currentLang);
+                }
 
                 const container = document.querySelector('.main-content-designer');
                 if (container) {
@@ -862,9 +959,12 @@
 
             const initialLang = getCurrentLanguage();
             updateAboutContent(initialLang);
-            updatePageTitle(initialLang, 'aboutme');
+            updatePageTitle(initialLang, 'home');
             updateH1(initialLang);
-            updateH2(initialLang, 'aboutme');
+            updateH2(initialLang, 'home');
+            if (window.updateHomeContent) {
+                window.updateHomeContent(initialLang);
+            }
             
             // Handle URL routing
             function handleRouting() {
@@ -891,19 +991,23 @@
                 let currentLang = langMatch ? langMatch[1] : 'en';
                 
                 // Extract section from URL
-                let targetSection = 'aboutme'; // default
+                let targetSection = 'home'; // default
                 
                 // Check for language-prefixed paths
                 if (langMatch) {
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(home|aboutme|connect|quotes|recommendations)/);
                     if (sectionMatch) {
                         targetSection = sectionMatch[2];
                     } else if (path.match(/^\/(en|de|fr|zh)\/?$/)) {
-                        targetSection = 'aboutme'; // default section for language root
+                        targetSection = 'home'; // default section for language root
                     }
                 } else {
                     // Fallback: check for old-style paths without language
-                    if (path === '/aboutme' || path === '/aboutme/' || path.endsWith('/aboutme.html') || hash === 'aboutme') {
+                    if (path === '/home' || path === '/home/' || path.endsWith('/home.html') || hash === 'home') {
+                        targetSection = 'home';
+                        currentLang = getCurrentLanguage();
+                        updateURLWithLanguage(currentLang, targetSection);
+                    } else if (path === '/aboutme' || path === '/aboutme/' || path.endsWith('/aboutme.html') || hash === 'aboutme') {
                         targetSection = 'aboutme';
                         // Redirect to language-prefixed URL
                         currentLang = getCurrentLanguage();
@@ -1008,6 +1112,10 @@
                     // Update H1 and H2
                     updateH1(currentLang);
                     updateH2(currentLang, section);
+                    // Update home content (H3 and paragraphs) if showing home section
+                    if (section === 'home' && window.updateHomeContent) {
+                        window.updateHomeContent(currentLang);
+                    }
                     
                     if (disclaimerMiniEl) {
                         disclaimerMiniEl.setAttribute('aria-expanded', 'false');
@@ -1064,6 +1172,115 @@
                     }
                 });
             });
+
+            // Position overlay box to cover 1/9 of image (bottom-right) but extend beyond
+            function positionOverlayBox() {
+                const homeImage = document.getElementById('homeImage');
+                const overlayBox = document.querySelector('.home-image-overlay-box');
+                const imageContainer = document.querySelector('.home-image-container');
+                const imageWrapper = document.querySelector('.home-image-wrapper');
+                
+                if (homeImage && overlayBox && imageContainer && imageWrapper) {
+                    const updatePosition = () => {
+                        const imageWidth = homeImage.offsetWidth;
+                        const imageHeight = homeImage.offsetHeight;
+                        
+                        if (imageWidth > 0 && imageHeight > 0) {
+                            // Helper function for clamp
+                            function clamp(min, val, max) {
+                                return Math.max(min, Math.min(val, max));
+                            }
+                            
+                            // Calculate 1/9 of image (bottom-right corner)
+                            const imageNinthWidth = imageWidth / 3;
+                            const imageNinthHeight = imageHeight / 3;
+                            
+                            // Overlay box size: Even wider, right-aligned
+                            const overlayWidth = clamp(550, 65 * window.innerWidth / 100, 850); /* NOCH BREITER */
+                            const overlayHeight = clamp(420, 52 * window.innerWidth / 100, 580);
+                            
+                            // Get image position relative to wrapper
+                            const imageRect = homeImage.getBoundingClientRect();
+                            const wrapperRect = imageWrapper.getBoundingClientRect();
+                            
+                            // Image position relative to wrapper (left-aligned)
+                            const imageLeftInWrapper = imageRect.left - wrapperRect.left;
+                            const imageTopInWrapper = imageRect.top - wrapperRect.top;
+                            
+                            // Calculate where the bottom-right 1/9 of image starts
+                            const ninthStartX = imageLeftInWrapper + (imageWidth * 2 / 3); // 2/3 from left
+                            const ninthStartY = imageTopInWrapper + (imageHeight * 2 / 3); // 2/3 from top
+                            
+                            // Position overlay box: RIGHT-ALIGNED with strong width
+                            // Text box right edge can extend beyond wrapper
+                            overlayBox.style.right = clamp(-50, -5 * window.innerWidth / 100, -20) + 'px';
+                            overlayBox.style.left = 'auto';
+                            
+                            // Calculate how much the box extends beyond the 1/9 area
+                            const extendLeft = overlayWidth - imageNinthWidth;
+                            const extendUp = overlayHeight - imageNinthHeight;
+                            
+                            // Calculate bottom position (covering bottom-right 1/9)
+                            // Move textfield up a bit by adding offset
+                            const moveUpOffset = clamp(50, 6 * window.innerWidth / 100, 80); // Move up by 50-80px (slightly higher)
+                            const bottomOffset = wrapperRect.height - (imageTopInWrapper + imageHeight) - extendUp + moveUpOffset;
+                            
+                            // Set overlay box size and position
+                            overlayBox.style.width = `${overlayWidth}px`;
+                            overlayBox.style.height = `${overlayHeight}px`;
+                            overlayBox.style.bottom = `${bottomOffset}px`;
+                            
+                            // DO NOT MOVE THE IMAGE - Keep it fixed in position
+                            // Image position is handled by CSS only, no JavaScript manipulation
+                            
+                            // Ensure wrapper is tall enough to show the full overlay box
+                            const neededHeight = imageTopInWrapper + imageHeight + Math.max(0, extendUp) + clamp(40, 5 * window.innerWidth / 100, 60);
+                            imageWrapper.style.minHeight = `${neededHeight}px`;
+                            
+                            // Debug: Log position
+                            console.log('Overlay box positioned:', {
+                                width: overlayWidth,
+                                height: overlayHeight,
+                                right: 0,
+                                bottom: bottomOffset,
+                                imageWidth,
+                                imageHeight,
+                                imageNinthWidth,
+                                imageNinthHeight,
+                                moveUpOffset
+                            });
+                        }
+                    };
+                    
+                    // Wait for image to load
+                    if (homeImage.complete && homeImage.naturalWidth > 0) {
+                        updatePosition();
+                    } else {
+                        homeImage.addEventListener('load', updatePosition, { once: true });
+                    }
+                    
+                    // Also update after a short delay to ensure layout is complete
+                    setTimeout(updatePosition, 100);
+                    setTimeout(updatePosition, 500); // Additional delay for layout
+                }
+            }
+            
+            // Update on load and resize
+            if (document.getElementById('homeSection')) {
+                positionOverlayBox();
+                window.addEventListener('resize', positionOverlayBox);
+                
+                // Also update when home section is shown
+                const observer = new MutationObserver(() => {
+                    if (document.getElementById('homeSection') && document.getElementById('homeSection').style.display !== 'none') {
+                        setTimeout(positionOverlayBox, 100);
+                    }
+                });
+                const homeSection = document.getElementById('homeSection');
+                if (homeSection) {
+                    observer.observe(homeSection, { attributes: true, attributeFilter: ['style'] });
+                }
+            }
 
             const audioPlayer = document.getElementById('backgroundMusicFuture');
             const audioBtn = document.getElementById('audioControlBtnFuture');
