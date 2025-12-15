@@ -12,8 +12,8 @@
     position: absolute;
     left: -999px;
     top: 8px;
-    background: rgba(0, 0, 0, 0.85);
-    color: #ffffff;
+    background: var(--color-dark-primary);
+    color: var(--color-white-content);
     padding: clamp(8px, 1.2vw, 12px) clamp(14px, 2vw, 18px);
     border-radius: 999px;
     text-decoration: none;
@@ -82,12 +82,31 @@ html, body {
     --z-navigation: 10002;
     --z-dropdown: 10005;
     --z-skip-link: 10005;
+    
+    /* ============================================
+       CLEAR / COOL WINTER COLOR PALETTE
+       ============================================ */
+    /* 1️⃣ Very Dark (Authority / Leadership) */
+    --color-dark-primary: #05070C;      /* Cool Black - Header, Hero (CFO), Footer */
+    --color-dark-secondary: #0C1A33;    /* Deep Cool Navy - Main Finance, Structure, Leadership */
+    --color-dark-alternative: #082C36; /* Blackened Petrol - Alternative Dark Sections */
+    
+    /* 2️⃣ Mid (Structure / Sections) */
+    --color-mid-navy: #1E2F55;         /* Executive Navy Mid - Sub-Hero, Section-Header */
+    --color-accent-primary: #3B5FCC;   /* Cool Steel Blue - Primary Accent (Links, Icons, CTA) */
+    
+    /* 3️⃣ Light (Content / Calm) */
+    --color-light-bg: #F1F3F8;         /* Ice Grey - Default Background (60-70%) */
+    --color-white-content: #FFFFFF;    /* Pure White - Content Boxes, Bio, Text */
+    
+    /* 4️⃣ Very Light (Whitespace / Elegance) */
+    --color-ultra-light: #FAFBFE;      /* Crystal White - Generous Whitespace, Bio, Personal */
 }
 
 body {
-    background: #000000;
+    background: #05070C; /* Darker background as requested */
     font-family: 'Inter', 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', sans-serif;
-    color: #ffffff;
+    color: var(--color-white-content);
     position: relative;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
@@ -204,7 +223,7 @@ body:lang(zh),
 
 .profile-flip-back {
     transform: rotateY(180deg);
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--color-dark-primary);
     backdrop-filter: blur(10px);
 }
 
@@ -275,14 +294,14 @@ h1.name-corner {
     font-size: var(--font-h1); /* H1: Largest */
     font-weight: 400;
     letter-spacing: 0.06em;
-    color: rgba(255, 255, 255, 0.98);
+    color: var(--color-white-content);
     line-height: 1.3;
     font-feature-settings: "liga" 1, "kern" 1;
     display: block;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     text-transform: uppercase; /* CAPSLOCK wie bei Bio-Zwischentiteln */
+    text-overflow: ellipsis;
     max-width: 100%;
 }
 
@@ -290,7 +309,7 @@ h1.name-corner {
     font-size: clamp(0.75rem, 1vw, 0.875rem);
     font-weight: 300;
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-white-content);
     line-height: 1.3;
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
@@ -335,7 +354,9 @@ h1.name-corner {
     /* Professional top positioning - same height as controls */
     min-width: clamp(200px, 25vw, 300px);
     max-width: calc(100vw - clamp(280px, 35vw, 400px));
-    padding: 0;
+    padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
+    background: var(--color-dark-primary);
+    border-radius: 8px;
     flex-wrap: nowrap;
     overflow: visible;
 }
@@ -345,7 +366,7 @@ h1.name-corner {
     font-size: clamp(0.8125rem, 1.2vw, 1rem);
     font-weight: 300;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--color-white-content);
     text-decoration: none;
     padding: clamp(6px, 0.8vw, 8px) clamp(6px, 0.8vw, 10px);
     border-bottom: 2px solid transparent;
@@ -366,14 +387,14 @@ h1.name-corner {
 }
 
 .nav-link:hover {
-    color: rgba(255, 255, 255, 0.98);
-    border-bottom-color: rgba(255, 255, 255, 0.45);
+    color: var(--color-accent-primary);
+    border-bottom-color: var(--color-accent-primary);
     transform: translateY(-3px) translateZ(0);
 }
 
 .nav-link.active {
-    color: rgba(255, 255, 255, 1);
-    border-bottom-color: rgba(255, 255, 255, 0.6);
+    color: var(--color-white-content);
+    border-bottom-color: var(--color-accent-primary);
     font-weight: 400;
 }
 
@@ -422,8 +443,12 @@ h1.name-corner {
 }
 
 .main-content-designer.scrollable::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 999px;
+}
+
+.main-content-designer.scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* ============================================
@@ -444,7 +469,12 @@ h1.name-corner {
     will-change: opacity, transform;
     /* Professional frame with generous vertical space */
     margin: 0 auto;
-    padding: 0;
+    /* Light sections as surfaces on dark base - visible spacing */
+    background: var(--color-light-bg);
+    padding: var(--space-xl);
+    border-radius: 12px;
+    margin-bottom: var(--space-lg);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     /* Mobile performance optimizations */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
@@ -489,7 +519,7 @@ h1.name-corner {
     font-size: var(--font-h2); /* H2: Medium */
     font-weight: 400;
     letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.98);
+    color: var(--color-dark-primary);
     line-height: 1.35;
     margin: 0;
     padding: 0;
@@ -508,8 +538,6 @@ h1.name-corner {
     width: 100%;
     /* Premium typography refinement */
     text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 /* H3 Styling - Inside white box */
@@ -518,7 +546,7 @@ h1.name-corner {
     font-size: var(--font-h3); /* H3: Smallest heading */
     font-weight: 700; /* FETT */
     letter-spacing: 0.05em;
-    color: rgba(0, 0, 0, 0.9);
+    color: rgba(12, 26, 51, 0.9); /* Dark text on light background */
     line-height: 1.4;
     margin: 0 0 var(--space-md) 0;
     padding: 0;
@@ -541,19 +569,88 @@ h1.name-corner {
     margin-bottom: var(--space-md);
 }
 
-#connectSection .about-description {
-    margin-bottom: var(--space-xs);
+/* ============================================
+   SECTION BACKGROUNDS - Architecture Rules
+   ============================================ */
+
+/* Hero/CFO Sections - Transparent (blue is now main background) */
+#homeSection {
+    background: transparent !important;
+    padding: var(--space-xl) !important;
+    border-radius: 12px !important;
+    margin-bottom: var(--space-lg) !important;
+    box-shadow: none !important;
 }
 
-#connectSection .linkedin-connection-btn {
-    margin-bottom: var(--space-sm);
+#homeSection .section-heading,
+#homeSection .home-text,
+#homeSection .home-text-container,
+#homeSection .about-description {
+    color: var(--color-white-content) !important;
 }
 
-#connectSection .connect-logos {
-    margin-top: var(--space-sm);
+/* Bio Section - Transparent (blue is now main background) */
+#aboutmeSection {
+    background: transparent !important;
+    padding: var(--space-xl) !important;
+    border-radius: 12px !important;
+    margin-bottom: var(--space-lg) !important;
+    box-shadow: none !important;
 }
 
-/* Home Section Styles */
+/* Text colors on Bio section - MUST be white */
+#aboutmeSection .section-heading,
+#aboutmeSection .about-description,
+#aboutmeSection .about-intro,
+#aboutmeSection .about-detail-summary,
+#aboutmeSection .about-detail-body p {
+    color: var(--color-white-content) !important;
+}
+
+#aboutmeSection .about-detail-summary:hover {
+    color: var(--color-accent-primary) !important;
+}
+
+#aboutmeSection .about-detail-summary::after,
+#aboutmeSection .about-detail[open] .about-detail-summary::after {
+    color: var(--color-white-content) !important;
+}
+
+#aboutmeSection .about-detail {
+    border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+#aboutmeSection .about-detail[open] {
+    border-bottom-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Standard Content Sections - Transparent (blue is now main background) */
+#connectSection,
+#quotesSection,
+#recommendationsSection {
+    background: transparent !important;
+    padding: var(--space-xl) !important;
+    border-radius: 12px !important;
+    margin-bottom: var(--space-lg) !important;
+    box-shadow: none !important;
+}
+
+/* Text colors on dark sections - MUST be white */
+#connectSection .section-heading,
+#connectSection .about-description,
+#connectSection .about-content,
+#quotesSection .section-heading,
+#quotesSection .quote-future,
+#recommendationsSection .section-heading,
+#recommendationsSection .service-label,
+#recommendationsSection .service-link {
+    color: var(--color-white-content) !important;
+}
+
+.home-content-wrapper {
+    gap: var(--space-lg);
+}
+
 /* Home Image Wrapper - Contains both image and overlay box */
 .home-image-wrapper {
     width: 100%;
@@ -583,7 +680,7 @@ h1.name-corner {
 .home-image {
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 0; /* No rounded corners */
     object-fit: cover;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     display: block;
@@ -600,7 +697,7 @@ h1.name-corner {
     /* Size: Even wider for more space */
     width: clamp(550px, 65vw, 850px); /* NOCH BREITER */
     min-height: clamp(420px, 52vw, 580px);
-    background: #FFFFFF;
+    background: var(--color-ultra-light);
     border: none;
     border-radius: 0;
     padding: var(--space-lg); /* Padding reduziert (war var(--space-xl)) */
@@ -624,7 +721,7 @@ h1.name-corner {
     font-weight: 300;
     letter-spacing: 0.03em;
     line-height: 1.7;
-    color: #0C1A33;
+    color: var(--color-dark-secondary);
     margin: 0 0 var(--space-md) 0; /* Abstand zwischen Absätzen */
     text-align: justify;
     width: 100%; /* 1-SPALTIG: Volle Breite */
@@ -643,20 +740,81 @@ h1.name-corner {
     .home-image-wrapper {
         max-width: 100%;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start; /* Left-align image on mobile */
         min-height: auto;
         padding-bottom: var(--space-xl);
     }
     
-    .home-image-overlay-box {
-        position: relative;
-        bottom: auto;
-        right: auto;
+    .home-image-container {
         width: 100%;
-        max-width: clamp(280px, 90vw, 380px);
-        min-height: clamp(420px, 80vw, 580px);
-        margin-top: var(--space-md);
+        max-width: 100%;
+        margin-left: 0; /* Reset left margin on mobile */
     }
+    
+    .home-image {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .home-image-overlay-box {
+        position: relative !important; /* Force relative positioning on mobile */
+        bottom: auto !important;
+        right: auto !important;
+        left: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        margin-top: var(--space-lg); /* Space between image and text box */
+        margin-left: 0;
+        margin-right: 0;
+        padding: var(--space-md); /* Reduced padding on mobile */
+    }
+}
+
+/* Extra small devices (phones, 480px and down) */
+@media (max-width: 480px) {
+    .home-image-wrapper {
+        padding-bottom: var(--space-lg);
+    }
+    
+    .home-image-overlay-box {
+        margin-top: var(--space-md);
+        padding: var(--space-sm);
+    }
+    
+    .home-image-overlay-text {
+        font-size: clamp(0.875rem, 2.5vw, 1rem); /* Slightly smaller text on very small screens */
+    }
+}
+
+.home-text-container {
+    width: 100%;
+    max-width: clamp(520px, 68vw, 720px);
+    margin: 0 auto;
+}
+
+.home-text {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark-secondary);
+}
+
+#connectSection .about-description {
+    margin-bottom: var(--space-xs);
+}
+
+#connectSection .linkedin-connection-btn {
+    margin-bottom: var(--space-sm);
+}
+
+#connectSection .connect-logos {
+    margin-top: var(--space-sm);
 }
 
 .about-description {
@@ -664,7 +822,7 @@ h1.name-corner {
     font-size: clamp(1rem, 1.4vw, 1.25rem);
     font-weight: 300;
     letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.94);
+    color: var(--color-dark-secondary);
     line-height: 1.7;
     max-width: clamp(520px, 68vw, 720px);
     margin: 0 auto;
@@ -718,7 +876,7 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(1rem, 1.4vw, 1.25rem);
     letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--color-dark-secondary);
     line-height: 1.7;
     margin: 0;
     /* Premium typography */
@@ -815,7 +973,7 @@ h1.name-corner {
     font-size: clamp(1.15rem, 2vw, 1.6rem);
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-dark-primary);
     text-align: center;
     padding: 0;
     line-height: 1.4;
@@ -836,7 +994,7 @@ h1.name-corner {
 .about-circle-title-icon {
     font-size: clamp(1.6rem, 2.8vw, 2.2rem);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-dark-secondary);
     line-height: 1;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
@@ -845,7 +1003,7 @@ h1.name-corner {
 }
 
 .about-circle-title-icon:hover {
-    color: rgba(255, 255, 255, 1);
+    color: var(--color-accent-primary);
     transform: scale(1.2);
 }
 
@@ -927,7 +1085,7 @@ h1.name-corner {
     font-size: clamp(0.5625rem, 0.8vw, 0.75rem);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--color-dark-primary);
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
@@ -949,7 +1107,7 @@ h1.name-corner {
 .about-circle-content-title-icon {
     font-size: clamp(0.875rem, 1.2vw, 1.125rem);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-dark-secondary);
     line-height: 1;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
@@ -958,7 +1116,7 @@ h1.name-corner {
 }
 
 .about-circle-content-title-icon:hover {
-    color: rgba(255, 255, 255, 1);
+    color: var(--color-accent-primary);
     transform: scale(1.2);
 }
 
@@ -1010,7 +1168,7 @@ h1.name-corner {
     font-size: clamp(0.95rem, 1.2vw, 1.15rem);
     letter-spacing: 0.02em;
     line-height: 1.35; /* drives the circle silhouette step */
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-dark-secondary);
     text-align: center;
     margin: 0;
     padding: 0;
@@ -1069,7 +1227,7 @@ h1.name-corner {
 
 .about-detail {
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(30, 47, 85, 0.2);
     border-radius: 0;
     background: none;
     backdrop-filter: none;
@@ -1082,7 +1240,7 @@ h1.name-corner {
 }
 
 .about-detail[open] {
-    border-bottom-color: rgba(255, 255, 255, 0.35);
+    border-bottom-color: var(--color-mid-navy);
 }
 
 .about-detail-summary {
@@ -1094,7 +1252,7 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(1rem, 1.4vw, 1.25rem);
     letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.94);
+    color: var(--color-dark-primary);
     text-transform: uppercase;
     display: flex;
     align-items: center;
@@ -1105,7 +1263,7 @@ h1.name-corner {
 }
 
 .about-detail-summary:hover {
-    color: rgba(255, 255, 255, 1);
+    color: var(--color-accent-primary);
 }
 
 .about-detail-summary::-webkit-details-marker {
@@ -1116,7 +1274,7 @@ h1.name-corner {
     content: "+";
     font-size: clamp(1.25rem, 1.8vw, 1.5rem);
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--color-dark-secondary);
     position: absolute;
     right: clamp(4px, 0.8vw, 6px);
     top: 50%;
@@ -1127,7 +1285,7 @@ h1.name-corner {
 .about-detail[open] .about-detail-summary::after {
     content: "–";
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--color-dark-secondary);
 }
 
 .about-detail-body {
@@ -1144,7 +1302,7 @@ h1.name-corner {
     font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
     letter-spacing: 0.03em;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--color-dark-secondary);
     text-align: justify;
     break-inside: avoid;
     margin: 0 0 clamp(18px, 2.4vw, 24px);
@@ -1164,13 +1322,13 @@ h1.name-corner {
     justify-content: center;
     width: clamp(48px, 5.6vw, 56px);
     height: clamp(48px, 5.6vw, 56px);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--color-white-content);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid var(--color-accent-primary);
     border-radius: 50%;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--color-accent-primary);
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     /* Premium interaction */
@@ -1178,15 +1336,15 @@ h1.name-corner {
     will-change: transform, background, border-color;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 24px rgba(59, 95, 204, 0.2);
 }
 
 .linkedin-connection-btn:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.25);
-    color: rgba(255, 255, 255, 1);
+    background: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+    color: var(--color-white-content);
     transform: scale(1.08) translateZ(0);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 24px rgba(59, 95, 204, 0.3);
 }
 
 .linkedin-icon-btn {
@@ -1373,7 +1531,7 @@ h1.name-corner {
    ============================================ */
 .quote-section-designer {
     flex-direction: column;
-    padding: 0 var(--space-md);
+    padding: var(--space-xl) !important;
     gap: var(--space-xl);
     /* Professional spacing for quotes */
     contain: layout style;
@@ -1399,7 +1557,7 @@ h1.name-corner {
     width: min(90rem, 96vw);
     font-size: clamp(1.125rem, 2.2vw, 1.75rem);
     line-height: 1.55;
-    color: rgba(255, 255, 255, 0.98);
+    color: var(--color-dark-primary);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 300;
     letter-spacing: 0.03em;
@@ -1458,7 +1616,7 @@ h1.name-corner {
     margin-top: var(--space-sm);
     font-size: clamp(0.875rem, 1.3vw, 1.125rem);
     letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--color-white-content);
     text-transform: uppercase;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 400;
@@ -1547,7 +1705,7 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(1rem, 1.4vw, 1.25rem);
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--color-dark-secondary);
     line-height: 1.6;
     text-align: center;
     /* Premium typography */
@@ -1559,7 +1717,7 @@ h1.name-corner {
     font-size: clamp(0.875rem, 1.2vw, 1rem);
     letter-spacing: 0.05em;
     text-transform: none;
-    color: rgba(123, 195, 255, 0.95);
+    color: var(--color-accent-primary);
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     width: fit-content;
@@ -1572,6 +1730,7 @@ h1.name-corner {
 
 .service-link:hover {
     transform: translateX(2px);
+    opacity: 0.8;
 }
 
 .service-link::after {
@@ -1579,10 +1738,6 @@ h1.name-corner {
     margin-left: clamp(8px, 1vw, 10px);
     font-size: clamp(0.8rem, 1vw, 0.9rem);
     letter-spacing: 0;
-}
-
-.service-link:hover {
-    color: rgba(255, 255, 255, 0.95);
 }
 
 /* ============================================
@@ -1620,7 +1775,7 @@ h1.name-corner {
     font-size: clamp(0.875rem, 1.2vw, 1rem);
     letter-spacing: 0.04em;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--color-dark-secondary);
     margin: 0;
     text-align: justify;
 }
@@ -1676,7 +1831,7 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--color-white-content);
     line-height: 1.4;
     max-width: clamp(120px, 15vw, 160px);
     text-align: right;
@@ -1694,7 +1849,7 @@ h1.name-corner {
 
 .disclaimer-mini:hover,
 .disclaimer-mini:focus {
-    color: rgba(255, 255, 255, 0.88);
+    color: var(--color-accent-primary);
     opacity: 0.9;
     outline: none;
 }
@@ -1718,9 +1873,9 @@ h1.name-corner {
     gap: clamp(8px, 1vw, 10px);
     padding: 2px clamp(6px, 1vw, 8px);
     height: var(--control-height);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 999px;
     cursor: pointer;
     pointer-events: auto;
@@ -1730,8 +1885,8 @@ h1.name-corner {
 }
 
 .control-trigger:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .control-label {
@@ -1739,7 +1894,7 @@ h1.name-corner {
     font-size: clamp(0.75rem, 1vw, 0.875rem);
     font-weight: 300;
     letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.92);
+    color: var(--color-white-content);
     text-transform: uppercase;
 }
 
@@ -1753,7 +1908,7 @@ h1.name-corner {
 .control-indicator {
     width: clamp(10px, 1.2vw, 12px);
     height: clamp(10px, 1.2vw, 12px);
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-white-content);
     transition: transform 0.3s ease, color 0.3s ease;
     flex-shrink: 0;
 }
@@ -1763,7 +1918,7 @@ h1.name-corner {
 }
 
 .language-control.open .control-indicator {
-    color: rgba(255, 255, 255, 0.95);
+    color: var(--color-accent-primary);
     transform: rotate(180deg);
 }
 
@@ -1773,7 +1928,7 @@ h1.name-corner {
     right: 0;
     left: auto;
     min-width: clamp(128px, 16vw, 144px);
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--color-dark-primary);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
@@ -1785,6 +1940,7 @@ h1.name-corner {
     z-index: calc(var(--z-dropdown) + 1);
     pointer-events: none;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    color: var(--color-white-content);
 }
 
 .language-control.open .control-dropdown {
@@ -1807,7 +1963,7 @@ h1.name-corner {
     width: 100%;
     text-align: left;
     font-family: inherit;
-    color: inherit;
+    color: var(--color-white-content);
 }
 
 .control-option:hover {
@@ -2001,6 +2157,20 @@ h1.name-corner {
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
+    }
+    
+    .main-navigation {
+        gap: clamp(10px, 2vw, 18px); /* Increased gap for better spacing on tablets */
+        padding: clamp(10px, 1.5vw, 14px) clamp(12px, 1.8vw, 16px); /* More padding for touch targets */
+    }
+    
+    .main-navigation .nav-link {
+        font-size: clamp(0.8125rem, 2.5vw, 1rem); /* Larger font on tablets */
+        padding: clamp(6px, 1vw, 10px) clamp(6px, 1vw, 10px);
+    }
+    
+    .main-navigation .nav-text {
+        font-size: clamp(0.8125rem, 2.5vw, 1rem); /* Larger font on tablets */
         max-width: none;
         line-height: 1.4;
     }
@@ -2350,8 +2520,8 @@ h1.name-corner {
     .main-navigation {
         top: clamp(70px, 8.5vw, 85px);
         bottom: auto;
-        gap: clamp(6px, 1vw, 12px);
-        padding: clamp(6px, 0.8vw, 10px) clamp(8px, 1.2vw, 12px);
+        gap: clamp(8px, 1.5vw, 16px); /* Increased gap for better spacing */
+        padding: clamp(10px, 1.5vw, 14px) clamp(10px, 1.5vw, 14px); /* More padding for touch targets */
         left: 50%;
         right: auto;
         transform: translateX(-50%);
@@ -2400,13 +2570,13 @@ h1.name-corner {
         text-align: center;
         min-width: 0;
         flex: 1 1 0;
-        font-size: clamp(0.5rem, 2.2vw, 0.65rem);
-        letter-spacing: 0.02em;
-        padding: clamp(2px, 0.3vw, 3px) clamp(2px, 0.4vw, 4px);
+        font-size: clamp(0.875rem, 3.5vw, 1.125rem); /* Much larger for better readability */
+        letter-spacing: 0.05em;
+        padding: clamp(8px, 1.2vw, 12px) clamp(6px, 1vw, 10px);
     }
     
     .main-navigation .nav-text {
-        font-size: clamp(0.5rem, 2.2vw, 0.65rem);
+        font-size: clamp(0.875rem, 3.5vw, 1.125rem); /* Much larger for better readability */
     }
 
     .main-content-designer {

@@ -146,7 +146,7 @@
                     paragraphs: [
                         "Rebecca Loh was born and raised in Basel, Switzerland, where she also completed her schooling. Growing up on a street with a UBS branch at the corner she passed every day on her way to school, she developed an early curiosity about the world of banking and investing. From a young age, she was fascinated by the principle of compound interest and how value can grow exponentially over time. At fourteen, she purchased her first UBS fund through her own youth account, an early step that marked the beginning of a lifelong curiosity about financial markets and value creation through investing.",
                         "She comes from a family with Hakka heritage, a people shaped by migration and resilience, known for adaptability and diligence. These values, deeply rooted in her upbringing, continue to influence her approach to work, relationships, and progress.",
-                        "Her professional path began with an apprenticeship in banking at Dreyfus Söhne & Cie AG, one of Basel’s long-established private banks, where she developed a clear sense for analytical rigour, integrity, and service."
+                        "Her professional path began with an apprenticeship in banking at Dreyfus Söhne & Cie AG, one of Basel's long-established private banks, where she developed a clear sense for analytical rigour, integrity, and service."
                     ]
                 },
                 {
@@ -202,25 +202,25 @@
                 {
                     title: "Jeunesse & Valeurs",
                     paragraphs: [
-                        "Rebecca Loh est née et a grandi à Bâle, où elle a également suivi toute sa scolarité. Chaque jour, sur le chemin de l’école, elle passait devant une agence UBS, un détail de son quotidien qui éveilla très tôt sa curiosité pour la banque et l’investissement. Enfant, elle était fascinée par la logique des intérêts composés et par la manière dont la valeur peut croître au fil du temps. À quatorze ans, elle acheta son premier fonds UBS avec son propre compte jeunesse, un geste fondateur qui marqua le début d’un intérêt durable pour les marchés financiers et la création de valeur par l’investissement.",
-                        "Ses racines familiales sont Hakka, un peuple marqué par la migration, la résilience et une forte capacité d’adaptation. Ces valeurs, ancrées dans son éducation, continuent de guider sa manière de travailler, de collaborer et d’aborder le changement.",
-                        "Elle débuta sa carrière par un apprentissage bancaire chez Dreyfus Söhne & Cie AG, l’une des plus anciennes banques privées de Bâle, où elle apprit la rigueur, l’intégrité et le sens du service."
+                        "Rebecca Loh est née et a grandi à Bâle, où elle a également suivi toute sa scolarité. Chaque jour, sur le chemin de l'école, elle passait devant une agence UBS, un détail de son quotidien qui éveilla très tôt sa curiosité pour la banque et l'investissement. Enfant, elle était fascinée par la logique des intérêts composés et par la manière dont la valeur peut croître au fil du temps. À quatorze ans, elle acheta son premier fonds UBS avec son propre compte jeunesse, un geste fondateur qui marqua le début d'un intérêt durable pour les marchés financiers et la création de valeur par l'investissement.",
+                        "Ses racines familiales sont Hakka, un peuple marqué par la migration, la résilience et une forte capacité d'adaptation. Ces valeurs, ancrées dans son éducation, continuent de guider sa manière de travailler, de collaborer et d'aborder le changement.",
+                        "Elle débuta sa carrière par un apprentissage bancaire chez Dreyfus Söhne & Cie AG, l'une des plus anciennes banques privées de Bâle, où elle apprit la rigueur, l'intégrité et le sens du service."
                     ]
                 },
                 {
                     title: "Perspective Internationale & Formation",
                     paragraphs: [
-                        "Après son apprentissage, elle s’engagea pendant six mois comme volontaire en Afrique du Sud. Travailler au sein d’une équipe composée de seize nationalités lui permit de découvrir la richesse des différences et la force de la coopération. Cette expérience renforça sa conviction que la stabilité construite en Suisse peut aussi créer des opportunités ailleurs dans le monde.",
-                        "Elle poursuivit ensuite un Bachelor of Science en génie industriel et fit partie des premiers étudiants à intégrer un semestre d’échange international tout en terminant dans les délais. À l’Université de Hong Kong, elle étudia au sein du Department of Data and Systems Engineering, spécialisée en génie industriel et gestion logistique. Cette période lui permit de renouer avec son héritage asiatique et de découvrir la rigueur et la discipline du modèle académique local.",
-                        "Dans le cadre de ses études, elle participa au projet POLE, une collaboration internationale et interdisciplinaire entre la Suisse et Continental Guadalajara au Mexique. Son équipe développa des concepts d’interaction entre l’humain et la technologie embarquée, préfigurant les systèmes d’affichage tête haute d’aujourd’hui.",
-                        "Elle compléta ensuite un Master of Science en administration des affaires à la Haute école spécialisée bernoise, spécialisation en développement des affaires, et obtint en 2022 le titre fédéral d’experte en comptabilité et controlling à la Controller Akademie Zürich."
+                        "Après son apprentissage, elle s'engagea pendant six mois comme volontaire en Afrique du Sud. Travailler au sein d'une équipe composée de seize nationalités lui permit de découvrir la richesse des différences et la force de la coopération. Cette expérience renforça sa conviction que la stabilité construite en Suisse peut aussi créer des opportunités ailleurs dans le monde.",
+                        "Elle poursuivit ensuite un Bachelor of Science en génie industriel et fit partie des premiers étudiants à intégrer un semestre d'échange international tout en terminant dans les délais. À l'Université de Hong Kong, elle étudia au sein du Department of Data and Systems Engineering, spécialisée en génie industriel et gestion logistique. Cette période lui permit de renouer avec son héritage asiatique et de découvrir la rigueur et la discipline du modèle académique local.",
+                        "Dans le cadre de ses études, elle participa au projet POLE, une collaboration internationale et interdisciplinaire entre la Suisse et Continental Guadalajara au Mexique. Son équipe développa des concepts d'interaction entre l'humain et la technologie embarquée, préfigurant les systèmes d'affichage tête haute d'aujourd'hui.",
+                        "Elle compléta ensuite un Master of Science en administration des affaires à la Haute école spécialisée bernoise, spécialisation en développement des affaires, et obtint en 2022 le titre fédéral d'experte en comptabilité et controlling à la Controller Akademie Zürich."
                     ]
                 },
                 {
                     title: "Carrière & Approche",
                     paragraphs: [
                         "Avant de rejoindre FiCAS AG en tant que Chief Financial Officer (CFO), elle occupa des postes de responsabilité, notamment Team Lead Controlling à la commune de Köniz, Financial Controller à la FINMA et chez iba ag, Bureau Services. À travers ces expériences, elle travailla avec de nombreux acteurs et fut reconnue pour sa pensée structurée, son pragmatisme et sa capacité à rendre des processus complexes clairs et opérationnels. Elle privilégie le dialogue et la recherche de solutions constructives, son leadership accessible crée des environnements de travail fondés sur la confiance.",
-                        "Depuis août 2024, elle exerce la fonction de Chief Financial Officer au sein de FiCAS AG, un gestionnaire d’actifs suisse agréé par la FINMA, spécialisé dans les produits crypto gérés activement. Dans un secteur dynamique et novateur, elle met à profit son expérience publique et privée pour renforcer la gouvernance financière, affiner les processus et accompagner le développement de l’entreprise dans une perspective durable.",
+                        "Depuis août 2024, elle exerce la fonction de Chief Financial Officer au sein de FiCAS AG, un gestionnaire d'actifs suisse agréé par la FINMA, spécialisé dans les produits crypto gérés activement. Dans un secteur dynamique et novateur, elle met à profit son expérience publique et privée pour renforcer la gouvernance financière, affiner les processus et accompagner le développement de l'entreprise dans une perspective durable.",
                         "Rebecca se distingue par son esprit analytique et sa créativité dans la résolution de problèmes. Elle aime concevoir et perfectionner des processus qui apportent clarté, stabilité et efficacité à long terme, combinant précision et intuition pour transformer la structure en progrès durable."
                     ]
                 }
@@ -350,8 +350,8 @@
         // Update page title, H1 and H2 (get current section from URL)
         if (window.updatePageTitle) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
-            const currentSection = sectionMatch ? sectionMatch[2] : 'aboutme';
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
+            const currentSection = sectionMatch ? sectionMatch[2] : 'home';
             window.updatePageTitle(lang, currentSection);
         }
         if (window.updateH1) {
@@ -467,14 +467,14 @@
                     
                     // Update URL with new language
                     const path = window.location.pathname;
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(aboutme|connect|quotes|recommendations|home)/);
                     if (sectionMatch) {
                         const section = sectionMatch[2];
                         const newUrl = `/${lang}/${section}`;
                         window.history.pushState({ lang: lang, section: section }, '', newUrl);
                     } else {
-                        const newUrl = `/${lang}/aboutme`;
-                        window.history.pushState({ lang: lang, section: 'aboutme' }, '', newUrl);
+                        const newUrl = `/${lang}/home`;
+                        window.history.pushState({ lang: lang, section: 'home' }, '', newUrl);
                     }
                     
                     // Update navigation links
