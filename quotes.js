@@ -133,6 +133,106 @@
             fr: "Contacter sur LinkedIn.",
             zh: "在 LinkedIn 上聯絡。"
         },
+        contact: {
+            greeting: {
+                de: "Nehmen Sie gerne Kontakt auf.",
+                en: "Get in touch.",
+                fr: "N'hésitez pas à me contacter.",
+                zh: "歡迎聯絡我。"
+            },
+            description: {
+                de: "Anfragen zu folgenden Themen:",
+                en: "For enquiries regarding:",
+                fr: "Pour toute demande concernant :",
+                zh: "如需洽詢以下事項："
+            },
+            topic1: {
+                de: "Finance- und Corporate Services",
+                en: "Finance and corporate services",
+                fr: "Services financiers et corporate",
+                zh: "財務與企業服務"
+            },
+            topic2: {
+                de: "Projekte zur Staerkung von Frauen",
+                en: "Projects that empower women",
+                fr: "Projets d'autonomisation des femmes",
+                zh: "賦權女性的專案"
+            },
+            topic3: {
+                de: "Unterstützung unterrepräsentierter Gruppen",
+                en: "Support for underrepresented communities",
+                fr: "Soutien aux groupes sous-représentés",
+                zh: "對弱勢／代表性不足社群的支持"
+            },
+            topic4: {
+                de: "Unterstützung von Menschen mit geringeren finanziellen Ressourcen",
+                en: "Support for people with limited financial resources",
+                fr: "Soutien aux personnes disposant de ressources financières limitées",
+                zh: "對經濟資源較少者的支持"
+            },
+            closing: {
+                de: "Ich melde mich zeitnah bei Ihnen.",
+                en: "I will get back to you soon.",
+                fr: "Je vous répondrai dans les plus brefs délais.",
+                zh: "我會盡快回覆您。"
+            },
+            formLabels: {
+                firstName: {
+                    de: "Vorname",
+                    en: "First Name",
+                    fr: "Prénom",
+                    zh: "名字"
+                },
+                lastName: {
+                    de: "Nachname",
+                    en: "Last Name",
+                    fr: "Nom",
+                    zh: "姓氏"
+                },
+                email: {
+                    de: "E-Mail",
+                    en: "E-Mail",
+                    fr: "E-Mail",
+                    zh: "電子郵件"
+                },
+                message: {
+                    de: "Nachricht",
+                    en: "Message",
+                    fr: "Message",
+                    zh: "訊息"
+                },
+                submit: {
+                    de: "Senden",
+                    en: "Send",
+                    fr: "Envoyer",
+                    zh: "發送"
+                },
+                sending: {
+                    de: "Wird gesendet...",
+                    en: "Sending...",
+                    fr: "Envoi en cours...",
+                    zh: "發送中..."
+                },
+                success: {
+                    de: "Nachricht erfolgreich gesendet!",
+                    en: "Message sent successfully!",
+                    fr: "Message envoyé avec succès!",
+                    zh: "訊息已成功發送！"
+                },
+                error: {
+                    de: "Fehler beim Senden. Bitte versuchen Sie es erneut.",
+                    en: "Error sending message. Please try again.",
+                    fr: "Erreur lors de l'envoi. Veuillez réessayer.",
+                    zh: "發送錯誤。請重試。"
+                },
+                captcha: {
+                    de: "Antwort",
+                    en: "Answer",
+                    fr: "Réponse",
+                    zh: "答案"
+                }
+            }
+        },
         intro: {
             de: "",
             en: "",
@@ -391,6 +491,14 @@
             window.updateHomeContent(lang);
         }
         
+        // Update contact section translations
+        updateContactContent(lang);
+        
+        // Update contact form translations
+        if (window.updateContactTranslations) {
+            window.updateContactTranslations(lang);
+        }
+        
         const translation = nameTranslations[lang];
         const nameMain = nameLink ? nameLink.querySelector('.name-main-corner') : null;
         const nameLoc = nameLink ? nameLink.querySelector('.name-location-corner') : null;
@@ -419,6 +527,75 @@
                 nav.textContent = navigationLabels[langKey][lang];
             }
         });
+    }
+    
+    // Update contact section content
+    function updateContactContent(lang) {
+        const contactContent = aboutContent.contact || {};
+        
+        // Get translations for current language
+        const langContent = {
+            greeting: contactContent.greeting?.[lang] || contactContent.greeting?.['en'] || '',
+            description: contactContent.description?.[lang] || contactContent.description?.['en'] || '',
+            topic1: contactContent.topic1?.[lang] || contactContent.topic1?.['en'] || '',
+            topic2: contactContent.topic2?.[lang] || contactContent.topic2?.['en'] || '',
+            topic3: contactContent.topic3?.[lang] || contactContent.topic3?.['en'] || '',
+            topic4: contactContent.topic4?.[lang] || contactContent.topic4?.['en'] || '',
+            closing: contactContent.closing?.[lang] || contactContent.closing?.['en'] || '',
+            formLabels: contactContent.formLabels || {}
+        };
+        
+        // Update greeting
+        const greetingEl = document.getElementById('contactGreeting');
+        if (greetingEl && langContent.greeting) {
+            greetingEl.textContent = langContent.greeting;
+        }
+        
+        // Update description
+        const descEl = document.getElementById('contactDescription');
+        if (descEl && langContent.description) {
+            descEl.textContent = langContent.description;
+        }
+        
+        // Update topics
+        const topic1El = document.getElementById('contactTopic1');
+        const topic2El = document.getElementById('contactTopic2');
+        const topic3El = document.getElementById('contactTopic3');
+        const topic4El = document.getElementById('contactTopic4');
+        
+        if (topic1El && langContent.topic1) topic1El.textContent = langContent.topic1;
+        if (topic2El && langContent.topic2) topic2El.textContent = langContent.topic2;
+        if (topic3El && langContent.topic3) topic3El.textContent = langContent.topic3;
+        if (topic4El && langContent.topic4) topic4El.textContent = langContent.topic4;
+        
+        // Update closing
+        const closingEl = document.getElementById('contactClosing');
+        if (closingEl && langContent.closing) {
+            closingEl.textContent = langContent.closing;
+        }
+        
+        // Set up contact form translations - extract labels for current language
+        window.contactTranslations = window.contactTranslations || {};
+        const formLabelsObj = contactContent.formLabels || {};
+        
+        // Extract labels for current language
+        const labelsForLang = {
+            firstName: formLabelsObj.firstName?.[lang] || formLabelsObj.firstName?.['en'] || 'First Name',
+            lastName: formLabelsObj.lastName?.[lang] || formLabelsObj.lastName?.['en'] || 'Last Name',
+            email: formLabelsObj.email?.[lang] || formLabelsObj.email?.['en'] || 'E-Mail',
+            message: formLabelsObj.message?.[lang] || formLabelsObj.message?.['en'] || 'Message',
+            submit: formLabelsObj.submit?.[lang] || formLabelsObj.submit?.['en'] || 'Send'
+        };
+        
+        window.contactTranslations[lang] = {
+            labels: labelsForLang,
+            success: formLabelsObj.success?.[lang] || formLabelsObj.success?.['en'] || 'Message sent successfully!',
+            error: formLabelsObj.error?.[lang] || formLabelsObj.error?.['en'] || 'Error sending message. Please try again.'
+        };
+        
+        if (window.updateContactTranslations) {
+            window.updateContactTranslations(lang);
+        }
 
         if (window.updateAboutContent) {
             window.updateAboutContent(lang);

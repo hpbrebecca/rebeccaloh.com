@@ -460,8 +460,7 @@ h1.name-corner {
    ============================================ */
 .about-section-designer,
 .quote-section-designer,
-.recommendations-section,
-#connectSection {
+.recommendations-section {
     width: 100%;
     max-width: 100%;
     min-height: clamp(280px, 36vw, 400px);
@@ -562,16 +561,7 @@ h1.name-corner {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Optimized spacing for connect section */
-#connectSection .about-content {
-    gap: clamp(32px, 4.6vw, 56px);
-    align-items: center;
-}
-
-#connectSection .section-heading {
-    text-align: center;
-    margin-bottom: var(--space-md);
-}
+/* Contact section now uses contact-section-designer class - styles in contact-form.css */
 
 /* ============================================
    SECTION BACKGROUNDS - Architecture Rules
@@ -739,7 +729,34 @@ h1.name-corner {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - Tablet (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .home-image-wrapper {
+        flex-direction: row;
+        align-items: center;
+        min-height: clamp(500px, 65vw, 700px);
+        padding-bottom: clamp(80px, 10vw, 120px);
+    }
+    
+    .home-image-container {
+        width: 100%;
+        max-width: clamp(350px, 45vw, 450px);
+        margin-left: clamp(-30px, -3vw, -15px);
+    }
+    
+    .home-image-overlay-box {
+        width: clamp(480px, 58vw, 680px);
+        min-height: clamp(350px, 45vw, 480px);
+        right: clamp(-40px, -4vw, -15px);
+        padding: var(--space-md);
+    }
+    
+    .home-image-overlay-text {
+        font-size: clamp(1rem, 1.4vw, 1.125rem);
+    }
+}
+
+/* Responsive adjustments - Mobile (max-width: 768px) */
 @media (max-width: 768px) {
     .home-image-wrapper {
         max-width: 100%;
@@ -2116,20 +2133,60 @@ h1.name-corner {
     }
 }
 
-/* Medium screens - prevent overlap */
+/* Tablet screens - prevent overlap (769px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
+    :root {
+        --content-gutter: clamp(20px, 2.5vw, 32px);
+        --content-gutter-right: clamp(20px, 2.5vw, 32px);
+    }
+    
     .profile-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        max-width: calc(40vw - clamp(80px, 10vw, 120px));
+        max-width: calc(45vw - clamp(100px, 12vw, 140px));
+        left: clamp(16px, 2vw, 24px);
     }
     
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
+        right: clamp(16px, 2vw, 24px);
         gap: clamp(4px, 0.6vw, 8px);
-        max-width: calc(100vw - clamp(320px, 40vw, 480px));
-        min-width: clamp(180px, 22vw, 260px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
+        max-width: calc(50vw - clamp(100px, 12vw, 140px));
+        min-width: clamp(200px, 25vw, 300px);
+    }
+    
+    .main-content-designer {
+        top: clamp(100px, 12vw, 120px);
+        bottom: clamp(64px, 7vw, 80px);
+    }
+    
+    .home-image-wrapper {
+        flex-direction: row;
+        align-items: center;
+        min-height: clamp(500px, 65vw, 700px);
+    }
+    
+    .home-image-overlay-box {
+        width: clamp(480px, 60vw, 700px);
+        min-height: clamp(350px, 45vw, 500px);
+    }
+    
+    .about-detail-body {
+        column-count: 2;
+        column-gap: clamp(24px, 3vw, 32px);
+    }
+    
+    .recommendations-body {
+        flex-direction: row;
+        gap: var(--space-lg);
+    }
+    
+    .logo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: clamp(24px, 3vw, 32px);
+        row-gap: clamp(20px, 2.5vw, 28px);
     }
 }
 
@@ -2492,23 +2549,45 @@ h1.name-corner {
     }
 }
 
-/* Small screens - stack profile vertically if needed */
+/* Small screens - between smartphone and tablet (481px - 640px) */
 @media (max-width: 640px) and (min-width: 481px) {
     .profile-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        max-width: calc(45vw - clamp(80px, 12vw, 140px));
+        left: clamp(16px, 2vw, 24px);
+        max-width: calc(50vw - clamp(80px, 12vw, 140px));
     }
     
     .main-navigation {
         top: clamp(64px, 8vw, 80px);
         bottom: auto;
         gap: clamp(4px, 0.8vw, 8px);
-        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
+        padding: clamp(6px, 0.8vw, 10px) clamp(10px, 1.4vw, 14px);
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
         width: calc(100vw - clamp(16px, 2vw, 24px));
         max-width: calc(100vw - clamp(16px, 2vw, 24px));
-        flex-wrap: wrap;
-        overflow: visible;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+    
+    .main-content-designer {
+        top: clamp(120px, 14vw, 140px);
+        bottom: clamp(64px, 7.2vw, 80px);
+    }
+    
+    .home-image-overlay-box {
+        padding: var(--space-md);
+    }
+    
+    .about-detail-body {
+        column-count: 1;
+    }
+    
+    .recommendations-body {
+        flex-direction: column;
     }
 }
 
