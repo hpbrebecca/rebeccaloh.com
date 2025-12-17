@@ -13,7 +13,7 @@
     left: -999px;
     top: 8px;
     background: var(--color-dark-primary);
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     padding: clamp(8px, 1.2vw, 12px) clamp(14px, 2vw, 18px);
     border-radius: 999px;
     text-decoration: none;
@@ -45,25 +45,37 @@ html, body {
    DESIGN TOKENS - Typography & Spacing
    ============================================ */
 :root {
-    /* Typography Scale - Refined & Professional (Optimized for Space Efficiency) */
-    /* H1 > H2 > H3 hierarchy - Reduced size differences */
-    --font-h1: clamp(1.25rem, 2.2vw, 1.75rem); /* H1: Largest (smaller) */
-    --font-h2: clamp(1.125rem, 1.9vw, 1.5rem); /* H2: Medium (smaller) */
-    --font-h3: clamp(1rem, 1.6vw, 1.25rem); /* H3: Smallest heading */
-    --font-display: clamp(1.25rem, 2.6vw, 2rem);
-    --font-heading: clamp(1.375rem, 2.4vw, 2rem);
-    --font-body: clamp(1rem, 1.4vw, 1.25rem);
-    --font-small: clamp(0.8125rem, 1.1vw, 0.9375rem);
-    --font-tiny: clamp(0.625rem, 0.85vw, 0.75rem);
+    /* Typography Scale - Editorial & Gen Z Refined */
+    /* H1 > H2 > H3 hierarchy - Editorial proportions with breathing room */
+    --font-h1: clamp(1.375rem, 2.4vw, 1.875rem); /* H1: Larger for editorial impact */
+    --font-h2: clamp(1.25rem, 2.1vw, 1.625rem); /* H2: Medium with more presence */
+    --font-h3: clamp(1.125rem, 1.8vw, 1.375rem); /* H3: Smallest heading */
+    --font-display: clamp(1.375rem, 2.8vw, 2.25rem); /* Display text - more dramatic */
+    --font-heading: clamp(1.5rem, 2.6vw, 2.25rem); /* Section headings - editorial scale */
+    --font-body: clamp(1.0625rem, 1.5vw, 1.3125rem); /* Body text - slightly larger for readability */
+    --font-small: clamp(0.875rem, 1.2vw, 1rem); /* Small text */
+    --font-tiny: clamp(0.6875rem, 0.9vw, 0.8125rem); /* Tiny text */
     
-    /* Spacing Scale - Professional & Sophisticated */
-    --space-xs: clamp(6px, 0.6vw, 10px);
-    --space-sm: clamp(10px, 1.2vw, 16px);
-    --space-md: clamp(16px, 2.2vw, 28px);
-    --space-lg: clamp(24px, 3.4vw, 40px);
-    --space-xl: clamp(32px, 4.6vw, 56px);
-    --space-2xl: clamp(48px, 6.8vw, 80px);
-    --space-3xl: clamp(64px, 9vw, 112px);
+    /* Editorial Typography - Letter Spacing & Line Height */
+    --letter-spacing-tight: 0.01em;
+    --letter-spacing-normal: 0.03em;
+    --letter-spacing-wide: 0.06em;
+    --letter-spacing-wider: 0.1em;
+    --letter-spacing-widest: 0.14em;
+    
+    --line-height-tight: 1.25; /* Tighter for headings - more editorial */
+    --line-height-normal: 1.55; /* Slightly tighter for body - more editorial */
+    --line-height-relaxed: 1.7; /* Balanced for readable sections */
+    --line-height-loose: 1.85; /* Spacious for special content */
+    
+    /* Spacing Scale - Reduced for better proportions */
+    --space-xs: clamp(4px, 0.5vw, 8px);
+    --space-sm: clamp(8px, 1vw, 12px);
+    --space-md: clamp(12px, 1.6vw, 20px);
+    --space-lg: clamp(20px, 2.4vw, 32px);
+    --space-xl: clamp(28px, 3.5vw, 40px);
+    --space-2xl: clamp(40px, 5vw, 56px);
+    --space-3xl: clamp(56px, 7vw, 80px);
     
     /* Layout Gutters - Balanced Aesthetic Spacing */
     --content-gutter: clamp(24px, 3.2vw, 48px);
@@ -84,34 +96,51 @@ html, body {
     --z-skip-link: 10005;
     
     /* ============================================
-       CLEAR / COOL WINTER COLOR PALETTE
+       COLOR SYSTEM - Clear/Bright Winter
        ============================================ */
-    /* 1️⃣ Very Dark (Authority / Leadership) */
-    --color-dark-primary: #05070C;      /* Cool Black - Header, Hero (CFO), Footer */
-    --color-dark-secondary: #0C1A33;    /* Deep Cool Navy - Main Finance, Structure, Leadership */
-    --color-dark-alternative: #082C36; /* Blackened Petrol - Alternative Dark Sections */
+    /* Dark backgrounds - ONLY backgrounds, never text */
+    --color-dark-primary: #0A0F1A;      /* Global body/html background - always dark */
+    --color-dark-secondary: #1C2552;    /* Dark background alternative - Clear Winter */
+    --color-dark-tertiary: #1A1428;     /* Dark background alternative - Clear Winter */
     
-    /* 2️⃣ Mid (Structure / Sections) */
-    --color-mid-navy: #1E2F55;         /* Executive Navy Mid - Sub-Hero, Section-Header */
-    --color-accent-primary: #3B5FCC;   /* Cool Steel Blue - Primary Accent (Links, Icons, CTA) */
+    /* Light surfaces - ONLY content surfaces placed on dark base */
+    --color-light-bg: #F1F3F8;         /* Light content surface */
+    --color-white-content: #FFFFFF;    /* Pure white content surface */
     
-    /* 3️⃣ Light (Content / Calm) */
-    --color-light-bg: #F1F3F8;         /* Ice Grey - Default Background (60-70%) */
-    --color-white-content: #FFFFFF;    /* Pure White - Content Boxes, Bio, Text */
+    /* Text surfaces - 10% transparent (0.9 opacity) - STRICT */
+    --color-text-surface-dark: rgba(10, 15, 26, 0.9);   /* Dark text surface - 10% transparent */
+    --color-text-surface-light: rgba(241, 243, 248, 0.9); /* Light text surface - 10% transparent */
     
-    /* 4️⃣ Very Light (Whitespace / Elegance) */
-    --color-ultra-light: #FAFBFE;      /* Crystal White - Generous Whitespace, Bio, Personal */
+    /* Navigation background - 50% transparent (0.5 opacity) - ONLY navigation */
+    --color-nav-background: rgba(10, 15, 26, 0.5);   /* Navigation ONLY - 50% transparent */
+    
+    /* Text colors - NEVER use opacity, always fully opaque */
+    --color-text-on-dark: #FFFFFF;     /* Text on dark backgrounds ONLY - full opacity */
+    --color-text-on-light: #0A0F1A;    /* Text on light surfaces - primary */
+    --color-text-on-light-alt: #1C2552; /* Text on light surfaces - alternative */
+    
+    /* Section headers on light surfaces */
+    --color-section-header: #1C2552;   /* ONLY for section headers/labels on light surfaces */
+    
+    /* Accent colors - ONLY for links, CTAs, icons, hover states - deep saturated, NOT neon */
+    --color-accent-primary: #4B3A8F;   /* Primary accent - deep saturated violet - links, CTAs, icons, hover */
+    --color-accent-secondary: #6A2F6F; /* Secondary accent - optional - used sparingly */
+    
+    /* Accent colors are NEVER used for backgrounds or body text */
 }
 
 body {
-    background: #05070C; /* Darker background as requested */
-    font-family: 'Inter', 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', sans-serif;
-    color: var(--color-white-content);
+    background: #0A0F1A; /* Global dark background - STRICT */
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', 'Inter', sans-serif;
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     position: relative;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Editorial typography - better spacing */
+    letter-spacing: var(--letter-spacing-normal);
     /* Performance optimizations */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
@@ -223,7 +252,7 @@ body:lang(zh),
 
 .profile-flip-back {
     transform: rotateY(180deg);
-    background: var(--color-dark-primary);
+    background: var(--color-nav-background); /* Navigation ONLY - 50% transparent */
     backdrop-filter: blur(10px);
 }
 
@@ -293,29 +322,36 @@ h1.name-corner {
 .name-main-corner {
     font-size: var(--font-h1); /* H1: Largest */
     font-weight: 400;
-    letter-spacing: 0.06em;
-    color: var(--color-white-content);
-    line-height: 1.3;
-    font-feature-settings: "liga" 1, "kern" 1;
+    letter-spacing: var(--letter-spacing-wide); /* More editorial spacing */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
+    line-height: var(--line-height-tight);
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
     display: block;
     white-space: nowrap;
     overflow: hidden;
     text-transform: uppercase; /* CAPSLOCK wie bei Bio-Zwischentiteln */
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle glow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     text-overflow: ellipsis;
     max-width: 100%;
 }
 
 .name-location-corner {
-    font-size: clamp(0.75rem, 1vw, 0.875rem);
+    font-size: clamp(0.8125rem, 1.1vw, 0.9375rem); /* Slightly larger */
     font-weight: 300;
-    letter-spacing: 0.12em;
-    color: var(--color-white-content);
-    line-height: 1.3;
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
+    line-height: var(--line-height-tight);
     font-family: 'Inter', sans-serif;
     text-transform: uppercase;
     display: block;
     margin-top: 3px;
     white-space: nowrap;
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle glow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     overflow: visible;
     text-overflow: clip;
     max-width: none;
@@ -355,7 +391,7 @@ h1.name-corner {
     min-width: clamp(200px, 25vw, 300px);
     max-width: calc(100vw - clamp(280px, 35vw, 400px));
     padding: clamp(4px, 0.6vw, 8px) clamp(12px, 1.5vw, 18px);
-    background: var(--color-dark-primary);
+    background: var(--color-nav-background); /* Navigation ONLY - 50% transparent */
     border-radius: 8px;
     flex-wrap: nowrap;
     overflow: visible;
@@ -365,40 +401,44 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--color-white-content);
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     text-decoration: none;
     padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px);
     border-bottom: 2px solid transparent;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     text-transform: uppercase;
     white-space: normal;
     flex-shrink: 0;
-    line-height: 1.4;
-    /* Premium typography */
+    line-height: var(--line-height-tight);
+    /* Premium typography - Editorial */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle glow */
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
     /* Performance optimizations */
     contain: layout style;
-    will-change: transform, color, border-color;
+    will-change: transform, color, border-color, text-shadow;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     position: relative;
 }
 
 .nav-link:hover {
-    color: var(--color-accent-primary);
+    color: var(--color-accent-primary); /* Accent for hover states */
     border-bottom-color: var(--color-accent-primary);
     transform: translateY(-2px) translateZ(0);
-    opacity: 1;
-    /* Subtle glow effect instead of blur */
-    text-shadow: 0 0 8px rgba(59, 95, 204, 0.3);
+    /* Gen Z enhanced glow effect - using accent color */
+    text-shadow: 0 0 16px rgba(75, 58, 143, 0.5), /* Clear Winter deep violet accent #4B3A8F - stronger */
+                 0 2px 6px rgba(75, 58, 143, 0.3),
+                 0 0 24px rgba(75, 58, 143, 0.2); /* Additional outer glow for more impact */
 }
 
 .nav-link.active {
-    color: var(--color-white-content);
-    border-bottom-color: var(--color-accent-primary);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
+    border-bottom-color: var(--color-accent-primary); /* Accent for active state */
     font-weight: 400;
 }
 
@@ -472,8 +512,8 @@ h1.name-corner {
     will-change: opacity, transform;
     /* Professional frame with generous vertical space */
     margin: 0 auto;
-    /* Light sections as surfaces on dark base - visible spacing */
-    background: var(--color-light-bg);
+    /* Light sections as surfaces on dark base - 10% transparent text surfaces */
+    background: var(--color-text-surface-light); /* Text surface - 10% transparent */
     padding: var(--space-xl);
     border-radius: 12px;
     margin-bottom: var(--space-lg);
@@ -521,26 +561,31 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: var(--font-h2); /* H2: Medium */
     font-weight: 400;
-    letter-spacing: 0.08em;
-    color: var(--color-dark-primary);
-    line-height: 1.35;
+    letter-spacing: var(--letter-spacing-wider); /* More editorial spacing */
+    color: var(--color-section-header); /* Section headers on light surfaces */
+    line-height: var(--line-height-tight); /* Tighter for headings */
     margin: 0;
     padding: 0;
     text-transform: none;
     /* CONSISTENT: All H2 headings centered for professional appearance */
     text-align: center;
-    font-feature-settings: "liga" 1, "kern" 1;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1, "swsh" 1;
     contain: layout style;
     will-change: auto;
-    /* Professional height with reduced spacing */
-    min-height: clamp(56px, 7.2vw, 88px);
+    /* Reduced height and spacing */
+    min-height: clamp(40px, 5vw, 56px);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm); /* Reduced space below heading */
     width: 100%;
-    /* Premium typography refinement */
+    /* Premium typography refinement - Editorial & Gen Z */
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Subtle Gen Z glow effect */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* H3 Styling - Inside white box */
@@ -549,7 +594,7 @@ h1.name-corner {
     font-size: var(--font-h3); /* H3: Smallest heading */
     font-weight: 700; /* FETT */
     letter-spacing: 0.05em;
-    color: rgba(12, 26, 51, 0.9); /* Dark text on light background */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     line-height: 1.4;
     margin: 0 0 var(--space-md) 0;
     padding: 0;
@@ -580,7 +625,7 @@ h1.name-corner {
 #homeSection .home-text,
 #homeSection .home-text-container,
 #homeSection .about-description {
-    color: var(--color-white-content) !important;
+    color: var(--color-text-on-dark) !important; /* Text on dark background = white */
 }
 
 /* Bio Section - Transparent (blue is now main background) */
@@ -598,16 +643,16 @@ h1.name-corner {
 #aboutmeSection .about-intro,
 #aboutmeSection .about-detail-summary,
 #aboutmeSection .about-detail-body p {
-    color: var(--color-white-content) !important;
+    color: var(--color-text-on-dark) !important; /* Text on dark background = white */
 }
 
 #aboutmeSection .about-detail-summary:hover {
-    color: var(--color-accent-primary) !important;
+    color: var(--color-accent-primary) !important; /* Accent for hover */
 }
 
 #aboutmeSection .about-detail-summary::after,
 #aboutmeSection .about-detail[open] .about-detail-summary::after {
-    color: var(--color-white-content) !important;
+    color: var(--color-text-on-dark) !important; /* Text on dark background = white */
 }
 
 #aboutmeSection .about-detail {
@@ -654,8 +699,8 @@ h1.name-corner {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    /* Ensure wrapper is tall enough for overlay box */
-    min-height: clamp(600px, 70vw, 800px);
+    /* Ensure wrapper adapts to content height dynamically */
+    min-height: auto;
     padding-bottom: clamp(100px, 12vw, 150px);
 }
 
@@ -688,10 +733,11 @@ h1.name-corner {
     /* Position: Right-aligned */
     right: clamp(-50px, -5vw, -20px); /* Kann rechts über den Rand hinausgehen */
     left: auto;
-    /* Size: Even wider for more space */
+    /* Size: Dynamic based on content */
     width: clamp(550px, 65vw, 850px); /* NOCH BREITER */
-    min-height: clamp(420px, 52vw, 580px);
-    background: var(--color-ultra-light);
+    min-height: auto; /* Dynamic height based on content */
+    height: fit-content; /* Fit content dynamically */
+    background: var(--color-text-surface-light); /* Light text surface - 10% transparent */
     border: none;
     border-radius: 0;
     padding: var(--space-lg); /* Padding reduziert (war var(--space-xl)) */
@@ -711,22 +757,29 @@ h1.name-corner {
 
 .home-image-overlay-text {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+    font-size: clamp(1rem, 1.4vw, 1.1875rem); /* Slightly larger */
     font-weight: 300;
-    letter-spacing: 0.03em;
-    line-height: 1.7;
-    color: var(--color-dark-secondary);
-    margin: 0 0 var(--space-md) 0; /* Abstand zwischen Absätzen */
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    line-height: var(--line-height-relaxed); /* More breathing room */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
+    margin: 0 0 var(--space-md) 0; /* Editorial paragraph spacing */
     text-align: justify;
     width: 100%; /* 1-SPALTIG: Volle Breite */
     /* No scrolling - mainframe handles scrolling */
     overflow: visible;
     /* Remove line clamp to allow full text */
     display: block;
-    /* Premium typography - same as Bio content */
+    /* Premium typography - Editorial refinement */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* Ensure text wraps properly */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 
 /* Responsive adjustments - Tablet (769px - 1024px) */
@@ -746,7 +799,8 @@ h1.name-corner {
     
     .home-image-overlay-box {
         width: clamp(480px, 58vw, 680px);
-        min-height: clamp(350px, 45vw, 480px);
+        min-height: auto; /* Dynamic height based on content */
+        height: fit-content; /* Fit content dynamically */
         right: clamp(-40px, -4vw, -15px);
         padding: var(--space-md);
     }
@@ -762,8 +816,10 @@ h1.name-corner {
         max-width: 100%;
         flex-direction: column;
         align-items: flex-start; /* Left-align image on mobile */
-        min-height: auto;
+        min-height: auto; /* Dynamic height */
         padding-bottom: var(--space-xl);
+        /* Ensure wrapper expands for all content */
+        box-sizing: border-box;
     }
     
     .home-image-container {
@@ -784,11 +840,14 @@ h1.name-corner {
         left: auto !important;
         width: 100% !important;
         max-width: 100% !important;
-        min-height: auto !important;
+        min-height: auto !important; /* Dynamic height */
+        height: fit-content !important; /* Fit content dynamically */
         margin-top: var(--space-lg); /* Space between image and text box */
         margin-left: 0;
         margin-right: 0;
         padding: var(--space-md); /* Reduced padding on mobile */
+        /* Ensure box expands to fit all content */
+        box-sizing: border-box;
     }
 }
 
@@ -796,15 +855,52 @@ h1.name-corner {
 @media (max-width: 480px) {
     .home-image-wrapper {
         padding-bottom: var(--space-lg);
+        min-height: auto; /* Dynamic height */
     }
     
     .home-image-overlay-box {
         margin-top: var(--space-md);
         padding: var(--space-sm);
+        min-height: auto !important; /* Dynamic height */
+        height: fit-content !important; /* Fit content dynamically */
+        /* Ensure all text fits within box */
+        box-sizing: border-box;
     }
     
     .home-image-overlay-text {
         font-size: clamp(0.875rem, 2.5vw, 1rem); /* Slightly smaller text on very small screens */
+        /* Prevent text overflow */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Portrait orientation (Hochformat) - Additional adjustments */
+@media (max-width: 768px) and (orientation: portrait) {
+    .home-image-wrapper {
+        min-height: auto;
+        padding-bottom: var(--space-lg);
+    }
+    
+    .home-image-overlay-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        height: fit-content !important;
+        padding: var(--space-md);
+        margin-top: var(--space-md);
+        /* Ensure box expands for all content in portrait */
+        box-sizing: border-box;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .home-image-overlay-text {
+        width: 100%;
+        /* Prevent text overflow in portrait */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
 }
 
@@ -816,14 +912,18 @@ h1.name-corner {
 
 .home-text {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-size: var(--font-body); /* Use refined body size */
     font-weight: 300;
-    letter-spacing: 0.04em;
-    line-height: 1.7;
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    line-height: var(--line-height-relaxed); /* More breathing room */
     text-align: center;
     margin: 0;
     padding: 0;
-    color: var(--color-dark-secondary);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 #connectSection .about-description {
@@ -840,21 +940,26 @@ h1.name-corner {
 
 .about-description {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-size: var(--font-body); /* Use refined body size */
     font-weight: 300;
-    letter-spacing: 0.04em;
-    color: var(--color-dark-secondary);
-    line-height: 1.7;
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
+    line-height: var(--line-height-relaxed); /* More breathing room for editorial feel */
     max-width: clamp(520px, 68vw, 720px);
     margin: 0 auto;
-    /* Premium typography */
+    /* Premium typography - Editorial refinement */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle text glow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     /* Mobile performance */
     contain: layout style;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    /* Editorial paragraph spacing */
+    margin-bottom: var(--space-md);
 }
 
 .about-long-form .about-content {
@@ -895,15 +1000,18 @@ h1.name-corner {
 
 .about-intro {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
-    letter-spacing: 0.04em;
-    color: var(--color-dark-secondary);
-    line-height: 1.7;
-    margin: 0;
-    /* Premium typography */
+    font-size: var(--font-body); /* Use refined body size */
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
+    line-height: var(--line-height-relaxed); /* More breathing room */
+    margin: 0 0 var(--space-md) 0; /* Editorial paragraph spacing */
+    /* Premium typography - Editorial refinement */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .about-accordion {
@@ -991,16 +1099,20 @@ h1.name-corner {
 
 .about-circle-title {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1.15rem, 2vw, 1.6rem);
-    letter-spacing: 0.15em;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem); /* Slightly larger for editorial impact */
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
     text-transform: uppercase;
-    color: var(--color-dark-primary);
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     text-align: center;
     padding: 0;
-    line-height: 1.4;
+    line-height: var(--line-height-tight);
     position: relative;
     z-index: 1;
     font-weight: 400;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1103,10 +1215,10 @@ h1.name-corner {
 
 .about-circle-content-title {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.5625rem, 0.8vw, 0.75rem);
-    letter-spacing: 0.12em;
+    font-size: clamp(0.625rem, 0.9vw, 0.8125rem); /* Slightly larger */
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
     text-transform: uppercase;
-    color: var(--color-dark-primary);
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
@@ -1118,6 +1230,8 @@ h1.name-corner {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
     gap: clamp(4px, 0.5vw, 6px);
 }
 
@@ -1189,7 +1303,7 @@ h1.name-corner {
     font-size: clamp(0.95rem, 1.2vw, 1.15rem);
     letter-spacing: 0.02em;
     line-height: 1.35; /* drives the circle silhouette step */
-    color: var(--color-dark-secondary);
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     text-align: center;
     margin: 0;
     padding: 0;
@@ -1271,21 +1385,30 @@ h1.name-corner {
     padding-right: clamp(36px, 4.4vw, 44px);
     padding-left: 0;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
-    letter-spacing: 0.12em;
-    color: var(--color-dark-primary);
+    font-size: var(--font-body); /* Use refined body size */
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     text-transform: uppercase;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: var(--space-sm);
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle glow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     /* Premium interaction */
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .about-detail-summary:hover {
-    color: var(--color-accent-primary);
+    color: var(--color-accent-primary); /* Accent for hover states */
     transform: translateX(4px);
+    /* Gen Z enhanced glow on hover - STRENGTHENED - using accent color */
+    text-shadow: 0 0 12px rgba(75, 58, 143, 0.4), /* Clear Winter deep violet accent #4B3A8F - stronger */
+                 0 2px 6px rgba(75, 58, 143, 0.3),
+                 0 0 20px rgba(75, 58, 143, 0.2); /* Additional outer glow */
 }
 
 .about-detail-summary::-webkit-details-marker {
@@ -1296,7 +1419,7 @@ h1.name-corner {
     content: "+";
     font-size: clamp(1.25rem, 1.8vw, 1.5rem);
     font-weight: 300;
-    color: var(--color-dark-secondary);
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     position: absolute;
     right: clamp(4px, 0.8vw, 6px);
     top: 50%;
@@ -1307,7 +1430,7 @@ h1.name-corner {
 .about-detail[open] .about-detail-summary::after {
     content: "–";
     transform: translateY(-50%);
-    color: var(--color-dark-secondary);
+    color: var(--color-text-on-light); /* Text on light surface = dark */
 }
 
 .about-detail-body {
@@ -1321,18 +1444,21 @@ h1.name-corner {
 }
 
 .about-detail-body p {
-    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
-    letter-spacing: 0.03em;
-    line-height: 1.7;
-    color: var(--color-dark-secondary);
+    font-size: var(--font-body); /* Use refined body size */
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    line-height: var(--line-height-relaxed); /* More breathing room */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     text-align: justify;
     break-inside: avoid;
-    margin: 0 0 clamp(18px, 2.4vw, 24px);
+    margin: 0 0 var(--space-md); /* Editorial paragraph spacing */
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    /* Premium typography */
+    /* Premium typography - Editorial refinement */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* ============================================
@@ -1344,7 +1470,7 @@ h1.name-corner {
     justify-content: center;
     width: clamp(48px, 5.6vw, 56px);
     height: clamp(48px, 5.6vw, 56px);
-    background: var(--color-white-content);
+    background: var(--color-text-surface-light); /* Text surface - 10% transparent */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--color-accent-primary);
@@ -1358,15 +1484,15 @@ h1.name-corner {
     will-change: transform, background, border-color;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    box-shadow: 0 4px 24px rgba(59, 95, 204, 0.2);
+    box-shadow: 0 4px 24px rgba(75, 58, 143, 0.2); /* Clear Winter deep violet accent #4B3A8F */
 }
 
 .linkedin-connection-btn:hover {
     background: var(--color-accent-primary);
     border-color: var(--color-accent-primary);
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     transform: scale(1.08) translateZ(0);
-    box-shadow: 0 6px 24px rgba(59, 95, 204, 0.3);
+    box-shadow: 0 6px 24px rgba(75, 58, 143, 0.3); /* Clear Winter deep violet accent #4B3A8F */
 }
 
 .linkedin-icon-btn {
@@ -1577,20 +1703,26 @@ h1.name-corner {
     transform: translate(-50%, -50%) translateZ(0);
     -webkit-transform: translate(-50%, -50%) translateZ(0);
     width: min(90rem, 96vw);
-    font-size: clamp(1.125rem, 2.2vw, 1.75rem);
-    line-height: 1.55;
-    color: var(--color-dark-primary);
+    font-size: clamp(1.25rem, 2.4vw, 1.875rem); /* Slightly larger for editorial impact */
+    line-height: var(--line-height-relaxed); /* More breathing room */
+    color: var(--color-text-on-light); /* Text on light surface = dark */
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 300;
-    letter-spacing: 0.03em;
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
     text-align: center;
     padding: 0 clamp(6px, 1vw, 8px);
     opacity: 0;
     pointer-events: none;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
-    font-feature-settings: "liga" 1, "kern" 1;
+    /* Gen Z enhanced text shadow - more modern */
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5),
+                 0 1px 8px rgba(0, 0, 0, 0.3);
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
     text-wrap: balance;
     white-space: normal;
+    /* Editorial refinement */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     word-spacing: 0.04em;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -1635,13 +1767,17 @@ h1.name-corner {
 
 .quote-author-future {
     display: block;
-    margin-top: var(--space-sm);
-    font-size: clamp(0.875rem, 1.3vw, 1.125rem);
-    letter-spacing: 0.14em;
-    color: var(--color-white-content);
+    margin-top: var(--space-md); /* More editorial spacing */
+    font-size: clamp(0.9375rem, 1.4vw, 1.1875rem); /* Slightly larger */
+    letter-spacing: var(--letter-spacing-widest); /* More editorial */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     text-transform: uppercase;
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-weight: 400;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Gen Z subtle glow */
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    text-rendering: optimizeLegibility;
 }
 
 /* ============================================
@@ -1725,34 +1861,45 @@ h1.name-corner {
 
 .service-label {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.4vw, 1.25rem);
-    letter-spacing: 0.05em;
-    color: var(--color-dark-secondary);
-    line-height: 1.6;
+    font-size: var(--font-body); /* Use refined body size */
+    letter-spacing: var(--letter-spacing-wide); /* More editorial spacing */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
+    line-height: var(--line-height-relaxed); /* More breathing room */
     text-align: center;
-    /* Premium typography */
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    /* Premium typography - Editorial refinement */
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .service-link {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-    letter-spacing: 0.05em;
+    font-size: clamp(0.9375rem, 1.3vw, 1.0625rem); /* Slightly larger */
+    letter-spacing: 0.03em; /* Editorial spacing */
     text-transform: none;
-    color: var(--color-accent-primary);
+    color: var(--color-accent-primary); /* Accent for links */
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Gen Z smoother */
     width: fit-content;
     margin: 4px auto 0;
     /* Premium interaction - centered */
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle glow */
+    text-shadow: 0 0 0 rgba(75, 58, 143, 0); /* Clear Winter deep violet accent #4B3A8F */
 }
 
 .service-link:hover {
-    transform: translateX(2px);
-    opacity: 0.8;
+    transform: translateX(3px); /* More Gen Z movement */
+    /* Gen Z enhanced glow on hover - STRENGTHENED - using accent color */
+    text-shadow: 0 0 14px rgba(75, 58, 143, 0.6), /* Clear Winter deep violet accent #4B3A8F - stronger */
+                 0 2px 8px rgba(75, 58, 143, 0.4),
+                 0 0 28px rgba(75, 58, 143, 0.25); /* Additional outer glow for more impact */
 }
 
 .service-link::after {
@@ -1785,21 +1932,29 @@ h1.name-corner {
 
 .disclaimer-heading {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
-    letter-spacing: 0.18em;
+    font-size: clamp(1rem, 1.4vw, 1.1875rem); /* Slightly larger */
+    letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.94);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     margin: 0;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle glow */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .disclaimer-copy {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.875rem, 1.2vw, 1rem);
-    letter-spacing: 0.04em;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: clamp(0.9375rem, 1.3vw, 1.0625rem); /* Slightly larger */
+    letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
+    line-height: var(--line-height-relaxed); /* More breathing room */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     margin: 0;
     text-align: justify;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    /* Gen Z subtle text shadow */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
@@ -1853,7 +2008,7 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     letter-spacing: 0.1em;
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     line-height: 1.4;
     max-width: clamp(120px, 15vw, 160px);
     text-align: right;
@@ -1916,9 +2071,11 @@ h1.name-corner {
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
     font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
     font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--color-white-content);
+    letter-spacing: var(--letter-spacing-wider); /* More editorial spacing */
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     text-transform: uppercase;
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
 }
 
 .control-label::before {
@@ -1931,7 +2088,7 @@ h1.name-corner {
 .control-indicator {
     width: clamp(10px, 1.2vw, 12px);
     height: clamp(10px, 1.2vw, 12px);
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
     transition: transform 0.3s ease, color 0.3s ease;
     flex-shrink: 0;
 }
@@ -1951,7 +2108,7 @@ h1.name-corner {
     right: 0;
     left: auto;
     min-width: clamp(128px, 16vw, 144px);
-    background: var(--color-dark-primary);
+    background: var(--color-text-surface-dark); /* Text surface - 10% transparent */
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
@@ -1963,7 +2120,7 @@ h1.name-corner {
     z-index: calc(var(--z-dropdown) + 1);
     pointer-events: none;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
 }
 
 .language-control.open .control-dropdown {
@@ -1986,7 +2143,7 @@ h1.name-corner {
     width: 100%;
     text-align: left;
     font-family: inherit;
-    color: var(--color-white-content);
+    color: var(--color-text-on-dark); /* Text on dark background = white */
 }
 
 .control-option:hover {
@@ -1999,19 +2156,23 @@ h1.name-corner {
 
 .option-code {
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-    font-size: clamp(0.7rem, 1vw, 0.8rem);
+    font-size: clamp(0.75rem, 1.1vw, 0.875rem); /* Slightly larger */
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.75); /* Slightly brighter */
     min-width: clamp(20px, 2.5vw, 24px);
-    letter-spacing: 0.1em;
+    letter-spacing: var(--letter-spacing-wider); /* More editorial spacing */
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
 }
 
 .option-name {
     font-family: 'Cormorant Garamond', 'Playfair Display', serif;
-    font-size: clamp(0.8rem, 1.1vw, 0.9rem);
+    font-size: clamp(0.8125rem, 1.2vw, 0.9375rem); /* Slightly larger */
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.95);
-    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.98); /* Slightly brighter */
+    letter-spacing: var(--letter-spacing-wide); /* More editorial spacing */
+    font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
 }
 
 /* Audio Control */
@@ -2858,7 +3019,7 @@ h1.name-corner {
 .ripple-effect {
     position: absolute;
     border-radius: 50%;
-    background: rgba(59, 95, 204, 0.3);
+    background: rgba(75, 58, 143, 0.3); /* Clear Winter deep violet accent #4B3A8F */
     transform: scale(0);
     animation: ripple-animation 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
@@ -2873,7 +3034,7 @@ h1.name-corner {
     content: '';
     position: absolute;
     border-radius: 50%;
-    background: rgba(59, 95, 204, 0.15);
+    background: rgba(75, 58, 143, 0.15); /* Clear Winter deep violet accent #4B3A8F */
     width: 100%;
     height: 100%;
     transform: scale(0);
@@ -2900,11 +3061,11 @@ h1.name-corner {
 }
 
 .nav-link .ripple-effect {
-    background: rgba(59, 95, 204, 0.3);
+    background: rgba(75, 58, 143, 0.3); /* Clear Winter deep violet accent #4B3A8F */
 }
 
 .nav-link.active .ripple-effect {
-    background: rgba(59, 95, 204, 0.5);
+    background: rgba(75, 58, 143, 0.5); /* Clear Winter deep violet accent #4B3A8F */
 }
 
 /* Ripple effect for buttons */
@@ -2937,5 +3098,58 @@ h1.name-corner {
 }
 
 .linkedin-connection-btn .ripple-effect {
-    background: rgba(59, 95, 204, 0.4);
+    background: rgba(75, 58, 143, 0.4); /* Clear Winter deep violet accent #4B3A8F */
+}
+
+/* ============================================
+   ADVANCED EFFECTS - Scroll Animations & Parallax
+   ============================================ */
+
+/* Scroll Animation Classes */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Stagger Animation for Child Elements */
+.stagger-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Parallax Elements */
+.parallax-slow,
+.parallax-fast {
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+/* Enhanced Gen Z Hover Effects - Magnetic & 3D Tilt */
+.nav-link,
+.linkedin-connection-btn,
+.form-submit-btn,
+.service-link {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.home-image-overlay-box,
+.about-section-designer,
+.recommendations-section {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
 }
