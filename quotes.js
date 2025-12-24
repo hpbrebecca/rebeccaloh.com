@@ -88,7 +88,7 @@
     // Navigation labels in all languages
     const navigationLabels = {
         home: {
-            de: "Startseite",
+            de: "HOME",
             en: "Home",
             fr: "Accueil",
             zh: "首頁"
@@ -499,6 +499,11 @@
             window.updateContactTranslations(lang);
         }
         
+        // Update logo tile descriptions
+        if (window.updateLogoTileDescriptions) {
+            window.updateLogoTileDescriptions(lang);
+        }
+        
         const translation = nameTranslations[lang];
         const nameMain = nameLink ? nameLink.querySelector('.name-main-corner') : null;
         const nameLoc = nameLink ? nameLink.querySelector('.name-location-corner') : null;
@@ -622,15 +627,7 @@
         
         // Toggle dropdown on button click
         languageTrigger.addEventListener('click', (event) => {
-            // Create local ripple effect
-            if (window.createRipple) {
-                window.createRipple(event, languageTrigger);
-            }
-            // Create global ripple effect
-            if (window.createGlobalRipple) {
-                window.createGlobalRipple(event);
-            }
-            
+            // No ripple effects - clean, modern interaction
             event.preventDefault();
             event.stopPropagation();
             
@@ -667,15 +664,7 @@
         const langOptions = languageDropdown.querySelectorAll('.control-option');
         langOptions.forEach(option => {
             option.addEventListener('click', (event) => {
-                // Create local ripple effect
-                if (window.createRipple) {
-                    window.createRipple(event, option);
-                }
-                // Create global ripple effect
-                if (window.createGlobalRipple) {
-                    window.createGlobalRipple(event);
-                }
-                
+                // No ripple effects - clean, modern interaction
                 event.preventDefault();
                 event.stopPropagation();
                 
