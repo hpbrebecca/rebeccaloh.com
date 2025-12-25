@@ -12,106 +12,136 @@
     // OPTIMIZED CONFIGURATION
     // ============================================
     const config = {
-        duration: 550, // Fast and snappy
-        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-        stagger: 35
+        duration: 500, // Elegant and smooth - Gen Z subtle (500ms is the sweet spot)
+        easing: 'cubic-bezier(0.4, 0, 0.2, 1)', // Material Design easing - smooth and professional
+        stagger: 40 // Subtle stagger for child elements (elegant timing)
     };
 
     let isTransitioning = false;
 
     // ============================================
     // OPTIMIZED PAGE FLIP TRANSITION
+    // Elegant, subtle Gen Z style - showing off skills without being flashy
     // ============================================
     async function elegantTransition(currentElement, nextElement, displayValue) {
-        if (isTransitioning) return;
+        if (isTransitioning) {
+            // If already transitioning, wait a bit and try again
+            await new Promise(resolve => setTimeout(resolve, 50));
+            if (isTransitioning) return;
+        }
         isTransitioning = true;
         
         try {
-            // Phase 1: Fast page flip exit
-            if (currentElement) {
+            // Phase 1: Elegant page flip exit (current element) - only if exists and is visible
+            if (currentElement && nextElement) {
                 const computed = window.getComputedStyle(currentElement);
-                const isVisible = computed.display !== 'none' && 
-                                 computed.visibility !== 'hidden' &&
-                                 computed.opacity !== '0';
+                const isVisible = currentElement.offsetParent !== null &&
+                                computed.display !== 'none' && 
+                                computed.visibility !== 'hidden' &&
+                                computed.opacity !== '0';
                 
                 if (isVisible) {
-                    // Batch all style changes at once
-                    currentElement.style.cssText += `
-                        display: ${computed.display || 'flex'} !important;
-                        transform-style: preserve-3d;
-                        backface-visibility: hidden;
-                        transform-origin: left center;
-                        transition: transform ${config.duration}ms ${config.easing}, opacity ${config.duration * 0.5}ms ${config.easing};
-                    `;
+                    // Set up 3D transform properties
+                    currentElement.style.setProperty('transform-style', 'preserve-3d', 'important');
+                    currentElement.style.setProperty('backface-visibility', 'hidden', 'important');
+                    currentElement.style.setProperty('transform-origin', 'left center', 'important');
+                    currentElement.style.setProperty('display', computed.display || 'flex', 'important');
+                    currentElement.style.setProperty('transition', 
+                        `transform ${config.duration}ms ${config.easing}, opacity ${config.duration * 0.6}ms ${config.easing}`, 
+                        'important'
+                    );
                     
-                    // Force single layout
+                    // Force layout calculation
                     currentElement.offsetHeight;
                     
-                    // Single animation trigger
-                    currentElement.style.transform = 'perspective(1200px) rotateY(-100deg)';
-                    currentElement.style.opacity = '0';
-                    
-                    await new Promise(resolve => {
-                        setTimeout(() => {
-                            currentElement.style.display = 'none';
-                            currentElement.style.transform = '';
-                            currentElement.style.opacity = '';
-                            currentElement.style.transition = '';
-                            currentElement.style.transformStyle = '';
-                            currentElement.style.backfaceVisibility = '';
-                            currentElement.style.transformOrigin = '';
-                            resolve();
-                        }, config.duration * 0.7);
+                    // Trigger page flip animation
+                    requestAnimationFrame(() => {
+                        currentElement.style.setProperty('transform', 'perspective(1200px) rotateY(-95deg)', 'important');
+                        currentElement.style.setProperty('opacity', '0', 'important');
                     });
+                    
+                    // Wait for exit animation
+                    await new Promise(resolve => setTimeout(resolve, config.duration * 0.8));
+                    
+                    // Clean up
+                    currentElement.style.display = 'none';
+                    currentElement.style.removeProperty('transform');
+                    currentElement.style.removeProperty('opacity');
+                    currentElement.style.removeProperty('transition');
+                    currentElement.style.removeProperty('transform-style');
+                    currentElement.style.removeProperty('backface-visibility');
+                    currentElement.style.removeProperty('transform-origin');
                 } else {
+                    // Just hide if not visible
                     currentElement.style.display = 'none';
                 }
             }
             
-            // Minimal pause
-            await new Promise(resolve => setTimeout(resolve, 25));
+            // Brief pause for elegance (only if we had an exit animation)
+            if (currentElement && nextElement) {
+                await new Promise(resolve => setTimeout(resolve, 30));
+            }
             
-            // Phase 2: Fast page flip entrance
+            // Phase 2: Elegant page flip entrance (next element) - always execute
             if (nextElement) {
-                // Batch all initial styles
-                nextElement.style.cssText += `
-                    display: ${displayValue || 'flex'} !important;
-                    transform-style: preserve-3d;
-                    backface-visibility: hidden;
-                    transform-origin: right center;
-                    opacity: 0;
-                    transform: perspective(1200px) rotateY(100deg);
-                    transition: transform ${config.duration}ms ${config.easing}, opacity ${config.duration * 0.6}ms ${config.easing};
-                `;
+                // Hide all other sections first to ensure clean state
+                const allSections = document.querySelectorAll('[id$="Section"]');
+                allSections.forEach(section => {
+                    if (section !== nextElement) {
+                        section.style.display = 'none';
+                    }
+                });
                 
-                // Force single layout
+                // Set up initial state with 3D properties
+                const nextDisplay = displayValue || 'flex';
+                nextElement.style.setProperty('display', nextDisplay, 'important');
+                nextElement.style.setProperty('transform-style', 'preserve-3d', 'important');
+                nextElement.style.setProperty('backface-visibility', 'hidden', 'important');
+                nextElement.style.setProperty('transform-origin', currentElement ? 'right center' : 'center center', 'important');
+                nextElement.style.setProperty('opacity', '0', 'important');
+                nextElement.style.setProperty('transform', currentElement 
+                    ? 'perspective(1200px) rotateY(95deg)' 
+                    : 'perspective(1200px) rotateY(0deg) scale(0.98)', 
+                    'important'
+                );
+                nextElement.style.setProperty('transition', 
+                    `transform ${config.duration}ms ${config.easing}, opacity ${config.duration * 0.8}ms ${config.easing}`, 
+                    'important'
+                );
+                
+                // Force layout calculation
                 nextElement.offsetHeight;
                 
-                // Single animation trigger
+                // Trigger entrance animation with double RAF for reliability
                 requestAnimationFrame(() => {
-                    nextElement.style.opacity = '1';
-                    nextElement.style.transform = 'perspective(1200px) rotateY(0deg)';
+                    requestAnimationFrame(() => {
+                        nextElement.style.setProperty('opacity', '1', 'important');
+                        nextElement.style.setProperty('transform', 'perspective(1200px) rotateY(0deg)', 'important');
+                    });
                 });
                 
-                await new Promise(resolve => {
-                    setTimeout(() => {
-                        // Clean up in batch
-                        nextElement.style.transform = '';
-                        nextElement.style.opacity = '';
-                        nextElement.style.transition = '';
-                        nextElement.style.transformStyle = '';
-                        nextElement.style.backfaceVisibility = '';
-                        nextElement.style.transformOrigin = '';
-                        
-                        // Quick child animations
-                        animateChildElements(nextElement, 0);
-                        resolve();
-                    }, config.duration);
-                });
+                // Wait for entrance animation
+                await new Promise(resolve => setTimeout(resolve, config.duration));
+                
+                // Clean up transform properties (keep display)
+                nextElement.style.removeProperty('transform');
+                nextElement.style.removeProperty('opacity');
+                nextElement.style.removeProperty('transition');
+                nextElement.style.removeProperty('transform-style');
+                nextElement.style.removeProperty('backface-visibility');
+                nextElement.style.removeProperty('transform-origin');
+                
+                // Animate child elements elegantly
+                animateChildElements(nextElement, 80);
             }
             
         } catch (error) {
-            console.error('Transition error:', error);
+            console.error('Elegant transition error:', error);
+            // Ensure next element is visible even on error
+            if (nextElement) {
+                nextElement.style.display = displayValue || 'flex';
+                nextElement.style.opacity = '1';
+            }
         } finally {
             isTransitioning = false;
         }

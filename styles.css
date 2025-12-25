@@ -730,9 +730,11 @@ h1.name-corner {
 /* Right-aligned with strong width */
 .home-image-overlay-box {
     position: absolute;
-    /* Position: Right-aligned */
+    /* Position: Right-aligned and bottom-aligned */
     right: clamp(-50px, -5vw, -20px); /* Kann rechts über den Rand hinausgehen */
+    bottom: clamp(-50px, -5vw, -20px); /* Aligned to bottom - matches right offset */
     left: auto;
+    top: auto;
     /* Size: Dynamic based on content */
     width: clamp(550px, 65vw, 850px); /* NOCH BREITER */
     min-height: auto; /* Dynamic height based on content */

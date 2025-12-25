@@ -1170,89 +1170,113 @@
                 const target = sections[section] ? section : 'home';
                 const currentLang = getCurrentLanguage();
                 
+                // Skip if already showing this section
+                if (currentSectionForTransition === target) {
+                    const nextElement = sections[target]?.element;
+                    if (nextElement) {
+                        const computed = window.getComputedStyle(nextElement);
+                        if (computed.display !== 'none' && computed.visibility !== 'hidden') {
+                            return; // Already visible, no need to transition
+                        }
+                    }
+                }
+                
+                // Get elements
                 const currentSectionElement = currentSectionForTransition 
                     ? (sections[currentSectionForTransition]?.element) 
                     : null;
                 const nextSectionElement = sections[target]?.element;
 
-                // Skip if same section
-                if (currentSectionForTransition === target && nextSectionElement) {
-                    const computed = window.getComputedStyle(nextSectionElement);
-                    if (computed.display !== 'none') {
-                        return;
-                    }
+                if (!nextSectionElement) {
+                    console.warn('Next section element not found:', target);
+                    return;
                 }
 
-                console.log('showSection called', { 
-                    target, 
-                    current: currentSectionForTransition,
-                    hasTransition: typeof window.elegantTransition === 'function',
-                    hasCurrent: !!currentSectionElement,
-                    hasNext: !!nextSectionElement
-                });
-
-                // Always use transitions if available (unless first load with no current)
-                const shouldUseTransition = typeof window.elegantTransition === 'function' && 
-                                          currentSectionElement && 
-                                          nextSectionElement && 
-                                          currentSectionElement !== nextSectionElement;
+                // Check if elegant transition is available
+                const hasTransition = typeof window.elegantTransition === 'function';
+                const shouldUseTransition = hasTransition && 
+                                          nextSectionElement &&
+                                          (currentSectionElement !== nextSectionElement);
                 
+                // Use elegant transition if available
                 if (shouldUseTransition) {
-                    // Check if current element is actually visible
-                    const computed = window.getComputedStyle(currentSectionElement);
-                    const isCurrentVisible = computed.display !== 'none' && 
-                                           computed.visibility !== 'hidden' &&
-                                           computed.opacity !== '0';
-                    
-                    if (isCurrentVisible || !currentSectionForTransition) {
-                        try {
-                            await window.elegantTransition(
-                                isCurrentVisible ? currentSectionElement : null,
-                                nextSectionElement,
-                                sections[target].display || 'flex'
-                            );
-                            
-                            // Hide all other sections
-                            Object.entries(sections).forEach(([key, value]) => {
-                                if (key !== target && value.element) {
-                                    value.element.style.display = 'none';
-                                    value.element.style.opacity = '';
-                                    value.element.style.transform = '';
-                                    value.element.style.transition = '';
-                                }
-                            });
-                            
-                            // Update current section tracker
-                            currentSectionForTransition = target;
-                            
-                            // Continue with rest of function
-                        } catch (error) {
-                            console.error('Transition failed, using fallback:', error);
-                            // Fall through to immediate transition
+                    try {
+                        // Check if current element is visible (if it exists)
+                        let isCurrentVisible = false;
+                        if (currentSectionElement) {
+                            const currentComputed = window.getComputedStyle(currentSectionElement);
+                            isCurrentVisible = currentSectionElement.offsetParent !== null &&
+                                            currentComputed.display !== 'none' && 
+                                            currentComputed.visibility !== 'hidden' &&
+                                            currentComputed.opacity !== '0';
                         }
+                        
+                        // Hide all other sections immediately (except current and next)
+                        Object.entries(sections).forEach(([key, value]) => {
+                            if (key !== target && key !== currentSectionForTransition && value.element) {
+                                value.element.style.display = 'none';
+                                value.element.style.opacity = '';
+                                value.element.style.transform = '';
+                                value.element.style.transition = '';
+                            }
+                        });
+                        
+                        // Execute elegant transition (pass null if no current element or not visible)
+                        await window.elegantTransition(
+                            isCurrentVisible ? currentSectionElement : null,
+                            nextSectionElement,
+                            sections[target].display || 'flex'
+                        );
+                        
+                        // Hide current section after transition (if it exists)
+                        if (currentSectionElement && currentSectionElement !== nextSectionElement) {
+                            currentSectionElement.style.display = 'none';
+                            currentSectionElement.style.opacity = '';
+                            currentSectionElement.style.transform = '';
+                            currentSectionElement.style.transition = '';
+                        }
+                        
+                        // Update tracker immediately after successful transition
+                        currentSectionForTransition = target;
+                        
+                        // Update page title and H2 after transition
+                        updatePageTitle(currentLang, target);
+                        updateH2(currentLang, target);
+                        
+                        // Update home content if showing home section
+                        if (target === 'home' && window.updateHomeContent) {
+                            updateHomeContent(currentLang);
+                        }
+                        
+                        return; // Exit early, transition completed
+                        
+                    } catch (error) {
+                        console.error('Elegant transition failed, using fallback:', error);
+                        // Fall through to fallback
                     }
                 }
                 
-                // Fallback: immediate transition (if transition didn't run)
+                // Fallback: Simple fade transition (if elegant transition didn't run or failed)
                 if (currentSectionForTransition !== target) {
-                    // Hide all sections first
+                    // Hide all sections
                     Object.entries(sections).forEach(([key, value]) => {
                         if (value.element && key !== target) {
                             value.element.style.display = 'none';
                             value.element.style.opacity = '';
                             value.element.style.transform = '';
+                            value.element.style.transition = '';
                         }
                     });
 
-                    // Show the target section with smooth entrance
+                    // Show target section with fade-in
                     if (sections[target] && sections[target].element) {
                         const targetElement = sections[target].element;
-                        targetElement.style.display = sections[target].display;
+                        targetElement.style.display = sections[target].display || 'flex';
                         
-                        // Smooth entrance animation
+                        // Simple fade entrance
                         targetElement.style.opacity = '0';
-                        targetElement.style.transform = 'translateY(6px)';
-                        targetElement.style.transition = 'opacity 400ms cubic-bezier(0.4, 0, 0.2, 1), transform 400ms cubic-bezier(0.4, 0, 0.2, 1)';
+                        targetElement.style.transform = 'translateY(8px)';
+                        targetElement.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                         
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
@@ -1262,7 +1286,7 @@
                         });
                     }
                     
-                    // Update current section tracker
+                    // Update tracker
                     currentSectionForTransition = target;
                 }
 

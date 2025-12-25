@@ -64,6 +64,14 @@
     function createClouds() {
         const cloudCount = 16; // 16 clouds as requested
         
+        // Create shuffled color array to ensure varied colors
+        // Shuffle algorithm: Fisher-Yates shuffle
+        const shuffledColors = [...cloudColors];
+        for (let i = shuffledColors.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledColors[i], shuffledColors[j]] = [shuffledColors[j], shuffledColors[i]];
+        }
+        
         // Calculate grid for even distribution across entire screen
         const cols = 4; // 4 columns
         const rows = 4; // 4 rows = 16 clouds total (4x4 grid)
@@ -74,8 +82,8 @@
             const cloud = document.createElement('div');
             cloud.className = 'nebula-cloud';
             
-            // Random size between 320px and 800px (400px -20% to +100%)
-            const size = Math.random() * 480 + 320;
+            // Smaller size to prevent clipping - reduced range
+            const size = Math.random() * 200 + 150; // 150px to 350px (smaller circles to prevent clipping)
             cloud.style.width = size + 'px';
             cloud.style.height = size + 'px';
             
@@ -104,11 +112,11 @@
             cloud.style.top = clampedY + '%';
             cloud.style.transform = 'translate(-50%, -50%)'; // Center the cloud on its position
             
-            // Random color from palette
-            const color = cloudColors[Math.floor(Math.random() * cloudColors.length)];
-            // Base opacity for the cloud
-            const baseOpacity = Math.random() * 0.3 + 0.2; // 0.2 to 0.5
-            const opacity = baseOpacity * 0.8; // 20% more transparent (0.16 to 0.4)
+            // Use shuffled colors - each cloud gets a different color (cycles through palette if needed)
+            const color = shuffledColors[i % shuffledColors.length];
+            // Base opacity for the cloud - slightly denser but still soft
+            const baseOpacity = Math.random() * 0.3 + 0.25; // 0.25 to 0.55 (slightly denser)
+            const opacity = baseOpacity * 0.85; // 15% more transparent (0.21 to 0.47)
             
             // Center opacity: make body denser/brighter (increase center opacity by 30%)
             const centerOpacity = opacity * 1.3; // Denser/brighter center
@@ -125,8 +133,8 @@
             let gradientStops = [];
             const stepSize = 100 / 120; // ~0.833% per step for exactly 120 stops
             
-            // Gaussian parameters
-            const sigma = 0.35; // Standard deviation - controls spread (smaller = tighter, larger = wider)
+            // Gaussian parameters - slightly denser fade but still very soft
+            const sigma = 0.35; // Tighter spread for denser fade while maintaining softness
             const center = 0; // Center of distribution
             
             for (let i = 0; i <= 100; i += stepSize) { // 120 stops total
@@ -139,17 +147,10 @@
                 // Creates natural, bell-curve-like fade
                 const gaussianFactor = Math.exp(-(distance * distance) / (2 * sigma * sigma));
                 
-                // Combine with exponential decay for outer edges (smoother than linear)
-                let alpha;
-                if (progress <= 0.4) {
-                    // Inner 40%: Use Gaussian with center opacity (dense/brighter center)
-                    alpha = centerOpacity * gaussianFactor;
-                } else {
-                    // Outer 60%: Combine Gaussian with exponential decay for faster fade
-                    const outerProgress = (progress - 0.4) / 0.6; // 0 to 1 in outer range
-                    const exponentialDecay = Math.exp(-outerProgress * 3); // Exponential falloff
-                    alpha = centerOpacity * gaussianFactor * exponentialDecay * 0.6;
-                }
+                // Smooth, continuous fade - no discontinuities or visible borders
+                // Use a single smooth power curve throughout entire range for seamless transition
+                const smoothFade = Math.pow(1 - progress, 2.3); // Smooth power curve creates gradual, even fade
+                let alpha = centerOpacity * gaussianFactor * smoothFade;
                 
                 // Ensure alpha doesn't go below 0
                 alpha = Math.max(0, Math.min(1, alpha));
@@ -174,10 +175,10 @@
             // Random delays between 1-25s for each cloud
             const initialDelay = 1 + (Math.random() * 24); // Random delay between 1-25 seconds
             
-            // Animation: Random cycle duration between 40-80s for each cloud (longer = less flickering, slower)
+            // Animation: Random cycle duration between 20-40s for each cloud
             // Each cloud has its own random cycle duration
-            // Longer cycles = fewer clouds changing opacity per second, slower movement
-            const animationDuration = 40 + (Math.random() * 40); // Random cycle between 40-80 seconds (was 20-40s)
+            // Shorter cycles = faster animation, more dynamic movement
+            const animationDuration = 20 + (Math.random() * 20); // Random cycle between 20-40 seconds
             
             // Proportional durations based on cycle length (maintaining 20% fade-in, 30% visible, 20% fade-out, 30% invisible)
             const fadeInDuration = animationDuration * 0.2; // 20% of cycle for fade in
@@ -195,9 +196,9 @@
             cloud.style.setProperty('--cloud-start-x', clampedX + '%');
             cloud.style.setProperty('--cloud-start-y', clampedY + '%');
             
-            // Random movement distance
-            const moveX = (Math.random() - 0.5) * 40; // -20% to +20%
-            const moveY = (Math.random() - 0.5) * 40;
+            // Random movement distance - increased amplitude for more movement
+            const moveX = (Math.random() - 0.5) * 120; // -60% to +60% (organic movement with higher amplitude)
+            const moveY = (Math.random() - 0.5) * 120; // -60% to +60% (organic movement with higher amplitude)
             cloud.style.setProperty('--cloud-move-x', moveX + '%');
             cloud.style.setProperty('--cloud-move-y', moveY + '%');
             
