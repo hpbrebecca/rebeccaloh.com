@@ -938,7 +938,7 @@
             // Logo tile data structure with multilingual descriptions
             const logoTilesData = {
                 tcm: {
-                    logoPath: 'logos/links-friends/tcm-sinocare.png',
+                    logoPath: '/logos/links-friends/tcm-sinocare.png',
                     href: 'https://www.tcmsino.care',
                     descriptions: {
                         en: {
@@ -960,7 +960,7 @@
                     }
                 },
                 softline: {
-                    logoPath: 'logos/links-friends/softline-cosmetics.png',
+                    logoPath: '/logos/links-friends/softline-cosmetics.png',
                     href: 'https://softlinecosmetics.ch/',
                     descriptions: {
                         en: {
@@ -1007,6 +1007,12 @@
                     img.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     img.className = 'logo-tile-image';
                     img.loading = 'lazy';
+                    img.decoding = 'async';
+                    // Error handling - log if image fails to load
+                    img.onerror = function() {
+                        console.error('Failed to load logo image:', tileData.logoPath);
+                        this.style.display = 'none';
+                    };
                     
                     imageWrapper.appendChild(img);
                     
