@@ -2,60 +2,60 @@
 (function() {
     const container = document.body;
     
-    // Color palette for clouds - Bright/Clear Winter adjusted
-    // Clear, cool tones with high saturation while maintaining brightness levels
+    // Color palette for clouds - Bright/Clear Winter fine-tuned (Version 3)
+    // Clear, cool tones with high saturation - refined toward clearer, calmer, more elegant hues
     const cloudColors = [
-        // Deep reds (H II regions) - clearer, cooler reds
-        { r: 185, g: 35, b: 65 },  // Clearer red
-        { r: 205, g: 45, b: 80 },  // Brighter, cooler red
-        { r: 225, g: 65, b: 105 }, // Clearer pink-red
-        { r: 245, g: 75, b: 115 }, // Bright cool red
-        { r: 195, g: 40, b: 70 },  // Clear deep red
-        { r: 165, g: 25, b: 55 },  // Cool dark red
+        // Deep reds (H II regions) - cooler, clearer reds (reduced warmth)
+        { r: 180, g: 30, b: 60 },  // Clearer, cooler red
+        { r: 200, g: 40, b: 75 },  // Brighter, cooler red
+        { r: 220, g: 60, b: 100 }, // Clearer pink-red (cooler)
+        { r: 240, g: 70, b: 110 }, // Bright cool red (less warm)
+        { r: 190, g: 35, b: 65 },  // Clear deep red (cooler)
+        { r: 160, g: 20, b: 50 },  // Cool dark red
         
-        // Pinks - clearer, cooler pinks
-        { r: 205, g: 55, b: 95 },  // Bright cool pink
-        { r: 225, g: 75, b: 115 }, // Clear cool pink
-        { r: 185, g: 50, b: 90 },  // Bright pink
-        { r: 215, g: 60, b: 100 }, // Clear pink
+        // Pinks - clearer, cooler pinks (more blue, less warmth)
+        { r: 200, g: 50, b: 90 },  // Bright cool pink (cooler)
+        { r: 220, g: 70, b: 110 }, // Clear cool pink
+        { r: 180, g: 45, b: 85 },  // Bright pink (cooler)
+        { r: 210, g: 55, b: 95 },  // Clear pink (cooler)
         
-        // Blues - expanded, clearer and cooler
-        { r: 85, g: 105, b: 185 },  // Clear bright blue
-        { r: 105, g: 125, b: 205 }, // Bright cool blue
-        { r: 75, g: 95, b: 165 },   // Clear blue
-        { r: 95, g: 115, b: 195 },  // Bright blue
-        { r: 65, g: 85, b: 155 },   // Clear deep blue
-        { r: 55, g: 105, b: 225 },  // Bright cyan-blue
-        { r: 45, g: 85, b: 205 },   // Clear blue
-        { r: 65, g: 125, b: 245 },  // Bright cool blue
-        { r: 85, g: 145, b: 255 },  // Clear bright blue
-        { r: 105, g: 155, b: 255 }, // Brightest cool blue
-        { r: 75, g: 115, b: 215 },  // Clear blue
-        { r: 95, g: 135, b: 235 },  // Bright blue
+        // Blues - expanded, clearer and cooler (enhanced clarity)
+        { r: 90, g: 110, b: 190 },  // Clear bright blue (slightly clearer)
+        { r: 110, g: 130, b: 210 }, // Bright cool blue (clearer)
+        { r: 80, g: 100, b: 170 },  // Clear blue (slightly clearer)
+        { r: 100, g: 120, b: 200 }, // Bright blue (clearer)
+        { r: 70, g: 90, b: 160 },   // Clear deep blue (clearer)
+        { r: 60, g: 110, b: 230 },  // Bright cyan-blue (clearer)
+        { r: 50, g: 90, b: 210 },   // Clear blue (clearer)
+        { r: 70, g: 130, b: 250 },  // Bright cool blue (clearer)
+        { r: 90, g: 150, b: 255 },  // Clear bright blue (clearer)
+        { r: 110, g: 160, b: 255 }, // Brightest cool blue (clearer)
+        { r: 80, g: 120, b: 220 },  // Clear blue (clearer)
+        { r: 100, g: 140, b: 240 }, // Bright blue (clearer)
         
-        // Violets - expanded, clearer and cooler
-        { r: 125, g: 55, b: 185 },  // Clear bright violet
-        { r: 145, g: 65, b: 205 },  // Bright cool violet
-        { r: 105, g: 45, b: 165 },  // Clear violet
-        { r: 135, g: 60, b: 195 },  // Bright violet
-        { r: 115, g: 50, b: 175 },  // Clear violet
-        { r: 155, g: 70, b: 215 },  // Bright cool violet
-        { r: 165, g: 75, b: 225 },  // Clear bright violet
-        { r: 95, g: 40, b: 155 },   // Clear violet
-        { r: 175, g: 80, b: 235 },  // Bright violet
-        { r: 185, g: 85, b: 245 },  // Clear bright violet
+        // Violets - clearer and cooler (more blue, less red warmth)
+        { r: 130, g: 60, b: 190 },  // Clear bright violet (cooler)
+        { r: 150, g: 70, b: 210 },  // Bright cool violet (clearer)
+        { r: 110, g: 50, b: 170 },  // Clear violet (cooler)
+        { r: 140, g: 65, b: 200 },  // Bright violet (cooler)
+        { r: 120, g: 55, b: 180 },  // Clear violet (cooler)
+        { r: 160, g: 75, b: 220 },  // Bright cool violet (clearer)
+        { r: 170, g: 80, b: 230 },  // Clear bright violet (cooler)
+        { r: 100, g: 45, b: 160 },  // Clear violet (cooler)
+        { r: 180, g: 85, b: 240 },  // Bright violet (clearer)
+        { r: 190, g: 90, b: 250 },  // Clear bright violet (cooler)
         
-        // Purple/Magenta - clearer, cooler purples
-        { r: 155, g: 45, b: 125 },  // Clear cool purple
-        { r: 175, g: 55, b: 145 },  // Bright purple
-        { r: 135, g: 35, b: 105 },  // Clear deep purple
-        { r: 195, g: 65, b: 165 },  // Bright cool purple
-        { r: 165, g: 50, b: 135 },  // Clear purple
+        // Purple/Magenta - clearer, cooler purples (reduced warmth, more blue)
+        { r: 150, g: 40, b: 120 },  // Clear cool purple (cooler)
+        { r: 170, g: 50, b: 140 },  // Bright purple (cooler)
+        { r: 130, g: 30, b: 100 },  // Clear deep purple (cooler)
+        { r: 190, g: 60, b: 160 },  // Bright cool purple (clearer)
+        { r: 160, g: 45, b: 130 },  // Clear purple (cooler)
 
-        // Deep midnight blues - clearer, cooler deep blues
-        { r: 45, g: 65, b: 145 },   // Clear deep blue
-        { r: 35, g: 55, b: 125 },   // Clear midnight blue
-        { r: 55, g: 75, b: 165 }    // Bright deep blue
+        // Deep midnight blues - clearer, cooler deep blues (enhanced clarity)
+        { r: 50, g: 70, b: 150 },   // Clear deep blue (clearer, slightly brighter)
+        { r: 40, g: 60, b: 130 },   // Clear midnight blue (clearer)
+        { r: 60, g: 80, b: 170 }    // Bright deep blue (clearer)
     ];
     
     // Calculate parameters for 2-5 clouds visible at any moment
