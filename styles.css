@@ -1846,8 +1846,8 @@ h1.name-corner {
 
 /* Logo Tile - Gen Z Premium Design */
 .logo-tile {
-    width: 280px;
-    height: 280px;
+    width: 240px; /* Smaller - Gen Z flat design */
+    height: 240px; /* Smaller - Gen Z flat design */
     position: relative;
     flex-shrink: 0;
     perspective: 1000px;
@@ -1861,16 +1861,16 @@ h1.name-corner {
     text-decoration: none;
     overflow: hidden;
     background: transparent; /* Transparent - shows mainframe background */
-    border-radius: 12px;
+    border-radius: 4px; /* Minimal abgerundet - eckiger */
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
     cursor: pointer;
-    /* Gen Z glow effect */
+    /* Gen Z glow effect - reduced */
     box-shadow: 
         0 0 0 rgba(63, 75, 184, 0),
         0 0 0 rgba(90, 58, 138, 0),
-        inset 0 0 0 rgba(255, 255, 255, 0.05);
+        inset 0 0 0 rgba(255, 255, 255, 0.02); /* Reduced glow */
 }
 
 .logo-tile-link::before {
@@ -1886,7 +1886,7 @@ h1.name-corner {
         rgba(63, 75, 184, 0.5)
     );
     background-size: 200% 200%;
-    border-radius: 12px;
+    border-radius: 4px; /* Minimal abgerundet - eckiger */
     z-index: -1;
     opacity: 0;
     transition: opacity 0.5s ease, background-position 3s ease;
@@ -1902,9 +1902,9 @@ h1.name-corner {
 .logo-tile-link:hover {
     transform: translateY(-8px) rotateX(2deg) rotateY(-2deg) scale(1.02);
     box-shadow: 
-        0 12px 24px rgba(0, 0, 0, 0.3), /* Reduced shadow */
-        0 0 15px rgba(63, 75, 184, 0.15), /* Reduced glow */
-        0 0 30px rgba(90, 58, 138, 0.1); /* Reduced glow */
+        0 8px 16px rgba(0, 0, 0, 0.25), /* Reduced shadow */
+        0 0 8px rgba(63, 75, 184, 0.08), /* Reduced glow */
+        0 0 15px rgba(90, 58, 138, 0.05); /* Reduced glow */
     border-color: rgba(255, 255, 255, 0.1); /* Keep original border color, no violet */
 }
 
@@ -3566,5 +3566,32 @@ h1.name-corner {
 .contact-description {
     transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   NEBULA BACKGROUND CONTAINER
+   ============================================ */
+/* Container for all nebula elements */
+.nebula-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    z-index: -1;
+    overflow: visible; /* Allow clouds to extend beyond edges (for blur effects and positioning) */
+    pointer-events: none; /* Don't interfere with page interactions */
+}
+
+/* Cloud styles - created dynamically by nebula.js */
+.nebula-cloud {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0;
+    pointer-events: none;
+    will-change: filter, opacity, transform;
+    /* z-index is set dynamically in JavaScript: all clouds at -99 (second-to-last layer) */
 }
 

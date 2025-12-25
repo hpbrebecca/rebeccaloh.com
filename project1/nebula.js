@@ -1,6 +1,12 @@
 // Nebula and Star Animation System
 (function() {
-    const container = document.body;
+    // Create or get nebula container
+    let container = document.querySelector('.nebula-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'nebula-container';
+        document.body.appendChild(container);
+    }
     
     // Color palette for clouds - Bright/Clear Winter fine-tuned (Version 3)
     // Clear, cool tones with high saturation - refined toward clearer, calmer, more elegant hues
@@ -211,8 +217,8 @@
             // This ensures whenever a cloud appears, it's in the second-to-last layer
             cloud.style.zIndex = '-99';
             
-            // Insert at the beginning (back layer) - newer clouds go further back
-            container.insertBefore(cloud, container.firstChild);
+            // Append to container (order doesn't matter for z-index)
+            container.appendChild(cloud);
         }
     }
     
