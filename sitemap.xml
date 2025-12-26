@@ -163,42 +163,42 @@
     <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/quotes"/>
   </url>
   
-  <!-- Recommendations Section (Links & Friends) - All Languages -->
+  <!-- Links Section (Links & Friends) - All Languages -->
   <url>
-    <loc>https://rebeccaloh.com/en/recommendations</loc>
+    <loc>https://rebeccaloh.com/en/links</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/recommendations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/links"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/links"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/links"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/links"/>
   </url>
   <url>
-    <loc>https://rebeccaloh.com/de/recommendations</loc>
+    <loc>https://rebeccaloh.com/de/links</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/recommendations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/links"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/links"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/links"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/links"/>
   </url>
   <url>
-    <loc>https://rebeccaloh.com/fr/recommendations</loc>
+    <loc>https://rebeccaloh.com/fr/links</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/recommendations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/links"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/links"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/links"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/links"/>
   </url>
   <url>
-    <loc>https://rebeccaloh.com/zh/recommendations</loc>
+    <loc>https://rebeccaloh.com/zh/links</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/recommendations"/>
-    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/recommendations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rebeccaloh.com/en/links"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://rebeccaloh.com/de/links"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/links"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/links"/>
   </url>
   
   <!-- Additional Pages -->

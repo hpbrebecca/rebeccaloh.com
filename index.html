@@ -451,7 +451,7 @@
                     'connect': 'contact',
                     'home': 'home',
                     'quotes': 'quotes',
-                    'recommendations': 'recommendations'
+                    'recommendations': 'links'  // URL should be "links" not "recommendations"
                 };
                 const urlSection = urlSectionMap[section] || section;
                 const basePath = `/${lang}/${urlSection}`;
@@ -938,7 +938,7 @@
             // Logo tile data structure with multilingual descriptions
             const logoTilesData = {
                 tcm: {
-                    logoPath: 'logos/tcm-sinocare.png',
+                    logoPath: '/logos/tcm-sinocare.png',  // Absolute path for production
                     href: 'https://www.tcmsino.care',
                     descriptions: {
                         en: {
@@ -960,7 +960,7 @@
                     }
                 },
                 softline: {
-                    logoPath: 'logos/softline-cosmetics.png',
+                    logoPath: '/logos/softline-cosmetics.png',  // Absolute path for production
                     href: 'https://softlinecosmetics.ch/',
                     descriptions: {
                         en: {
@@ -1408,9 +1408,11 @@
                 
                 // Check for language-prefixed paths
                 if (langMatch) {
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(home|bio|aboutme|contact|connect|quotes|recommendations)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(home|bio|aboutme|contact|connect|quotes|links)/);
                     if (sectionMatch) {
-                        targetSection = sectionMatch[2];
+                        // Map URL section name to internal section name
+                        const urlSection = sectionMatch[2];
+                        targetSection = (urlSection === 'links') ? 'recommendations' : urlSection;
                     } else if (path.match(/^\/(en|de|fr|zh)\/?$/)) {
                         targetSection = 'home'; // default section for language root
                     }
@@ -1432,8 +1434,8 @@
                         targetSection = 'quotes';
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
-                    } else if (path === '/recommendations' || path === '/recommendations/' || path.endsWith('/recommendations.html') || hash === 'recommendations') {
-                        targetSection = 'recommendations';
+                    } else if (path === '/links' || path === '/links/' || path.endsWith('/links.html') || hash === 'links' || path === '/recommendations' || path === '/recommendations/' || path.endsWith('/recommendations.html') || hash === 'recommendations') {
+                        targetSection = 'recommendations'; // Internal section name stays "recommendations"
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
                     } else if (path === '/' || path === '') {
@@ -1482,9 +1484,11 @@
             // Also handle hash changes for direct navigation
             window.addEventListener('hashchange', () => {
                 const hash = window.location.hash.replace('#', '');
-                if (hash && ['home', 'aboutme', 'bio', 'connect', 'contact', 'quotes', 'recommendations'].includes(hash)) {
+                if (hash && ['home', 'aboutme', 'bio', 'connect', 'contact', 'quotes', 'links', 'recommendations'].includes(hash)) {
+                    // Handle both old "recommendations" hash and new "links" hash
+                    const normalizedHash = (hash === 'links' || hash === 'recommendations') ? 'recommendations' : hash;
                     const currentLang = getCurrentLanguage();
-                    updateURLWithLanguage(currentLang, hash);
+                    updateURLWithLanguage(currentLang, normalizedHash);
                     handleRouting();
                 }
             });

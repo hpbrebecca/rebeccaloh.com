@@ -68,7 +68,7 @@
     // Technical: Each cloud visible for part of longer cycle
     // Reduced cloud count to prevent flickering (fewer simultaneous opacity changes)
     function createClouds() {
-        const cloudCount = 16; // 16 clouds as requested
+        const cloudCount = 12; // 12 clouds (4 columns x 3 rows, top row removed)
         
         // Create shuffled color array to ensure varied colors
         // Shuffle algorithm: Fisher-Yates shuffle
@@ -80,27 +80,27 @@
         
         // Calculate grid for even distribution across entire screen
         const cols = 4; // 4 columns
-        const rows = 4; // 4 rows = 16 clouds total (4x4 grid)
+        const rows = 3; // 3 rows = 12 clouds total (4x3 grid) - top row removed
         const cellWidth = 100 / cols; // 25% per column
-        const cellHeight = 100 / rows; // 25% per row
+        const cellHeight = 100 / rows; // ~33.33% per row
         
         for (let i = 0; i < cloudCount; i++) {
             const cloud = document.createElement('div');
             cloud.className = 'nebula-cloud';
             
-            // Smaller size to prevent clipping - reduced range
-            const size = Math.random() * 200 + 150; // 150px to 350px (smaller circles to prevent clipping)
+            // Much smaller dots - very small size
+            const size = Math.random() * 40 + 30; // 30px to 70px (tiny dots)
             cloud.style.width = size + 'px';
             cloud.style.height = size + 'px';
             
-            // Even distribution: calculate grid position
+            // Even distribution: calculate grid position (top row removed, only rows 1-3)
             const col = i % cols;
-            const row = Math.floor(i / cols);
+            const row = Math.floor(i / cols) + 1; // Start from row 1 (skip row 0 - top row removed)
             
             // Position in center of grid cell (ensuring full screen coverage)
-            // Grid cells: col 0-4 (0%, 20%, 40%, 60%, 80%), row 0-3 (0%, 25%, 50%, 75%)
-            const cellCenterX = (col * cellWidth) + (cellWidth / 2); // 10%, 30%, 50%, 70%, 90%
-            const cellCenterY = (row * cellHeight) + (cellHeight / 2); // 12.5%, 37.5%, 62.5%, 87.5%
+            // Grid cells: col 0-3 (12.5%, 37.5%, 62.5%, 87.5%), row 1-3 (~16.67%, 50%, ~83.33%)
+            const cellCenterX = (col * cellWidth) + (cellWidth / 2); // 12.5%, 37.5%, 62.5%, 87.5%
+            const cellCenterY = (row * cellHeight) + (cellHeight / 2); // ~16.67%, 50%, ~83.33% (top row removed)
             
             // Random offset within cell (±50% of cell size)
             const offsetX = (Math.random() - 0.5) * cellWidth;
@@ -120,12 +120,12 @@
             
             // Use shuffled colors - each cloud gets a different color (cycles through palette if needed)
             const color = shuffledColors[i % shuffledColors.length];
-            // Base opacity for the cloud - slightly denser but still soft
-            const baseOpacity = Math.random() * 0.3 + 0.25; // 0.25 to 0.55 (slightly denser)
-            const opacity = baseOpacity * 0.85; // 15% more transparent (0.21 to 0.47)
+            // Base opacity for the cloud - fully opaque for maximum visibility and saturation
+            const baseOpacity = 1.0; // 100% opacity - fully opaque
+            const opacity = baseOpacity; // Use base opacity directly
             
-            // Center opacity: make body denser/brighter (increase center opacity by 30%)
-            const centerOpacity = opacity * 1.3; // Denser/brighter center
+            // Center opacity: 100% absolute coverage (fully opaque core) - no transparency
+            const centerOpacity = 1.0; // 100% opacity - fully opaque core, zero transparency
             
             // Create ultra-smooth gradient with many stops to eliminate visible rings
             // Use ellipse for more organic, non-circular shape
@@ -139,8 +139,8 @@
             let gradientStops = [];
             const stepSize = 100 / 120; // ~0.833% per step for exactly 120 stops
             
-            // Gaussian parameters - slightly denser fade but still very soft
-            const sigma = 0.35; // Tighter spread for denser fade while maintaining softness
+            // Gaussian parameters - keep center dense, fade only at very edges
+            const sigma = 0.3; // Moderate spread - keeps center dense longer
             const center = 0; // Center of distribution
             
             for (let i = 0; i <= 100; i += stepSize) { // 120 stops total
@@ -149,14 +149,18 @@
                 // Calculate distance from center (normalized 0-1)
                 const distance = progress;
                 
-                // Gaussian distribution: e^(-(distance² / (2 * sigma²)))
-                // Creates natural, bell-curve-like fade
-                const gaussianFactor = Math.exp(-(distance * distance) / (2 * sigma * sigma));
-                
-                // Smooth, continuous fade - no discontinuities or visible borders
-                // Use a single smooth power curve throughout entire range for seamless transition
-                const smoothFade = Math.pow(1 - progress, 2.3); // Smooth power curve creates gradual, even fade
-                let alpha = centerOpacity * gaussianFactor * smoothFade;
+                // Keep high opacity for most of the cloud, only fade at edges
+                // For inner 70%: stay at full opacity, then fade (strengthened saturation)
+                let alpha;
+                if (progress < 0.7) {
+                    // Inner 70%: fully opaque (zero transparency) - strengthened saturation
+                    alpha = centerOpacity;
+                } else {
+                    // Outer 30%: fade smoothly
+                    const edgeProgress = (progress - 0.7) / 0.3; // 0 to 1 over outer 30%
+                    const gaussianFactor = Math.exp(-(edgeProgress * edgeProgress) / (2 * sigma * sigma));
+                    alpha = centerOpacity * Math.pow(1 - edgeProgress, 2.0);
+                }
                 
                 // Ensure alpha doesn't go below 0
                 alpha = Math.max(0, Math.min(1, alpha));

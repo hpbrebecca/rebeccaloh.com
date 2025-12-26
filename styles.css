@@ -3588,7 +3588,7 @@ h1.name-corner {
 .nebula-cloud {
     position: absolute;
     border-radius: 50%;
-    filter: blur(70px);
+    filter: blur(30px); /* Less blur for sharper, more visible dots */
     opacity: 0;
     pointer-events: none;
     will-change: filter, opacity, transform;
