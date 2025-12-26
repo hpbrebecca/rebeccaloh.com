@@ -111,7 +111,7 @@
             fr: "Citations",
             zh: "引言"
         },
-        recommendations: {
+        links: {
             de: "Links",
             en: "Links",
             fr: "Liens",
@@ -353,7 +353,7 @@
                 }
             ]
         },
-        recommendations: {
+        links: {
             services: {
                 en: [
                     { label: "– Traditional Chinese Medicine at TCM SinoCare, Berne", linkText: "www.tcmsino.care", href: "https://www.tcmsino.care" },
@@ -452,7 +452,7 @@
         // Update page title, H1 and H2 (get current section from URL)
         if (window.updatePageTitle) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|links|home)/);
             // Map URL section names to internal section IDs
             const urlToSectionMap = {
                 'bio': 'aboutme',
@@ -460,7 +460,7 @@
                 'contact': 'connect',
                 'connect': 'connect',
                 'quotes': 'quotes',
-                'recommendations': 'recommendations',
+                'links': 'links',
                 'home': 'home'
             };
             const urlSection = sectionMatch ? sectionMatch[2] : 'home';
@@ -472,7 +472,7 @@
         }
         if (window.updateH2) {
             const path = window.location.pathname;
-            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
+            const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|links|home)/);
             // Map URL section names to internal section IDs
             const urlToSectionMap = {
                 'bio': 'aboutme',
@@ -480,7 +480,7 @@
                 'contact': 'connect',
                 'connect': 'connect',
                 'quotes': 'quotes',
-                'recommendations': 'recommendations',
+                'links': 'links',
                 'home': 'home'
             };
             const urlSection = sectionMatch ? sectionMatch[2] : 'home';
@@ -606,7 +606,7 @@
             window.updateAboutContent(lang);
         }
 
-        const disclaimerContent = aboutContent.recommendations && aboutContent.recommendations.disclaimer;
+        const disclaimerContent = aboutContent.links && aboutContent.links.disclaimer;
         if (disclaimerMini && disclaimerContent) {
             const title = disclaimerContent.title ? (disclaimerContent.title[lang] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
             disclaimerMini.textContent = title;
@@ -675,7 +675,7 @@
                     
                     // Update URL with new language
                     const path = window.location.pathname;
-                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|recommendations|home)/);
+                    const sectionMatch = path.match(/^\/(en|de|fr|zh)\/(bio|aboutme|contact|connect|quotes|links|home)/);
                     if (sectionMatch) {
                         const section = sectionMatch[2];
                         const newUrl = `/${lang}/${section}`;

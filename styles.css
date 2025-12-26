@@ -666,7 +666,7 @@ h1.name-corner {
 /* Standard Content Sections - Transparent (blue is now main background) */
 #connectSection,
 #quotesSection,
-#recommendationsSection {
+#linksSection {
     background: transparent !important;
     padding: var(--space-xl) !important;
     border-radius: 12px !important;
@@ -680,9 +680,9 @@ h1.name-corner {
 #connectSection .about-content,
 #quotesSection .section-heading,
 #quotesSection .quote-future,
-#recommendationsSection .section-heading,
-#recommendationsSection .service-label,
-#recommendationsSection .service-link {
+#linksSection .section-heading,
+#linksSection .service-label,
+#linksSection .service-link {
     color: var(--color-white-content) !important;
 }
 
@@ -3501,7 +3501,7 @@ h1.name-corner {
 #aboutmeSection,
 #connectSection,
 #quotesSection,
-#recommendationsSection,
+#linksSection,
 .disclaimer-section {
     /* GPU acceleration for smooth page flip */
     will-change: transform;

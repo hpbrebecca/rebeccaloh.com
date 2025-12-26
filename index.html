@@ -118,8 +118,8 @@
         <a href="#quotes" class="nav-link" data-section="quotes">
             <span class="nav-text" data-lang-key="quotes">Quotes</span>
         </a>
-        <a href="#recommendations" class="nav-link" data-section="recommendations">
-            <span class="nav-text" data-lang-key="recommendations">Links</span>
+        <a href="#links" class="nav-link" data-section="links">
+            <span class="nav-text" data-lang-key="links">Links</span>
         </a>
         <a href="#connect" class="nav-link" data-section="connect">
             <span class="nav-text" data-lang-key="connect">Contact</span>
@@ -287,11 +287,11 @@
         </div>
 
         <!-- Recommendations Section -->
-        <div class="recommendations-section" id="recommendationsSection" style="display: none;">
+        <div class="recommendations-section" id="linksSection" style="display: none;">
             <div class="recommendations-content">
                 <h2 class="section-heading" id="recommendationsHeading">Links & Friends</h2>
                 <div class="recommendations-body">
-                    <div class="recommendations-grid" id="recommendationsGrid"></div>
+                    <div class="recommendations-grid" id="linksGrid"></div>
                 </div>
             </div>
         </div>
@@ -370,11 +370,11 @@
             const connectSection = document.getElementById('connectSection');
             const aboutmeSection = document.getElementById('aboutmeSection');
             const quotesSection = document.getElementById('quotesSection');
-            const recommendationsSection = document.getElementById('recommendationsSection');
+            const recommendationsSection = document.getElementById('linksSection');
             const connectDescription = document.getElementById('connectDescription');
             const aboutIntro = document.getElementById('aboutIntro');
             const aboutAccordion = document.getElementById('aboutAccordion');
-            const recommendationsGrid = document.getElementById('recommendationsGrid');
+            const recommendationsGrid = document.getElementById('linksGrid');
             const disclaimerSection = document.getElementById('disclaimerSection');
             const disclaimerHeadingEl = document.getElementById('disclaimerHeading');
             const disclaimerCopyEl = document.getElementById('disclaimerCopy');
@@ -389,12 +389,12 @@
                 },
                 intro: { de: "", en: "", fr: "", zh: "" },
                 sections: { de: [], en: [], fr: [], zh: [] },
-                recommendations: {
+                links: {
                     title: {
-                        de: "Recommendations",
-                        en: "Recommendations",
-                        fr: "Recommendations",
-                        zh: "Recommendations"
+                        de: "Links",
+                        en: "Links",
+                        fr: "Liens",
+                        zh: "連結"
                     },
                     services: {
                         en: [
@@ -451,7 +451,7 @@
                     'connect': 'contact',
                     'home': 'home',
                     'quotes': 'quotes',
-                    'recommendations': 'links'  // URL should be "links" not "recommendations"
+                    'links': 'links'  // URL mapping for links section
                 };
                 const urlSection = urlSectionMap[section] || section;
                 const basePath = `/${lang}/${urlSection}`;
@@ -484,7 +484,7 @@
                     fr: "Citations · Rebecca Loh",
                     zh: "引言 · 羅碧嘉"
                 },
-                recommendations: {
+                links: {
                     en: "Links · Rebecca Loh",
                     de: "Links · Rebecca Loh",
                     fr: "Liens · Rebecca Loh",
@@ -575,7 +575,7 @@
                     fr: "Citations",
                     zh: "引言"
                 },
-                recommendations: {
+                links: {
                     en: "Links & Friends",
                     de: "Links & Freunde",
                     fr: "Liens & Amis",
@@ -654,7 +654,7 @@
                     connectHeading.textContent = h2Text;
                 } else if (currentSection === 'quotes' && quotesHeading) {
                     quotesHeading.textContent = h2Text;
-                } else if (currentSection === 'recommendations' && recommendationsHeading) {
+                } else if (currentSection === 'links' && recommendationsHeading) {
                     recommendationsHeading.textContent = h2Text;
                 }
                 
@@ -663,7 +663,7 @@
                 if (aboutmeHeading) aboutmeHeading.textContent = h2Translations.aboutme[lang] || h2Translations.aboutme.en;
                 if (connectHeading) connectHeading.textContent = h2Translations.connect[lang] || h2Translations.connect.en;
                 if (quotesHeading) quotesHeading.textContent = h2Translations.quotes[lang] || h2Translations.quotes.en;
-                if (recommendationsHeading) recommendationsHeading.textContent = h2Translations.recommendations[lang] || h2Translations.recommendations.en;
+                if (recommendationsHeading) recommendationsHeading.textContent = h2Translations.links[lang] || h2Translations.links.en;
             }
             
             // Update H3 and paragraphs in home section
@@ -1111,7 +1111,7 @@
                     buildRecommendations(recommendationsGrid, []);
                 }
 
-                const disclaimerContent = content && content.recommendations && content.recommendations.disclaimer;
+                const disclaimerContent = content && content.links && content.links.disclaimer;
                 if (disclaimerContent) {
                     const title = disclaimerContent.title ? (disclaimerContent.title[language] || disclaimerContent.title.en || 'Disclaimer') : 'Disclaimer';
                     const body = disclaimerContent.body ? (disclaimerContent.body[language] || disclaimerContent.body.en || '') : '';
@@ -1138,7 +1138,7 @@
                 connect: { element: connectSection, display: 'flex' },
                 aboutme: { element: aboutmeSection, display: 'flex' },
                 quotes: { element: quotesSection, display: 'flex' },
-                recommendations: { element: recommendationsSection, display: 'flex' },
+                links: { element: recommendationsSection, display: 'flex' },
                 disclaimer: { element: disclaimerSection, display: 'flex' }
             };
 
@@ -1412,7 +1412,7 @@
                     if (sectionMatch) {
                         // Map URL section name to internal section name
                         const urlSection = sectionMatch[2];
-                        targetSection = (urlSection === 'links') ? 'recommendations' : urlSection;
+                        targetSection = (urlSection === 'links') ? 'links' : urlSection;
                     } else if (path.match(/^\/(en|de|fr|zh)\/?$/)) {
                         targetSection = 'home'; // default section for language root
                     }
@@ -1435,7 +1435,7 @@
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
                     } else if (path === '/links' || path === '/links/' || path.endsWith('/links.html') || hash === 'links' || path === '/recommendations' || path === '/recommendations/' || path.endsWith('/recommendations.html') || hash === 'recommendations') {
-                        targetSection = 'recommendations'; // Internal section name stays "recommendations"
+                        targetSection = 'links'; // Internal section name is "links"
                         currentLang = getCurrentLanguage();
                         updateURLWithLanguage(currentLang, targetSection);
                     } else if (path === '/' || path === '') {
@@ -1486,7 +1486,7 @@
                 const hash = window.location.hash.replace('#', '');
                 if (hash && ['home', 'aboutme', 'bio', 'connect', 'contact', 'quotes', 'links', 'recommendations'].includes(hash)) {
                     // Handle both old "recommendations" hash and new "links" hash
-                    const normalizedHash = (hash === 'links' || hash === 'recommendations') ? 'recommendations' : hash;
+                    const normalizedHash = (hash === 'links' || hash === 'recommendations') ? 'links' : hash;
                     const currentLang = getCurrentLanguage();
                     updateURLWithLanguage(currentLang, normalizedHash);
                     handleRouting();
@@ -1496,10 +1496,19 @@
             // Update nav links to use proper URLs with language
             function updateNavLinks() {
                 const currentLang = getCurrentLanguage();
+                // Map internal section IDs to URL-friendly names (same as updateURLWithLanguage)
+                const urlSectionMap = {
+                    'aboutme': 'bio',
+                    'connect': 'contact',
+                    'home': 'home',
+                    'quotes': 'quotes',
+                    'links': 'links'  // URL mapping for links section
+                };
                 navLinks.forEach(navLink => {
                     const section = navLink.getAttribute('data-section');
                     if (section) {
-                        navLink.setAttribute('href', `/${currentLang}/${section}`);
+                        const urlSection = urlSectionMap[section] || section;
+                        navLink.setAttribute('href', `/${currentLang}/${urlSection}`);
                     }
                 });
             }
