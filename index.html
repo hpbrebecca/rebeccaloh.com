@@ -307,10 +307,10 @@
                         </select>
                     </div>
                     <div class="links-filter">
-                        <label for="linksCityFilterSelect" class="links-filter-label">Filter by city:</label>
+                        <label for="linksCityFilterSelect" class="links-filter-label">Filter by location:</label>
                         <select id="linksCityFilterSelect" class="links-filter-select">
-                            <option value="all">All Cities</option>
-                            <!-- City options will be populated dynamically -->
+                            <option value="all">All Locations</option>
+                            <!-- Location options will be populated dynamically -->
                         </select>
                     </div>
                 </div>
@@ -1120,36 +1120,36 @@
                     alphabetical: 'Alphabetical',
                     category: 'Category',
                     filterByCategory: 'Filter by category:',
-                    filterByCity: 'Filter by city:',
+                    filterByLocation: 'Filter by location:',
                     allCategories: 'All Categories',
-                    allCities: 'All Cities'
+                    allLocations: 'All Locations'
                 },
                 de: {
                     sortBy: 'Sortieren nach:',
                     alphabetical: 'Alphabetisch',
                     category: 'Kategorie',
                     filterByCategory: 'Filtern nach Kategorie:',
-                    filterByCity: 'Filtern nach Stadt:',
+                    filterByLocation: 'Filtern nach Ort:',
                     allCategories: 'Alle Kategorien',
-                    allCities: 'Alle Städte'
+                    allLocations: 'Alle Orte'
                 },
                 fr: {
                     sortBy: 'Trier par:',
                     alphabetical: 'Alphabétique',
                     category: 'Catégorie',
                     filterByCategory: 'Filtrer par catégorie:',
-                    filterByCity: 'Filtrer par ville:',
+                    filterByLocation: 'Filtrer par lieu:',
                     allCategories: 'Toutes les catégories',
-                    allCities: 'Toutes les villes'
+                    allLocations: 'Tous les lieux'
                 },
                 zh: {
                     sortBy: '排序方式：',
                     alphabetical: '字母順序',
                     category: '類別',
                     filterByCategory: '依類別篩選：',
-                    filterByCity: '依城市篩選：',
+                    filterByLocation: '依地點篩選：',
                     allCategories: '所有類別',
-                    allCities: '所有城市'
+                    allLocations: '所有地點'
                 }
             };
             
@@ -1218,10 +1218,10 @@
                     label.textContent = translations.filterByCategory;
                 });
                 
-                // Update city filter label (more specific selector)
-                const cityFilterLabels = document.querySelectorAll('.links-filter-label[for="linksCityFilterSelect"]');
-                cityFilterLabels.forEach(label => {
-                    label.textContent = translations.filterByCity;
+                // Update location filter label (more specific selector)
+                const locationFilterLabels = document.querySelectorAll('.links-filter-label[for="linksCityFilterSelect"]');
+                locationFilterLabels.forEach(label => {
+                    label.textContent = translations.filterByLocation;
                 });
             }
             
@@ -1273,13 +1273,13 @@
                 // Clear all options
                 filterSelect.innerHTML = '';
                 
-                // Add "All Cities" option
+                // Add "All Locations" option
                 const allOption = document.createElement('option');
                 allOption.value = 'all';
-                allOption.textContent = translations.allCities;
+                allOption.textContent = translations.allLocations;
                 filterSelect.appendChild(allOption);
                 
-                // Add city options
+                // Add location options
                 cities.forEach(city => {
                     const option = document.createElement('option');
                     option.value = city;
