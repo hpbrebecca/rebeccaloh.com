@@ -1827,6 +1827,67 @@ h1.name-corner {
     margin: clamp(18px, 2.5vw, 24px) 0 var(--space-xs);
 }
 
+/* Links Filter and Sort Controls */
+.links-controls {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+    width: 100%;
+}
+
+.links-sort,
+.links-filter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.links-sort-label,
+.links-filter-label {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    color: var(--color-text-on-dark);
+    white-space: nowrap;
+}
+
+.links-sort-select,
+.links-filter-select {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 18px);
+    color: var(--color-text-on-dark);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 150px;
+}
+
+.links-sort-select:hover,
+.links-filter-select:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.links-sort-select:focus,
+.links-filter-select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-accent-primary);
+    box-shadow: 0 0 0 2px rgba(75, 58, 143, 0.2);
+}
+
+.links-sort-select option,
+.links-filter-select option {
+    background: var(--color-dark-primary);
+    color: var(--color-text-on-dark);
+    padding: 8px;
+}
+
 .recommendations-grid {
     width: 100%;
     max-width: 100%;

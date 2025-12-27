@@ -290,6 +290,30 @@
         <div class="recommendations-section" id="linksSection" style="display: none;">
             <div class="recommendations-content">
                 <h2 class="section-heading" id="recommendationsHeading">Links & Friends</h2>
+                <!-- Filter and Sort Controls -->
+                <div class="links-controls" id="linksControls">
+                    <div class="links-sort">
+                        <label for="linksSortSelect" class="links-sort-label">Sort by:</label>
+                        <select id="linksSortSelect" class="links-sort-select">
+                            <option value="alphabetical">Alphabetical</option>
+                            <option value="theme">Category</option>
+                        </select>
+                    </div>
+                    <div class="links-filter">
+                        <label for="linksThemeFilterSelect" class="links-filter-label">Filter by category:</label>
+                        <select id="linksThemeFilterSelect" class="links-filter-select">
+                            <option value="all">All Categories</option>
+                            <!-- Category options will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="links-filter">
+                        <label for="linksCityFilterSelect" class="links-filter-label">Filter by city:</label>
+                        <select id="linksCityFilterSelect" class="links-filter-select">
+                            <option value="all">All Cities</option>
+                            <!-- City options will be populated dynamically -->
+                        </select>
+                    </div>
+                </div>
                 <div class="recommendations-body">
                     <div class="recommendations-grid" id="linksGrid"></div>
                 </div>
@@ -935,11 +959,14 @@
                 });
             }
 
-            // Logo tile data structure with multilingual descriptions
+            // Logo tile data structure with multilingual descriptions and properties
             const logoTilesData = {
                 tcm: {
                     logoPath: '/logos/tcm-sinocare.png',  // Absolute path for production
                     href: 'https://www.tcmsino.care',
+                    name: 'TCM SinoCare',  // For alphabetical sorting
+                    theme: 'Doctor',  // Category: Doctor
+                    city: 'Berne',  // City for filtering
                     descriptions: {
                         en: {
                             title: 'TCM SinoCare, Berne',
@@ -962,6 +989,9 @@
                 softline: {
                     logoPath: '/logos/softline-cosmetics.png',  // Absolute path for production
                     href: 'https://softlinecosmetics.ch/',
+                    name: 'Softline Cosmetics',  // For alphabetical sorting
+                    theme: 'Beauty',  // Category: Beauty
+                    city: 'Berne',  // City for filtering
                     descriptions: {
                         en: {
                             title: 'Softline Cosmetics by Sarolta · Berne',
@@ -980,16 +1010,323 @@
                             text: '美妝與出色的睫毛延長服務。'
                         }
                     }
+                },
+                marvelous: {
+                    logoPath: '/logos/MarVELOus.webp',  // Absolute path for production
+                    href: 'https://www.mar-velo-us.com/',
+                    name: 'MarVELOus',  // For alphabetical sorting
+                    theme: 'Others',  // Category: Others
+                    city: 'Basel',  // City for filtering
+                    descriptions: {
+                        en: {
+                            title: 'MarVELOus · Basel',
+                            text: 'Best service for your bicycle. Expert repairs and maintenance.'
+                        },
+                        de: {
+                            title: 'MarVELOus · Basel',
+                            text: 'Bester Service fürs Velo. Fachkundige Reparaturen und Wartung.'
+                        },
+                        fr: {
+                            title: 'MarVELOus · Bâle',
+                            text: 'Meilleur service pour votre vélo. Réparations et entretien expert.'
+                        },
+                        zh: {
+                            title: 'MarVELOus · 巴塞爾',
+                            text: '最優質的自行車服務。專業維修與保養。'
+                        }
+                    }
+                },
+                akaraka: {
+                    logoPath: '/logos/Korean Restaurant AKARAKA.gif',  // Absolute path for production
+                    href: 'https://www.akaraka.ch/',
+                    name: 'Akaraka',  // For alphabetical sorting
+                    theme: 'Restaurant',  // Category: Restaurant
+                    city: 'Zurich',  // City for filtering
+                    descriptions: {
+                        en: {
+                            title: 'Akaraka · Zurich',
+                            text: 'The taste of authentic Korean cuisine, accompanied by heartwarming classical music.'
+                        },
+                        de: {
+                            title: 'Akaraka · Zürich',
+                            text: 'Der Geschmack authentischer koreanischer Küche, begleitet von herzerwärmender klassischer Musik.'
+                        },
+                        fr: {
+                            title: 'Akaraka · Zurich',
+                            text: 'Le goût de la cuisine coréenne authentique, accompagné de musique classique réconfortante.'
+                        },
+                        zh: {
+                            title: 'Akaraka · 蘇黎世',
+                            text: '正宗韓國料理的風味，伴隨著溫暖人心的古典音樂。'
+                        }
+                    }
+                },
+                houWeiTCM: {
+                    logoPath: '/logos/hou-wei-tcm.png',  // Absolute path for production (logo to be added)
+                    href: 'https://tcmbreitenbach.ch/',
+                    name: 'Hou Wei TCM Praxis',  // For alphabetical sorting
+                    theme: 'Doctor',  // Category: Doctor (DE: Ärztinnen und Ärzte)
+                    city: 'Basel',  // City for filtering (locations: Breitenbach and Reinach, both in Basel region)
+                    descriptions: {
+                        en: {
+                            title: 'Hou Wei TCM Praxis · Breitenbach · Reinach',
+                            text: 'Magical TCM, instant pain relief.'
+                        },
+                        de: {
+                            title: 'Hou Wei TCM Praxis · Breitenbach · Reinach',
+                            text: 'Magische TCM, sofortige Schmerzlinderung.'
+                        },
+                        fr: {
+                            title: 'Hou Wei TCM Praxis · Breitenbach · Reinach',
+                            text: 'MTC magique, soulagement instantané de la douleur.'
+                        },
+                        zh: {
+                            title: 'Hou Wei TCM Praxis · 布賴滕巴赫 · 賴納赫',
+                            text: '神奇的傳統中醫，立即緩解疼痛。'
+                        }
+                    }
                 }
             };
 
+            // Filter and sort translations
+            const filterTranslations = {
+                en: {
+                    sortBy: 'Sort by:',
+                    alphabetical: 'Alphabetical',
+                    category: 'Category',
+                    filterByCategory: 'Filter by category:',
+                    filterByCity: 'Filter by city:',
+                    allCategories: 'All Categories',
+                    allCities: 'All Cities'
+                },
+                de: {
+                    sortBy: 'Sortieren nach:',
+                    alphabetical: 'Alphabetisch',
+                    category: 'Kategorie',
+                    filterByCategory: 'Filtern nach Kategorie:',
+                    filterByCity: 'Filtern nach Stadt:',
+                    allCategories: 'Alle Kategorien',
+                    allCities: 'Alle Städte'
+                },
+                fr: {
+                    sortBy: 'Trier par:',
+                    alphabetical: 'Alphabétique',
+                    category: 'Catégorie',
+                    filterByCategory: 'Filtrer par catégorie:',
+                    filterByCity: 'Filtrer par ville:',
+                    allCategories: 'Toutes les catégories',
+                    allCities: 'Toutes les villes'
+                },
+                zh: {
+                    sortBy: '排序方式：',
+                    alphabetical: '字母順序',
+                    category: '類別',
+                    filterByCategory: '依類別篩選：',
+                    filterByCity: '依城市篩選：',
+                    allCategories: '所有類別',
+                    allCities: '所有城市'
+                }
+            };
+            
+            // Current filter and sort state
+            let currentLinksThemeFilter = 'all';
+            let currentLinksCityFilter = 'all';
+            let currentLinksSort = 'alphabetical';
+            
+            // Get all unique themes from logoTilesData
+            function getAllThemes() {
+                const themes = new Set();
+                Object.values(logoTilesData).forEach(tileData => {
+                    if (tileData.theme && tileData.theme.trim() !== '') {
+                        themes.add(tileData.theme);
+                    }
+                });
+                return Array.from(themes).sort();
+            }
+            
+            // Get all unique cities from logoTilesData
+            function getAllCities() {
+                const cities = new Set();
+                Object.values(logoTilesData).forEach(tileData => {
+                    if (tileData.city && tileData.city.trim() !== '') {
+                        cities.add(tileData.city);
+                    }
+                });
+                return Array.from(cities).sort();
+            }
+            
+            // Update filter and sort labels based on language
+            function updateFilterLabels(lang) {
+                const translations = filterTranslations[lang] || filterTranslations.en;
+                
+                // Update sort label and options
+                const sortLabel = document.querySelector('.links-sort-label');
+                if (sortLabel) sortLabel.textContent = translations.sortBy;
+                
+                const sortSelect = document.getElementById('linksSortSelect');
+                if (sortSelect) {
+                    // Update option texts while preserving values
+                    Array.from(sortSelect.options).forEach(option => {
+                        if (option.value === 'alphabetical') {
+                            option.textContent = translations.alphabetical;
+                        } else if (option.value === 'theme') {
+                            option.textContent = translations.category;
+                        }
+                    });
+                }
+                
+                // Update category filter label (more specific selector)
+                const categoryFilterLabels = document.querySelectorAll('.links-filter-label[for="linksThemeFilterSelect"]');
+                categoryFilterLabels.forEach(label => {
+                    label.textContent = translations.filterByCategory;
+                });
+                
+                // Update city filter label (more specific selector)
+                const cityFilterLabels = document.querySelectorAll('.links-filter-label[for="linksCityFilterSelect"]');
+                cityFilterLabels.forEach(label => {
+                    label.textContent = translations.filterByCity;
+                });
+            }
+            
+            // Populate theme filter dropdown
+            function populateThemeFilter(lang) {
+                const filterSelect = document.getElementById('linksThemeFilterSelect');
+                if (!filterSelect) return;
+                
+                const translations = filterTranslations[lang || getCurrentLanguage()] || filterTranslations.en;
+                const themes = getAllThemes();
+                
+                // Store current selection
+                const currentValue = filterSelect.value;
+                
+                // Clear all options
+                filterSelect.innerHTML = '';
+                
+                // Add "All Categories" option
+                const allOption = document.createElement('option');
+                allOption.value = 'all';
+                allOption.textContent = translations.allCategories;
+                filterSelect.appendChild(allOption);
+                
+                // Add category options
+                themes.forEach(theme => {
+                    const option = document.createElement('option');
+                    option.value = theme;
+                    option.textContent = theme;
+                    filterSelect.appendChild(option);
+                });
+                
+                // Restore selection
+                if (currentValue) {
+                    filterSelect.value = currentValue;
+                }
+            }
+            
+            // Populate city filter dropdown
+            function populateCityFilter(lang) {
+                const filterSelect = document.getElementById('linksCityFilterSelect');
+                if (!filterSelect) return;
+                
+                const translations = filterTranslations[lang || getCurrentLanguage()] || filterTranslations.en;
+                const cities = getAllCities();
+                
+                // Store current selection
+                const currentValue = filterSelect.value;
+                
+                // Clear all options
+                filterSelect.innerHTML = '';
+                
+                // Add "All Cities" option
+                const allOption = document.createElement('option');
+                allOption.value = 'all';
+                allOption.textContent = translations.allCities;
+                filterSelect.appendChild(allOption);
+                
+                // Add city options
+                cities.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    filterSelect.appendChild(option);
+                });
+                
+                // Restore selection
+                if (currentValue) {
+                    filterSelect.value = currentValue;
+                }
+            }
+            
+            // Cache for filtered and sorted tiles (optimization)
+            let cachedFilteredTiles = null;
+            let cacheKey = null;
+            
+            // Generate cache key from current filter/sort state
+            function getCacheKey() {
+                return `${currentLinksThemeFilter}-${currentLinksCityFilter}-${currentLinksSort}-${getCurrentLanguage()}`;
+            }
+            
+            // Filter and sort logo tiles (optimized with caching)
+            function getFilteredAndSortedTiles() {
+                const currentLang = getCurrentLanguage();
+                const newCacheKey = getCacheKey();
+                
+                // Return cached result if filters/sort haven't changed
+                if (cachedFilteredTiles && cacheKey === newCacheKey) {
+                    return cachedFilteredTiles;
+                }
+                
+                let tiles = Object.entries(logoTilesData);
+                
+                // Apply theme filter
+                if (currentLinksThemeFilter !== 'all') {
+                    tiles = tiles.filter(([key, tileData]) => tileData.theme === currentLinksThemeFilter);
+                }
+                
+                // Apply city filter
+                if (currentLinksCityFilter !== 'all') {
+                    tiles = tiles.filter(([key, tileData]) => tileData.city === currentLinksCityFilter);
+                }
+                
+                // Apply sort
+                if (currentLinksSort === 'alphabetical') {
+                    tiles.sort((a, b) => {
+                        const nameA = a[1].name || (a[1].descriptions[currentLang]?.title || a[1].descriptions.en.title);
+                        const nameB = b[1].name || (b[1].descriptions[currentLang]?.title || b[1].descriptions.en.title);
+                        return nameA.localeCompare(nameB, currentLang === 'zh' ? 'zh' : undefined, { sensitivity: 'base' });
+                    });
+                } else if (currentLinksSort === 'theme') {
+                    tiles.sort((a, b) => {
+                        const themeA = a[1].theme || '';
+                        const themeB = b[1].theme || '';
+                        if (themeA === themeB) {
+                            // If same theme, sort alphabetically within theme
+                            const nameA = a[1].name || (a[1].descriptions[currentLang]?.title || a[1].descriptions.en.title);
+                            const nameB = b[1].name || (b[1].descriptions[currentLang]?.title || b[1].descriptions.en.title);
+                            return nameA.localeCompare(nameB, currentLang === 'zh' ? 'zh' : undefined, { sensitivity: 'base' });
+                        }
+                        return themeA.localeCompare(themeB);
+                    });
+                }
+                
+                // Cache the result
+                cachedFilteredTiles = tiles;
+                cacheKey = newCacheKey;
+                
+                return tiles;
+            }
+            
             function buildRecommendations(list, services) {
+                // Clear cache when rebuilding to ensure fresh data
+                cachedFilteredTiles = null;
+                cacheKey = null;
+                
                 list.innerHTML = '';
                 
                 // Create logo tiles
                 const currentLang = getCurrentLanguage();
+                const filteredAndSortedTiles = getFilteredAndSortedTiles();
                 
-                Object.entries(logoTilesData).forEach(([key, tileData]) => {
+                filteredAndSortedTiles.forEach(([key, tileData]) => {
                     const tile = document.createElement('div');
                     tile.className = 'logo-tile';
                     
@@ -1076,6 +1413,11 @@
                         }
                     }
                 });
+                
+                // Also update filter labels and options when language changes
+                updateFilterLabels(lang);
+                populateThemeFilter(lang);
+                populateCityFilter(lang);
             };
 
             function updateAboutContent(lang) {
@@ -1107,8 +1449,37 @@
                 }
 
                 if (recommendationsGrid) {
+                    const currentLang = getCurrentLanguage();
+                    
+                    // Update filter labels
+                    updateFilterLabels(currentLang);
+                    
+                    // Populate filter dropdowns
+                    populateThemeFilter(currentLang);
+                    populateCityFilter(currentLang);
+                    
                     // Build logo tiles (no longer using services data from content)
                     buildRecommendations(recommendationsGrid, []);
+                    
+                    // Set up filter and sort event listeners (using event delegation to avoid duplicates)
+                    const linksControls = document.getElementById('linksControls');
+                    if (linksControls && !linksControls.dataset.listenersAttached) {
+                        linksControls.dataset.listenersAttached = 'true';
+                        
+                        // Use event delegation on the controls container
+                        linksControls.addEventListener('change', (e) => {
+                            if (e.target.id === 'linksSortSelect') {
+                                currentLinksSort = e.target.value;
+                                buildRecommendations(recommendationsGrid, []);
+                            } else if (e.target.id === 'linksThemeFilterSelect') {
+                                currentLinksThemeFilter = e.target.value;
+                                buildRecommendations(recommendationsGrid, []);
+                            } else if (e.target.id === 'linksCityFilterSelect') {
+                                currentLinksCityFilter = e.target.value;
+                                buildRecommendations(recommendationsGrid, []);
+                            }
+                        });
+                    }
                 }
 
                 const disclaimerContent = content && content.links && content.links.disclaimer;
