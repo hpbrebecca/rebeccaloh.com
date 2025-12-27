@@ -1062,7 +1062,7 @@
                     }
                 },
                 houWeiTCM: {
-                    logoPath: '/logos/hou-wei-tcm.png',  // Absolute path for production (logo to be added)
+                    logoPath: '/logos/Hou Wei TCM Breitenbach.png',  // Absolute path for production
                     href: 'https://tcmbreitenbach.ch/',
                     name: 'Hou Wei TCM Praxis',  // For alphabetical sorting
                     theme: 'Doctor',  // Category: Doctor (DE: Ärztinnen und Ärzte)
@@ -1083,6 +1083,31 @@
                         zh: {
                             title: 'Hou Wei TCM Praxis · 布賴滕巴赫 · 賴納赫',
                             text: '神奇的傳統中醫，立即緩解疼痛。'
+                        }
+                    }
+                },
+                onlineApotheke: {
+                    logoPath: '/logos/online-apotheke.png',  // Absolute path for production (logo to be added)
+                    href: 'https://www.online-apotheke.ch/',
+                    name: 'Online-Apotheke.ch',  // For alphabetical sorting
+                    theme: 'Others',  // Category: Others
+                    city: 'Switzerland',  // Location for filtering (applies to all of Switzerland)
+                    descriptions: {
+                        en: {
+                            title: 'Online-Apotheke.ch · Switzerland',
+                            text: 'Swiss online pharmacy and drugstore. Fast delivery from Bern.'
+                        },
+                        de: {
+                            title: 'Online-Apotheke.ch · Schweiz',
+                            text: 'Schweizer Online-Apotheke und Drogerie. Schnelle Lieferung ab Bern.'
+                        },
+                        fr: {
+                            title: 'Online-Apotheke.ch · Suisse',
+                            text: 'Pharmacie et droguerie en ligne suisse. Livraison rapide depuis Berne.'
+                        },
+                        zh: {
+                            title: 'Online-Apotheke.ch · 瑞士',
+                            text: '瑞士線上藥局與藥妝店。從伯恩快速送達。'
                         }
                     }
                 }
@@ -1133,15 +1158,27 @@
             let currentLinksCityFilter = 'all';
             let currentLinksSort = 'alphabetical';
             
-            // Get all unique themes from logoTilesData
+            // Get all unique themes from logoTilesData, sorted by count (descending)
             function getAllThemes() {
-                const themes = new Set();
+                const themeCounts = {};
+                
+                // Count tiles per category
                 Object.values(logoTilesData).forEach(tileData => {
                     if (tileData.theme && tileData.theme.trim() !== '') {
-                        themes.add(tileData.theme);
+                        themeCounts[tileData.theme] = (themeCounts[tileData.theme] || 0) + 1;
                     }
                 });
-                return Array.from(themes).sort();
+                
+                // Sort by count (descending), then alphabetically if counts are equal
+                const sortedThemes = Object.keys(themeCounts).sort((a, b) => {
+                    const countDiff = themeCounts[b] - themeCounts[a];
+                    if (countDiff !== 0) {
+                        return countDiff; // Sort by count (descending)
+                    }
+                    return a.localeCompare(b); // If counts are equal, sort alphabetically
+                });
+                
+                return sortedThemes;
             }
             
             // Get all unique cities from logoTilesData
@@ -2290,4 +2327,5 @@
     </script>
 </body>
 </html>
+
 
