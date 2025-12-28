@@ -1500,6 +1500,10 @@
                     img.src = tileData.logoPath;
                     img.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     img.className = 'logo-tile-image';
+                    // Add special class for Hou Wei TCM logo to make white background transparent
+                    if (key === 'houWeiTCM') {
+                        img.className += ' logo-hou-wei-tcm';
+                    }
                     img.loading = 'lazy';
                     img.decoding = 'async';
                     // Error handling - log if image fails to load

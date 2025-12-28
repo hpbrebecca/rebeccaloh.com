@@ -2125,22 +2125,25 @@ h1.name-corner {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 70%; /* Smaller than tile (100%) but larger than logo */
-    height: 70%;
-    /* Own base color - using accent colors from color concept with 70% transparency */
+    width: 90%; /* Increased to 90% - larger than logo but smaller than tile */
+    height: 90%; /* Increased to 90% - larger than logo but smaller than tile */
+    /* Color from color concept - using dark backgrounds with 85% transparency */
     background: linear-gradient(
         135deg,
-        rgba(63, 75, 184, 0.7), /* var(--color-accent-primary) - 70% transparent */
-        rgba(90, 58, 138, 0.7), /* var(--color-accent-secondary) - 70% transparent */
-        rgba(63, 75, 184, 0.7)
+        rgba(14, 26, 47, 0.85), /* var(--color-dark-primary) #0E1A2F - 85% transparent - clearer dark blue */
+        rgba(30, 46, 102, 0.85), /* var(--color-dark-secondary) #1E2E66 - 85% transparent - clearer dark blue */
+        rgba(14, 26, 47, 0.85)
     );
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape */
     z-index: 0; /* Behind logo */
     pointer-events: none;
     animation: liquid-blob 8s ease-in-out infinite; /* Apply liquid blob effect in original state */
+    /* Light blur for smooth edge - softens the boundary */
+    filter: blur(2px); /* Light blur for smooth edge of the moving area */
+    -webkit-filter: blur(2px);
     /* Color effects (shimmer and other parameters) directly from hover version */
-    backdrop-filter: blur(12px) saturate(180%); /* Same as hover overlay */
-    -webkit-backdrop-filter: blur(12px) saturate(180%); /* Same as hover overlay */
+    backdrop-filter: blur(12px) saturate(120%); /* Reduced saturation from 180% to 120% for more neutral look */
+    -webkit-backdrop-filter: blur(12px) saturate(120%); /* Reduced saturation from 180% to 120% for more neutral look */
 }
 
 .logo-tile-image-wrapper::after {
@@ -2178,6 +2181,16 @@ h1.name-corner {
     transform: scale(1) rotate(0deg);
     position: relative;
     z-index: 1;
+}
+
+/* Special styling for Hou Wei TCM logo - attempt to make white background transparent */
+/* NOTE: CSS cannot truly remove white backgrounds from images - the logo should be edited in image editing software to have a transparent background */
+.logo-hou-wei-tcm {
+    /* This is a workaround - may not work perfectly for all white backgrounds */
+    mix-blend-mode: multiply; /* On dark backgrounds, this can make white pixels transparent */
+    background: transparent;
+    /* Alternative approach - using filter (may affect logo colors) */
+    /* filter: brightness(1.1) contrast(1.2); */
 }
 
 .logo-tile-link:hover .logo-tile-image {
@@ -2230,7 +2243,7 @@ h1.name-corner {
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     }
     50% {
-        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        border-radius: 50% 55% 55% 50% / 55% 55% 50% 55%; /* Reduced movement - smaller differences (50-55% instead of 30-70%) */
     }
 }
 
