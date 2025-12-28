@@ -2021,6 +2021,22 @@ h1.name-corner {
     z-index: 1;
 }
 
+/* Light gray field in original state - smaller than tile, larger than logo, 50% transparent */
+.logo-tile-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%; /* Smaller than tile (100%) but larger than logo */
+    height: 70%;
+    background: rgba(200, 200, 200, 0.5); /* Light gray, 50% transparent */
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape */
+    z-index: 0; /* Behind logo */
+    pointer-events: none;
+    animation: liquid-blob 8s ease-in-out infinite; /* Apply liquid blob effect in original state */
+}
+
 .logo-tile-image-wrapper::after {
     content: '';
     position: absolute;
