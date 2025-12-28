@@ -1881,11 +1881,108 @@ h1.name-corner {
     box-shadow: 0 0 0 2px rgba(75, 58, 143, 0.2);
 }
 
-.links-sort-select option,
-.links-filter-select option {
+.links-sort-select option {
     background: var(--color-dark-primary);
     color: var(--color-text-on-dark);
     padding: 8px;
+}
+
+/* Links Filter Dropdown (Checkbox Multi-Select) */
+.links-filter-dropdown {
+    position: relative;
+    display: inline-block;
+    min-width: 150px;
+}
+
+.links-filter-toggle {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: clamp(6px, 0.8vw, 10px) clamp(12px, 1.5vw, 18px);
+    color: var(--color-text-on-dark);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+}
+
+.links-filter-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.links-filter-toggle[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-accent-primary);
+}
+
+.links-filter-toggle-icon {
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+.links-filter-toggle[aria-expanded="true"] .links-filter-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.links-filter-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: var(--color-dark-primary);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 8px 0;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.links-filter-dropdown.open .links-filter-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.links-filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.links-filter-checkbox:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.links-filter-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--color-accent-primary);
+    flex-shrink: 0;
+}
+
+.links-filter-checkbox label {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    color: var(--color-text-on-dark);
+    cursor: pointer;
+    flex: 1;
+    user-select: none;
 }
 
 .recommendations-grid {
@@ -2030,11 +2127,20 @@ h1.name-corner {
     transform: translate(-50%, -50%);
     width: 70%; /* Smaller than tile (100%) but larger than logo */
     height: 70%;
-    background: rgba(200, 200, 200, 0.5); /* Light gray, 50% transparent */
+    /* Own base color - using accent colors from color concept with 70% transparency */
+    background: linear-gradient(
+        135deg,
+        rgba(63, 75, 184, 0.7), /* var(--color-accent-primary) - 70% transparent */
+        rgba(90, 58, 138, 0.7), /* var(--color-accent-secondary) - 70% transparent */
+        rgba(63, 75, 184, 0.7)
+    );
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape */
     z-index: 0; /* Behind logo */
     pointer-events: none;
     animation: liquid-blob 8s ease-in-out infinite; /* Apply liquid blob effect in original state */
+    /* Color effects (shimmer and other parameters) directly from hover version */
+    backdrop-filter: blur(12px) saturate(180%); /* Same as hover overlay */
+    -webkit-backdrop-filter: blur(12px) saturate(180%); /* Same as hover overlay */
 }
 
 .logo-tile-image-wrapper::after {

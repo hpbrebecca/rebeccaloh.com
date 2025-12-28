@@ -300,18 +300,36 @@
                         </select>
                     </div>
                     <div class="links-filter">
-                        <label for="linksThemeFilterSelect" class="links-filter-label">Filter by category:</label>
-                        <select id="linksThemeFilterSelect" class="links-filter-select">
-                            <option value="all">All Categories</option>
-                            <!-- Category options will be populated dynamically -->
-                        </select>
+                        <label class="links-filter-label">Filter by category:</label>
+                        <div class="links-filter-dropdown">
+                            <button type="button" class="links-filter-toggle" id="linksThemeFilterToggle" aria-haspopup="true" aria-expanded="false">
+                                <span class="links-filter-toggle-text">All Categories</span>
+                                <span class="links-filter-toggle-icon">▼</span>
+                            </button>
+                            <div class="links-filter-menu" id="linksThemeFilterMenu" role="menu">
+                                <div class="links-filter-checkbox">
+                                    <input type="checkbox" id="linksThemeFilterAll" value="all" checked>
+                                    <label for="linksThemeFilterAll">All Categories</label>
+                                </div>
+                                <!-- Category options will be populated dynamically -->
+                            </div>
+                        </div>
                     </div>
                     <div class="links-filter">
-                        <label for="linksCityFilterSelect" class="links-filter-label">Filter by location:</label>
-                        <select id="linksCityFilterSelect" class="links-filter-select">
-                            <option value="all">All Locations</option>
-                            <!-- Location options will be populated dynamically -->
-                        </select>
+                        <label class="links-filter-label">Filter by location:</label>
+                        <div class="links-filter-dropdown">
+                            <button type="button" class="links-filter-toggle" id="linksCityFilterToggle" aria-haspopup="true" aria-expanded="false">
+                                <span class="links-filter-toggle-text">All Locations</span>
+                                <span class="links-filter-toggle-icon">▼</span>
+                            </button>
+                            <div class="links-filter-menu" id="linksCityFilterMenu" role="menu">
+                                <div class="links-filter-checkbox">
+                                    <input type="checkbox" id="linksCityFilterAll" value="all" checked>
+                                    <label for="linksCityFilterAll">All Locations</label>
+                                </div>
+                                <!-- Location options will be populated dynamically -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="recommendations-body">
@@ -1153,9 +1171,9 @@
                 }
             };
             
-            // Current filter and sort state
-            let currentLinksThemeFilter = 'all';
-            let currentLinksCityFilter = 'all';
+            // Current filter and sort state (arrays for multi-select)
+            let currentLinksThemeFilter = ['all']; // Array for multi-select
+            let currentLinksCityFilter = ['all']; // Array for multi-select
             let currentLinksSort = 'alphabetical';
             
             // Get all unique themes from logoTilesData, sorted by count (descending)
@@ -1240,87 +1258,143 @@
                     });
                 }
                 
-                // Update category filter label (more specific selector)
-                const categoryFilterLabels = document.querySelectorAll('.links-filter-label[for="linksThemeFilterSelect"]');
+                // Update category filter label
+                const categoryFilterLabels = document.querySelectorAll('.links-filter:first-of-type .links-filter-label');
                 categoryFilterLabels.forEach(label => {
                     label.textContent = translations.filterByCategory;
                 });
                 
-                // Update location filter label (more specific selector)
-                const locationFilterLabels = document.querySelectorAll('.links-filter-label[for="linksCityFilterSelect"]');
+                // Update location filter label
+                const locationFilterLabels = document.querySelectorAll('.links-filter:last-of-type .links-filter-label');
                 locationFilterLabels.forEach(label => {
                     label.textContent = translations.filterByLocation;
                 });
+                
+                // Update toggle texts
+                const themeToggle = document.getElementById('linksThemeFilterToggle');
+                const cityToggle = document.getElementById('linksCityFilterToggle');
+                if (themeToggle) {
+                    updateFilterToggleText('theme', themeToggle.querySelector('.links-filter-toggle-text'), translations);
+                }
+                if (cityToggle) {
+                    updateFilterToggleText('city', cityToggle.querySelector('.links-filter-toggle-text'), translations);
+                }
             }
             
-            // Populate theme filter dropdown
+            // Update filter toggle text based on selected items
+            function updateFilterToggleText(type, toggleTextElement, translations) {
+                if (!toggleTextElement) return;
+                
+                const selected = type === 'theme' ? currentLinksThemeFilter : currentLinksCityFilter;
+                const allText = type === 'theme' ? translations.allCategories : translations.allLocations;
+                
+                if (selected.length === 0 || (selected.length === 1 && selected[0] === 'all')) {
+                    toggleTextElement.textContent = allText;
+                } else if (selected.length === 1) {
+                    toggleTextElement.textContent = selected[0];
+                } else {
+                    const countText = type === 'theme' ? 'categories' : 'locations';
+                    toggleTextElement.textContent = `${selected.length} ${countText}`;
+                }
+            }
+            
+            // Populate theme filter dropdown with checkboxes
             function populateThemeFilter(lang) {
-                const filterSelect = document.getElementById('linksThemeFilterSelect');
-                if (!filterSelect) return;
+                const filterMenu = document.getElementById('linksThemeFilterMenu');
+                const filterToggle = document.getElementById('linksThemeFilterToggle');
+                const filterToggleText = filterToggle?.querySelector('.links-filter-toggle-text');
+                if (!filterMenu || !filterToggle) return;
                 
                 const translations = filterTranslations[lang || getCurrentLanguage()] || filterTranslations.en;
                 const themes = getAllThemes();
                 
-                // Store current selection
-                const currentValue = filterSelect.value;
-                
                 // Clear all options
-                filterSelect.innerHTML = '';
+                filterMenu.innerHTML = '';
                 
-                // Add "All Categories" option
-                const allOption = document.createElement('option');
-                allOption.value = 'all';
-                allOption.textContent = translations.allCategories;
-                filterSelect.appendChild(allOption);
+                // Create "All Categories" checkbox
+                const allDiv = document.createElement('div');
+                allDiv.className = 'links-filter-checkbox';
+                const allInput = document.createElement('input');
+                allInput.type = 'checkbox';
+                allInput.id = 'linksThemeFilterAll';
+                allInput.value = 'all';
+                allInput.checked = currentLinksThemeFilter.includes('all');
+                const allLabel = document.createElement('label');
+                allLabel.htmlFor = 'linksThemeFilterAll';
+                allLabel.textContent = translations.allCategories;
+                allDiv.appendChild(allInput);
+                allDiv.appendChild(allLabel);
+                filterMenu.appendChild(allDiv);
                 
-                // Add category options
+                // Add category options with checkboxes
                 themes.forEach(theme => {
-                    const option = document.createElement('option');
-                    option.value = theme;
-                    option.textContent = theme;
-                    filterSelect.appendChild(option);
+                    const div = document.createElement('div');
+                    div.className = 'links-filter-checkbox';
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.id = `linksThemeFilter_${theme}`;
+                    input.value = theme;
+                    input.checked = currentLinksThemeFilter.includes(theme);
+                    const label = document.createElement('label');
+                    label.htmlFor = `linksThemeFilter_${theme}`;
+                    label.textContent = theme;
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    filterMenu.appendChild(div);
                 });
                 
-                // Restore selection
-                if (currentValue) {
-                    filterSelect.value = currentValue;
-                }
+                // Update toggle text
+                updateFilterToggleText('theme', filterToggleText, translations);
             }
             
-            // Populate city filter dropdown
+            // Populate location filter dropdown with checkboxes
             function populateCityFilter(lang) {
-                const filterSelect = document.getElementById('linksCityFilterSelect');
-                if (!filterSelect) return;
+                const filterMenu = document.getElementById('linksCityFilterMenu');
+                const filterToggle = document.getElementById('linksCityFilterToggle');
+                const filterToggleText = filterToggle?.querySelector('.links-filter-toggle-text');
+                if (!filterMenu || !filterToggle) return;
                 
                 const translations = filterTranslations[lang || getCurrentLanguage()] || filterTranslations.en;
                 const cities = getAllCities();
                 
-                // Store current selection
-                const currentValue = filterSelect.value;
-                
                 // Clear all options
-                filterSelect.innerHTML = '';
+                filterMenu.innerHTML = '';
                 
-                // Add "All Locations" option
-                const allOption = document.createElement('option');
-                allOption.value = 'all';
-                allOption.textContent = translations.allLocations;
-                filterSelect.appendChild(allOption);
+                // Create "All Locations" checkbox
+                const allDiv = document.createElement('div');
+                allDiv.className = 'links-filter-checkbox';
+                const allInput = document.createElement('input');
+                allInput.type = 'checkbox';
+                allInput.id = 'linksCityFilterAll';
+                allInput.value = 'all';
+                allInput.checked = currentLinksCityFilter.includes('all');
+                const allLabel = document.createElement('label');
+                allLabel.htmlFor = 'linksCityFilterAll';
+                allLabel.textContent = translations.allLocations;
+                allDiv.appendChild(allInput);
+                allDiv.appendChild(allLabel);
+                filterMenu.appendChild(allDiv);
                 
-                // Add location options (with hierarchy for Switzerland)
+                // Add location options with checkboxes (with hierarchy for Switzerland)
                 cities.forEach(city => {
-                    const option = document.createElement('option');
-                    // Remove indentation for value, keep for display
+                    const div = document.createElement('div');
+                    div.className = 'links-filter-checkbox';
                     const cityValue = city.trim();
-                    option.value = cityValue;
-                    option.textContent = city; // Keep indentation in display for visual hierarchy
-                    filterSelect.appendChild(option);
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.id = `linksCityFilter_${cityValue.replace(/\s+/g, '_')}`;
+                    input.value = cityValue;
+                    input.checked = currentLinksCityFilter.includes(cityValue);
+                    const label = document.createElement('label');
+                    label.htmlFor = `linksCityFilter_${cityValue.replace(/\s+/g, '_')}`;
+                    label.textContent = city; // Keep indentation in display for visual hierarchy
+                    div.appendChild(input);
+                    div.appendChild(label);
+                    filterMenu.appendChild(div);
                 });
                 
-                // Restore selection
-                if (currentValue) {
-                    filterSelect.value = currentValue;
-                }
+                // Update toggle text
+                updateFilterToggleText('city', filterToggleText, translations);
             }
             
             // Cache for filtered and sorted tiles (optimization)
@@ -1329,7 +1403,9 @@
             
             // Generate cache key from current filter/sort state
             function getCacheKey() {
-                return `${currentLinksThemeFilter}-${currentLinksCityFilter}-${currentLinksSort}-${getCurrentLanguage()}`;
+                const themeKey = currentLinksThemeFilter.sort().join(',');
+                const cityKey = currentLinksCityFilter.sort().join(',');
+                return `${themeKey}-${cityKey}-${currentLinksSort}-${getCurrentLanguage()}`;
             }
             
             // Filter and sort logo tiles (optimized with caching)
@@ -1344,24 +1420,27 @@
                 
                 let tiles = Object.entries(logoTilesData);
                 
-                // Apply theme filter
-                if (currentLinksThemeFilter !== 'all') {
-                    tiles = tiles.filter(([key, tileData]) => tileData.theme === currentLinksThemeFilter);
+                // Apply theme filter (multi-select)
+                if (!currentLinksThemeFilter.includes('all') && currentLinksThemeFilter.length > 0) {
+                    tiles = tiles.filter(([key, tileData]) => {
+                        const tileTheme = tileData.theme || '';
+                        return currentLinksThemeFilter.includes(tileTheme);
+                    });
                 }
                 
-                // Apply location filter (with Switzerland hierarchy support)
-                if (currentLinksCityFilter !== 'all') {
-                    const filterValue = currentLinksCityFilter.trim();
+                // Apply location filter (multi-select with Switzerland hierarchy support)
+                if (!currentLinksCityFilter.includes('all') && currentLinksCityFilter.length > 0) {
+                    const swissCities = ['Basel', 'Zurich', 'Berne', 'Bern', 'Geneva', 'Lausanne', 'Luzern', 'St. Gallen', 'Winterthur', 'Biel', 'Thun', 'Köniz', 'La Chaux-de-Fonds', 'Schaffhausen', 'Fribourg', 'Chur', 'Neuchâtel', 'Vernier', 'Uster', 'Sion', 'Lancy', 'Emmen', 'Yverdon-les-Bains', 'Dübendorf', 'Kriens', 'Rapperswil-Jona', 'Montreux', 'Wil', 'Baden', 'Zug', 'Frauenfeld', 'Aarau', 'Herisau', 'Schwyz', 'Altdorf', 'Appenzell', 'Glarus', 'Liestal', 'Delémont', 'Sarnen', 'Stans', 'Bellinzona', 'Solothurn'];
+                    const hasSwitzerland = currentLinksCityFilter.includes('Switzerland');
+                    
                     tiles = tiles.filter(([key, tileData]) => {
                         const tileCity = tileData.city ? tileData.city.trim() : '';
                         // If filtering by Switzerland, include all Swiss cities
-                        if (filterValue === 'Switzerland') {
-                            // Swiss cities list (same as in getAllCities)
-                            const swissCities = ['Basel', 'Zurich', 'Berne', 'Bern', 'Geneva', 'Lausanne', 'Luzern', 'St. Gallen', 'Winterthur', 'Biel', 'Thun', 'Köniz', 'La Chaux-de-Fonds', 'Schaffhausen', 'Fribourg', 'Chur', 'Neuchâtel', 'Vernier', 'Uster', 'Sion', 'Lancy', 'Emmen', 'Yverdon-les-Bains', 'Dübendorf', 'Kriens', 'Rapperswil-Jona', 'Montreux', 'Wil', 'Baden', 'Zug', 'Frauenfeld', 'Aarau', 'Herisau', 'Schwyz', 'Altdorf', 'Appenzell', 'Glarus', 'Liestal', 'Delémont', 'Sarnen', 'Stans', 'Bellinzona', 'Solothurn'];
-                            return tileCity === 'Switzerland' || swissCities.includes(tileCity);
+                        if (hasSwitzerland && (tileCity === 'Switzerland' || swissCities.includes(tileCity))) {
+                            return true;
                         }
-                        // Otherwise, exact match
-                        return tileCity === filterValue;
+                        // Check if tile city is in selected cities
+                        return currentLinksCityFilter.includes(tileCity);
                     });
                 }
                 
@@ -1544,17 +1623,154 @@
                     if (linksControls && !linksControls.dataset.listenersAttached) {
                         linksControls.dataset.listenersAttached = 'true';
                         
-                        // Use event delegation on the controls container
-                        linksControls.addEventListener('change', (e) => {
-                            if (e.target.id === 'linksSortSelect') {
+                        // Sort select change
+                        const sortSelect = document.getElementById('linksSortSelect');
+                        if (sortSelect) {
+                            sortSelect.addEventListener('change', (e) => {
                                 currentLinksSort = e.target.value;
                                 buildRecommendations(recommendationsGrid, []);
-                            } else if (e.target.id === 'linksThemeFilterSelect') {
-                                currentLinksThemeFilter = e.target.value;
-                                buildRecommendations(recommendationsGrid, []);
-                            } else if (e.target.id === 'linksCityFilterSelect') {
-                                currentLinksCityFilter = e.target.value;
-                                buildRecommendations(recommendationsGrid, []);
+                            });
+                        }
+                        
+                        // Theme filter toggle and checkboxes
+                        const themeToggle = document.getElementById('linksThemeFilterToggle');
+                        const themeMenu = document.getElementById('linksThemeFilterMenu');
+                        const themeDropdown = themeToggle?.closest('.links-filter-dropdown');
+                        
+                        if (themeToggle && themeMenu) {
+                            // Toggle dropdown
+                            themeToggle.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                const isOpen = themeDropdown?.classList.contains('open');
+                                // Close all other dropdowns
+                                document.querySelectorAll('.links-filter-dropdown.open').forEach(dd => {
+                                    if (dd !== themeDropdown) {
+                                        dd.classList.remove('open');
+                                        dd.querySelector('.links-filter-toggle')?.setAttribute('aria-expanded', 'false');
+                                    }
+                                });
+                                // Toggle this dropdown
+                                if (isOpen) {
+                                    themeDropdown?.classList.remove('open');
+                                    themeToggle.setAttribute('aria-expanded', 'false');
+                                } else {
+                                    themeDropdown?.classList.add('open');
+                                    themeToggle.setAttribute('aria-expanded', 'true');
+                                }
+                            });
+                            
+                            // Checkbox change
+                            themeMenu.addEventListener('change', (e) => {
+                                if (e.target.type === 'checkbox') {
+                                    const value = e.target.value;
+                                    if (value === 'all') {
+                                        // If "All" is checked, uncheck all others and set to ['all']
+                                        if (e.target.checked) {
+                                            themeMenu.querySelectorAll('input[type="checkbox"]:not(#linksThemeFilterAll)').forEach(cb => cb.checked = false);
+                                            currentLinksThemeFilter = ['all'];
+                                        }
+                                    } else {
+                                        // If specific category is checked, uncheck "All"
+                                        if (e.target.checked) {
+                                            const allCheckbox = document.getElementById('linksThemeFilterAll');
+                                            if (allCheckbox) allCheckbox.checked = false;
+                                            if (!currentLinksThemeFilter.includes(value)) {
+                                                currentLinksThemeFilter.push(value);
+                                            }
+                                            // Remove 'all' if present
+                                            currentLinksThemeFilter = currentLinksThemeFilter.filter(v => v !== 'all');
+                                        } else {
+                                            currentLinksThemeFilter = currentLinksThemeFilter.filter(v => v !== value);
+                                            // If no items selected, select 'all'
+                                            if (currentLinksThemeFilter.length === 0) {
+                                                const allCheckbox = document.getElementById('linksThemeFilterAll');
+                                                if (allCheckbox) {
+                                                    allCheckbox.checked = true;
+                                                    currentLinksThemeFilter = ['all'];
+                                                }
+                                            }
+                                        }
+                                    }
+                                    const translations = filterTranslations[getCurrentLanguage()] || filterTranslations.en;
+                                    updateFilterToggleText('theme', themeToggle.querySelector('.links-filter-toggle-text'), translations);
+                                    buildRecommendations(recommendationsGrid, []);
+                                }
+                            });
+                        }
+                        
+                        // City filter toggle and checkboxes
+                        const cityToggle = document.getElementById('linksCityFilterToggle');
+                        const cityMenu = document.getElementById('linksCityFilterMenu');
+                        const cityDropdown = cityToggle?.closest('.links-filter-dropdown');
+                        
+                        if (cityToggle && cityMenu) {
+                            // Toggle dropdown
+                            cityToggle.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                const isOpen = cityDropdown?.classList.contains('open');
+                                // Close all other dropdowns
+                                document.querySelectorAll('.links-filter-dropdown.open').forEach(dd => {
+                                    if (dd !== cityDropdown) {
+                                        dd.classList.remove('open');
+                                        dd.querySelector('.links-filter-toggle')?.setAttribute('aria-expanded', 'false');
+                                    }
+                                });
+                                // Toggle this dropdown
+                                if (isOpen) {
+                                    cityDropdown?.classList.remove('open');
+                                    cityToggle.setAttribute('aria-expanded', 'false');
+                                } else {
+                                    cityDropdown?.classList.add('open');
+                                    cityToggle.setAttribute('aria-expanded', 'true');
+                                }
+                            });
+                            
+                            // Checkbox change
+                            cityMenu.addEventListener('change', (e) => {
+                                if (e.target.type === 'checkbox') {
+                                    const value = e.target.value;
+                                    if (value === 'all') {
+                                        // If "All" is checked, uncheck all others and set to ['all']
+                                        if (e.target.checked) {
+                                            cityMenu.querySelectorAll('input[type="checkbox"]:not(#linksCityFilterAll)').forEach(cb => cb.checked = false);
+                                            currentLinksCityFilter = ['all'];
+                                        }
+                                    } else {
+                                        // If specific location is checked, uncheck "All"
+                                        if (e.target.checked) {
+                                            const allCheckbox = document.getElementById('linksCityFilterAll');
+                                            if (allCheckbox) allCheckbox.checked = false;
+                                            if (!currentLinksCityFilter.includes(value)) {
+                                                currentLinksCityFilter.push(value);
+                                            }
+                                            // Remove 'all' if present
+                                            currentLinksCityFilter = currentLinksCityFilter.filter(v => v !== 'all');
+                                        } else {
+                                            currentLinksCityFilter = currentLinksCityFilter.filter(v => v !== value);
+                                            // If no items selected, select 'all'
+                                            if (currentLinksCityFilter.length === 0) {
+                                                const allCheckbox = document.getElementById('linksCityFilterAll');
+                                                if (allCheckbox) {
+                                                    allCheckbox.checked = true;
+                                                    currentLinksCityFilter = ['all'];
+                                                }
+                                            }
+                                        }
+                                    }
+                                    const translations = filterTranslations[getCurrentLanguage()] || filterTranslations.en;
+                                    updateFilterToggleText('city', cityToggle.querySelector('.links-filter-toggle-text'), translations);
+                                    buildRecommendations(recommendationsGrid, []);
+                                }
+                            });
+                        }
+                        
+                        // Close dropdowns when clicking outside
+                        document.addEventListener('click', (e) => {
+                            if (!e.target.closest('.links-filter-dropdown')) {
+                                document.querySelectorAll('.links-filter-dropdown.open').forEach(dd => {
+                                    dd.classList.remove('open');
+                                    dd.querySelector('.links-filter-toggle')?.setAttribute('aria-expanded', 'false');
+                                });
                             }
                         });
                     }
