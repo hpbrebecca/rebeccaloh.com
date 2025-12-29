@@ -10,13 +10,42 @@
     <meta property="og:title" content="Pilates · Gesundheit & Bewegung in Bern · Rebecca Loh">
     <meta property="og:description" content="Gesundheit und Bewegung für einen erschwinglichen Preis in Bern. Pilates-Kurse für alle.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rebeccaloh.com/0/pilates">
+    <meta property="og:url" content="https://rebeccaloh.com/0/pilates/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Pilates · Gesundheit & Bewegung in Bern · Rebecca Loh">
     <meta name="twitter:description" content="Gesundheit und Bewegung für einen erschwinglichen Preis in Bern. Pilates-Kurse für alle.">
     
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css?v=1.0">
+    <!-- Styles - Must load first to override any main site styles -->
+    <link rel="stylesheet" href="styles.css?v=2.0" type="text/css">
+    <style>
+        /* Inline critical CSS to ensure it loads even if external CSS fails */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+            background: #FFFFFF !important;
+            color: #1A1A1A !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .pilates-navigation {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: #FFFFFF !important;
+            border-bottom: 1px solid #E5E5E5 !important;
+            padding: 16px 24px !important;
+            z-index: 1000 !important;
+            display: flex !important;
+            justify-content: center !important;
+            gap: 32px !important;
+        }
+        .pilates-nav-link {
+            text-decoration: none !important;
+            color: #1A1A1A !important;
+            font-size: 14px !important;
+            text-transform: uppercase !important;
+        }
+    </style>
     
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -42,12 +71,12 @@
 </head>
 <body>
     <!-- Navigation - Internal to Pilates project only -->
-    <nav class="main-navigation" id="mainNavigation" role="navigation" aria-label="Pilates Navigation">
-        <a href="#hero" class="nav-link">Home</a>
-        <a href="#about" class="nav-link">Über uns</a>
-        <a href="#benefits" class="nav-link">Vorteile</a>
-        <a href="#pricing" class="nav-link">Preise</a>
-        <a href="#contact" class="nav-link">Kontakt</a>
+    <nav class="pilates-navigation" id="pilatesNavigation" role="navigation" aria-label="Pilates Navigation">
+        <a href="#hero" class="pilates-nav-link">Home</a>
+        <a href="#about" class="pilates-nav-link">Über uns</a>
+        <a href="#benefits" class="pilates-nav-link">Vorteile</a>
+        <a href="#pricing" class="pilates-nav-link">Preise</a>
+        <a href="#contact" class="pilates-nav-link">Kontakt</a>
     </nav>
 
     <!-- Main Content -->
@@ -244,15 +273,53 @@
                     }
                 });
                 
-                // Update navigation labels if quotes.js is loaded
-                if (typeof navigationLabels !== 'undefined') {
-                    document.querySelectorAll('.nav-text[data-lang-key]').forEach(nav => {
-                        const langKey = nav.getAttribute('data-lang-key');
-                        if (langKey && navigationLabels[langKey]) {
-                            nav.textContent = navigationLabels[langKey][lang] || navigationLabels[langKey]['en'];
-                        }
-                    });
-                }
+                // Update navigation labels for multilingual support
+                const navTranslations = {
+                    'de': {
+                        'home': 'Home',
+                        'about': 'Über uns',
+                        'benefits': 'Vorteile',
+                        'pricing': 'Preise',
+                        'contact': 'Kontakt'
+                    },
+                    'en': {
+                        'home': 'Home',
+                        'about': 'About',
+                        'benefits': 'Benefits',
+                        'pricing': 'Pricing',
+                        'contact': 'Contact'
+                    },
+                    'fr': {
+                        'home': 'Accueil',
+                        'about': 'À propos',
+                        'benefits': 'Avantages',
+                        'pricing': 'Tarifs',
+                        'contact': 'Contact'
+                    },
+                    'zh-tw': {
+                        'home': '首頁',
+                        'about': '關於',
+                        'benefits': '好處',
+                        'pricing': '價格',
+                        'contact': '聯絡'
+                    }
+                };
+                
+                // Update navigation text based on language
+                document.querySelectorAll('.pilates-nav-link').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === '#hero' && navTranslations[lang]) {
+                        link.textContent = navTranslations[lang].home;
+                    } else if (href === '#about' && navTranslations[lang]) {
+                        link.textContent = navTranslations[lang].about;
+                    } else if (href === '#benefits' && navTranslations[lang]) {
+                        link.textContent = navTranslations[lang].benefits;
+                    } else if (href === '#pricing' && navTranslations[lang]) {
+                        link.textContent = navTranslations[lang].pricing;
+                    } else if (href === '#contact' && navTranslations[lang]) {
+                        link.textContent = navTranslations[lang].contact;
+                    }
+                });
             }
             
             // Initialize content
@@ -261,4 +328,3 @@
     </script>
 </body>
 </html>
-
