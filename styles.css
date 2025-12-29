@@ -1988,14 +1988,14 @@ h1.name-corner {
 .recommendations-grid {
     width: 100%;
     max-width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: clamp(24px, 3.5vw, 40px);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap between tiles */
+    row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap between tile rows */
     margin: 0 auto;
-    justify-content: center;
-    align-items: flex-start;
-    /* Professional spacing - tiles side by side */
+    justify-items: start; /* Left-align tiles in their grid cells */
+    align-items: start;
+    /* Professional spacing - tiles in 4-column grid */
     /* Mobile performance */
     contain: layout style;
     transform: translateZ(0);
@@ -2004,11 +2004,12 @@ h1.name-corner {
 
 /* Logo Tile - Gen Z Premium Design */
 .logo-tile {
-    width: 240px; /* Smaller - Gen Z flat design */
-    height: 240px; /* Smaller - Gen Z flat design */
+    width: 100%; /* Full width of grid cell - will be constrained by grid */
+    max-width: 300px; /* Increased size - larger tiles with minimal gap */
+    height: 300px; /* Increased height - larger tiles with minimal gap */
     position: relative;
-    flex-shrink: 0;
     perspective: 1000px;
+    justify-self: start; /* Left-align within grid cell */
 }
 
 .logo-tile-link {
@@ -2020,7 +2021,7 @@ h1.name-corner {
     overflow: hidden;
     background: transparent; /* Transparent - shows mainframe background */
     border-radius: 4px; /* Minimal abgerundet - eckiger */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: none !important; /* No visible border - invisible outline */
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     transform-style: preserve-3d;
     cursor: pointer;
@@ -2031,39 +2032,13 @@ h1.name-corner {
         inset 0 0 0 rgba(255, 255, 255, 0.02); /* Reduced glow */
 }
 
-.logo-tile-link::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, 
-        rgba(63, 75, 184, 0.5),
-        rgba(90, 58, 138, 0.5),
-        rgba(63, 75, 184, 0.5)
-    );
-    background-size: 200% 200%;
-    border-radius: 4px; /* Minimal abgerundet - eckiger */
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.5s ease, background-position 3s ease;
-    background-position: 0% 50%;
-    animation: gradient-shift 3s ease infinite;
-}
-
-.logo-tile-link:hover::before {
-    opacity: 0; /* Deactivated - no violet background on hover */
-    background-position: 100% 50%;
-}
+/* .logo-tile-link::before and :hover::before removed - not used */
 
 .logo-tile-link:hover {
-    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg) scale(1.02);
-    box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.25), /* Reduced shadow */
-        0 0 8px rgba(63, 75, 184, 0.08), /* Reduced glow */
-        0 0 15px rgba(90, 58, 138, 0.05); /* Reduced glow */
-    border-color: rgba(255, 255, 255, 0.1); /* Keep original border color, no violet */
+    /* No 3D animation - tile stays invisible/unchanged */
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
 }
 
 /* Animated gradient border */
@@ -2107,152 +2082,205 @@ h1.name-corner {
 .logo-tile-image-wrapper {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block; /* Changed from flex to block for absolute positioning */
     position: relative;
     background: transparent; /* Transparent - shows mainframe background */
-    padding: clamp(24px, 3vw, 32px);
+    padding: 0; /* Remove padding since logo is absolutely positioned */
     box-sizing: border-box;
-    overflow: visible; /* Changed from hidden to visible to ensure logo is not clipped */
+    overflow: visible; /* Changed to visible to ensure background images are visible */
     z-index: 1;
-    isolation: isolate; /* Create new stacking context */
+    /* isolation: isolate removed - was preventing background image visibility */
 }
 
-/* Light gray field in original state - smaller than tile, larger than logo, 50% transparent */
-.logo-tile-image-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%; /* Increased to 90% - larger than logo but smaller than tile */
-    height: 90%; /* Increased to 90% - larger than logo but smaller than tile */
-    /* Color from color concept - using dark backgrounds with 85% transparency */
-    background: linear-gradient(
-        135deg,
-        rgba(14, 26, 47, 0.85), /* var(--color-dark-primary) #0E1A2F - 85% transparent - clearer dark blue */
-        rgba(30, 46, 102, 0.85), /* var(--color-dark-secondary) #1E2E66 - 85% transparent - clearer dark blue */
-        rgba(14, 26, 47, 0.85)
-    );
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape */
-    z-index: 0; /* Behind logo - must stay behind */
-    pointer-events: none;
-    animation: liquid-blob 8s ease-in-out infinite; /* Apply liquid blob effect in original state */
-    /* Light blur for smooth edge - softens the boundary */
-    filter: blur(2px); /* Light blur for smooth edge of the moving area */
-    -webkit-filter: blur(2px);
-    /* Color effects (shimmer and other parameters) directly from hover version */
-    backdrop-filter: blur(12px) saturate(120%); /* Reduced saturation from 180% to 120% for more neutral look */
-    -webkit-backdrop-filter: blur(12px) saturate(120%); /* Reduced saturation from 180% to 120% for more neutral look */
-}
-
-.logo-tile-image-wrapper::after {
-    content: '';
+/* Background image div - created dynamically in JavaScript (replaces ::before pseudo-element) */
+.logo-tile-bg-image {
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
-    );
-    transition: left 0.6s ease;
-    z-index: 2;
+    left: 0;
+    width: 100%; /* Full tile size - 100% */
+    height: 100%; /* Full tile size - 100% */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape - initial */
+    z-index: 0; /* Behind logo - must stay behind */
+    pointer-events: none;
+    animation: liquid-blob-bg 8s ease-in-out infinite; /* Liquid blob animation with background image */
+    opacity: 1.0; /* Fully opaque background image */
 }
 
-.logo-tile-link:hover .logo-tile-image-wrapper::after {
-    left: 100%;
+@keyframes liquid-blob-bg {
+    0%, 100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Synchronized border-radius shape with hover overlay */
+    }
+    50% {
+        border-radius: 50% 55% 55% 50% / 55% 55% 50% 55%; /* Synchronized border-radius shape with hover overlay */
+    }
 }
+
+/* ::after removed - was creating square mirror effect */
 
 .logo-tile-image {
-    max-width: 80%;
-    max-height: 80%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
+    height: 35px; /* Fixed height - increased by 5px (was 30px) */
+    max-height: 35px; /* Maximum height - increased by 5px */
+    width: auto; /* Proportional width based on aspect ratio */
+    max-width: 200px; /* Maximum width to prevent logos from being too wide */
+    object-fit: contain; /* Maintain aspect ratio, never distort */
+    object-position: center bottom; /* Centered horizontally, bottom aligned */
     display: block !important; /* Ensure logos are always visible */
-    opacity: 1 !important; /* Ensure logos are fully visible by default */
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
-    transform: scale(1) rotate(0deg);
-    position: relative;
-    z-index: 100 !important; /* Very high z-index - ensure logo is always in front of ::before (z-index: 0) */
+    opacity: 1 !important; /* Fully opaque - no transparency at all */
+    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Slower, visible movement - 1.5s duration */
+    filter: none !important; /* No filters that could affect opacity */
+    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg); /* Only translate horizontally for centering */
+    position: absolute; /* Absolute positioning */
+    bottom: 25px; /* 25px from bottom edge - reduced by 5px (was 30px) */
+    left: 50%; /* Center horizontally */
+    z-index: 300 !important; /* Very high z-index - logo must be in front of everything including overlay (50) */
+    background: none !important; /* No background that could affect visibility */
 }
 
-/* Special styling for Hou Wei TCM logo - smaller size, ensure it's in front */
+/* Special styling for Hou Wei TCM logo - same size as other logos, bottom-aligned */
 .logo-hou-wei-tcm {
-    max-width: 65% !important; /* Smaller size for Hou Wei TCM logo (reduced from 80%) */
-    max-height: 65% !important; /* Smaller size for Hou Wei TCM logo (reduced from 80%) */
-    z-index: 100 !important; /* Very high z-index - ensure logo is always in front of ::before */
-    position: relative !important;
+    height: 35px !important; /* Fixed height - increased by 5px (was 30px) */
+    max-height: 35px !important; /* Maximum height - increased by 5px */
+    width: auto !important; /* Proportional width based on aspect ratio */
+    max-width: 200px !important; /* Maximum width */
+    object-fit: contain !important; /* Maintain aspect ratio, never distort */
+    object-position: center bottom !important; /* Centered horizontally, bottom aligned */
+    transform: translateX(-50%) scale(1) rotate(0deg) !important; /* Only translate horizontally for centering */
+    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* Slower, visible movement - 1.5s duration */
+    z-index: 300 !important; /* Very high z-index - logo must be in front of everything including overlay (50) */
+    position: absolute !important;
+    bottom: 25px !important; /* 25px from bottom edge - reduced by 5px (was 30px) */
+    left: 50% !important; /* Center horizontally */
     /* Original logo without filters - ensure it's visible in front */
     mix-blend-mode: normal !important;
-    filter: none !important;
-    opacity: 1 !important;
+    filter: none !important; /* No filters that could affect opacity */
+    opacity: 1 !important; /* Fully opaque - no transparency at all */
+    background: none !important; /* No background that could affect visibility */
     display: block !important;
+    pointer-events: auto !important; /* Ensure logo is clickable */
 }
 
-.logo-tile-link:hover .logo-tile-image {
-    transform: scale(0.7) rotate(-2deg);
-    opacity: 0.2;
-    filter: drop-shadow(0 0 20px rgba(63, 75, 184, 0.4)) 
-            drop-shadow(0 0 40px rgba(90, 58, 138, 0.2))
-            blur(2px);
+.logo-tile-link:hover .logo-tile-image:not(.logo-tile-image-clone) {
+    /* First logo moves 100px up and fades out completely */
+    bottom: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) translateY(-100px) scale(1) rotate(0deg) !important; /* Move exactly 100px up */
+    opacity: 0 !important; /* Fade out completely */
+    filter: none !important; /* No filters that could affect opacity */
+}
+
+.logo-tile-link:hover .logo-hou-wei-tcm:not(.logo-tile-image-clone) {
+    /* First logo moves 100px up and fades out completely */
+    bottom: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) translateY(-100px) scale(1) rotate(0deg) !important; /* Move exactly 100px up */
+    opacity: 0 !important; /* Fade out completely */
+    filter: none !important;
+    z-index: 300 !important; /* Ensure logo stays above overlay when hovered */
+}
+
+/* Clone logo for fade-in effect from bottom - initially hidden, appears on hover */
+.logo-tile-image-clone {
+    position: absolute !important;
+    bottom: auto !important;
+    top: calc(100% + 100px) !important; /* Start 100px below the tile (100px Anlauf) */
+    left: 50% !important;
+    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg) !important;
+    opacity: 0 !important; /* Initially invisible */
+    z-index: 301 !important; /* Above original logo (300) and overlay (50) - in front of blue moving area */
+    pointer-events: none !important; /* Not clickable */
+    transition: top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    height: 35px !important;
+    max-height: 35px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    object-fit: contain !important;
+    display: none !important; /* Initially hidden - will be shown via JS on hover */
+}
+
+.logo-tile-link:hover .logo-tile-image-clone {
+    display: block !important; /* Show on hover */
+    top: 25px !important; /* Final position: 25px from top edge of tile */
+    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg) !important;
+    opacity: 1 !important; /* Fade in - fully visible */
 }
 
 /* Hover Overlay - Gen Z Style with Liquid Morph */
 .logo-tile-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
+    left: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
+    right: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
+    bottom: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
+    width: calc(100% - 40px); /* Subtract margins (20px * 2) - smaller blue hover area */
+    height: calc(100% - 40px); /* Subtract margins (20px * 2) - smaller blue hover area */
     background: linear-gradient(
         135deg,
-        rgba(14, 26, 47, 0.99),
-        rgba(30, 46, 102, 0.98),
-        rgba(14, 26, 47, 0.99)
-    ); /* Blue gradient background - 99%, 98%, 99% opacity - clearer dark blues */
+        rgba(14, 26, 47, 0.85), /* More transparent to allow background image to show through */
+        rgba(30, 46, 102, 0.80),
+        rgba(14, 26, 47, 0.85)
+    ); /* Blue gradient background - reduced opacity to show background image */
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                visibility 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                clip-path 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Elastic bounce effect */
+    transform: scale(0.8); /* Start smaller - will scale up with bounce */
     padding: clamp(20px, 2.5vw, 28px);
     box-sizing: border-box;
-    backdrop-filter: blur(12px) saturate(180%); /* Restored original blur */
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    clip-path: circle(0% at 50% 50%);
-    border-radius: 12px;
-    z-index: 10; /* Über dem Logo-Image */
+    border-radius: 50%; /* Circular shape instead of square/rounded rectangle */
+    backdrop-filter: blur(8px) saturate(120%); /* Reduced blur to show background image */
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    z-index: 50; /* Above background (0) but below logo (300) and text (110) */
+    box-shadow: none !important; /* No shadow on blue moving area */
+    filter: none !important; /* No filter shadows */
+    -webkit-filter: none !important; /* No filter shadows */
 }
 
 .logo-tile-link:hover .logo-tile-overlay {
     opacity: 1;
     visibility: visible;
-    clip-path: circle(100% at 50% 50%);
+    transform: scale(1) translateZ(0); /* Final size */
+    animation: elasticBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; /* Dynamic elastic bounce animation */
 }
 
-/* Liquid blob animation */
+/* Elastic bounce animation - comes from behind (smaller) with momentum, overshoots, goes back, then settles */
+@keyframes elasticBounce {
+    0% {
+        transform: scale(0.8) translateZ(0); /* Start smaller (behind) */
+        opacity: 0;
+    }
+    40% {
+        transform: scale(1.15) translateZ(0); /* Overshoot (momentum) - increased */
+        opacity: 1;
+    }
+    70% {
+        transform: scale(0.80) translateZ(0); /* Go back smaller (nach hinten) - further back */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) translateZ(0); /* Settle to final size */
+        opacity: 1;
+    }
+}
+
+/* Liquid blob animation - synchronized border-radius shape with background image */
 @keyframes liquid-blob {
     0%, 100% {
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Synchronized border-radius shape with background image */
     }
     50% {
-        border-radius: 50% 55% 55% 50% / 55% 55% 50% 55%; /* Reduced movement - smaller differences (50-55% instead of 30-70%) */
+        border-radius: 50% 55% 55% 50% / 55% 55% 50% 55%; /* Synchronized border-radius shape with background image */
     }
 }
 
 .logo-tile-link:hover .logo-tile-overlay {
-    animation: liquid-blob 8s ease-in-out infinite;
+    animation: liquid-blob 8s ease-in-out infinite; /* Same duration and timing as liquid-blob-bg */
 }
 
 .logo-tile-overlay-content {
@@ -2264,7 +2292,7 @@ h1.name-corner {
     transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
                 transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
     position: relative;
-    z-index: 2;
+    z-index: 110; /* Above logo (100) - text must be on top */
 }
 
 .logo-tile-link:hover .logo-tile-overlay-content {
@@ -3660,27 +3688,31 @@ h1.name-corner {
 /* Responsive: Logo tiles on tablet and mobile */
 @media (max-width: 1024px) {
     .recommendations-grid {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: clamp(20px, 2.5vw, 32px);
+        grid-template-columns: repeat(4, 1fr); /* Keep 4 columns on tablet */
+        column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for tablet */
+        row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for tablet */
+        justify-items: start; /* Left-align tiles */
     }
     
     .logo-tile {
-        width: min(280px, 40vw);
-        height: min(280px, 40vw);
+        width: 100%;
+        max-width: min(300px, 40vw);
+        height: min(300px, 40vw);
     }
 }
 
 @media (max-width: 768px) {
     .recommendations-grid {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+        justify-items: start; /* Left-align tiles */
+                column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for mobile */
+        row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for mobile */
     }
     
     .logo-tile {
-        width: min(260px, 85vw);
-        height: min(260px, 85vw);
+        width: 100%; /* Full width of grid cell */
+        max-width: min(300px, 85vw); /* Larger on mobile */
+        height: min(300px, 85vw);
     }
     
     .logo-tile-image-wrapper {
@@ -3689,6 +3721,165 @@ h1.name-corner {
     
     .logo-tile-overlay {
         padding: clamp(16px, 2vw, 24px);
+    }
+}
+
+/* ============================================
+   PILATES PAGE STYLES
+   ============================================ */
+
+.pilates-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(60px, 8vw, 120px) var(--space-xl);
+    background: var(--color-dark-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.pilates-hero-content {
+    text-align: center;
+    max-width: 800px;
+    z-index: 2;
+    position: relative;
+}
+
+.pilates-title {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    color: var(--color-text-on-dark);
+    margin: 0 0 clamp(20px, 3vw, 32px) 0;
+    letter-spacing: var(--letter-spacing-normal);
+    line-height: var(--line-height-tight);
+}
+
+.pilates-subtitle {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    letter-spacing: var(--letter-spacing-normal);
+    line-height: var(--line-height-relaxed);
+}
+
+.pilates-about,
+.pilates-benefits,
+.pilates-pricing,
+.pilates-contact {
+    padding: clamp(60px, 8vw, 100px) var(--space-xl);
+    background: var(--color-dark-primary);
+}
+
+.pilates-about-content,
+.pilates-benefits-content,
+.pilates-pricing-content,
+.pilates-contact-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pilates-text-content {
+    margin-top: clamp(24px, 4vw, 40px);
+}
+
+.pilates-text-content p {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+    margin: 0 0 clamp(20px, 3vw, 28px) 0;
+}
+
+.pilates-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: clamp(24px, 4vw, 40px);
+    margin-top: clamp(32px, 5vw, 48px);
+}
+
+.benefit-card {
+    background: rgba(14, 26, 47, 0.9);
+    padding: clamp(24px, 3vw, 32px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(63, 75, 184, 0.5);
+}
+
+.benefit-card h3 {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+    font-weight: 400;
+    color: var(--color-text-on-dark);
+    margin: 0 0 clamp(12px, 2vw, 16px) 0;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.benefit-card p {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1rem, 1.8vw, 1.125rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.pilates-contact-text {
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    margin: clamp(24px, 4vw, 40px) 0;
+    line-height: var(--line-height-relaxed);
+    letter-spacing: var(--letter-spacing-normal);
+}
+
+.pilates-cta-button {
+    display: inline-block;
+    padding: clamp(14px, 2vw, 18px) clamp(32px, 4vw, 48px);
+    background: var(--color-accent-primary);
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing-normal);
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    margin-top: clamp(20px, 3vw, 32px);
+}
+
+.pilates-cta-button:hover {
+    background: var(--color-accent-secondary);
+    transform: translateY(-2px);
+}
+
+.pilates-contact-content {
+    text-align: center;
+}
+
+/* Responsive adjustments for Pilates page */
+@media (max-width: 768px) {
+    .pilates-benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pilates-hero {
+        min-height: 50vh;
+        padding: clamp(40px, 6vw, 80px) var(--space-lg);
     }
 }
 

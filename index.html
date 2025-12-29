@@ -980,7 +980,8 @@
             // Logo tile data structure with multilingual descriptions and properties
             const logoTilesData = {
                 tcm: {
-                    logoPath: '/logos/tcm-sinocare.png',  // Absolute path for production
+                    backgroundImagePath: 'logos/tcm-sinocare-background.jpg',  // Background image for liquid blob effect
+                    logoImagePath: 'logos/tcm-sinocare-logo.png',  // Logo image - bottom right corner
                     href: 'https://www.tcmsino.care',
                     name: 'TCM SinoCare',  // For alphabetical sorting
                     theme: 'Doctor',  // Category: Doctor
@@ -1005,7 +1006,8 @@
                     }
                 },
                 softline: {
-                    logoPath: '/logos/softline-cosmetics.png',  // Absolute path for production
+                    backgroundImagePath: 'logos/softline-cosmetics-background.jpg',  // Background image for liquid blob effect
+                    logoImagePath: 'logos/softline-cosmetics-logo.png',  // Logo image - bottom right corner
                     href: 'https://softlinecosmetics.ch/',
                     name: 'Softline Cosmetics',  // For alphabetical sorting
                     theme: 'Beauty',  // Category: Beauty
@@ -1030,7 +1032,8 @@
                     }
                 },
                 marvelous: {
-                    logoPath: '/logos/MarVELOus.webp',  // Absolute path for production
+                    backgroundImagePath: 'logos/MarVELOus hintergrund.webp',  // Background image for liquid blob effect
+                    logoImagePath: 'logos/MarVELOus logo.webp',  // Logo image - bottom right corner
                     href: 'https://www.mar-velo-us.com/',
                     name: 'MarVELOus',  // For alphabetical sorting
                     theme: 'Others',  // Category: Others
@@ -1055,7 +1058,8 @@
                     }
                 },
                 akaraka: {
-                    logoPath: '/logos/Korean Restaurant AKARAKA.gif',  // Absolute path for production
+                    backgroundImagePath: 'logos/Akaraka-Background.avif',  // Background image for liquid blob effect
+                    logoImagePath: 'logos/Korean Restaurant AKARAKA logo.gif',  // Logo image - bottom right corner
                     href: 'https://www.akaraka.ch/',
                     name: 'Akaraka',  // For alphabetical sorting
                     theme: 'Restaurant',  // Category: Restaurant
@@ -1080,7 +1084,8 @@
                     }
                 },
                 houWeiTCM: {
-                    logoPath: '/logos/Hou Wei TCM Breitenbach.png',  // Absolute path for production
+                    backgroundImagePath: 'logos/Hou Wei TCM Breitenbach-Background.jpg',  // Background image for liquid blob effect (note: filename uses hyphen, not space)
+                    logoImagePath: 'logos/Hou Wei TCM Breitenbach.png',  // Logo image - bottom right corner
                     href: 'https://tcmbreitenbach.ch/',
                     name: 'Hou Wei TCM Praxis',  // For alphabetical sorting
                     theme: 'Doctor',  // Category: Doctor (DE: Ärztinnen und Ärzte)
@@ -1105,7 +1110,8 @@
                     }
                 },
                 onlineApotheke: {
-                    logoPath: '/logos/online-apotheke.svg',  // Absolute path for production
+                    backgroundImagePath: 'logos/online-apotheke-background.png',  // Background image for liquid blob effect
+                    logoImagePath: 'logos/online-apotheke-logo.svg',  // Logo image - bottom right corner
                     href: 'https://www.online-apotheke.ch/',
                     name: 'Online-Apotheke.ch',  // For alphabetical sorting
                     theme: 'Others',  // Category: Others
@@ -1471,7 +1477,7 @@
                 
                 return tiles;
             }
-            
+
             function buildRecommendations(list, services) {
                 // Clear cache when rebuilding to ensure fresh data
                 cachedFilteredTiles = null;
@@ -1486,7 +1492,7 @@
                 filteredAndSortedTiles.forEach(([key, tileData]) => {
                     const tile = document.createElement('div');
                     tile.className = 'logo-tile';
-                    
+
                     const link = document.createElement('a');
                     link.href = tileData.href;
                     link.target = '_blank';
@@ -1495,12 +1501,39 @@
                     
                     const imageWrapper = document.createElement('div');
                     imageWrapper.className = 'logo-tile-image-wrapper';
+                    // Set background image for liquid blob effect - CREATE DIV FIRST
+                    // Create a div element for the background image BEFORE logo image
+                    if (tileData.backgroundImagePath) {
+                        const bgDiv = document.createElement('div');
+                        bgDiv.className = 'logo-tile-bg-image';
+                        // Set styles directly (cssText with !important doesn't work, so set individually)
+                        bgDiv.style.position = 'absolute';
+                        bgDiv.style.top = '0';
+                        bgDiv.style.left = '0';
+                        bgDiv.style.width = '100%';
+                        bgDiv.style.height = '100%';
+                        bgDiv.style.backgroundImage = `url('${tileData.backgroundImagePath}')`; // Quotes around path for spaces
+                        bgDiv.style.backgroundSize = 'cover';
+                        bgDiv.style.backgroundPosition = 'center';
+                        bgDiv.style.backgroundRepeat = 'no-repeat';
+                        bgDiv.style.borderRadius = '60% 40% 30% 70% / 60% 30% 70% 40%';
+                        bgDiv.style.zIndex = '0';
+                        bgDiv.style.pointerEvents = 'none';
+                        bgDiv.style.opacity = '1.0';
+                        bgDiv.style.animation = 'liquid-blob-bg 8s ease-in-out infinite';
+                        // Append background div FIRST (before logo) - CRITICAL ORDER
+                        imageWrapper.appendChild(bgDiv);
+                        console.log(`✅ BACKGROUND SET for ${key}:`, tileData.backgroundImagePath);
+                    } else {
+                        console.error('❌ MISSING backgroundImagePath for tile:', key);
+                    }
                     
+                    // Append logo image AFTER background div
                     const img = document.createElement('img');
-                    img.src = tileData.logoPath;
+                    img.src = tileData.logoImagePath;
                     img.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     img.className = 'logo-tile-image';
-                    // Add special class for Hou Wei TCM logo to make white background transparent
+                    // Add special class for Hou Wei TCM logo
                     if (key === 'houWeiTCM') {
                         img.className += ' logo-hou-wei-tcm';
                     }
@@ -1508,11 +1541,35 @@
                     img.decoding = 'async';
                     // Error handling - log if image fails to load
                     img.onerror = function() {
-                        console.error('Failed to load logo image:', tileData.logoPath);
+                        console.error('Failed to load logo image:', tileData.logoImagePath);
                         this.style.display = 'none';
                     };
                     
                     imageWrapper.appendChild(img);
+                    
+                    // Create duplicate logo for fade-in effect on hover (initially hidden)
+                    const imgClone = document.createElement('img');
+                    imgClone.src = tileData.logoImagePath;
+                    imgClone.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
+                    imgClone.className = 'logo-tile-image logo-tile-image-clone';
+                    if (key === 'houWeiTCM') {
+                        imgClone.className += ' logo-hou-wei-tcm';
+                    }
+                    imgClone.loading = 'lazy';
+                    imgClone.decoding = 'async';
+                    imgClone.style.display = 'none'; /* Initially hidden - only shown on hover */
+                    imageWrapper.appendChild(imgClone);
+                    
+                    // Show clone logo on hover
+                    link.addEventListener('mouseenter', function() {
+                        imgClone.style.display = 'block';
+                    });
+                    link.addEventListener('mouseleave', function() {
+                        imgClone.style.display = 'none';
+                        // Reset clone position when hover ends
+                        imgClone.style.top = 'calc(100% + 100px)';
+                        imgClone.style.opacity = '0';
+                    });
                     
                     // Hover overlay with description
                     const overlay = document.createElement('div');
@@ -1540,7 +1597,8 @@
                     
                     // Update overlay content on language change
                     tile.dataset.tileKey = key;
-                    tile.dataset.logoPath = tileData.logoPath;
+                    tile.dataset.backgroundImagePath = tileData.backgroundImagePath;
+                    tile.dataset.logoImagePath = tileData.logoImagePath;
                     tile.dataset.href = tileData.href;
                 });
             }
@@ -1838,7 +1896,7 @@
             async function showSection(section) {
                 const target = sections[section] ? section : 'home';
                 const currentLang = getCurrentLanguage();
-                
+
                 // Skip if already showing this section
                 if (currentSectionForTransition === target) {
                     const nextElement = sections[target]?.element;
@@ -1881,9 +1939,9 @@
                         }
                         
                         // Hide all other sections immediately (except current and next)
-                        Object.entries(sections).forEach(([key, value]) => {
+                Object.entries(sections).forEach(([key, value]) => {
                             if (key !== target && key !== currentSectionForTransition && value.element) {
-                                value.element.style.display = 'none';
+                        value.element.style.display = 'none';
                                 value.element.style.opacity = '';
                                 value.element.style.transform = '';
                                 value.element.style.transition = '';
@@ -1912,6 +1970,9 @@
                         updatePageTitle(currentLang, target);
                         updateH2(currentLang, target);
                         
+                        // Update meta description for SEO (only for initial page load, not on navigation)
+                        // Note: Google uses the initial HTML meta description, not dynamically updated ones
+                        
                         // Update home content if showing home section
                         if (target === 'home' && window.updateHomeContent) {
                             updateHomeContent(currentLang);
@@ -1938,7 +1999,7 @@
                     });
 
                     // Show target section with fade-in
-                    if (sections[target] && sections[target].element) {
+                if (sections[target] && sections[target].element) {
                         const targetElement = sections[target].element;
                         targetElement.style.display = sections[target].display || 'flex';
                         

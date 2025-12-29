@@ -117,6 +117,12 @@
             fr: "Liens",
             zh: "連結"
         },
+        pilates: {
+            de: "Pilates",
+            en: "Pilates",
+            fr: "Pilates",
+            zh: "皮拉提斯"
+        },
         disclaimer: {
             de: "Disclaimer",
             en: "Disclaimer",
