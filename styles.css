@@ -833,6 +833,8 @@ h1.name-corner {
     .home-image {
         width: 100%;
         max-width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Prevent distortion */
     }
     
     .home-image-overlay-box {
@@ -2006,7 +2008,9 @@ h1.name-corner {
 .logo-tile {
     width: 100%; /* Full width of grid cell - will be constrained by grid */
     max-width: 300px; /* Increased size - larger tiles with minimal gap */
-    height: 300px; /* Increased height - larger tiles with minimal gap */
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
+    height: auto; /* Let aspect-ratio control height */
+    min-height: 200px; /* Fallback minimum height */
     position: relative;
     perspective: 1000px;
     justify-self: start; /* Left-align within grid cell */
@@ -2019,6 +2023,7 @@ h1.name-corner {
     position: relative;
     text-decoration: none;
     overflow: hidden;
+    touch-action: manipulation; /* Better touch response on mobile */
     background: transparent; /* Transparent - shows mainframe background */
     border-radius: 4px; /* Minimal abgerundet - eckiger */
     border: none !important; /* No visible border - invisible outline */
@@ -2100,7 +2105,7 @@ h1.name-corner {
     width: 100%; /* Full tile size - 100% */
     height: 100%; /* Full tile size - 100% */
     background-size: cover;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape - initial */
     z-index: 0; /* Behind logo - must stay behind */
@@ -3689,7 +3694,7 @@ h1.name-corner {
 @media (max-width: 1024px) {
     .recommendations-grid {
         grid-template-columns: repeat(4, 1fr); /* Keep 4 columns on tablet */
-        column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for tablet */
+        column-gap: clamp(2px, 0.5vw, 6px); /* Better spacing for tablet */
         row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for tablet */
         justify-items: start; /* Left-align tiles */
     }
@@ -3697,7 +3702,9 @@ h1.name-corner {
     .logo-tile {
         width: 100%;
         max-width: min(300px, 40vw);
-        height: min(300px, 40vw);
+        aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+        height: auto; /* Let aspect-ratio control height */
+        min-height: 160px; /* Minimum size for tablets */
     }
 }
 
@@ -3705,22 +3712,60 @@ h1.name-corner {
     .recommendations-grid {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
         justify-items: start; /* Left-align tiles */
-                column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for mobile */
-        row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for mobile */
+        column-gap: clamp(4px, 1vw, 8px); /* Better spacing on mobile */
+        row-gap: clamp(16px, 3vw, 24px); /* Increased vertical gap for mobile */
     }
     
     .logo-tile {
         width: 100%; /* Full width of grid cell */
-        max-width: min(300px, 85vw); /* Larger on mobile */
-        height: min(300px, 85vw);
+        max-width: 100%; /* Use full available width */
+        aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
+        height: auto; /* Let aspect-ratio control height */
+        min-height: 140px; /* Minimum size for very small screens */
     }
     
     .logo-tile-image-wrapper {
-        padding: clamp(20px, 2.5vw, 28px);
+        padding: clamp(16px, 3vw, 24px);
     }
     
     .logo-tile-overlay {
-        padding: clamp(16px, 2vw, 24px);
+        padding: clamp(12px, 2.5vw, 20px);
+    }
+    
+    .logo-tile-bg-image {
+        background-size: cover; /* Cover the entire tile */
+        background-position: center center; /* Center the image */
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(2, 1fr); /* Keep 2 columns on small phones */
+        column-gap: clamp(4px, 1.5vw, 6px);
+        row-gap: clamp(12px, 3vw, 20px);
+    }
+    
+    .logo-tile {
+        min-height: 120px; /* Smaller minimum for very small screens */
+    }
+    
+    .logo-tile-image {
+        height: 28px; /* Slightly smaller logo on small screens */
+        max-height: 28px;
+    }
+    
+    .logo-hou-wei-tcm {
+        height: 28px !important;
+        max-height: 28px !important;
+    }
+    
+    .logo-tile-overlay-title {
+        font-size: clamp(1rem, 2.5vw, 1.125rem);
+    }
+    
+    .logo-tile-overlay-text {
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
     }
 }
 
