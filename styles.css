@@ -2006,7 +2006,9 @@ h1.name-corner {
 .logo-tile {
     width: 100%; /* Full width of grid cell - will be constrained by grid */
     max-width: 300px; /* Increased size - larger tiles with minimal gap */
-    height: 300px; /* Increased height - larger tiles with minimal gap */
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
+    height: auto; /* Let aspect-ratio control height */
+    min-height: 200px; /* Fallback minimum height */
     position: relative;
     perspective: 1000px;
     justify-self: start; /* Left-align within grid cell */
@@ -3697,7 +3699,9 @@ h1.name-corner {
     .logo-tile {
         width: 100%;
         max-width: min(300px, 40vw);
-        height: min(300px, 40vw);
+        aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+        height: auto; /* Let aspect-ratio control height */
+        min-height: 160px; /* Minimum size for tablets */
     }
 }
 
@@ -3711,8 +3715,10 @@ h1.name-corner {
     
     .logo-tile {
         width: 100%; /* Full width of grid cell */
-        max-width: min(300px, 85vw); /* Larger on mobile */
-        height: min(300px, 85vw);
+        max-width: 100%; /* Use full available width */
+        aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
+        height: auto; /* Let aspect-ratio control height */
+        min-height: 140px; /* Minimum size for very small screens */
     }
     
     .logo-tile-image-wrapper {
