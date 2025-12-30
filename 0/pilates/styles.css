@@ -194,6 +194,11 @@ html {
     margin-bottom: 20px;
 }
 
+.pilates-text-content strong {
+    font-weight: 600;
+    color: #1A1A1A;
+}
+
 /* Benefits Grid - Flat Cards */
 .pilates-benefits-grid {
     display: grid;
@@ -242,6 +247,11 @@ html {
     line-height: 1.8;
 }
 
+.pilates-contact-text strong {
+    font-weight: 600;
+    color: #1A1A1A;
+}
+
 /* CTA Button - Flat Design */
 .pilates-cta-button {
     display: inline-block;
@@ -280,7 +290,13 @@ html {
 .footer-content p {
     font-size: 14px;
     color: #CCCCCC;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.footer-location {
+    font-size: 13px;
+    color: #999999;
+    margin-top: 8px;
 }
 
 .footer-link {
