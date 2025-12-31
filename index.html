@@ -1114,8 +1114,8 @@
                     logoImagePath: 'logos/online-apotheke-logo.svg',  // Logo image - bottom right corner
                     href: 'https://www.online-apotheke.ch/',
                     name: 'Online-Apotheke.ch',  // For alphabetical sorting
-                    theme: 'Others',  // Category: Others
-                    city: 'Switzerland',  // Location for filtering (applies to all of Switzerland)
+                    theme: 'CH-online',  // Category: CH-online
+                    city: 'CH-online',  // Location for filtering (subcategory under Switzerland)
                     descriptions: {
                         en: {
                             title: 'Online-Apotheke.ch · Switzerland',
@@ -1214,7 +1214,7 @@
                     if (tileData.city && tileData.city.trim() !== '') {
                         const city = tileData.city.trim();
                         // Swiss cities (not Switzerland itself)
-                        if (city !== 'Switzerland' && (city === 'Basel' || city === 'Zurich' || city === 'Berne' || city === 'Bern' || city === 'Geneva' || city === 'Lausanne' || city === 'Luzern' || city === 'St. Gallen' || city === 'Winterthur' || city === 'Biel' || city === 'Thun' || city === 'Köniz' || city === 'La Chaux-de-Fonds' || city === 'Schaffhausen' || city === 'Fribourg' || city === 'Chur' || city === 'Neuchâtel' || city === 'Vernier' || city === 'Uster' || city === 'Sion' || city === 'Lancy' || city === 'Emmen' || city === 'Yverdon-les-Bains' || city === 'Dübendorf' || city === 'Kriens' || city === 'Rapperswil-Jona' || city === 'Montreux' || city === 'Wil' || city === 'Baden' || city === 'Zug' || city === 'Frauenfeld' || city === 'Aarau' || city === 'Herisau' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Liestal' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'Aarau' || city === 'Solothurn' || city === 'Liestal' || city === 'Frauenfeld' || city === 'Zug' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona')) {
+                        if (city !== 'Switzerland' && (city === 'Basel' || city === 'Zurich' || city === 'Berne' || city === 'Bern' || city === 'Geneva' || city === 'Lausanne' || city === 'Luzern' || city === 'St. Gallen' || city === 'Winterthur' || city === 'Biel' || city === 'Thun' || city === 'Köniz' || city === 'La Chaux-de-Fonds' || city === 'Schaffhausen' || city === 'Fribourg' || city === 'Chur' || city === 'Neuchâtel' || city === 'Vernier' || city === 'Uster' || city === 'Sion' || city === 'Lancy' || city === 'Emmen' || city === 'Yverdon-les-Bains' || city === 'Dübendorf' || city === 'Kriens' || city === 'Rapperswil-Jona' || city === 'Montreux' || city === 'Wil' || city === 'Baden' || city === 'Zug' || city === 'Frauenfeld' || city === 'Aarau' || city === 'Herisau' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Liestal' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'Aarau' || city === 'Solothurn' || city === 'Liestal' || city === 'Frauenfeld' || city === 'Zug' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'CH-online')) {
                             swissCities.add(city);
                         } else if (city !== 'Switzerland') {
                             cities.add(city);
@@ -1436,7 +1436,7 @@
                 
                 // Apply location filter (multi-select with Switzerland hierarchy support)
                 if (!currentLinksCityFilter.includes('all') && currentLinksCityFilter.length > 0) {
-                    const swissCities = ['Basel', 'Zurich', 'Berne', 'Bern', 'Geneva', 'Lausanne', 'Luzern', 'St. Gallen', 'Winterthur', 'Biel', 'Thun', 'Köniz', 'La Chaux-de-Fonds', 'Schaffhausen', 'Fribourg', 'Chur', 'Neuchâtel', 'Vernier', 'Uster', 'Sion', 'Lancy', 'Emmen', 'Yverdon-les-Bains', 'Dübendorf', 'Kriens', 'Rapperswil-Jona', 'Montreux', 'Wil', 'Baden', 'Zug', 'Frauenfeld', 'Aarau', 'Herisau', 'Schwyz', 'Altdorf', 'Appenzell', 'Glarus', 'Liestal', 'Delémont', 'Sarnen', 'Stans', 'Bellinzona', 'Solothurn'];
+                    const swissCities = ['Basel', 'Zurich', 'Berne', 'Bern', 'Geneva', 'Lausanne', 'Luzern', 'St. Gallen', 'Winterthur', 'Biel', 'Thun', 'Köniz', 'La Chaux-de-Fonds', 'Schaffhausen', 'Fribourg', 'Chur', 'Neuchâtel', 'Vernier', 'Uster', 'Sion', 'Lancy', 'Emmen', 'Yverdon-les-Bains', 'Dübendorf', 'Kriens', 'Rapperswil-Jona', 'Montreux', 'Wil', 'Baden', 'Zug', 'Frauenfeld', 'Aarau', 'Herisau', 'Schwyz', 'Altdorf', 'Appenzell', 'Glarus', 'Liestal', 'Delémont', 'Sarnen', 'Stans', 'Bellinzona', 'Solothurn', 'CH-online'];
                     const hasSwitzerland = currentLinksCityFilter.includes('Switzerland');
                     
                     tiles = tiles.filter(([key, tileData]) => {

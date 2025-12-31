@@ -1983,6 +1983,7 @@ h1.name-corner {
     cursor: pointer;
     flex: 1;
     user-select: none;
+    white-space: pre; /* Preserve whitespace for indentation */
 }
 
 .recommendations-grid {
