@@ -1493,9 +1493,6 @@
                 const filteredAndSortedTiles = getFilteredAndSortedTiles();
                 
                 filteredAndSortedTiles.forEach(([key, tileData]) => {
-                    // #region agent log
-                    fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1492',message:'Building logo tile',data:{key:key,hasLogoPath:!!tileData.logoImagePath,hasBgPath:!!tileData.backgroundImagePath,logoPath:tileData.logoImagePath,bgPath:tileData.backgroundImagePath},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                    // #endregion
                     const tile = document.createElement('div');
                     tile.className = 'logo-tile';
 
@@ -1518,7 +1515,8 @@
                         bgDiv.style.left = '0';
                         bgDiv.style.width = '100%';
                         bgDiv.style.height = '100%';
-                        bgDiv.style.backgroundImage = `url('${tileData.backgroundImagePath}')`; // Quotes around path for spaces
+                        // Encode URI to safely handle spaces/special characters in filenames
+                        bgDiv.style.backgroundImage = `url('${encodeURI(tileData.backgroundImagePath)}')`;
                         bgDiv.style.backgroundSize = 'cover';
                         bgDiv.style.backgroundPosition = 'center';
                         bgDiv.style.backgroundRepeat = 'no-repeat';
@@ -1536,10 +1534,8 @@
                     
                     // Append logo image AFTER background div
                     const img = document.createElement('img');
-                    // #region agent log
-                    fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1532',message:'Creating logo image',data:{key:key,logoPath:tileData.logoImagePath,fullPath:window.location.origin + '/' + tileData.logoImagePath},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                    // #endregion
-                    img.src = tileData.logoImagePath;
+                    // Encode URI to safely handle spaces/special characters in filenames
+                    img.src = encodeURI(tileData.logoImagePath);
                     img.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     img.className = 'logo-tile-image';
                     // Add special class for Hou Wei TCM logo
@@ -1550,26 +1546,15 @@
                     img.decoding = 'async';
                     // Error handling - log if image fails to load
                     img.onerror = function() {
-                        // #region agent log
-                        fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1543',message:'Logo image failed to load',data:{key:key,logoPath:tileData.logoImagePath,attemptedPath:this.src,error:'onerror triggered'},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-                        // #endregion
                         console.error('Failed to load logo image:', tileData.logoImagePath);
                         this.style.display = 'none';
                     };
-                    img.onload = function() {
-                        // #region agent log
-                        fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1550',message:'Logo image loaded successfully',data:{key:key,logoPath:tileData.logoImagePath,width:this.naturalWidth,height:this.naturalHeight,computedDisplay:window.getComputedStyle(this).display,computedOpacity:window.getComputedStyle(this).opacity},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-                        // #endregion
-                    };
                     
                     imageWrapper.appendChild(img);
-                    // #region agent log
-                    fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1555',message:'Logo image appended to DOM',data:{key:key,parentExists:!!imageWrapper.parentElement,imgInDOM:imageWrapper.contains(img),computedStyle:window.getComputedStyle(img).display},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
-                    // #endregion
                     
                     // Create duplicate logo for fade-in effect on hover (initially hidden)
                     const imgClone = document.createElement('img');
-                    imgClone.src = tileData.logoImagePath;
+                    imgClone.src = encodeURI(tileData.logoImagePath);
                     imgClone.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     imgClone.className = 'logo-tile-image logo-tile-image-clone';
                     if (key === 'houWeiTCM') {
@@ -1614,14 +1599,6 @@
                     link.appendChild(overlay);
                     tile.appendChild(link);
                     list.appendChild(tile);
-                    // #region agent log
-                    setTimeout(() => {
-                        const finalImg = tile.querySelector('.logo-tile-image:not(.logo-tile-image-clone)');
-                        if (finalImg) {
-                            fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'LIVE/index.html:1595',message:'Final logo tile state',data:{key:key,imgExists:!!finalImg,imgComplete:finalImg.complete,imgNaturalWidth:finalImg.naturalWidth,imgNaturalHeight:finalImg.naturalHeight,computedDisplay:window.getComputedStyle(finalImg).display,computedOpacity:window.getComputedStyle(finalImg).opacity,computedVisibility:window.getComputedStyle(finalImg).visibility,computedZIndex:window.getComputedStyle(finalImg).zIndex,rect:finalImg.getBoundingClientRect()},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-                        }
-                    }, 100);
-                    // #endregion
                     
                     // Update overlay content on language change
                     tile.dataset.tileKey = key;

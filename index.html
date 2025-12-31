@@ -1514,7 +1514,8 @@
                         bgDiv.style.left = '0';
                         bgDiv.style.width = '100%';
                         bgDiv.style.height = '100%';
-                        bgDiv.style.backgroundImage = `url('${tileData.backgroundImagePath}')`; // Quotes around path for spaces
+                        // Encode URI to safely handle spaces/special characters in filenames
+                        bgDiv.style.backgroundImage = `url('${encodeURI(tileData.backgroundImagePath)}')`;
                         bgDiv.style.backgroundSize = 'cover';
                         bgDiv.style.backgroundPosition = 'center';
                         bgDiv.style.backgroundRepeat = 'no-repeat';
@@ -1532,7 +1533,8 @@
                     
                     // Append logo image AFTER background div
                     const img = document.createElement('img');
-                    img.src = tileData.logoImagePath;
+                    // Encode URI to safely handle spaces/special characters in filenames
+                    img.src = encodeURI(tileData.logoImagePath);
                     img.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     img.className = 'logo-tile-image';
                     // Add special class for Hou Wei TCM logo
@@ -1551,7 +1553,7 @@
                     
                     // Create duplicate logo for fade-in effect on hover (initially hidden)
                     const imgClone = document.createElement('img');
-                    imgClone.src = tileData.logoImagePath;
+                    imgClone.src = encodeURI(tileData.logoImagePath);
                     imgClone.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
                     imgClone.className = 'logo-tile-image logo-tile-image-clone';
                     if (key === 'houWeiTCM') {
