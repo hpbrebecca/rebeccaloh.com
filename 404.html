@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebecca Loh – CFO, Zurich, Switzerland</title>
+    <script>
+        // This 404.html is used by GitHub Pages when a direct URL like /en/aboutme is accessed
+        // We redirect to index.html, which will handle the routing via handleRouting()
+        (function() {
+            const path = window.location.pathname;
+            const search = window.location.search;
+            const hash = window.location.hash;
+            
+            // If the path is already /index.html, we're in a loop - break it
+            if (path === '/index.html' || path.endsWith('/index.html')) {
+                // Redirect to root
+                window.location.replace('/');
+                return;
+            }
+            
+            // Redirect to index.html
+            // The index.html's handleRouting() will process the original URL path
+            // We use a query parameter to pass the original path
+            const originalPath = path + search + hash;
+            window.location.replace('/index.html?redirect=' + encodeURIComponent(originalPath));
+        })();
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>
+
