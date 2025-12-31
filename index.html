@@ -1209,12 +1209,13 @@
             function getAllCities() {
                 const cities = new Set();
                 const swissCities = new Set();
+                const swissCityList = ['Basel', 'Berne', 'Zurich', 'CH-online'];
                 
                 Object.values(logoTilesData).forEach(tileData => {
                     if (tileData.city && tileData.city.trim() !== '') {
                         const city = tileData.city.trim();
-                        // Swiss cities (not Switzerland itself)
-                        if (city !== 'Switzerland' && (city === 'Basel' || city === 'Zurich' || city === 'Berne' || city === 'Bern' || city === 'Geneva' || city === 'Lausanne' || city === 'Luzern' || city === 'St. Gallen' || city === 'Winterthur' || city === 'Biel' || city === 'Thun' || city === 'Köniz' || city === 'La Chaux-de-Fonds' || city === 'Schaffhausen' || city === 'Fribourg' || city === 'Chur' || city === 'Neuchâtel' || city === 'Vernier' || city === 'Uster' || city === 'Sion' || city === 'Lancy' || city === 'Emmen' || city === 'Yverdon-les-Bains' || city === 'Dübendorf' || city === 'Kriens' || city === 'Rapperswil-Jona' || city === 'Montreux' || city === 'Wil' || city === 'Baden' || city === 'Zug' || city === 'Frauenfeld' || city === 'Aarau' || city === 'Herisau' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Liestal' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'Aarau' || city === 'Solothurn' || city === 'Liestal' || city === 'Frauenfeld' || city === 'Zug' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'CH-online')) {
+                        // Swiss cities: Basel, Berne, Zurich, CH-online
+                        if (swissCityList.includes(city)) {
                             swissCities.add(city);
                         } else if (city !== 'Switzerland') {
                             cities.add(city);
@@ -1224,9 +1225,10 @@
                 
                 // Sort cities
                 const sortedCities = Array.from(cities).sort();
-                const sortedSwissCities = Array.from(swissCities).sort();
+                // Sort Swiss cities in the desired order: Basel, Berne, Zurich, CH-online
+                const sortedSwissCities = swissCityList.filter(city => swissCities.has(city));
                 
-                // Return Switzerland first (if Swiss locations exist), then Swiss cities as sub-items, then other cities
+                // Return Switzerland first as überkategorie, then Swiss cities as sub-items, then other cities
                 const result = [];
                 if (sortedSwissCities.length > 0) {
                     result.push('Switzerland');
