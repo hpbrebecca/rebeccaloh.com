@@ -1210,11 +1210,14 @@
                 const cities = new Set();
                 const swissCities = new Set();
                 
+                // Define Swiss cities: Basel, Berne, Zurich, CH-online
+                const swissCityList = ['Basel', 'Berne', 'Bern', 'Zurich', 'CH-online'];
+                
                 Object.values(logoTilesData).forEach(tileData => {
                     if (tileData.city && tileData.city.trim() !== '') {
                         const city = tileData.city.trim();
-                        // Swiss cities (not Switzerland itself)
-                        if (city !== 'Switzerland' && (city === 'Basel' || city === 'Zurich' || city === 'Berne' || city === 'Bern' || city === 'Geneva' || city === 'Lausanne' || city === 'Luzern' || city === 'St. Gallen' || city === 'Winterthur' || city === 'Biel' || city === 'Thun' || city === 'Köniz' || city === 'La Chaux-de-Fonds' || city === 'Schaffhausen' || city === 'Fribourg' || city === 'Chur' || city === 'Neuchâtel' || city === 'Vernier' || city === 'Uster' || city === 'Sion' || city === 'Lancy' || city === 'Emmen' || city === 'Yverdon-les-Bains' || city === 'Dübendorf' || city === 'Kriens' || city === 'Rapperswil-Jona' || city === 'Montreux' || city === 'Wil' || city === 'Baden' || city === 'Zug' || city === 'Frauenfeld' || city === 'Aarau' || city === 'Herisau' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Liestal' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'Aarau' || city === 'Solothurn' || city === 'Liestal' || city === 'Frauenfeld' || city === 'Zug' || city === 'Schwyz' || city === 'Altdorf' || city === 'Appenzell' || city === 'Glarus' || city === 'Delémont' || city === 'Sarnen' || city === 'Stans' || city === 'Bellinzona' || city === 'CH-online')) {
+                        // Swiss cities: Basel, Berne, Zurich, CH-online
+                        if (swissCityList.includes(city)) {
                             swissCities.add(city);
                         } else if (city !== 'Switzerland') {
                             cities.add(city);
@@ -1224,17 +1227,16 @@
                 
                 // Sort cities
                 const sortedCities = Array.from(cities).sort();
-                const sortedSwissCities = Array.from(swissCities).sort();
+                // Sort Swiss cities: Basel, Berne, Zurich, CH-online (in that order)
+                const sortedSwissCities = swissCityList.filter(city => swissCities.has(city));
                 
-                // Return Switzerland first (if it exists), then Swiss cities as sub-items, then other cities
+                // Always return Switzerland first as überkategorie, then Swiss cities as sub-items, then other cities
                 const result = [];
-                if (Array.from(new Set(Object.values(logoTilesData).map(t => t.city))).includes('Switzerland')) {
-                    result.push('Switzerland');
-                    // Add Swiss cities as sub-items (indented)
-                    sortedSwissCities.forEach(city => {
-                        result.push('  ' + city); // Indent with 2 spaces to show hierarchy
-                    });
-                }
+                result.push('Switzerland');
+                // Add Swiss cities as sub-items (indented)
+                sortedSwissCities.forEach(city => {
+                    result.push('  ' + city); // Indent with 2 spaces to show hierarchy
+                });
                 sortedCities.forEach(city => {
                     if (city !== 'Switzerland' && !swissCities.has(city)) {
                         result.push(city);
@@ -1436,7 +1438,8 @@
                 
                 // Apply location filter (multi-select with Switzerland hierarchy support)
                 if (!currentLinksCityFilter.includes('all') && currentLinksCityFilter.length > 0) {
-                    const swissCities = ['Basel', 'Zurich', 'Berne', 'Bern', 'Geneva', 'Lausanne', 'Luzern', 'St. Gallen', 'Winterthur', 'Biel', 'Thun', 'Köniz', 'La Chaux-de-Fonds', 'Schaffhausen', 'Fribourg', 'Chur', 'Neuchâtel', 'Vernier', 'Uster', 'Sion', 'Lancy', 'Emmen', 'Yverdon-les-Bains', 'Dübendorf', 'Kriens', 'Rapperswil-Jona', 'Montreux', 'Wil', 'Baden', 'Zug', 'Frauenfeld', 'Aarau', 'Herisau', 'Schwyz', 'Altdorf', 'Appenzell', 'Glarus', 'Liestal', 'Delémont', 'Sarnen', 'Stans', 'Bellinzona', 'Solothurn', 'CH-online'];
+                    // Swiss cities: Basel, Berne, Zurich, CH-online
+                    const swissCities = ['Basel', 'Berne', 'Bern', 'Zurich', 'CH-online'];
                     const hasSwitzerland = currentLinksCityFilter.includes('Switzerland');
                     
                     tiles = tiles.filter(([key, tileData]) => {
