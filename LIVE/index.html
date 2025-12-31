@@ -26,8 +26,8 @@
     <link rel="preload" href="assets/js/quotes.js" as="script">
     <link rel="preload" href="assets/js/script.js" as="script">
     <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact-form.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/contact-form.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@
         "url": "https://rebeccaloh.com/",
         "image": {
             "@type": "ImageObject",
-            "url": "https://rebeccaloh.com/profile.jpg",
+            "url": "https://rebeccaloh.com/assets/images/profile.jpg",
             "width": 1200,
             "height": 1200,
             "caption": "Rebecca Loh - CFO & Industrial Engineer"
@@ -88,7 +88,7 @@
             <div class="profile-orb-small" data-linkedin="profile" role="link" tabindex="0" aria-label="Open LinkedIn profile">
                 <div class="profile-flip-inner">
                     <div class="profile-flip-front">
-                        <img src="profile.jpg" alt="Portrait of Rebecca Loh" class="profile-image-corner" id="profileImageFuture" loading="eager" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <img src="assets/images/profile.jpg" alt="Portrait of Rebecca Loh" class="profile-image-corner" id="profileImageFuture" loading="eager" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     </div>
                     <div class="profile-flip-back">
                         <svg class="linkedin-logo-flip" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +136,7 @@
                 <!-- Home Image with Overlay Box -->
                 <div class="home-image-wrapper">
                     <div class="home-image-container">
-                        <img src="Rebecca Loh.jpg" alt="Rebecca Loh" class="home-image" id="homeImage" loading="eager" decoding="async">
+                        <img src="assets/images/Rebecca Loh.jpg" alt="Rebecca Loh" class="home-image" id="homeImage" loading="eager" decoding="async">
                     </div>
                     <!-- White Text Box - Partially overlapping image and extending beyond -->
                     <div class="home-image-overlay-box">
@@ -356,7 +356,7 @@
 
             <div class="control-item audio-control" id="audioPlayerContainerFuture">
                 <audio id="backgroundMusicFuture" loop muted preload="none" aria-label="Background ambience" autoplay="false">
-                    <source src="music.mp3" type="audio/mpeg">
+                    <source src="assets/images/music.mp3" type="audio/mpeg">
                 </audio>
                 <button class="control-button audio-button" id="audioControlBtnFuture" aria-label="Play/Pause">
                     <svg class="icon-play" viewBox="0 0 24 24" fill="none">
@@ -399,12 +399,12 @@
     </div>
     
     <!-- Nebula Background -->
-    <script src="nebula.js" defer></script>
-    <script src="quotes.js" defer></script>
-    <script src="contact-form.js" defer></script>
-    <script src="elegant-transitions.js"></script>
-    <script src="script.js" defer></script>
-    <script src="advanced-effects.js" defer></script>
+    <script src="assets/js/nebula.js" defer></script>
+    <script src="assets/js/quotes.js" defer></script>
+    <script src="assets/js/contact-form.js" defer></script>
+    <script src="assets/js/elegant-transitions.js"></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/advanced-effects.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('.nav-link');
