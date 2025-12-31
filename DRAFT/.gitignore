@@ -1,0 +1,22 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Test/Alternative Design Files
+design-alt/
+test-design/
+*-alt.html
+*-alt.css
+*-test.html
+*-test.css

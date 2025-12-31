@@ -1,0 +1,683 @@
+/* ============================================
+   VALERO PILATES - Stylish Design
+   ============================================
+   Gen Z aesthetic · Modern elegance · Sophisticated design
+   Targeting stylish women with an eye for aesthetics
+   ============================================ */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    background: #FAFAF9 !important;
+    color: #1A1A1A !important;
+    line-height: 1.6 !important;
+    overflow-x: hidden !important;
+    font-weight: 400;
+}
+
+/* ============================================
+   NAVIGATION - Minimalist & Elegant
+   ============================================ */
+
+.valero-navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.valero-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1A1A1A;
+    text-decoration: none;
+    letter-spacing: -0.3px;
+    transition: color 0.3s ease;
+}
+
+.valero-logo:hover {
+    color: #8B6F47;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: 13px;
+    font-weight: 400;
+    color: #4A4A4A;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #8B6F47;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #1A1A1A;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* ============================================
+   HERO SECTION - Full Screen Impact
+   ============================================ */
+
+.valero-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero-image-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(20%) brightness(0.85);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.4) 0%, rgba(26, 26, 26, 0.2) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #FFFFFF;
+    max-width: 800px;
+    padding: 0 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
+}
+
+.title-line {
+    display: block;
+}
+
+.hero-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.hero-cta {
+    display: inline-block;
+    padding: 16px 48px;
+    background: #FFFFFF;
+    color: #1A1A1A;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.hero-cta:hover {
+    background: transparent;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    transform: translateY(-2px);
+}
+
+.hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+}
+
+.scroll-line {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ============================================
+   SECTIONS - Consistent Spacing
+   ============================================ */
+
+.section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+section {
+    padding: 120px 0;
+}
+
+.section-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8B6F47;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.2;
+    margin-bottom: 48px;
+    letter-spacing: -1px;
+}
+
+/* ============================================
+   ABOUT SECTION - Elegant Typography
+   ============================================ */
+
+.valero-about {
+    background: #FFFFFF;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-image-container {
+    position: relative;
+}
+
+.image-frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+}
+
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.image-frame:hover .about-image {
+    transform: scale(1.05);
+}
+
+.about-content {
+    padding-left: 40px;
+}
+
+.about-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #4A4A4A;
+}
+
+.about-text p {
+    margin-bottom: 24px;
+}
+
+.about-text strong {
+    font-weight: 500;
+    color: #1A1A1A;
+}
+
+/* ============================================
+   VALUES SECTION - Centered & Minimalist
+   ============================================ */
+
+.valero-values {
+    background: #FAFAF9;
+    text-align: center;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 40px;
+    margin-top: 60px;
+}
+
+.value-card {
+    text-align: left;
+    padding: 0;
+    position: relative;
+}
+
+.value-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 400;
+    color: rgba(139, 111, 71, 0.15);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+}
+
+.value-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: #1A1A1A;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.value-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #6A6A6A;
+    max-width: 400px;
+}
+
+/* ============================================
+   CLASSES SECTION - Visual Impact
+   ============================================ */
+
+.valero-classes {
+    background: #FFFFFF;
+}
+
+.classes-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.classes-content {
+    padding-right: 40px;
+}
+
+.classes-intro {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #4A4A4A;
+    margin-bottom: 48px;
+}
+
+.class-features {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.feature-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.feature-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feature-text strong {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1A1A1A;
+}
+
+.feature-text span {
+    font-size: 14px;
+    color: #6A6A6A;
+    line-height: 1.6;
+}
+
+.classes-image-container {
+    position: relative;
+}
+
+.classes-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.classes-image-container:hover .classes-image {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   CONTACT SECTION - Clean & Inviting
+   ============================================ */
+
+.valero-contact {
+    background: #1A1A1A;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.valero-contact .section-label {
+    color: #D4C4B0;
+}
+
+.valero-contact .section-title {
+    color: #FFFFFF;
+}
+
+.contact-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-text {
+    font-size: 18px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 48px;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border: 1px solid;
+}
+
+.contact-btn.primary {
+    background: #FFFFFF;
+    color: #1A1A1A;
+    border-color: #FFFFFF;
+}
+
+.contact-btn.primary:hover {
+    background: transparent;
+    color: #FFFFFF;
+}
+
+.contact-btn.secondary {
+    background: transparent;
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.contact-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #FFFFFF;
+}
+
+/* ============================================
+   FOOTER - Minimalist
+   ============================================ */
+
+.valero-footer {
+    background: #FAFAF9;
+    padding: 60px 0;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.footer-text {
+    font-size: 13px;
+    color: #8A8A8A;
+    margin-bottom: 8px;
+}
+
+.footer-tagline {
+    font-size: 12px;
+    color: #B0B0B0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 20px 32px;
+    }
+    
+    .nav-links {
+        gap: 32px;
+    }
+    
+    .section-container {
+        padding: 0 32px;
+    }
+    
+    .about-grid,
+    .classes-grid {
+        gap: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 16px 24px;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .nav-links {
+        gap: 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .nav-link {
+        font-size: 11px;
+    }
+    
+    .valero-hero {
+        height: 80vh;
+        min-height: 500px;
+    }
+    
+    .hero-content {
+        padding: 0 24px;
+    }
+    
+    section {
+        padding: 80px 0;
+    }
+    
+    .section-container {
+        padding: 0 24px;
+    }
+    
+    .about-grid,
+    .classes-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+    
+    .about-content {
+        padding-left: 0;
+    }
+    
+    .classes-content {
+        padding-right: 0;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+    
+    .value-number {
+        font-size: 56px;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .contact-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 12px 20px;
+    }
+    
+    .nav-links {
+        gap: 16px;
+    }
+    
+    .valero-logo {
+        font-size: 18px;
+    }
+    
+    .hero-content {
+        padding: 0 20px;
+    }
+    
+    .section-container {
+        padding: 0 20px;
+    }
+    
+    section {
+        padding: 60px 0;
+    }
+    
+    .value-number {
+        font-size: 48px;
+    }
+    
+    .value-title {
+        font-size: 24px;
+    }
+}
