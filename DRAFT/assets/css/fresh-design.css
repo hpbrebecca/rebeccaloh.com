@@ -1,0 +1,896 @@
+/* ============================================
+   REBECCA LOH - Fresh Design (DRAFT)
+   ============================================
+   Complete redesign from scratch
+   Values: Professionalism, Ethics, Empathy, Transparency, 
+   Giving Back, Voice for the Weaker Ones
+   Target: Gen Z · Stylish Women · Professional Men
+   
+   Color Concept: Inspired by Bright Winter but adapted for DRAFT
+   - Light, airy backgrounds for transparency
+   - Cool blues and violets for professionalism
+   - Warm accents for empathy
+   ============================================ */
+
+/* ============================================
+   COLOR SYSTEM - DRAFT (Inspired by Winter)
+   ============================================ */
+:root {
+    /* Primary Colors - Cool & Professional */
+    --draft-primary-dark: #1E2E66;      /* Deep blue (inspired by winter) */
+    --draft-primary: #3F4BB8;           /* Clear blue accent */
+    --draft-primary-light: #5A6FD8;     /* Lighter blue */
+    
+    /* Secondary Colors - Elegant & Empathetic */
+    --draft-secondary: #5A3A8A;         /* Blue-violet (inspired by winter) */
+    --draft-secondary-light: #7B5BA8;   /* Softer violet */
+    
+    /* Backgrounds - Light & Transparent */
+    --draft-bg-main: #F8F9FC;           /* Very light blue-gray */
+    --draft-bg-section: #FFFFFF;        /* Pure white */
+    --draft-bg-alt: #F1F3F8;            /* Light surface (inspired by winter) */
+    
+    /* Text Colors */
+    --draft-text-primary: #1E2E66;      /* Dark blue text */
+    --draft-text-secondary: #4A5568;    /* Medium gray-blue */
+    --draft-text-light: #718096;        /* Light gray-blue */
+    --draft-text-on-dark: #FFFFFF;      /* White on dark */
+    
+    /* Accents - Warm & Empathetic */
+    --draft-accent-warm: #C084FC;       /* Soft purple for warmth */
+    --draft-accent-cool: #60A5FA;       /* Cool blue accent */
+    
+    /* Interactive States */
+    --draft-hover: #3F4BB8;             /* Primary blue on hover */
+    --draft-active: #1E2E66;            /* Darker on active */
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--draft-text-primary);
+    background: var(--draft-bg-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--draft-text-primary);
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--draft-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--draft-primary-dark);
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(30, 46, 102, 0.1);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--draft-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--draft-primary);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--draft-primary);
+}
+
+/* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+
+.language-selector {
+    position: fixed;
+    top: 1rem;
+    right: 2rem;
+    z-index: 1001;
+}
+
+.lang-button {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(30, 46, 102, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--draft-text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-button:hover {
+    background: var(--draft-primary);
+    color: var(--draft-text-on-dark);
+    border-color: var(--draft-primary);
+}
+
+.control-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.control-dropdown.open .control-menu {
+    display: block;
+}
+
+.control-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(30, 46, 102, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    z-index: 1002;
+}
+
+.control-option {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--draft-text-primary);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.control-option:hover,
+.control-option.active {
+    background: var(--draft-bg-alt);
+    color: var(--draft-primary);
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero-section {
+    padding: 8rem 2rem 4rem;
+    background: linear-gradient(135deg, var(--draft-bg-section) 0%, var(--draft-bg-alt) 100%);
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--draft-primary-dark), var(--draft-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    color: var(--draft-text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   PROFILE SECTION - Personal Touch
+   ============================================ */
+
+.profile-section {
+    padding: 8rem 0;
+    background: var(--draft-bg-section);
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 4rem;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.profile-image-wrapper {
+    position: sticky;
+    top: 2rem;
+}
+
+.profile-image-circle {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 3px solid #FFFFFF;
+}
+
+.profile-image-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-text {
+    padding-top: 2rem;
+}
+
+.profile-text h2 {
+    margin-bottom: 2rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.profile-text p {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    color: var(--draft-text-secondary);
+    line-height: 1.8;
+}
+
+.profile-text h2 {
+    color: var(--draft-text-primary);
+}
+
+#aboutIntro {
+    display: block !important;
+    visibility: visible !important;
+}
+
+#aboutAccordion {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Accordion styles for bio sections */
+#aboutAccordion details {
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(30, 46, 102, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#aboutAccordion details summary {
+    padding: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--draft-text-primary);
+    cursor: pointer;
+    background: var(--draft-bg-alt);
+    transition: background 0.3s ease;
+    list-style: none;
+}
+
+#aboutAccordion details summary::-webkit-details-marker {
+    display: none;
+}
+
+#aboutAccordion details summary::before {
+    content: '+';
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+#aboutAccordion details[open] summary::before {
+    content: '−';
+}
+
+#aboutAccordion details summary:hover {
+    background: rgba(63, 75, 184, 0.05);
+}
+
+#aboutAccordion details .details-content {
+    padding: 1.5rem;
+    background: #FFFFFF;
+}
+
+#aboutAccordion details .details-content p {
+    margin-bottom: 1rem;
+    color: var(--draft-text-secondary);
+    line-height: 1.8;
+}
+
+#aboutAccordion details .details-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   VALUES SECTION - Core Principles
+   ============================================ */
+
+.values-section {
+    padding: 8rem 0;
+    background: #F5F5F5;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.value-card {
+    background: #FFFFFF;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #0A0A0A;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #0A0A0A;
+}
+
+.value-card p {
+    font-size: 1rem;
+    color: #4A4A4A;
+    line-height: 1.7;
+}
+
+/* ============================================
+   QUOTES SECTION - Inspirational
+   ============================================ */
+
+.quotes-section {
+    padding: 8rem 0;
+    background: var(--draft-bg-section);
+    text-align: center;
+}
+
+.quotes-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.quote-display {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--draft-text-primary);
+    margin: 3rem 0;
+    padding: 3rem;
+    border-left: 3px solid var(--draft-primary);
+    text-align: left;
+    background: #FAFAFA;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.quote-display .quote-text {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.quote-display .quote-text.fadeOut {
+    opacity: 0;
+}
+
+/* ============================================
+   LINKS SECTION - Community Focus
+   ============================================ */
+
+.links-section {
+    padding: 8rem 0;
+    background: var(--draft-bg-alt);
+}
+
+.links-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.links-header h2 {
+    margin-bottom: 1rem;
+}
+
+.links-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.filter-button {
+    padding: 0.75rem 1.5rem;
+    background: var(--draft-bg-section);
+    border: 1px solid rgba(30, 46, 102, 0.15);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--draft-text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.filter-button:hover,
+.filter-button.active {
+    background: var(--draft-primary);
+    color: var(--draft-text-on-dark);
+    border-color: var(--draft-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(63, 75, 184, 0.2);
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.link-card {
+    background: #FFFFFF;
+    padding: 2.5rem;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    border: 1px solid #F0F0F0;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.link-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border-color: #0A0A0A;
+}
+
+.link-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.link-card:hover .link-card-image {
+    filter: grayscale(0%);
+}
+
+.link-card-logo {
+    max-width: 120px;
+    max-height: 60px;
+    margin-bottom: 1.5rem;
+    object-fit: contain;
+}
+
+.link-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #0A0A0A;
+    font-family: 'Inter', sans-serif;
+}
+
+.link-card-description {
+    font-size: 0.9375rem;
+    color: #6B6B6B;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.link-card-category {
+    font-size: 0.75rem;
+    color: #9B9B9B;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+/* Logo Tile Styles (for compatibility with existing JavaScript) */
+.logo-tile {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    min-height: 200px;
+    position: relative;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+.logo-tile-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-decoration: none;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+.logo-tile-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+.logo-tile-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.logo-tile-image {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80%;
+    max-height: 35px;
+    height: auto;
+    z-index: 300;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.logo-tile-image-clone {
+    position: absolute;
+    bottom: calc(100% - 25px);
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80%;
+    max-height: 35px;
+    height: auto;
+    z-index: 301;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.logo-tile-link:hover .logo-tile-image:not(.logo-tile-image-clone) {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+.logo-tile-link:hover .logo-tile-image-clone {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.logo-tile-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: rgba(63, 75, 184, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 50;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-tile-link:hover .logo-tile-overlay {
+    opacity: 1;
+}
+
+.logo-tile-overlay-content {
+    padding: 2rem;
+    text-align: center;
+    z-index: 70;
+}
+
+.logo-tile-overlay-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.logo-tile-overlay-text {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ============================================
+   COMPANY LOGOS SECTION
+   ============================================ */
+
+.companies-section {
+    padding: 6rem 0;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 2rem;
+}
+
+.company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.company-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.company-logo img {
+    max-width: 100%;
+    max-height: 60px;
+    height: auto;
+}
+
+/* ============================================
+   CONTACT SECTION
+   ============================================ */
+
+.contact-section {
+    padding: 8rem 0;
+    background: var(--draft-bg-section);
+}
+
+.contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 3rem auto 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--draft-text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(30, 46, 102, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--draft-primary);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.submit-button {
+    background: var(--draft-primary);
+    color: var(--draft-text-on-dark);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.submit-button:hover {
+    background: var(--draft-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(63, 75, 184, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .profile-image-wrapper {
+        position: relative;
+        top: 0;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .links-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .language-selector {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 1rem;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .companies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 5rem 1rem 2rem;
+    }
+    
+    .profile-section {
+        padding: 4rem 0;
+    }
+    
+    .quotes-section,
+    .links-section,
+    .contact-section {
+        padding: 4rem 0;
+    }
+    
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .logo-tile {
+        min-height: 160px;
+    }
+}

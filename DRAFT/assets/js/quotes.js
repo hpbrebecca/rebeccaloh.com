@@ -443,7 +443,7 @@
 
     const QUOTE_TOTAL_DURATION = 5000; // total time per quote (ms)
     const QUOTE_FADE_DURATION = 600;   // fade in/out duration (ms)
-    const QUOTE_GAP_DURATION = 1000;   // extra gap between quotes (ms)
+    const QUOTE_GAP_DURATION = 0;      // no gap - smooth transition (ms)
 
     // Update language display
     function updateLanguageDisplay(lang) {
