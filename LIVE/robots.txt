@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /project1/
-Disallow: /project2/
-
-Sitemap: https://rebeccaloh.com/sitemap.xml
