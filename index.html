@@ -1226,9 +1226,9 @@
                 const sortedCities = Array.from(cities).sort();
                 const sortedSwissCities = Array.from(swissCities).sort();
                 
-                // Return Switzerland first (if it exists), then Swiss cities as sub-items, then other cities
+                // Return Switzerland first (if Swiss locations exist), then Swiss cities as sub-items, then other cities
                 const result = [];
-                if (Array.from(new Set(Object.values(logoTilesData).map(t => t.city))).includes('Switzerland')) {
+                if (sortedSwissCities.length > 0) {
                     result.push('Switzerland');
                     // Add Swiss cities as sub-items (indented)
                     sortedSwissCities.forEach(city => {
