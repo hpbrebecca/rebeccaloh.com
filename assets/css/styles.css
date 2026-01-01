@@ -2106,7 +2106,7 @@ h1.name-corner {
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; /* Liquid blob shape - initial */
-    z-index: 0; /* Behind logo - must stay behind */
+    z-index: 1; /* Behind logo - must stay behind */
     pointer-events: none;
     animation: liquid-blob-bg 8s ease-in-out infinite; /* Liquid blob animation with background image */
     opacity: 1.0; /* Fully opaque background image */
@@ -2132,13 +2132,13 @@ h1.name-corner {
     object-position: center bottom; /* Centered horizontally, bottom aligned */
     display: block !important; /* Ensure logos are always visible */
     opacity: 1 !important; /* Fully opaque - no transparency at all */
-    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Slower, visible movement - 1.5s duration */
+    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* No opacity transition - logo always visible */
     filter: none !important; /* No filters that could affect opacity */
     transform: translateX(-50%) translateY(0) scale(1) rotate(0deg); /* Only translate horizontally for centering */
     position: absolute; /* Absolute positioning */
     bottom: 25px; /* 25px from bottom edge - reduced by 5px (was 30px) */
     left: 50%; /* Center horizontally */
-    z-index: 300 !important; /* Very high z-index - logo must be in front of everything including overlay (50) */
+    z-index: 10 !important; /* Higher than background (1) - logo must be in front of liquid blob */
     background: none !important; /* No background that could affect visibility */
 }
 
@@ -2152,7 +2152,7 @@ h1.name-corner {
     object-position: center bottom !important; /* Centered horizontally, bottom aligned */
     transform: translateX(-50%) scale(1) rotate(0deg) !important; /* Only translate horizontally for centering */
     transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* Slower, visible movement - 1.5s duration */
-    z-index: 300 !important; /* Very high z-index - logo must be in front of everything including overlay (50) */
+    z-index: 10 !important; /* Higher than background (1) - logo must be in front of liquid blob */
     position: absolute !important;
     bottom: 25px !important; /* 25px from bottom edge - reduced by 5px (was 30px) */
     left: 50% !important; /* Center horizontally */
@@ -2165,50 +2165,21 @@ h1.name-corner {
     pointer-events: auto !important; /* Ensure logo is clickable */
 }
 
-.logo-tile-link:hover .logo-tile-image:not(.logo-tile-image-clone) {
-    /* First logo moves 100px up and fades out completely */
-    bottom: auto !important;
-    top: auto !important;
-    transform: translateX(-50%) translateY(-100px) scale(1) rotate(0deg) !important; /* Move exactly 100px up */
-    opacity: 0 !important; /* Fade out completely */
+/* Logo stays visible - no fade out on hover */
+.logo-tile-link:hover .logo-tile-image {
+    /* Logo stays in place and visible */
+    opacity: 1 !important; /* Always fully visible */
     filter: none !important; /* No filters that could affect opacity */
 }
 
-.logo-tile-link:hover .logo-hou-wei-tcm:not(.logo-tile-image-clone) {
-    /* First logo moves 100px up and fades out completely */
-    bottom: auto !important;
-    top: auto !important;
-    transform: translateX(-50%) translateY(-100px) scale(1) rotate(0deg) !important; /* Move exactly 100px up */
-    opacity: 0 !important; /* Fade out completely */
+.logo-tile-link:hover .logo-hou-wei-tcm {
+    /* Logo stays visible - no fade out */
+    opacity: 1 !important; /* Always fully visible */
     filter: none !important;
-    z-index: 300 !important; /* Ensure logo stays above overlay when hovered */
+    z-index: 10 !important; /* Ensure logo stays above liquid blob and overlay when hovered */
 }
 
-/* Clone logo for fade-in effect from bottom - initially hidden, appears on hover */
-.logo-tile-image-clone {
-    position: absolute !important;
-    bottom: auto !important;
-    top: calc(100% + 100px) !important; /* Start 100px below the tile (100px Anlauf) */
-    left: 50% !important;
-    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg) !important;
-    opacity: 0 !important; /* Initially invisible */
-    z-index: 301 !important; /* Above original logo (300) and overlay (50) - in front of blue moving area */
-    pointer-events: none !important; /* Not clickable */
-    transition: top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-    height: 35px !important;
-    max-height: 35px !important;
-    width: auto !important;
-    max-width: 200px !important;
-    object-fit: contain !important;
-    display: none !important; /* Initially hidden - will be shown via JS on hover */
-}
-
-.logo-tile-link:hover .logo-tile-image-clone {
-    display: block !important; /* Show on hover */
-    top: 25px !important; /* Final position: 25px from top edge of tile */
-    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg) !important;
-    opacity: 1 !important; /* Fade in - fully visible */
-}
+/* Clone logo removed - only one logo now */
 
 /* Hover Overlay - Gen Z Style with Liquid Morph */
 .logo-tile-overlay {
@@ -2256,14 +2227,14 @@ h1.name-corner {
 @keyframes elasticBounce {
     0% {
         transform: scale(0.8) translateZ(0); /* Start smaller (behind) */
-        opacity: 0;
+        opacity: 1;
     }
     40% {
         transform: scale(1.15) translateZ(0); /* Overshoot (momentum) - increased */
         opacity: 1;
     }
     70% {
-        transform: scale(0.80) translateZ(0); /* Go back smaller (nach hinten) - further back */
+        transform: scale(0.7) translateZ(0); /* Go back smaller (nach hinten) - further back */
         opacity: 1;
     }
     100% {
@@ -2290,7 +2261,7 @@ h1.name-corner {
     text-align: center;
     color: var(--color-text-on-dark);
     max-width: 85%;
-    opacity: 0;
+    opacity: 1;
     transform: translateY(10px) scale(0.95);
     transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
                 transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;

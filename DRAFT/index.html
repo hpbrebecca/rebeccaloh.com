@@ -230,8 +230,12 @@
             
             if (isLocal) {
                 // Local file:// protocol
-                // Check if we're in DRAFT folder
-                if (href.includes('/DRAFT/') || href.includes('\\DRAFT\\') || pathname.includes('DRAFT')) {
+                // Check if we're in DRAFT folder - check both forward and backslash
+                const inDraft = href.includes('/DRAFT/') || href.includes('\\DRAFT\\') || 
+                               href.toLowerCase().includes('draft') ||
+                               pathname.includes('DRAFT') || pathname.includes('draft');
+                
+                if (inDraft) {
                     basePath = '../LOGOS/';
                 } else {
                     basePath = 'LOGOS/';
@@ -1132,7 +1136,7 @@
                     }
                 },
                 matchspaceMusic: {
-                    backgroundImagePath: LOGOS_BASE_PATH + 'matchspace-music-background.webp',  // Background image for liquid blob effect
+                    backgroundImagePath: LOGOS_BASE_PATH + 'matchspace-music-background.jpg',  // Background image for liquid blob effect
                     logoImagePath: LOGOS_BASE_PATH + 'matchspace-music-logo.png',  // Logo image - bottom right corner
                     href: 'https://www.matchspace-music.ch/',
                     name: 'Matchspace Music',  // For alphabetical sorting
@@ -1539,7 +1543,7 @@
                         bgDiv.style.backgroundPosition = 'center';
                         bgDiv.style.backgroundRepeat = 'no-repeat';
                         bgDiv.style.borderRadius = '60% 40% 30% 70% / 60% 30% 70% 40%';
-                        bgDiv.style.zIndex = '0';
+                        bgDiv.style.zIndex = '1';
                         bgDiv.style.pointerEvents = 'none';
                         bgDiv.style.opacity = '1.0';
                         bgDiv.style.animation = 'liquid-blob-bg 8s ease-in-out infinite';
@@ -1568,30 +1572,6 @@
                     };
                     
                     imageWrapper.appendChild(img);
-                    
-                    // Create duplicate logo for fade-in effect on hover (initially hidden)
-                    const imgClone = document.createElement('img');
-                    imgClone.src = tileData.logoImagePath;
-                    imgClone.alt = tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title;
-                    imgClone.className = 'logo-tile-image logo-tile-image-clone';
-                    if (key === 'houWeiTCM') {
-                        imgClone.className += ' logo-hou-wei-tcm';
-                    }
-                    imgClone.loading = 'lazy';
-                    imgClone.decoding = 'async';
-                    imgClone.style.display = 'none'; /* Initially hidden - only shown on hover */
-                    imageWrapper.appendChild(imgClone);
-                    
-                    // Show clone logo on hover
-                    link.addEventListener('mouseenter', function() {
-                        imgClone.style.display = 'block';
-                    });
-                    link.addEventListener('mouseleave', function() {
-                        imgClone.style.display = 'none';
-                        // Reset clone position when hover ends
-                        imgClone.style.top = 'calc(100% + 100px)';
-                        imgClone.style.opacity = '0';
-                    });
                     
                     // Hover overlay with description
                     const overlay = document.createElement('div');
