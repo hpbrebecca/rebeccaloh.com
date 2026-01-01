@@ -161,28 +161,28 @@
                 <!-- Company Logos - Static layout -->
                 <div class="logo-grid connect-logos">
                     <figure class="logo-card">
-                        <img src="LOGOS/finma.jpg" alt="FINMA" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="finma.jpg" alt="FINMA" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/iba.svg" alt="IBA AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="iba.svg" alt="IBA AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="Gemeinde Köniz.svg" alt="Gemeinde Köniz" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/ficas.svg" alt="FICAS AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="ficas.svg" alt="FICAS AG" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/swisscom.png" alt="Swisscom" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="swisscom.png" alt="Swisscom" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/Continental.png" alt="Continental" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="Continental.png" alt="Continental" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/lekkerland.svg" alt="Lekkerland" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="lekkerland.svg" alt="Lekkerland" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                     <figure class="logo-card">
-                        <img src="LOGOS/SRF.jpg" alt="SRF" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
+                        <img src="" data-logo="SRF.jpg" alt="SRF" class="company-logo-img" loading="eager" decoding="async" onerror="handleLogoError(this);">
                     </figure>
                 </div>
             </div>
@@ -406,7 +406,46 @@
     <script src="assets/js/script.js" defer></script>
     <script src="assets/js/advanced-effects.js" defer></script>
     <script>
+        // Dynamic base path function that works for both local and online
+        function getBasePath() {
+            // Get the current script/location path
+            const protocol = window.location.protocol;
+            const isLocal = protocol === 'file:';
+            const pathname = window.location.pathname || '';
+            const href = window.location.href || '';
+            const hostname = window.location.hostname || '';
+            
+            // For online (http/https), always use absolute path from root
+            // This ensures it works regardless of subdirectory structure
+            if (protocol === 'http:' || protocol === 'https:' || (hostname && hostname !== '' && hostname !== 'localhost' && hostname !== '127.0.0.1')) {
+                // Online deployment - always use absolute path from root
+                return '/LOGOS/';
+            }
+            
+            // Local file:// protocol
+            // At root locally
+            return 'LOGOS/';
+        }
+        
+        // Set base path once - make it available globally
+        const LOGOS_BASE_PATH = getBasePath();
+        window.LOGOS_BASE_PATH = LOGOS_BASE_PATH; // Make available globally for debugging
+        
+        // Debug logging
+        console.log('🔍 Path Detection:', {
+            protocol: window.location.protocol,
+            hostname: window.location.hostname,
+            pathname: window.location.pathname,
+            href: window.location.href,
+            detectedPath: LOGOS_BASE_PATH
+        });
+        
         document.addEventListener('DOMContentLoaded', () => {
+            // Set company logo paths dynamically
+            document.querySelectorAll('.company-logo-img[data-logo]').forEach(img => {
+                img.src = LOGOS_BASE_PATH + img.getAttribute('data-logo');
+            });
+            
             const navLinks = document.querySelectorAll('.nav-link');
             const homeSection = document.getElementById('homeSection');
             const connectSection = document.getElementById('connectSection');
@@ -980,8 +1019,8 @@
             // Logo tile data structure with multilingual descriptions and properties
             const logoTilesData = {
                 tcm: {
-                    backgroundImagePath: 'LOGOS/tcm-sinocare-background.jpg',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/tcm-sinocare-logo.png',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'tcm-sinocare-background.jpg',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'tcm-sinocare-logo.png',  // Logo image - bottom right corner
                     href: 'https://www.tcmsino.care',
                     name: 'TCM SinoCare',  // For alphabetical sorting
                     theme: 'Doctor',  // Category: Doctor
@@ -1006,8 +1045,8 @@
                     }
                 },
                 softline: {
-                    backgroundImagePath: 'LOGOS/softline-cosmetics-background.jpg',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/softline-cosmetics-logo.png',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'softline-cosmetics-background.jpg',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'softline-cosmetics-logo.png',  // Logo image - bottom right corner
                     href: 'https://softlinecosmetics.ch/',
                     name: 'Softline Cosmetics',  // For alphabetical sorting
                     theme: 'Beauty',  // Category: Beauty
@@ -1032,8 +1071,8 @@
                     }
                 },
                 marvelous: {
-                    backgroundImagePath: 'LOGOS/MarVELOus hintergrund.webp',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/MarVELOus logo.webp',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'MarVELOus hintergrund.webp',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'MarVELOus logo.webp',  // Logo image - bottom right corner
                     href: 'https://www.mar-velo-us.com/',
                     name: 'MarVELOus',  // For alphabetical sorting
                     theme: 'Others',  // Category: Others
@@ -1058,8 +1097,8 @@
                     }
                 },
                 akaraka: {
-                    backgroundImagePath: 'LOGOS/Akaraka-Background.avif',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/Korean Restaurant AKARAKA logo.gif',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'Akaraka-Background.avif',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'Korean Restaurant AKARAKA logo.gif',  // Logo image - bottom right corner
                     href: 'https://www.akaraka.ch/',
                     name: 'Akaraka',  // For alphabetical sorting
                     theme: 'Restaurant',  // Category: Restaurant
@@ -1084,8 +1123,8 @@
                     }
                 },
                 houWeiTCM: {
-                    backgroundImagePath: 'LOGOS/Hou Wei TCM Breitenbach-Background.jpg',  // Background image for liquid blob effect (note: filename uses hyphen, not space)
-                    logoImagePath: 'LOGOS/Hou Wei TCM Breitenbach.png',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'Hou Wei TCM Breitenbach-Background.jpg',  // Background image for liquid blob effect (note: filename uses hyphen, not space)
+                    logoImagePath: LOGOS_BASE_PATH + 'Hou Wei TCM Breitenbach.png',  // Logo image - bottom right corner
                     href: 'https://tcmbreitenbach.ch/',
                     name: 'Hou Wei TCM Praxis',  // For alphabetical sorting
                     theme: 'Doctor',  // Category: Doctor (DE: Ärztinnen und Ärzte)
@@ -1110,8 +1149,8 @@
                     }
                 },
                 onlineApotheke: {
-                    backgroundImagePath: 'LOGOS/online-apotheke-background.png',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/online-apotheke-logo.svg',  // Logo image - bottom right corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'online-apotheke-background.png',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'online-apotheke-logo.svg',  // Logo image - bottom right corner
                     href: 'https://www.online-apotheke.ch/',
                     name: 'Online-Apotheke.ch',  // For alphabetical sorting
                     theme: 'Others',  // Category: Others
@@ -1136,8 +1175,8 @@
                     }
                 },
                 matchspaceMusic: {
-                    backgroundImagePath: 'LOGOS/matchspace-music-background.jpg',  // Background image for liquid blob effect
-                    logoImagePath: 'LOGOS/matchspace-music-logo.png',  // Logo image - bottom center corner
+                    backgroundImagePath: LOGOS_BASE_PATH + 'matchspace-music-background.jpg',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'matchspace-music-logo.png',  // Logo image - bottom center corner
                     href: 'https://www.matchspace-music.ch/',  // Update with actual URL if different
                     name: 'Matchspace Music',  // For alphabetical sorting
                     theme: 'Others',  // Category: Others
