@@ -221,44 +221,46 @@
         // Dynamic base path function that works for both local and online
         function getBasePath() {
             // Get the current script/location path
-            const isLocal = window.location.protocol === 'file:';
-            const pathname = window.location.pathname;
-            const href = window.location.href;
+            const protocol = window.location.protocol;
+            const isLocal = protocol === 'file:';
+            const pathname = window.location.pathname || '';
+            const href = window.location.href || '';
+            const hostname = window.location.hostname || '';
             
-            // Try to determine the actual file location
-            let basePath = '/LOGOS/'; // Default for online root
-            
-            if (isLocal) {
-                // Local file:// protocol
-                // Check if we're in DRAFT folder - check both forward and backslash
-                const inDraft = href.includes('/DRAFT/') || href.includes('\\DRAFT\\') || 
-                               href.toLowerCase().includes('draft') ||
-                               pathname.includes('DRAFT') || pathname.includes('draft');
-                
-                if (inDraft) {
-                    basePath = '../LOGOS/';
-                } else {
-                    basePath = 'LOGOS/';
-                }
-            } else {
-                // Online http/https protocol
-                // Check if current path is in a subdirectory
-                const pathParts = pathname.split('/').filter(p => p);
-                // If we're in DRAFT folder online
-                if (pathParts.includes('DRAFT') || pathname.startsWith('/DRAFT/')) {
-                    basePath = '../LOGOS/';
-                } else {
-                    // At root, use absolute path
-                    basePath = '/LOGOS/';
-                }
+            // For online (http/https), always use absolute path from root
+            // This ensures it works regardless of subdirectory structure
+            if (protocol === 'http:' || protocol === 'https:' || (hostname && hostname !== '' && hostname !== 'localhost' && hostname !== '127.0.0.1')) {
+                // Online deployment - always use absolute path from root
+                return '/LOGOS/';
             }
             
-            return basePath;
+            // Local file:// protocol
+            // Check if we're in DRAFT folder
+            const inDraft = href.includes('/DRAFT/') || href.includes('\\DRAFT\\') || 
+                           href.toLowerCase().includes('draft') ||
+                           pathname.includes('DRAFT') || pathname.includes('draft');
+            
+            if (inDraft) {
+                // In DRAFT folder locally, go up one level to reach LOGOS
+                return '../LOGOS/';
+            } else {
+                // At root locally
+                return 'LOGOS/';
+            }
         }
         
         // Set base path once - make it available globally
         const LOGOS_BASE_PATH = getBasePath();
         window.LOGOS_BASE_PATH = LOGOS_BASE_PATH; // Make available globally for debugging
+        
+        // Debug logging
+        console.log('🔍 Path Detection:', {
+            protocol: window.location.protocol,
+            hostname: window.location.hostname,
+            pathname: window.location.pathname,
+            href: window.location.href,
+            detectedPath: LOGOS_BASE_PATH
+        });
         
         document.addEventListener('DOMContentLoaded', () => {
             // Language Selector Functionality
