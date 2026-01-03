@@ -471,7 +471,7 @@ h1.name-corner {
     will-change: scroll-position;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    padding-bottom: clamp(96px, 12vw, 144px);
+    padding-bottom: 0px;
 }
 
 .main-content-designer.scrollable {
@@ -510,6 +510,7 @@ h1.name-corner {
     animation: fadeInAbout 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     contain: layout style;
     will-change: opacity, transform;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     /* Professional frame with generous vertical space */
     margin: 0 auto;
     /* Light sections as surfaces on dark base - 10% transparent text surfaces */
@@ -735,14 +736,17 @@ h1.name-corner {
     bottom: clamp(-50px, -5vw, -20px); /* Aligned to bottom - matches right offset */
     left: auto;
     top: auto;
-    /* Size: Dynamic based on content */
-    width: clamp(550px, 65vw, 850px); /* NOCH BREITER */
-    min-height: auto; /* Dynamic height based on content */
-    height: fit-content; /* Fit content dynamically */
+    /* Size: Dynamic based on content - increased to accommodate company logos */
+    width: clamp(550px, 65vw, 950px); /* Increased width for company logos */
+    min-height: auto;
+    height: fit-content; /* Flexible height based on content */
     background: var(--color-text-surface-light); /* Light text surface - 10% transparent */
     border: none;
     border-radius: 0;
-    padding: var(--space-lg); /* Padding reduziert (war var(--space-xl)) */
+    padding-top: var(--space-lg);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    padding-bottom: clamp(50px, 6vw, 80px); /* Increased bottom padding for logos */
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column; /* 1-SPALTIG: Alles untereinander */
@@ -750,11 +754,10 @@ h1.name-corner {
     justify-content: flex-start;
     overflow: visible;
     z-index: 100;
-    /* Make sure it's visible */
-    opacity: 1;
+    /* Flexible height based on content - scroll-animate/scroll-visible will handle transitions */
     visibility: visible;
-    /* Ensure it's positioned relative to wrapper */
-    transform: translate(0, 0);
+    /* Smooth transitions for JavaScript-controlled properties */
+    transition: bottom 0.3s ease-out, height 0.3s ease-out, width 0.3s ease-out;
 }
 
 .home-image-overlay-text {
@@ -784,13 +787,71 @@ h1.name-corner {
     box-sizing: border-box;
 }
 
+/* Company Logos in Home Overlay Box */
+.home-company-logos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(12px, 1.5vw, 16px);
+    width: 100%;
+    margin-top: var(--space-md);
+    padding-top: clamp(24px, 3vw, 32px);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.company-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.company-logo img {
+    max-width: clamp(80px, 10vw, 120px);
+    max-height: clamp(40px, 5vw, 60px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Logo size offsets */
+.company-logo img[data-logo*="ficas"],
+.company-logo img[alt*="FICAS"],
+.company-logo img[data-logo*="finma"],
+.company-logo img[alt*="FINMA"] {
+    max-width: clamp(95px, 12vw, 140px);
+    max-height: clamp(48px, 6vw, 70px);
+}
+
+.company-logo img[data-logo*="Mixverse"],
+.company-logo img[alt*="Mixverse"],
+.company-logo img[data-logo*="Bitcoin-Capital"],
+.company-logo img[alt*="Bitcoin Capital"] {
+    max-width: clamp(105px, 13vw, 155px);
+    max-height: clamp(53px, 6.5vw, 78px);
+}
+
+.company-logo img[data-logo*="Gemeinde"],
+.company-logo img[alt*="Gemeinde"],
+.company-logo img[alt*="Köniz"] {
+    max-width: clamp(70px, 8.5vw, 105px);
+    max-height: clamp(35px, 4.5vw, 53px);
+}
+
 /* Responsive adjustments - Tablet (769px - 1024px) */
 @media (max-width: 1024px) and (min-width: 769px) {
     .home-image-wrapper {
         flex-direction: row;
-        align-items: center;
-        min-height: clamp(500px, 65vw, 700px);
-        padding-bottom: clamp(80px, 10vw, 120px);
+        align-items: flex-start; /* Changed from center to flex-start to reduce spacing */
+        min-height: auto !important; /* Must be auto at all times */
+        padding-bottom: clamp(40px, 5vw, 60px); /* Reduced padding */
+        margin-top: clamp(16px, 2vw, 24px); /* Added small top margin */
     }
     
     .home-image-container {
@@ -800,11 +861,18 @@ h1.name-corner {
     }
     
     .home-image-overlay-box {
-        width: clamp(480px, 58vw, 680px);
-        min-height: auto; /* Dynamic height based on content */
-        height: fit-content; /* Fit content dynamically */
+        width: clamp(480px, 58vw, 800px); /* Increased width for company logos */
+        min-height: auto !important;
+        height: fit-content !important; /* Flexible height based on content */
         right: clamp(-40px, -4vw, -15px);
-        padding: var(--space-md);
+        padding-top: var(--space-md);
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+        padding-bottom: clamp(40px, 5vw, 60px); /* Increased bottom padding for logos */
+    }
+
+    .home-company-logos {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on tablet */
     }
     
     .home-image-overlay-text {
@@ -842,14 +910,16 @@ h1.name-corner {
         left: auto !important;
         width: 100% !important;
         max-width: 100% !important;
-        min-height: auto !important; /* Dynamic height */
-        height: fit-content !important; /* Fit content dynamically */
+        min-height: auto !important; /* Fixed - no variable changes */
+        height: fit-content !important; /* Fixed - no variable changes */
         margin-top: var(--space-lg); /* Space between image and text box */
         margin-left: 0;
         margin-right: 0;
         padding: var(--space-md); /* Reduced padding on mobile */
         /* Ensure box expands to fit all content */
         box-sizing: border-box;
+        opacity: 1 !important; /* Fixed - no scroll-animate changes */
+        transform: translateY(0) !important; /* Fixed - no scroll-visible changes */
     }
 }
 
@@ -862,9 +932,12 @@ h1.name-corner {
     
     .home-image-overlay-box {
         margin-top: var(--space-md);
-        padding: var(--space-sm);
-        min-height: auto !important; /* Dynamic height */
-        height: fit-content !important; /* Fit content dynamically */
+        padding-top: var(--space-sm);
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+        padding-bottom: clamp(32px, 4vw, 44px); /* Increased bottom padding for logos on small phones */
+        min-height: auto !important;
+        height: fit-content !important; /* Flexible height based on content */
         /* Ensure all text fits within box */
         box-sizing: border-box;
     }
@@ -887,14 +960,16 @@ h1.name-corner {
     .home-image-overlay-box {
         width: 100% !important;
         max-width: 100% !important;
-        min-height: auto !important;
-        height: fit-content !important;
+        min-height: auto !important; /* Fixed - no variable changes */
+        height: fit-content !important; /* Fixed - no variable changes */
         padding: var(--space-md);
         margin-top: var(--space-md);
         /* Ensure box expands for all content in portrait */
         box-sizing: border-box;
         display: flex !important;
         flex-direction: column !important;
+        opacity: 1 !important; /* Fixed - no scroll-animate changes */
+        transform: translateY(0) !important; /* Fixed - no scroll-visible changes */
     }
     
     .home-image-overlay-text {
@@ -1798,6 +1873,7 @@ h1.name-corner {
     border: none;
     border-radius: 0;
     padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
     box-shadow: none;
     margin: 0 auto;
     /* Professional centered content with generous spacing */
@@ -1814,8 +1890,12 @@ h1.name-corner {
     align-items: flex-start;
     justify-content: center;
     width: 100%;
+    max-width: 100%;
     /* Optimized layout */
     margin: 0 auto;
+    padding: 0; /* Ensure no padding */
+    box-sizing: border-box; /* Ensure padding is included in width */
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .recommendations-title {
@@ -1964,6 +2044,10 @@ h1.name-corner {
     transition: background-color 0.2s ease;
 }
 
+.links-filter-menu .links-filter-sublocation {
+    padding-left: 24px; /* Indent sublocations to show hierarchy under Switzerland */
+}
+
 .links-filter-checkbox:hover {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -1986,16 +2070,21 @@ h1.name-corner {
     white-space: pre; /* Preserve whitespace for indentation */
 }
 
+.links-filter-menu .links-filter-sublocation {
+    padding-left: 24px; /* Indent sublocations to show hierarchy under Switzerland */
+}
+
 .recommendations-grid {
-    width: 100%;
+    width: fit-content;
     max-width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
-    column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap between tiles */
-    row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap between tile rows */
+    column-gap: clamp(16px, 2.5vw, 24px); /* Horizontal gap between tiles - same as row-gap */
+    row-gap: clamp(16px, 2.5vw, 24px); /* Vertical gap between tile rows - same as column-gap */
     margin: 0 auto;
-    justify-items: start; /* Left-align tiles in their grid cells */
+    justify-items: center; /* Center tiles in their grid cells */
     align-items: start;
+    box-sizing: border-box; /* Ensure grid doesn't exceed container width */
     /* Professional spacing - tiles in 4-column grid */
     /* Mobile performance */
     contain: layout style;
@@ -2009,7 +2098,8 @@ h1.name-corner {
     max-width: 300px; /* Increased size - larger tiles with minimal gap */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
     height: auto; /* Let aspect-ratio control height */
-    min-height: 200px; /* Fallback minimum height */
+    min-height: 250px; /* Minimum height - never smaller than 250px */
+    min-width: 250px; /* Minimum width - never smaller than 250px */
     position: relative;
     perspective: 1000px;
     justify-self: start; /* Left-align within grid cell */
@@ -2109,7 +2199,10 @@ h1.name-corner {
     z-index: 1; /* Behind logo - must stay behind */
     pointer-events: none;
     animation: liquid-blob-bg 8s ease-in-out infinite; /* Liquid blob animation with background image */
-    opacity: 1.0; /* Fully opaque background image */
+    opacity: 1.0; /* Original opacity - background stays original color */
+    filter: saturate(1.15); /* Slightly increase saturation for more vibrant colors */
+    backdrop-filter: blur(20px) saturate(120%); /* Increased blur for stronger frosted glass effect */
+    -webkit-backdrop-filter: blur(20px) saturate(120%); /* Webkit prefix for Safari */
 }
 
 @keyframes liquid-blob-bg {
@@ -2124,45 +2217,49 @@ h1.name-corner {
 /* ::after removed - was creating square mirror effect */
 
 .logo-tile-image {
-    height: 35px; /* Fixed height - increased by 5px (was 30px) */
-    max-height: 35px; /* Maximum height - increased by 5px */
+    height: clamp(22px, 3.2vw, 32px); /* Responsive height - slightly smaller */
+    max-height: clamp(22px, 3.2vw, 32px); /* Responsive maximum height - slightly smaller */
     width: auto; /* Proportional width based on aspect ratio */
-    max-width: 200px; /* Maximum width to prevent logos from being too wide */
+    max-width: clamp(120px, 15vw, 170px); /* Responsive maximum width - smaller, especially for wide logos */
     object-fit: contain; /* Maintain aspect ratio, never distort */
     object-position: center bottom; /* Centered horizontally, bottom aligned */
     display: block !important; /* Ensure logos are always visible */
     opacity: 1 !important; /* Fully opaque - no transparency at all */
-    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* No opacity transition - logo always visible */
+    transition: none; /* No dynamic transitions - static position */
     filter: none !important; /* No filters that could affect opacity */
     transform: translateX(-50%) translateY(0) scale(1) rotate(0deg); /* Only translate horizontally for centering */
     position: absolute; /* Absolute positioning */
-    bottom: 25px; /* 25px from bottom edge - reduced by 5px (was 30px) */
+    bottom: clamp(21px, 4.4vw, 35px); /* Responsive bottom position - 11px lower than original (5px more from previous) */
     left: 50%; /* Center horizontally */
-    z-index: 10 !important; /* Higher than background (1) - logo must be in front of liquid blob */
+    z-index: 100 !important; /* Higher than overlay (50) but below overlay-content (110) - logo must be visible above overlay */
     background: none !important; /* No background that could affect visibility */
 }
 
-/* Special styling for Hou Wei TCM logo - same size as other logos, bottom-aligned */
-.logo-hou-wei-tcm {
-    height: 35px !important; /* Fixed height - increased by 5px (was 30px) */
-    max-height: 35px !important; /* Maximum height - increased by 5px */
-    width: auto !important; /* Proportional width based on aspect ratio */
-    max-width: 200px !important; /* Maximum width */
-    object-fit: contain !important; /* Maintain aspect ratio, never distort */
-    object-position: center bottom !important; /* Centered horizontally, bottom aligned */
-    transform: translateX(-50%) scale(1) rotate(0deg) !important; /* Only translate horizontally for centering */
-    transition: bottom 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, top 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* Slower, visible movement - 1.5s duration */
-    z-index: 10 !important; /* Higher than background (1) - logo must be in front of liquid blob */
-    position: absolute !important;
-    bottom: 25px !important; /* 25px from bottom edge - reduced by 5px (was 30px) */
-    left: 50% !important; /* Center horizontally */
-    /* Original logo without filters - ensure it's visible in front */
-    mix-blend-mode: normal !important;
-    filter: none !important; /* No filters that could affect opacity */
-    opacity: 1 !important; /* Fully opaque - no transparency at all */
-    background: none !important; /* No background that could affect visibility */
-    display: block !important;
-    pointer-events: auto !important; /* Ensure logo is clickable */
+/* Smaller logos for online apotheke and softline cosmetics */
+.logo-tile-image[src*="online-apotheke-logo"],
+.logo-tile-image[alt*="Online-Apotheke"] {
+    height: clamp(16px, 2.5vw, 24px) !important;
+    max-height: clamp(16px, 2.5vw, 24px) !important;
+    max-width: clamp(100px, 13vw, 150px) !important;
+}
+
+.logo-tile-image[src*="softline-cosmetics-logo"],
+.logo-tile-image[alt*="Softline Cosmetics"] {
+    height: clamp(16px, 2.5vw, 24px) !important;
+    max-height: clamp(16px, 2.5vw, 24px) !important;
+    max-width: clamp(100px, 13vw, 150px) !important;
+}
+
+.logo-tile-image[src*="matchspace-music-logo"],
+.logo-tile-image[alt*="Matchspace Music"] {
+    height: clamp(18px, 2.7vw, 27px) !important;
+    max-height: clamp(18px, 2.7vw, 27px) !important;
+    max-width: clamp(110px, 14vw, 160px) !important;
+}
+
+/* Smaller text for online-apotheke.ch title */
+.logo-tile[data-tile-key="onlineApotheke"] .logo-tile-overlay-title {
+    font-size: clamp(0.8125rem, 1.4vw, 1rem) !important; /* Slightly smaller than default */
 }
 
 /* Logo stays visible - no fade out on hover */
@@ -2172,35 +2269,29 @@ h1.name-corner {
     filter: none !important; /* No filters that could affect opacity */
 }
 
-.logo-tile-link:hover .logo-hou-wei-tcm {
-    /* Logo stays visible - no fade out */
-    opacity: 1 !important; /* Always fully visible */
-    filter: none !important;
-    z-index: 10 !important; /* Ensure logo stays above liquid blob and overlay when hovered */
-}
-
 /* Clone logo removed - only one logo now */
 
 /* Hover Overlay - Gen Z Style with Liquid Morph */
 .logo-tile-overlay {
     position: absolute;
-    top: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
-    left: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
-    right: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
-    bottom: 20px; /* Margin from tile edge - increased to make blue hover area smaller */
-    width: calc(100% - 40px); /* Subtract margins (20px * 2) - smaller blue hover area */
-    height: calc(100% - 40px); /* Subtract margins (20px * 2) - smaller blue hover area */
+    top: 15px; /* Margin from tile edge - smaller margin for bigger overlay */
+    left: 15px; /* Margin from tile edge - smaller margin for bigger overlay */
+    right: 15px; /* Margin from tile edge - smaller margin for bigger overlay */
+    bottom: 15px; /* Margin from tile edge - smaller margin for bigger overlay */
+    width: calc(100% - 30px); /* Subtract margins (15px * 2) - bigger overlay wrapper */
+    height: calc(100% - 30px); /* Subtract margins (15px * 2) - bigger overlay wrapper */
     background: linear-gradient(
         135deg,
-        rgba(14, 26, 47, 0.85), /* More transparent to allow background image to show through */
-        rgba(30, 46, 102, 0.80),
-        rgba(14, 26, 47, 0.85)
-    ); /* Blue gradient background - reduced opacity to show background image */
+        rgba(40, 60, 120, 0.75), /* New brighter blue values */
+        rgba(60, 80, 140, 0.72), /* New brighter blue values */
+        rgba(40, 60, 120, 0.75)
+    ); /* Brighter blue gradient with new values */
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
+    z-index: 50; /* Above background (0) but below logo (100) */
     transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 visibility 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Elastic bounce effect */
@@ -2260,23 +2351,23 @@ h1.name-corner {
 .logo-tile-overlay-content {
     text-align: center;
     color: var(--color-text-on-dark);
-    max-width: 85%;
+    max-width: 99%; /* Increased from 96% for wider text */
     opacity: 1;
-    transform: translateY(10px) scale(0.95);
+    transform: translateY(-10px) scale(0.95);
     transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
-                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+                transform 0s;
     position: relative;
     z-index: 110; /* Above logo (100) - text must be on top */
 }
 
 .logo-tile-link:hover .logo-tile-overlay-content {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(-10px) scale(1);
 }
 
 .logo-tile-overlay-title {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    font-size: clamp(0.875rem, 1.5vw, 1.0625rem); /* Smaller titles */
     font-weight: 400;
     letter-spacing: var(--letter-spacing-normal);
     color: var(--color-text-on-dark);
@@ -2297,12 +2388,28 @@ h1.name-corner {
     left: 50%;
     transform: translateX(-50%) scaleX(0);
     width: 60%;
-    height: 2px;
-    background: linear-gradient(90deg, 
-        transparent, 
-        rgba(63, 75, 184, 0.8), 
-        transparent
+    height: 3px; /* Thicker line for more visible eyeliner effect */
+    background: linear-gradient(to top, 
+        #3F5BC8 0%,
+        #3F5BC8 60%,
+        transparent 100%
+    ); /* Saturated bright winter blue - sharp bottom, fades/thins towards top */
+    mask-image: linear-gradient(90deg, 
+        transparent 0%,
+        black 20%,
+        black 80%,
+        transparent 100%
+    ); /* Tapers at horizontal ends like eyeliner */
+    -webkit-mask-image: linear-gradient(90deg, 
+        transparent 0%,
+        black 20%,
+        black 80%,
+        transparent 100%
     );
+    box-shadow: 
+        0 0 6px rgba(63, 91, 200, 0.8),
+        0 0 12px rgba(63, 91, 200, 0.6),
+        0 1px 3px rgba(255, 255, 255, 0.3) inset; /* Static shine/glitter effect */
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s;
 }
 
@@ -2312,14 +2419,16 @@ h1.name-corner {
 
 .logo-tile-overlay-text {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(0.875rem, 1.4vw, 1rem);
+    font-size: clamp(0.8125rem, 1.3vw, 0.9375rem); /* Smaller text */
     font-weight: 300;
     letter-spacing: var(--letter-spacing-normal);
     color: rgba(255, 255, 255, 0.9);
     margin: 0;
-    line-height: var(--line-height-relaxed);
+    line-height: 1.3; /* Further decreased line spacing (tighter) */
     font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
     text-rendering: optimizeLegibility;
+    width: 105%; /* Wider width for text - 105% of container */
+    max-width: 105%; /* Wider width for text */
     text-shadow: 
         0 2px 6px rgba(0, 0, 0, 0.4),
         0 0 10px rgba(90, 58, 138, 0.1); /* Reduced glow */
@@ -2480,9 +2589,25 @@ h1.name-corner {
     overflow: visible;
 }
 
+.control-item.linkedin-control {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+}
+
 .control-item.disclaimer-control {
     flex: 0 0 auto;
     justify-content: flex-end;
+}
+
+.linkedin-control-btn {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.linkedin-control-btn svg {
+    fill: currentColor;
 }
 
 .disclaimer-control {
@@ -2805,19 +2930,21 @@ h1.name-corner {
     }
     
     .main-content-designer {
-        top: clamp(100px, 12vw, 120px);
-        bottom: clamp(64px, 7vw, 80px);
+        top: 80px;
+        padding-bottom: 0px;
+        bottom: 40px;
     }
     
     .home-image-wrapper {
         flex-direction: row;
-        align-items: center;
-        min-height: clamp(500px, 65vw, 700px);
+        align-items: flex-start;
+        min-height: auto !important; /* Must be auto at all times */
     }
-    
+
     .home-image-overlay-box {
         width: clamp(480px, 60vw, 700px);
-        min-height: clamp(350px, 45vw, 500px);
+        min-height: auto !important; /* Fixed - no variable changes */
+        height: fit-content !important; /* Fixed - no variable changes */
     }
     
     .about-detail-body {
@@ -3648,57 +3775,215 @@ h1.name-corner {
     will-change: transform;
 }
 
-.home-image-overlay-box,
 .about-section-designer,
 .recommendations-section {
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
 }
 
+/* home-image-overlay-box supports scroll-animate/scroll-visible for flexible height based on content */
+
 /* ============================================
    MODERN PAGE TRANSITIONS - Editorial & Gen Z
    ============================================ */
 
-/* Responsive: Logo tiles on tablet and mobile */
+/* Responsive: Logo tiles - Multiple breakpoints for smooth transitions */
+/* Large desktop: 4 columns (default) */
+
+/* Medium-large desktop: 3 columns */
+@media (max-width: 1300px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: clamp(16px, 2.5vw, 24px);
+        row-gap: clamp(16px, 2.5vw, 24px);
+        justify-items: center;
+    }
+}
+
+/* Tablet landscape: 3 columns */
 @media (max-width: 1024px) {
     .recommendations-grid {
-        grid-template-columns: repeat(4, 1fr); /* Keep 4 columns on tablet */
-        column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for tablet */
-        row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for tablet */
-        justify-items: start; /* Left-align tiles */
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: clamp(16px, 2.5vw, 24px);
+        row-gap: clamp(16px, 2.5vw, 24px);
+        justify-items: center;
     }
     
     .logo-tile {
         width: 100%;
-        max-width: min(300px, 40vw);
+        max-width: 100%;
         aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
         height: auto; /* Let aspect-ratio control height */
-        min-height: 160px; /* Minimum size for tablets */
+        min-height: 250px; /* Minimum size - never smaller than 250px */
+        min-width: 250px; /* Minimum width - never smaller than 250px */
+    }
+    
+    .logo-tile-image {
+        height: clamp(22px, 3.2vw, 32px);
+        max-height: clamp(22px, 3.2vw, 32px);
+        max-width: clamp(130px, 16vw, 185px);
+        bottom: clamp(15px, 3.6vw, 27px); /* 11px lower than original (5px more from previous) */
+    }
+    
+    .logo-tile-image[src*="online-apotheke-logo"],
+    .logo-tile-image[alt*="Online-Apotheke"] {
+        height: clamp(15px, 2.3vw, 21px) !important;
+        max-height: clamp(15px, 2.3vw, 21px) !important;
+        max-width: clamp(90px, 12vw, 135px) !important;
+    }
+    
+    .logo-tile-image[src*="softline-cosmetics-logo"],
+    .logo-tile-image[alt*="Softline Cosmetics"] {
+        height: clamp(15px, 2.3vw, 21px) !important;
+        max-height: clamp(15px, 2.3vw, 21px) !important;
+        max-width: clamp(90px, 12vw, 135px) !important;
+    }
+    
+    .logo-tile-image[src*="matchspace-music-logo"],
+    .logo-tile-image[alt*="Matchspace Music"] {
+        height: clamp(17px, 2.6vw, 24px) !important;
+        max-height: clamp(17px, 2.6vw, 24px) !important;
+        max-width: clamp(100px, 13vw, 145px) !important;
+    }
+    
+    .logo-tile-overlay-title {
+        font-size: clamp(0.8125rem, 1.4vw, 1rem);
+    }
+    
+    .logo-tile-overlay-text {
+        font-size: clamp(0.8125rem, 1.3vw, 0.9375rem);
     }
 }
 
+/* Tablet portrait: 2 columns */
+@media (max-width: 900px) {
+    .recommendations-grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: clamp(16px, 2.5vw, 24px);
+        row-gap: clamp(16px, 2.5vw, 24px);
+        justify-items: center;
+    }
+}
+
+/* Mobile landscape/small tablet: 2 columns */
 @media (max-width: 768px) {
     .recommendations-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
-        justify-items: start; /* Left-align tiles */
-                column-gap: clamp(2px, 0.3vw, 4px); /* Minimal horizontal gap for mobile */
-        row-gap: clamp(16px, 2.5vw, 24px); /* Increased vertical gap for mobile */
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: clamp(16px, 2.5vw, 24px);
+        row-gap: clamp(16px, 2.5vw, 24px);
+        justify-items: center;
     }
-    
+
     .logo-tile {
         width: 100%; /* Full width of grid cell */
         max-width: 100%; /* Use full available width */
         aspect-ratio: 1 / 1; /* Maintain square aspect ratio to prevent distortion */
         height: auto; /* Let aspect-ratio control height */
-        min-height: 140px; /* Minimum size for very small screens */
+        min-height: 250px; /* Minimum size - never smaller than 250px */
+        min-width: 250px; /* Minimum width - never smaller than 250px */
     }
-    
+
     .logo-tile-image-wrapper {
         padding: clamp(20px, 2.5vw, 28px);
     }
-    
+
     .logo-tile-overlay {
         padding: clamp(16px, 2vw, 24px);
+    }
+    
+    .logo-tile-image {
+        height: clamp(20px, 3vw, 28px);
+        max-height: clamp(20px, 3vw, 28px);
+        max-width: clamp(120px, 15vw, 170px);
+        bottom: clamp(13px, 3.4vw, 25px); /* 11px lower than original (5px more from previous) */
+    }
+    
+    .logo-tile-image[src*="online-apotheke-logo"],
+    .logo-tile-image[alt*="Online-Apotheke"] {
+        height: clamp(14px, 2.1vw, 19px) !important;
+        max-height: clamp(14px, 2.1vw, 19px) !important;
+        max-width: clamp(80px, 11vw, 125px) !important;
+    }
+    
+    .logo-tile-image[src*="softline-cosmetics-logo"],
+    .logo-tile-image[alt*="Softline Cosmetics"] {
+        height: clamp(14px, 2.1vw, 19px) !important;
+        max-height: clamp(14px, 2.1vw, 19px) !important;
+        max-width: clamp(80px, 11vw, 125px) !important;
+    }
+    
+    .logo-tile-image[src*="matchspace-music-logo"],
+    .logo-tile-image[alt*="Matchspace Music"] {
+        height: clamp(16px, 2.3vw, 21px) !important;
+        max-height: clamp(16px, 2.3vw, 21px) !important;
+        max-width: clamp(90px, 12vw, 135px) !important;
+    }
+    
+    .logo-tile-overlay-title {
+        font-size: clamp(0.75rem, 1.3vw, 0.9375rem);
+    }
+    
+    .logo-tile-overlay-text {
+        font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+    }
+    
+    .logo-tile[data-tile-key="onlineApotheke"] .logo-tile-overlay-title {
+        font-size: clamp(0.6875rem, 1.15vw, 0.8125rem) !important; /* Slightly smaller for online-apotheke */
+    }
+}
+
+/* Small mobile: 1 column */
+@media (max-width: 480px) {
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+        column-gap: clamp(16px, 2.5vw, 24px);
+        row-gap: clamp(16px, 2.5vw, 24px);
+        justify-items: center;
+    }
+
+    .logo-tile {
+        min-height: 200px; /* Minimum size for small phones - ensures content fits */
+        min-width: 200px; /* Minimum width to ensure content fits */
+    }
+    
+    .logo-tile-image {
+        height: clamp(18px, 2.8vw, 24px);
+        max-height: clamp(18px, 2.8vw, 24px);
+        max-width: clamp(110px, 14vw, 150px);
+        bottom: clamp(11px, 2.9vw, 21px); /* 11px lower than original (5px more from previous) */
+    }
+    
+    .logo-tile-image[src*="online-apotheke-logo"],
+    .logo-tile-image[alt*="Online-Apotheke"] {
+        height: clamp(12px, 1.9vw, 16px) !important;
+        max-height: clamp(12px, 1.9vw, 16px) !important;
+        max-width: clamp(70px, 10vw, 110px) !important;
+    }
+    
+    .logo-tile-image[src*="softline-cosmetics-logo"],
+    .logo-tile-image[alt*="Softline Cosmetics"] {
+        height: clamp(12px, 1.9vw, 16px) !important;
+        max-height: clamp(12px, 1.9vw, 16px) !important;
+        max-width: clamp(70px, 10vw, 110px) !important;
+    }
+    
+    .logo-tile-image[src*="matchspace-music-logo"],
+    .logo-tile-image[alt*="Matchspace Music"] {
+        height: clamp(14px, 2.1vw, 18px) !important;
+        max-height: clamp(14px, 2.1vw, 18px) !important;
+        max-width: clamp(80px, 11vw, 120px) !important;
+    }
+    
+    .logo-tile-overlay-title {
+        font-size: clamp(0.6875rem, 1.2vw, 0.8125rem);
+    }
+    
+    .logo-tile-overlay-text {
+        font-size: clamp(0.6875rem, 1.1vw, 0.75rem);
+    }
+    
+    .logo-tile[data-tile-key="onlineApotheke"] .logo-tile-overlay-title {
+        font-size: clamp(0.625rem, 1vw, 0.6875rem) !important; /* Slightly smaller for online-apotheke */
     }
 }
 
