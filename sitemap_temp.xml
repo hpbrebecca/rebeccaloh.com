@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- Home Page -->
   <url>
@@ -162,4 +162,5 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://rebeccaloh.com/fr/quotes"/>
     <xhtml:link rel="alternate" hreflang="zh" href="https://rebeccaloh.com/zh/quotes"/>
   </url>
+
 </urlset>
