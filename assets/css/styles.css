@@ -801,6 +801,7 @@ h1.name-corner {
     visibility: visible;
     /* Smooth transitions for JavaScript-controlled properties */
     transition: bottom 0.3s ease-out, height 0.3s ease-out, width 0.3s ease-out;
+    box-sizing: border-box;
 }
 
 .home-image-overlay-text {
@@ -839,6 +840,8 @@ h1.name-corner {
     margin-top: var(--space-md);
     padding-top: clamp(24px, 3vw, 32px);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .company-logo {
@@ -848,6 +851,9 @@ h1.name-corner {
     filter: grayscale(100%);
     opacity: 0.6;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .company-logo:hover {
@@ -858,9 +864,10 @@ h1.name-corner {
 .company-logo img {
     max-width: clamp(80px, 10vw, 120px);
     max-height: clamp(40px, 5vw, 60px);
-    width: auto;
+    width: 100%;
     height: auto;
     object-fit: contain;
+    box-sizing: border-box;
 }
 
 /* Logo size offsets */
@@ -885,6 +892,44 @@ h1.name-corner {
 .company-logo img[alt*="Köniz"] {
     max-width: clamp(70px, 8.5vw, 105px);
     max-height: clamp(35px, 4.5vw, 53px);
+}
+
+/* Responsive adjustments - Laptop Large (1440px and up) */
+@media (min-width: 1441px) {
+    .home-company-logos {
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(14px, 1.5vw, 18px);
+    }
+}
+
+/* Responsive adjustments - Laptop Medium (1280px - 1440px) */
+@media (max-width: 1440px) and (min-width: 1281px) {
+    .home-company-logos {
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(12px, 1.4vw, 16px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(75px, 9.5vw, 115px);
+        max-height: clamp(38px, 4.75vw, 58px);
+    }
+}
+
+/* Responsive adjustments - Laptop Small (1025px - 1280px) */
+@media (max-width: 1280px) and (min-width: 1025px) {
+    .home-company-logos {
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(10px, 1.3vw, 14px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(70px, 9vw, 110px);
+        max-height: clamp(35px, 4.5vw, 55px);
+    }
+    
+    .home-image-overlay-box {
+        width: clamp(500px, 60vw, 850px);
+    }
 }
 
 /* Responsive adjustments - Tablet (769px - 1024px) */
@@ -912,10 +957,18 @@ h1.name-corner {
         padding-left: var(--space-md);
         padding-right: var(--space-md);
         padding-bottom: clamp(40px, 5vw, 60px); /* Increased bottom padding for logos */
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .home-company-logos {
         grid-template-columns: repeat(3, 1fr); /* 3 columns on tablet */
+        gap: clamp(10px, 1.2vw, 14px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(70px, 9vw, 110px);
+        max-height: clamp(35px, 4.5vw, 55px);
     }
     
     .home-image-overlay-text {
@@ -964,6 +1017,16 @@ h1.name-corner {
         opacity: 1 !important; /* Fixed - no scroll-animate changes */
         transform: translateY(0) !important; /* Fixed - no scroll-visible changes */
     }
+    
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+        gap: clamp(8px, 2vw, 12px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(60px, 12vw, 90px);
+        max-height: clamp(30px, 6vw, 45px);
+    }
 }
 
 /* Extra small devices (phones, 480px and down) */
@@ -990,6 +1053,16 @@ h1.name-corner {
         /* Prevent text overflow */
         word-wrap: break-word;
         overflow-wrap: break-word;
+    }
+    
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small phones */
+        gap: clamp(6px, 1.5vw, 10px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(50px, 11vw, 80px);
+        max-height: clamp(25px, 5.5vw, 40px);
     }
 }
 
@@ -1021,6 +1094,50 @@ h1.name-corner {
         word-wrap: break-word;
         overflow-wrap: break-word;
         hyphens: auto;
+    }
+    
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns in portrait */
+        gap: clamp(8px, 2vw, 12px);
+    }
+}
+
+/* Medium smartphones (481px - 600px) */
+@media (max-width: 600px) and (min-width: 481px) {
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(8px, 2.2vw, 12px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(55px, 11.5vw, 85px);
+        max-height: clamp(28px, 5.75vw, 43px);
+    }
+}
+
+/* Small smartphones (375px - 480px) */
+@media (max-width: 480px) and (min-width: 375px) {
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(6px, 1.8vw, 10px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(50px, 11vw, 80px);
+        max-height: clamp(25px, 5.5vw, 40px);
+    }
+}
+
+/* Extra small smartphones (below 375px) */
+@media (max-width: 374px) {
+    .home-company-logos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(4px, 1.5vw, 8px);
+    }
+    
+    .company-logo img {
+        max-width: clamp(45px, 10vw, 70px);
+        max-height: clamp(23px, 5vw, 35px);
     }
 }
 
@@ -3034,9 +3151,15 @@ h1.name-corner {
     
     .name-location-corner {
         font-size: clamp(0.5625rem, 0.7vw, 0.6875rem);
-        white-space: normal;
+        white-space: nowrap;
         overflow: visible;
         text-overflow: clip;
+        text-align: left;
+        text-align-last: left;
+    }
+    
+    .name-corner {
+        width: clamp(200px, 50vw, 280px);
     }
     
     .main-navigation {
@@ -3460,11 +3583,17 @@ h1.name-corner {
 
     .name-location-corner {
         font-size: clamp(0.5rem, 1.6vw, 0.625rem);
-        white-space: normal;
+        white-space: nowrap;
         overflow: visible;
         text-overflow: clip;
         max-width: none;
         line-height: 1.4;
+        text-align: left;
+        text-align-last: left;
+    }
+    
+    .name-corner {
+        width: clamp(180px, 45vw, 260px);
     }
     
     .name-corner-section {
