@@ -106,6 +106,7 @@
     letter-spacing: var(--letter-spacing-normal); /* Editorial spacing */
     color: var(--color-text-on-dark); /* Text on dark background = white */
     margin: var(--space-lg) 0 0 0; /* More editorial spacing */
+    margin-bottom: clamp(48px, 8vw, 64px); /* Increased spacing before form */
     line-height: var(--line-height-relaxed); /* More breathing room */
     font-style: italic;
     font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
@@ -122,7 +123,7 @@
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: clamp(24px, 3vw, 32px);
+    gap: clamp(28px, 4vw, 40px); /* Increased gap for better spacing on smartphone */
     width: 100%;
 }
 
@@ -141,18 +142,20 @@
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25); /* Slightly increased contrast for better visibility */
     color: var(--color-white-content);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', 'Inter', sans-serif;
-    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); /* Slightly larger */
+    font-size: clamp(1rem, 1.3vw, 1.125rem); /* Larger for smartphone readability - Gen-X friendly */
     font-weight: 300;
     letter-spacing: 0.01em; /* Subtle spacing for form inputs */
-    padding: clamp(12px, 1.5vw, 16px) 0 clamp(8px, 1vw, 12px) 0;
+    padding: clamp(16px, 2vw, 20px) 0 clamp(10px, 1.2vw, 14px) 0; /* Increased padding for better touch targets */
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Gen Z smoother transition */
     outline: none;
     resize: none;
     font-feature-settings: "liga" 1, "kern" 1;
     text-rendering: optimizeLegibility;
+    -webkit-appearance: none; /* Better mobile appearance */
+    appearance: none;
 }
 
 .form-textarea {
@@ -163,9 +166,9 @@
 .form-label {
     position: absolute;
     left: 0;
-    top: clamp(12px, 1.5vw, 16px);
+    top: clamp(16px, 2vw, 20px); /* Adjusted for larger input padding */
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', 'Inter', sans-serif;
-    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); /* Slightly larger */
+    font-size: clamp(1rem, 1.3vw, 1.125rem); /* Larger for smartphone readability - Gen-X friendly */
     font-weight: 300;
     letter-spacing: 0.02em; /* Subtle spacing */
     color: var(--color-text-on-dark); /* Full opacity - never reduce text opacity */
@@ -180,7 +183,7 @@
 .form-input:not(:placeholder-shown) + .form-label,
 .form-textarea:focus + .form-label,
 .form-textarea:not(:placeholder-shown) + .form-label {
-    transform: translateY(clamp(-20px, -2.5vw, -24px)) scale(0.85);
+    transform: translateY(clamp(-24px, -3vw, -28px)) scale(0.85); /* Adjusted for larger inputs */
     color: var(--color-text-on-dark); /* Full opacity - never reduce text opacity */
 }
 
@@ -241,23 +244,25 @@
 .form-submit-btn {
     align-self: flex-start;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.35); /* Slightly increased contrast */
     color: var(--color-white-content);
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 1.3vw, 1.1875rem); /* Slightly larger */
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem); /* Larger for smartphone readability */
     font-weight: 300;
     letter-spacing: var(--letter-spacing-wider); /* More editorial spacing */
     text-transform: uppercase;
-    padding: clamp(12px, 1.4vw, 16px) clamp(28px, 3.5vw, 36px); /* More padding */
+    padding: clamp(16px, 2vw, 20px) clamp(32px, 4.5vw, 40px); /* Larger padding for better touch targets */
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Gen Z smoother */
-    min-width: clamp(120px, 15vw, 160px);
+    min-width: clamp(140px, 18vw, 180px);
+    min-height: 48px; /* Minimum touch target size for accessibility */
     font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     /* Gen Z subtle glow */
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    touch-action: manipulation; /* Better touch response on mobile */
 }
 
 .form-submit-btn::before {
@@ -393,20 +398,21 @@
     }
 }
 
-/* Mobile sizes (max-width: 768px) */
+/* Mobile sizes (max-width: 768px) - Smartphone First Design */
 @media (max-width: 768px) {
     .contact-section-designer {
-        padding: var(--space-lg) var(--space-md);
+        padding: clamp(24px, 5vw, 32px) clamp(20px, 4vw, 24px); /* Better smartphone padding */
         min-height: auto;
     }
     
     .contact-section-title {
-        margin-bottom: var(--space-lg);
+        margin-bottom: clamp(24px, 5vw, 32px); /* Increased spacing */
+        font-size: clamp(1.75rem, 5.5vw, 2.25rem); /* Larger for readability */
     }
     
     .contact-content-wrapper {
         grid-template-columns: 1fr;
-        gap: clamp(32px, 5vw, 48px);
+        gap: clamp(48px, 8vw, 64px); /* Significantly increased gap between info and form */
         max-width: 100%;
     }
     
@@ -419,79 +425,191 @@
     }
     
     .contact-greeting {
-        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-size: clamp(1.75rem, 5.5vw, 2.25rem); /* Larger for Gen-X readability */
+        line-height: 1.3; /* Better line height */
+        margin-bottom: clamp(16px, 3vw, 24px);
     }
     
-    .contact-description,
+    .contact-description {
+        font-size: clamp(1.125rem, 2.2vw, 1.25rem); /* Larger for readability */
+        line-height: 1.7; /* More breathing room */
+        margin-bottom: clamp(12px, 2.5vw, 20px);
+    }
+    
     .contact-closing {
-        font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+        font-size: clamp(1.125rem, 2.2vw, 1.25rem); /* Larger for readability */
+        margin-top: clamp(24px, 4vw, 32px);
+        margin-bottom: clamp(56px, 10vw, 80px); /* Even more space before form on mobile */
+        line-height: 1.7;
+    }
+    
+    .contact-topics {
+        gap: clamp(12px, 2vw, 16px); /* Better spacing between items */
+        margin: clamp(16px, 3vw, 24px) 0;
     }
     
     .contact-topics li {
-        font-size: clamp(0.875rem, 1.3vw, 0.9375rem);
-        padding-left: clamp(16px, 2.5vw, 20px);
+        font-size: clamp(1rem, 2vw, 1.125rem); /* Larger for readability */
+        padding-left: clamp(20px, 4vw, 28px);
+        line-height: 1.6;
+        padding-top: 2px; /* Extra spacing for touch */
+        padding-bottom: 2px;
+    }
+    
+    .contact-form {
+        gap: clamp(32px, 5vw, 40px); /* Larger gap between form fields */
+    }
+    
+    .form-input,
+    .form-textarea {
+        font-size: clamp(1.125rem, 2.2vw, 1.25rem); /* Significantly larger for Gen-X readability */
+        padding: clamp(18px, 3vw, 24px) 0 clamp(12px, 2vw, 16px) 0; /* Larger padding for better touch */
+        border-bottom-width: 2px; /* Thicker border for better visibility */
+    }
+    
+    .form-label {
+        font-size: clamp(1.125rem, 2.2vw, 1.25rem); /* Larger labels */
+        top: clamp(18px, 3vw, 24px);
+    }
+    
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label,
+    .form-textarea:focus + .form-label,
+    .form-textarea:not(:placeholder-shown) + .form-label {
+        transform: translateY(clamp(-28px, -4vw, -32px)) scale(0.85);
+    }
+    
+    .form-textarea {
+        min-height: clamp(140px, 25vw, 200px); /* Larger textarea for mobile */
+        line-height: 1.7; /* Better line height */
     }
     
     .form-submit-btn {
         width: 100%;
         justify-content: center;
+        font-size: clamp(1.125rem, 2.5vw, 1.3125rem); /* Larger button text */
+        padding: clamp(18px, 3vw, 24px) clamp(32px, 5vw, 40px); /* Larger touch target */
+        min-height: 52px; /* Larger minimum touch target for mobile */
+        border-width: 2px; /* Thicker border for better visibility */
+    }
+    
+    .char-count {
+        font-size: clamp(0.75rem, 1.5vw, 0.875rem); /* Larger for readability */
+        bottom: clamp(-24px, -3vw, -28px);
+    }
+    
+    .captcha-question {
+        font-size: clamp(0.875rem, 1.8vw, 1rem); /* Larger for readability */
+        bottom: clamp(-24px, -3vw, -28px);
+    }
+    
+    .form-message {
+        font-size: clamp(0.9375rem, 1.8vw, 1.0625rem); /* Larger for readability */
+        padding: clamp(8px, 1.5vw, 12px);
+        line-height: 1.6;
     }
 }
 
-/* Small mobile sizes (max-width: 480px) */
+/* Small mobile sizes (max-width: 480px) - Extra Small Smartphones */
 @media (max-width: 480px) {
     .contact-section-designer {
-        padding: var(--space-md) var(--space-sm);
+        padding: clamp(20px, 4vw, 28px) clamp(16px, 3.5vw, 20px);
     }
     
     .contact-section-title {
-        margin-bottom: var(--space-md);
+        margin-bottom: clamp(20px, 4vw, 28px);
+        font-size: clamp(1.625rem, 6vw, 2rem);
     }
     
     .contact-content-wrapper {
-        gap: var(--space-lg);
+        gap: clamp(40px, 8vw, 56px); /* Still generous spacing */
     }
     
     .contact-greeting {
-        font-size: clamp(1.375rem, 5vw, 1.75rem);
+        font-size: clamp(1.625rem, 6vw, 2rem); /* Still readable on small screens */
+        line-height: 1.3;
+        margin-bottom: clamp(14px, 2.5vw, 20px);
     }
     
-    .contact-description,
+    .contact-description {
+        font-size: clamp(1.0625rem, 2.5vw, 1.1875rem); /* Still larger than before */
+        line-height: 1.7;
+        margin-bottom: clamp(10px, 2vw, 16px);
+    }
+    
     .contact-closing {
-        font-size: clamp(0.875rem, 1.8vw, 1rem);
+        font-size: clamp(1.0625rem, 2.5vw, 1.1875rem); /* Still larger than before */
+        margin-top: clamp(20px, 3.5vw, 28px);
+        margin-bottom: clamp(48px, 9vw, 72px); /* Still generous spacing */
+        line-height: 1.7;
     }
     
     .contact-topics {
-        gap: var(--space-xs);
+        gap: clamp(10px, 2vw, 14px);
+        margin: clamp(14px, 2.5vw, 20px) 0;
     }
     
     .contact-topics li {
-        font-size: clamp(0.8125rem, 1.5vw, 0.875rem);
-        padding-left: 16px;
+        font-size: clamp(0.9375rem, 2.2vw, 1.0625rem); /* Still readable */
+        padding-left: clamp(18px, 3.5vw, 24px);
+        line-height: 1.6;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+    
+    .contact-form {
+        gap: clamp(28px, 4.5vw, 36px); /* Still good spacing */
     }
     
     .form-field-wrapper {
-        margin-bottom: var(--space-sm);
+        margin-bottom: 0; /* Remove extra margin, gap handles spacing */
     }
     
     .form-input,
     .form-textarea {
-        font-size: clamp(0.875rem, 1.3vw, 0.9375rem);
-        padding: clamp(10px, 1.2vw, 14px) 0 clamp(6px, 0.8vw, 10px) 0;
+        font-size: clamp(1.0625rem, 2.5vw, 1.1875rem); /* Still larger for readability */
+        padding: clamp(16px, 3vw, 20px) 0 clamp(10px, 2vw, 14px) 0;
+        border-bottom-width: 2px;
     }
     
     .form-label {
-        font-size: clamp(0.8125rem, 1.2vw, 0.875rem);
-        top: clamp(10px, 1.2vw, 14px);
+        font-size: clamp(1.0625rem, 2.5vw, 1.1875rem); /* Still larger */
+        top: clamp(16px, 3vw, 20px);
+    }
+    
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label,
+    .form-textarea:focus + .form-label,
+    .form-textarea:not(:placeholder-shown) + .form-label {
+        transform: translateY(clamp(-26px, -4vw, -30px)) scale(0.85);
     }
     
     .form-textarea {
-        min-height: clamp(100px, 20vw, 140px);
+        min-height: clamp(130px, 28vw, 180px); /* Still good size */
+        line-height: 1.7;
     }
     
     .form-submit-btn {
-        padding: clamp(12px, 1.5vw, 16px) clamp(20px, 4vw, 28px);
-        font-size: clamp(0.875rem, 1.5vw, 1rem);
+        padding: clamp(16px, 3vw, 22px) clamp(28px, 5vw, 36px);
+        font-size: clamp(1.0625rem, 2.8vw, 1.25rem); /* Still readable */
+        min-height: 50px; /* Still good touch target */
+        border-width: 2px;
+    }
+    
+    .char-count {
+        font-size: clamp(0.6875rem, 1.5vw, 0.8125rem);
+        bottom: clamp(-22px, -3.5vw, -26px);
+    }
+    
+    .captcha-question {
+        font-size: clamp(0.8125rem, 2vw, 0.9375rem);
+        bottom: clamp(-22px, -3.5vw, -26px);
+    }
+    
+    .form-message {
+        font-size: clamp(0.875rem, 2vw, 1rem);
+        padding: clamp(6px, 1.5vw, 10px);
+        line-height: 1.6;
     }
 }
 

@@ -102,9 +102,9 @@ html, body {
     --z-background: 1;
     --z-content: 10;
     --z-profile: 10001;
-    /* Controls must stay clickable even when nav wraps on mobile */
-    --z-controls: 10004;
-    --z-navigation: 10002;
+    /* Navigation must appear above controls to prevent overlap issues */
+    --z-navigation: 10004;
+    --z-controls: 10003;
     --z-dropdown: 10005;
     --z-skip-link: 10005;
     
@@ -421,11 +421,11 @@ h1.name-corner {
     position: fixed;
     top: clamp(16px, 2vw, 24px);
     bottom: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 50%; /* Perfect center - same distance to left and right edges */
+    transform: translateX(-50%); /* Center based on element's own width */
     z-index: var(--z-navigation);
     display: flex;
-    gap: clamp(4px, 0.6vw, 8px);
+    gap: clamp(8px, 1vw, 12px); /* Uniform gap between all nav links */
     align-items: center;
     width: auto;
     justify-content: center;
@@ -433,7 +433,7 @@ h1.name-corner {
     /* Professional top positioning - same height as controls */
     min-width: clamp(200px, 25vw, 300px);
     max-width: calc(100vw - clamp(280px, 35vw, 400px));
-    padding: clamp(4px, 0.6vw, 8px) clamp(12px, 1.5vw, 18px);
+    padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1vw, 15px);
     background: var(--color-nav-background); /* Navigation ONLY - 50% transparent */
     border-radius: 8px;
     flex-wrap: nowrap;
@@ -447,13 +447,14 @@ h1.name-corner {
     letter-spacing: var(--letter-spacing-widest); /* More editorial spacing */
     color: var(--color-text-on-dark); /* Text on dark background = white */
     text-decoration: none;
-    padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px);
+    padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px); /* Minimal padding - size adapts to word length */
     border-bottom: 2px solid transparent;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: pointer;
     text-transform: uppercase;
-    white-space: normal;
+    white-space: nowrap; /* Prevent wrapping - each link takes only space needed */
     flex-shrink: 0;
+    flex-grow: 0; /* Don't grow - size based on content */
     line-height: var(--line-height-tight);
     /* Premium typography - Editorial */
     text-rendering: optimizeLegibility;
@@ -467,6 +468,18 @@ h1.name-corner {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     position: relative;
+}
+
+/* Make font smaller if nav text contains short words (like "Bio", "Home") */
+.nav-text {
+    display: inline;
+    font-size: inherit;
+}
+
+/* Specific adjustments for short navigation words - smaller font size */
+.nav-link[data-section="home"] .nav-text,
+.nav-link[data-section="aboutme"] .nav-text {
+    font-size: 0.9em;
 }
 
 .nav-link:hover {
@@ -556,12 +569,16 @@ h1.name-corner {
     overflow-x: hidden; /* Prevent horizontal scroll */
     /* Professional frame with generous vertical space */
     margin: 0 auto;
+    /* Gen Z: Modern glassmorphism aesthetic */
+    /* Gen X: Clear, professional, high contrast */
     /* Light sections as surfaces on dark base - 10% transparent text surfaces */
     background: var(--color-text-surface-light); /* Text surface - 10% transparent */
     padding: var(--space-xl);
-    border-radius: 12px;
+    border-radius: clamp(12px, 2vw, 16px);
     margin-bottom: var(--space-lg);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 4px 24px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05); /* Subtle border for definition */
     /* Mobile performance optimizations */
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
@@ -837,7 +854,7 @@ h1.name-corner {
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(12px, 1.5vw, 16px);
     width: 100%;
-    margin-top: var(--space-md);
+    margin-top: var(--space-lg); /* Increased from var(--space-md) */
     padding-top: clamp(24px, 3vw, 32px);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
@@ -2038,6 +2055,8 @@ h1.name-corner {
     margin: 0 auto;
     /* Professional centered content with generous spacing */
     text-align: center;
+    /* Gen Z: Clean, spacious, modern */
+    /* Gen X: Well-organized, easy to scan */
     /* Mobile performance */
     contain: layout style;
     transform: translateZ(0);
@@ -2056,6 +2075,29 @@ h1.name-corner {
     padding: 0; /* Ensure no padding */
     box-sizing: border-box; /* Ensure padding is included in width */
     overflow-x: hidden; /* Prevent horizontal scroll */
+    position: relative; /* For SVG overlay positioning */
+}
+
+/* Blob silhouette overlay - liquid blob drawing animation */
+.blob-silhouette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: visible;
+}
+
+.blob-silhouette-overlay path {
+    fill: none;
+    stroke: #00BFFF; /* Bright winter cyan */
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 4px rgba(0, 191, 255, 0.5)); /* Subtle glow */
 }
 
 .recommendations-title {
@@ -2239,6 +2281,7 @@ h1.name-corner {
     max-width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    grid-auto-rows: auto; /* Auto row height - will be adjusted by content */
     column-gap: clamp(16px, 2.5vw, 24px); /* Horizontal gap between tiles - same as row-gap */
     row-gap: clamp(16px, 2.5vw, 24px); /* Vertical gap between tile rows - same as column-gap */
     margin: 0 auto;
@@ -2252,6 +2295,53 @@ h1.name-corner {
     -webkit-transform: translateZ(0);
 }
 
+/* Subtitle headers for sorting - own narrow grid row, same font as website */
+.links-subtitle-header {
+    /* Subtitle occupies its own narrow grid row, spans all columns */
+    grid-column: 1 / -1; /* Span all columns */
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(6px, 1vw, 10px) clamp(12px, 1.5vw, 16px) clamp(6px, 1vw, 10px);
+    min-height: clamp(30px, 4vw, 40px); /* Narrow row height */
+    height: auto;
+    font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
+    font-size: clamp(16px, 2.2vw, 20px);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-text-primary, rgba(255, 255, 255, 0.95));
+    text-align: left;
+    text-transform: uppercase;
+    position: relative;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15); /* Line below subtitle - underline */
+    /* Gen Z: Modern, clean aesthetic */
+    /* Gen X: Clear, readable, good contrast */
+    opacity: 0.9;
+    margin-bottom: 0; /* No margin - row gap handles spacing */
+    transition: opacity 0.3s ease;
+    /* Align with tile grid - takes up full width in narrow row */
+    justify-self: start;
+    align-self: start;
+}
+
+/* Responsive adjustments for subtitle headers */
+@media (max-width: 768px) {
+    .links-subtitle-header {
+        font-size: clamp(14px, 3.5vw, 18px);
+        padding: clamp(6px, 1.5vw, 10px) clamp(10px, 2vw, 14px) clamp(6px, 1.5vw, 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .links-subtitle-header {
+        font-size: clamp(12px, 4vw, 16px);
+        padding: clamp(4px, 1.2vw, 8px) clamp(8px, 2.5vw, 12px) clamp(4px, 1.2vw, 8px);
+        letter-spacing: 0.03em;
+    }
+}
+
 /* Logo Tile - Gen Z Premium Design */
 .logo-tile {
     width: 100%; /* Full width of grid cell - will be constrained by grid */
@@ -2261,6 +2351,7 @@ h1.name-corner {
     min-height: 250px; /* Minimum height - never smaller than 250px */
     min-width: 250px; /* Minimum width - never smaller than 250px */
     position: relative;
+    /* Tiles occupy tall rows - height determined by aspect-ratio and min-height */
     perspective: 1000px;
     justify-self: start; /* Left-align within grid cell */
 }
@@ -2720,22 +2811,24 @@ h1.name-corner {
     top: clamp(16px, 2vw, 24px);
     bottom: auto;
     right: clamp(16px, 2vw, 24px);
+    left: auto; /* Always right-aligned - no left positioning */
     z-index: var(--z-controls);
     display: flex;
     flex-direction: row;
     gap: clamp(8px, 1vw, 12px);
     align-items: center;
+    justify-content: flex-end; /* Right-align content */
     width: auto;
     max-width: calc(100vw - clamp(32px, 4vw, 48px));
     overflow: visible;
-    /* Professional top-right positioning */
+    /* Professional top-right positioning - always right-aligned */
 }
 
 .control-row {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: clamp(6px, 0.8vw, 10px);
+    gap: clamp(3px, 0.4vw, 5px);
     flex-wrap: nowrap;
     width: auto;
 }
@@ -2747,6 +2840,14 @@ h1.name-corner {
     flex: 0 1 auto;
     min-width: 0;
     overflow: visible;
+}
+
+.control-item.language-control {
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    margin-left: auto; /* Push to the right */
+    width: auto;
+    min-width: auto;
 }
 
 .control-item.linkedin-control {
@@ -2810,9 +2911,11 @@ h1.name-corner {
 /* Language Control */
 .language-control {
     min-width: clamp(80px, 10vw, 100px);
+    width: auto; /* Don't take extra space */
     position: relative;
     overflow: visible;
     z-index: var(--z-dropdown);
+    flex-shrink: 0; /* Don't shrink */
 }
 
 .control-trigger {
@@ -3025,6 +3128,9 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
+        left: 50%; /* Always centered */
+        right: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
         gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(600px, 40vw, 800px));
         min-width: clamp(300px, 25vw, 400px);
@@ -3042,7 +3148,10 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
-        gap: clamp(4px, 0.6vw, 8px);
+        left: 50%; /* Always centered */
+        right: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
+        gap: clamp(8px, 1vw, 12px); /* Uniform gap */
         max-width: calc(100vw - clamp(500px, 35vw, 700px));
         min-width: clamp(250px, 22vw, 350px);
     }
@@ -3059,6 +3168,9 @@ h1.name-corner {
     .main-navigation {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
+        left: 50%; /* Always centered */
+        right: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
         gap: clamp(4px, 0.6vw, 8px);
         max-width: calc(100vw - clamp(380px, 45vw, 550px));
         min-width: clamp(200px, 20vw, 300px);
@@ -3079,14 +3191,27 @@ h1.name-corner {
         left: clamp(16px, 2vw, 24px);
     }
     
-    .main-navigation {
+    .control-panel {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
         right: clamp(16px, 2vw, 24px);
+        left: auto; /* Always right-aligned */
+        max-width: calc(45vw - clamp(16px, 2vw, 24px)); /* Constrain to right area */
+        z-index: var(--z-controls); /* Ensure correct z-index */
+        justify-content: flex-end; /* Right-align content */
+    }
+    
+    .main-navigation {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        left: 50%; /* Always centered */
+        right: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
         gap: clamp(4px, 0.6vw, 8px);
-        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
-        max-width: calc(50vw - clamp(100px, 12vw, 140px));
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1vw, 15px); /* Equal padding on both sides */
+        max-width: calc(50vw - clamp(200px, 25vw, 300px)); /* Reduced to prevent overlap with control-panel */
         min-width: clamp(200px, 25vw, 300px);
+        z-index: var(--z-navigation); /* Ensure correct z-index - higher than control-panel */
     }
     
     .main-content-designer {
@@ -3135,9 +3260,18 @@ h1.name-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
         left: clamp(16px, 2vw, 24px);
-        max-width: calc(85vw - clamp(80px, 12vw, 140px));
+        max-width: calc(50vw - clamp(16px, 2vw, 24px)); /* Constrain to left half minus gap */
         min-width: fit-content;
         gap: clamp(6px, 0.8vw, 10px);
+    }
+    
+    .control-panel {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        right: clamp(16px, 2vw, 24px);
+        left: auto; /* Always right-aligned */
+        max-width: calc(50vw - clamp(24px, 3vw, 32px)); /* Constrain to right half minus padding */
+        justify-content: flex-end; /* Right-align content */
     }
     
     .profile-orb-container-small {
@@ -3164,12 +3298,13 @@ h1.name-corner {
     
     .main-navigation {
         gap: clamp(4px, 0.8vw, 8px);
-        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1.4vw, 14px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1vw, 15px);
     }
     
     .main-navigation .nav-link {
         font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
-        padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px);
+        padding: clamp(2px, 0.4vw, 4px) clamp(4px, 0.6vw, 6px); /* Minimal padding - adapts to word length */
+        white-space: nowrap;
     }
     
     .main-navigation .nav-text {
@@ -3187,21 +3322,23 @@ h1.name-corner {
     .main-navigation {
         top: clamp(72px, 9vw, 88px);
         bottom: auto;
+        left: 50%; /* Always centered */
+        right: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
         gap: clamp(2px, 0.5vw, 6px);
-        padding: clamp(4px, 0.6vw, 8px) clamp(6px, 1vw, 10px);
+        padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1vw, 15px); /* Equal padding on both sides */
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* IE/Edge */
-        justify-content: flex-start;
-        left: 0;
-        right: 0;
-        width: 100%;
-        max-width: 100vw;
-        transform: none;
-        padding-left: clamp(8px, 2vw, 16px);
-        padding-right: clamp(8px, 2vw, 16px);
+        justify-content: center; /* Center content */
+        width: auto;
+        max-width: calc(100vw - clamp(40px, 5vw, 60px)); /* Leave space on both sides */
+        min-width: clamp(200px, 25vw, 300px);
+        padding-left: clamp(10px, 1vw, 15px);
+        padding-right: clamp(10px, 1vw, 15px);
+        box-sizing: border-box;
     }
     
     .main-navigation::-webkit-scrollbar {
@@ -3210,9 +3347,10 @@ h1.name-corner {
     
     .main-navigation .nav-link {
         font-size: clamp(0.625rem, 1.1vw, 0.75rem);
-        padding: clamp(2px, 0.3vw, 4px) clamp(3px, 0.5vw, 6px);
+        padding: clamp(2px, 0.3vw, 4px) clamp(4px, 0.6vw, 6px); /* Minimal padding - adapts to word length */
         white-space: nowrap;
         flex-shrink: 0;
+        flex-grow: 0; /* Don't grow - size based on content */
     }
 
     .main-navigation::-webkit-scrollbar {
@@ -3223,10 +3361,10 @@ h1.name-corner {
         white-space: nowrap;
         text-align: center;
         min-width: 0;
-        flex: 1 1 0;
+        flex: 0 0 auto; /* Size based on content, don't grow or shrink */
         font-size: clamp(0.625rem, 1.2vw, 0.75rem);
         letter-spacing: 0.1em;
-        padding: 2px 4px;
+        padding: 2px 4px; /* Minimal padding - adapts to word length */
     }
 
     .main-content-designer {
@@ -3374,8 +3512,9 @@ h1.name-corner {
     .control-row {
         flex-direction: row;
         align-items: center;
+        align-content: flex-end;
         justify-content: flex-end;
-        gap: clamp(6px, 1vw, 8px);
+        gap: clamp(3px, 0.5vw, 4px);
         width: 100%;
         flex-wrap: wrap;
     }
@@ -3384,7 +3523,7 @@ h1.name-corner {
         text-align: right;
         font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
         white-space: nowrap;
-        margin-left: var(--space-xs);
+        margin-left: 0;
         padding: 2px var(--space-xs);
     }
 
@@ -3510,22 +3649,33 @@ h1.name-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
         left: clamp(16px, 2vw, 24px);
-        max-width: calc(50vw - clamp(80px, 12vw, 140px));
+        max-width: calc(50vw - clamp(16px, 2vw, 24px)); /* Constrain to left half minus gap */
+    }
+    
+    .control-panel {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        right: clamp(16px, 2vw, 24px);
+        left: auto; /* Always right-aligned */
+        max-width: calc(50vw - clamp(24px, 3vw, 32px)); /* Constrain to right half minus padding */
+        justify-content: flex-end; /* Right-align content */
     }
     
     .main-navigation {
         top: clamp(64px, 8vw, 80px);
         bottom: auto;
-        gap: clamp(4px, 0.8vw, 8px);
-        padding: clamp(6px, 0.8vw, 10px) clamp(10px, 1.4vw, 14px);
-        left: 50%;
+        left: 50%; /* Always centered */
         right: auto;
-        transform: translateX(-50%);
-        width: calc(100vw - clamp(16px, 2vw, 24px));
-        max-width: calc(100vw - clamp(16px, 2vw, 24px));
+        transform: translateX(-50%); /* Center based on element's own width */
+        gap: clamp(4px, 0.8vw, 8px);
+        padding: clamp(6px, 0.8vw, 10px) clamp(10px, 1vw, 15px); /* Equal padding on both sides */
+        width: auto;
+        max-width: calc(100vw - clamp(20px, 2.8vw, 28px)); /* Equal spacing on both sides */
+        min-width: clamp(200px, 25vw, 300px);
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: visible;
+        box-sizing: border-box;
     }
     
     .main-content-designer {
@@ -3553,21 +3703,30 @@ h1.name-corner {
         left: clamp(12px, 1.6vw, 20px);
         right: auto;
         gap: clamp(6px, 0.8vw, 10px);
-        max-width: calc(90vw - clamp(80px, 12vw, 140px));
+        max-width: calc(50vw - clamp(12px, 1.6vw, 20px)); /* Constrain to left half minus gap */
         min-width: fit-content;
+    }
+    
+    .control-panel {
+        top: clamp(16px, 2vw, 24px);
+        bottom: auto;
+        right: clamp(12px, 1.6vw, 20px);
+        left: auto; /* Always right-aligned */
+        max-width: calc(50vw - clamp(18px, 2.4vw, 24px)); /* Constrain to right half minus padding */
+        justify-content: flex-end; /* Right-align content */
     }
     
     .main-navigation {
         top: clamp(70px, 8.5vw, 85px);
         bottom: auto;
-        gap: clamp(8px, 1.5vw, 16px); /* Increased gap for better spacing */
-        padding: clamp(10px, 1.5vw, 14px) clamp(10px, 1.5vw, 14px); /* More padding for touch targets */
-        left: 50%;
+        left: 50%; /* Always centered */
         right: auto;
-        transform: translateX(-50%);
-        width: calc(100vw - clamp(12px, 1.6vw, 20px));
-        max-width: calc(100vw - clamp(12px, 1.6vw, 20px));
-        min-width: auto;
+        transform: translateX(-50%); /* Center based on element's own width */
+        gap: clamp(8px, 1.5vw, 16px); /* Increased gap for better spacing */
+        padding: clamp(10px, 1.5vw, 14px) clamp(10px, 1vw, 15px); /* Equal padding on both sides */
+        width: auto;
+        max-width: calc(100vw - clamp(24px, 3.2vw, 40px)); /* Equal spacing on both sides */
+        min-width: clamp(200px, 25vw, 300px);
         flex-wrap: nowrap;
         overflow: visible;
     }
@@ -3615,10 +3774,10 @@ h1.name-corner {
         white-space: nowrap;
         text-align: center;
         min-width: 0;
-        flex: 1 1 0;
+        flex: 0 0 auto; /* Size based on content, don't grow or shrink */
         font-size: clamp(0.875rem, 3.5vw, 1.125rem); /* Much larger for better readability */
         letter-spacing: 0.05em;
-        padding: clamp(8px, 1.2vw, 12px) clamp(6px, 1vw, 10px);
+        padding: clamp(8px, 1.2vw, 12px) clamp(4px, 0.6vw, 6px); /* Minimal padding - adapts to word length */
     }
     
     .main-navigation .nav-text {
@@ -3635,7 +3794,9 @@ h1.name-corner {
         top: clamp(16px, 2vw, 24px);
         bottom: auto;
         right: clamp(16px, 2vw, 24px);
-        max-width: calc(100vw - clamp(32px, 4vw, 48px));
+        left: auto; /* Always right-aligned */
+        max-width: calc(50vw - clamp(24px, 3vw, 32px)); /* Constrain to right half minus padding */
+        justify-content: flex-end; /* Right-align content */
     }
 
     .about-section-designer,
@@ -4064,10 +4225,10 @@ h1.name-corner {
     }
     
     .logo-tile-image {
-        height: clamp(20px, 3vw, 28px);
-        max-height: clamp(20px, 3vw, 28px);
-        max-width: clamp(120px, 15vw, 170px);
-        bottom: clamp(13px, 3.4vw, 25px); /* 11px lower than original (5px more from previous) */
+        height: clamp(24px, 3.5vw, 32px); /* Slightly larger on tablet/smartphone */
+        max-height: clamp(24px, 3.5vw, 32px);
+        max-width: clamp(135px, 16.5vw, 180px); /* Slightly larger width */
+        bottom: clamp(20px, 4.5vw, 32px); /* Increased distance from bottom */
     }
     
     .logo-tile-image[src*="online-apotheke-logo"],
@@ -4119,10 +4280,10 @@ h1.name-corner {
     }
     
     .logo-tile-image {
-        height: clamp(18px, 2.8vw, 24px);
-        max-height: clamp(18px, 2.8vw, 24px);
-        max-width: clamp(110px, 14vw, 150px);
-        bottom: clamp(11px, 2.9vw, 21px); /* 11px lower than original (5px more from previous) */
+        height: clamp(26px, 4.2vw, 34px); /* Further increased size on smartphone */
+        max-height: clamp(26px, 4.2vw, 34px);
+        max-width: clamp(150px, 19vw, 200px); /* Further increased width */
+        bottom: clamp(18px, 4.5vw, 28px); /* Increased distance from bottom */
     }
     
     .logo-tile-image[src*="online-apotheke-logo"],

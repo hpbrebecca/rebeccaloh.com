@@ -323,7 +323,8 @@
                         <label for="linksSortSelect" class="links-sort-label">Sort by:</label>
                         <select id="linksSortSelect" class="links-sort-select">
                             <option value="alphabetical">Alphabetical</option>
-                            <option value="theme">Category</option>
+                            <option value="theme" selected>Category</option>
+                            <option value="city">City</option>
                         </select>
                     </div>
                     <div class="links-filter">
@@ -1267,19 +1268,19 @@
                     descriptions: {
                         en: {
                             title: 'Dancing Queens, Pfäffikon, Zurich',
-                            text: 'Online shop for dance shoes and dancewear.'
+                            text: 'They have the most comfortable and stylish dance shoes.'
                         },
                         de: {
                             title: 'Dancing Queens, Pfäffikon, Zürich',
-                            text: 'Onlineshop für Tanzschuhe und Tanzbekleidung.'
+                            text: 'Sie haben die bequemsten und stilvollsten Tanzschuhe.'
                         },
                         fr: {
                             title: 'Dancing Queens, Pfäffikon, Zurich',
-                            text: 'Boutique en ligne de chaussures de danse et de vêtements de danse.'
+                            text: 'Ils ont les chaussures de danse les plus confortables et élégantes.'
                         },
                         zh: {
                             title: 'Dancing Queens, Pfäffikon, 苏黎世',
-                            text: '舞鞋与舞蹈服饰线上商店。'
+                            text: '他们拥有最舒适且时尚的舞鞋。'
                         }
                     }
                 },
@@ -1317,6 +1318,7 @@
                     sortBy: 'Sort by:',
                     alphabetical: 'Alphabetical',
                     category: 'Category',
+                    city: 'City',
                     filterByCategory: 'Filter by category:',
                     filterByLocation: 'Filter by location:',
                     allCategories: 'All Categories',
@@ -1326,6 +1328,7 @@
                     sortBy: 'Sortieren nach:',
                     alphabetical: 'Alphabetisch',
                     category: 'Kategorie',
+                    city: 'Stadt',
                     filterByCategory: 'Filtern nach Kategorie:',
                     filterByLocation: 'Filtern nach Ort:',
                     allCategories: 'Alle Kategorien',
@@ -1335,6 +1338,7 @@
                     sortBy: 'Trier par:',
                     alphabetical: 'Alphabétique',
                     category: 'Catégorie',
+                    city: 'Ville',
                     filterByCategory: 'Filtrer par catégorie:',
                     filterByLocation: 'Filtrer par lieu:',
                     allCategories: 'Toutes les catégories',
@@ -1344,6 +1348,7 @@
                     sortBy: '排序方式：',
                     alphabetical: '字母顺序',
                     category: '类别',
+                    city: '城市',
                     filterByCategory: '依类别筛选：',
                     filterByLocation: '依地点筛选：',
                     allCategories: '所有类别',
@@ -1354,7 +1359,7 @@
             // Current filter and sort state (arrays for multi-select)
             let currentLinksThemeFilter = ['all']; // Array for multi-select
             let currentLinksCityFilter = ['all']; // Array for multi-select
-            let currentLinksSort = 'alphabetical';
+            let currentLinksSort = 'theme';
             
             // Get all unique themes from logoTilesData, sorted by count (descending), with "Others" always last
             function getAllThemes() {
@@ -1438,7 +1443,7 @@
                 const sortLabel = document.querySelector('.links-sort-label');
                 if (sortLabel) sortLabel.textContent = translations.sortBy;
                 
-                const sortSelect = document.getElementById('linksSortSelect');
+                    const sortSelect = document.getElementById('linksSortSelect');
                 if (sortSelect) {
                     // Update option texts while preserving values
                     Array.from(sortSelect.options).forEach(option => {
@@ -1446,6 +1451,8 @@
                             option.textContent = translations.alphabetical;
                         } else if (option.value === 'theme') {
                             option.textContent = translations.category;
+                        } else if (option.value === 'city') {
+                            option.textContent = translations.city;
                         }
                     });
                 }
@@ -1648,6 +1655,13 @@
                     tiles.sort((a, b) => {
                         const themeA = a[1].theme || '';
                         const themeB = b[1].theme || '';
+                        // Sort alphabetically, but put "Others" at the end
+                        if (themeA === 'Others' && themeB !== 'Others') {
+                            return 1; // Others goes to end
+                        }
+                        if (themeA !== 'Others' && themeB === 'Others') {
+                            return -1; // Others goes to end
+                        }
                         if (themeA === themeB) {
                             // If same theme, sort alphabetically within theme
                             const nameA = a[1].name || (a[1].descriptions[currentLang]?.title || a[1].descriptions.en.title);
@@ -1655,6 +1669,37 @@
                             return nameA.localeCompare(nameB, currentLang === 'zh' ? 'zh' : undefined, { sensitivity: 'base' });
                         }
                         return themeA.localeCompare(themeB);
+                    });
+                } else if (currentLinksSort === 'city') {
+                    // Helper function to get country from city
+                    function getCountryFromCity(city) {
+                        const swissCities = ['Basel', 'Berne', 'Zurich', 'CH-online'];
+                        if (swissCities.includes(city)) {
+                            return 'Switzerland';
+                        }
+                        return 'Switzerland'; // Default to Switzerland for now
+                    }
+                    
+                    tiles.sort((a, b) => {
+                        const cityA = (a[1].city || '').trim();
+                        const cityB = (b[1].city || '').trim();
+                        const countryA = getCountryFromCity(cityA);
+                        const countryB = getCountryFromCity(cityB);
+                        
+                        // First sort by country
+                        if (countryA !== countryB) {
+                            return countryA.localeCompare(countryB);
+                        }
+                        
+                        // Then sort by city alphabetically
+                        if (cityA !== cityB) {
+                            return cityA.localeCompare(cityB);
+                        }
+                        
+                        // If same city, sort alphabetically by name
+                        const nameA = a[1].name || (a[1].descriptions[currentLang]?.title || a[1].descriptions.en.title);
+                        const nameB = b[1].name || (b[1].descriptions[currentLang]?.title || b[1].descriptions.en.title);
+                        return nameA.localeCompare(nameB, currentLang === 'zh' ? 'zh' : undefined, { sensitivity: 'base' });
                     });
                 }
                 
@@ -1665,6 +1710,170 @@
                 return tiles;
             }
 
+            // Generate smooth rounded rectangle path that follows the actual tile positions
+            function generateBlobPath(x, y, width, height, padding = 10) {
+                // Create a rounded rectangle that follows the bounding box shape
+                const radius = padding + 8; // Smooth corner radius
+                const left = x - padding;
+                const top = y - padding;
+                const right = x + width + padding;
+                const bottom = y + height + padding;
+                
+                // Create smooth rounded rectangle path - follows actual tile positions
+                const path = `M ${left + radius} ${top}
+                              L ${right - radius} ${top}
+                              Q ${right} ${top} ${right} ${top + radius}
+                              L ${right} ${bottom - radius}
+                              Q ${right} ${bottom} ${right - radius} ${bottom}
+                              L ${left + radius} ${bottom}
+                              Q ${left} ${bottom} ${left} ${bottom - radius}
+                              L ${left} ${top + radius}
+                              Q ${left} ${top} ${left + radius} ${top}
+                              Z`;
+                
+                return path;
+            }
+            
+            // Draw liquid blob silhouettes around grouped tiles
+            function drawBlobSilhouettes(gridElement) {
+                // Remove existing SVG overlay
+                const existingSVG = gridElement.parentElement.querySelector('.blob-silhouette-overlay');
+                if (existingSVG) {
+                    existingSVG.remove();
+                }
+                
+                // Get all subtitle headers and tiles
+                const subtitleHeaders = gridElement.querySelectorAll('.links-subtitle-header');
+                const tiles = gridElement.querySelectorAll('.logo-tile');
+                
+                if (subtitleHeaders.length === 0 && tiles.length === 0) return;
+                
+                // Create SVG overlay
+                const container = gridElement.parentElement;
+                const containerRect = container.getBoundingClientRect();
+                const gridRect = gridElement.getBoundingClientRect();
+                
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.className = 'blob-silhouette-overlay';
+                svg.style.position = 'absolute';
+                svg.style.top = '0';
+                svg.style.left = '0';
+                svg.style.width = '100%';
+                svg.style.height = '100%';
+                svg.style.pointerEvents = 'none';
+                svg.style.zIndex = '10';
+                svg.setAttribute('viewBox', `0 0 ${containerRect.width} ${containerRect.height}`);
+                svg.setAttribute('preserveAspectRatio', 'none');
+                
+                // Group tiles and subtitles by subtitle
+                const groups = new Map();
+                let currentGroup = { tiles: [], subtitleHeader: null };
+                let currentSubtitle = null;
+                
+                Array.from(gridElement.children).forEach(child => {
+                    if (child.classList.contains('links-subtitle-header')) {
+                        // Save previous group if exists
+                        if (currentSubtitle !== null && (currentGroup.tiles.length > 0 || currentGroup.subtitleHeader)) {
+                            groups.set(currentSubtitle, { ...currentGroup });
+                            currentGroup = { tiles: [], subtitleHeader: null };
+                        }
+                        currentSubtitle = child.textContent.trim();
+                        currentGroup.subtitleHeader = child;
+                    } else if (child.classList.contains('logo-tile')) {
+                        currentGroup.tiles.push(child);
+                    }
+                });
+                
+                // Add last group
+                if (currentSubtitle !== null && (currentGroup.tiles.length > 0 || currentGroup.subtitleHeader)) {
+                    groups.set(currentSubtitle, { ...currentGroup });
+                }
+                
+                // Calculate bounding box for each group (including subtitle) and create blob path
+                groups.forEach((groupData, subtitle) => {
+                    const groupTiles = groupData.tiles;
+                    const subtitleHeader = groupData.subtitleHeader;
+                    
+                    if (groupTiles.length === 0 && !subtitleHeader) return;
+                    
+                    // Initialize with first element (subtitle or tile)
+                    let firstElement = subtitleHeader || groupTiles[0];
+                    const firstRect = firstElement.getBoundingClientRect();
+                    let minX = firstRect.left;
+                    let minY = firstRect.top;
+                    let maxX = firstRect.right;
+                    let maxY = firstRect.bottom;
+                    
+                    // Include subtitle header in bounding box
+                    if (subtitleHeader) {
+                        const rect = subtitleHeader.getBoundingClientRect();
+                        minX = Math.min(minX, rect.left);
+                        minY = Math.min(minY, rect.top);
+                        maxX = Math.max(maxX, rect.right);
+                        maxY = Math.max(maxY, rect.bottom);
+                    }
+                    
+                    // Include all tiles in bounding box
+                    groupTiles.forEach(tile => {
+                        const rect = tile.getBoundingClientRect();
+                        minX = Math.min(minX, rect.left);
+                        minY = Math.min(minY, rect.top);
+                        maxX = Math.max(maxX, rect.right);
+                        maxY = Math.max(maxY, rect.bottom);
+                    });
+                    
+                    // Convert to container-relative coordinates
+                    const x = minX - containerRect.left;
+                    const y = minY - containerRect.top;
+                    const width = maxX - minX;
+                    const height = maxY - minY;
+                    
+                    // Generate blob path with small padding to avoid covering other tiles
+                    const pathData = generateBlobPath(x, y, width, height, 8);
+                    
+                    // Create path element
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', pathData);
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('stroke', '#00BFFF'); // Bright winter cyan
+                    path.setAttribute('stroke-width', '2');
+                    path.setAttribute('stroke-linecap', 'round');
+                    path.setAttribute('stroke-linejoin', 'round');
+                    path.style.opacity = '0.9';
+                    
+                    // Calculate path length for animation
+                    const pathLength = path.getTotalLength();
+                    path.style.strokeDasharray = pathLength;
+                    path.style.strokeDashoffset = pathLength;
+                    
+                    svg.appendChild(path);
+                    
+                    // Animate drawing - 4 seconds
+                    requestAnimationFrame(() => {
+                        path.style.transition = 'stroke-dashoffset 4s cubic-bezier(0.4, 0, 0.2, 1)';
+                        path.style.strokeDashoffset = '0';
+                        
+                        // After drawing, start morphing animation using SMIL
+                        setTimeout(() => {
+                            // Subtle morphing variation
+                            const morphPath = generateBlobPath(x, y, width, height, 10);
+                            
+                            // Create animate element for morphing
+                            const animate = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+                            animate.setAttribute('attributeName', 'd');
+                            animate.setAttribute('values', `${pathData};${morphPath};${pathData}`);
+                            animate.setAttribute('dur', '8s');
+                            animate.setAttribute('repeatCount', 'indefinite');
+                            path.appendChild(animate);
+                        }, 4000); // Wait for drawing to complete (4 seconds)
+                    });
+                });
+                
+                // Add SVG to container
+                container.style.position = 'relative';
+                container.appendChild(svg);
+            }
+            
             function buildRecommendations(list, services) {
                 // Clear cache when rebuilding to ensure fresh data
                 cachedFilteredTiles = null;
@@ -1676,7 +1885,74 @@
                 const currentLang = getCurrentLanguage();
                 const filteredAndSortedTiles = getFilteredAndSortedTiles();
                 
-                filteredAndSortedTiles.forEach(([key, tileData]) => {
+                // Helper function to get country from city
+                function getCountryFromCity(city) {
+                    const swissCities = ['Basel', 'Berne', 'Zurich', 'CH-online'];
+                    if (swissCities.includes(city)) {
+                        return 'Switzerland';
+                    }
+                    return 'Switzerland'; // Default to Switzerland for now
+                }
+                
+                let lastSubtitle = null;
+                let lastCountry = null;
+                let lastCity = null;
+                
+                filteredAndSortedTiles.forEach(([key, tileData], index) => {
+                    // Determine subtitle based on sort type
+                    let currentSubtitle = null;
+                    let shouldShowSubtitle = false;
+                    
+                    if (currentLinksSort === 'alphabetical') {
+                        const name = tileData.name || (tileData.descriptions[currentLang]?.title || tileData.descriptions.en.title);
+                        const firstLetter = name.charAt(0).toUpperCase();
+                        if (firstLetter !== lastSubtitle) {
+                            currentSubtitle = firstLetter;
+                            shouldShowSubtitle = true;
+                        }
+                    } else if (currentLinksSort === 'theme') {
+                        const theme = tileData.theme || 'Others';
+                        if (theme !== lastSubtitle) {
+                            currentSubtitle = theme;
+                            shouldShowSubtitle = true;
+                        }
+                    } else if (currentLinksSort === 'city') {
+                        const city = (tileData.city || '').trim();
+                        const country = getCountryFromCity(city);
+                        
+                        // Show country header if country changed
+                        if (country !== lastCountry) {
+                            currentSubtitle = country;
+                            shouldShowSubtitle = true;
+                            lastCountry = country;
+                            lastCity = null; // Reset city when country changes
+                        }
+                        
+                        // Show city header if city changed (within same country)
+                        if (city !== lastCity && country === lastCountry) {
+                            currentSubtitle = city;
+                            shouldShowSubtitle = true;
+                            lastCity = city;
+                        } else if (country !== lastCountry) {
+                            // Country changed, so next item will show city
+                            lastCity = null;
+                        } else {
+                            lastCity = city;
+                        }
+                    }
+                    
+                    // Insert subtitle header if needed (in narrow row)
+                    // If same category, leave narrow row empty (no placeholder needed - grid handles it)
+                    if (shouldShowSubtitle && currentSubtitle) {
+                        const subtitleHeader = document.createElement('div');
+                        subtitleHeader.className = 'links-subtitle-header';
+                        subtitleHeader.setAttribute('data-subtitle', currentSubtitle);
+                        subtitleHeader.textContent = currentSubtitle;
+                        list.appendChild(subtitleHeader);
+                        lastSubtitle = currentSubtitle;
+                    }
+                    // Note: If same category, no subtitle row is inserted - tiles continue in tall rows
+                    
                     const tile = document.createElement('div');
                     tile.className = 'logo-tile';
 
@@ -1755,12 +2031,19 @@
                     tile.appendChild(link);
                     list.appendChild(tile);
                     
+                    // Add small random offset to break grid alignment (like nebula)
+                    const randomOffsetX = (Math.random() - 0.5) * 20; // ±10px
+                    const randomOffsetY = (Math.random() - 0.5) * 20; // ±10px
+                    tile.style.transform = `translate(${randomOffsetX}px, ${randomOffsetY}px)`;
+                    
                     // Update overlay content on language change
                     tile.dataset.tileKey = key;
                     tile.dataset.backgroundImagePath = tileData.backgroundImagePath;
                     tile.dataset.logoImagePath = tileData.logoImagePath;
                     tile.dataset.href = tileData.href;
                 });
+                
+                // Blob silhouettes removed - no longer drawing lines
             }
             // Update logo tile descriptions when language changes
             window.updateLogoTileDescriptions = function(lang) {
@@ -1847,9 +2130,13 @@
                         // Sort select change
                         const sortSelect = document.getElementById('linksSortSelect');
                         if (sortSelect) {
+                            // Set default to theme (category)
+                            sortSelect.value = 'theme';
+                            
                             sortSelect.addEventListener('change', (e) => {
                                 currentLinksSort = e.target.value;
                                 buildRecommendations(recommendationsGrid, []);
+                                // Blob silhouettes will be drawn automatically in buildRecommendations
                             });
                         }
                         
@@ -2836,6 +3123,103 @@
             document.addEventListener('click', (event) => {
                 // No global ripple effects - clean, modern interaction
             });
+            
+            // #region agent log - Debug control button alignment
+            function logControlButtonAlignment() {
+                const playButton = document.querySelector('.audio-button.control-button');
+                const languageButton = document.querySelector('.control-trigger#languageTriggerFuture');
+                const controlRow = document.querySelector('.control-row');
+                
+                if (!playButton || !languageButton || !controlRow) return;
+                
+                const playRect = playButton.getBoundingClientRect();
+                const langRect = languageButton.getBoundingClientRect();
+                const rowRect = controlRow.getBoundingClientRect();
+                
+                const playStyles = window.getComputedStyle(playButton);
+                const langStyles = window.getComputedStyle(languageButton);
+                
+                const data = {
+                    windowWidth: window.innerWidth,
+                    playButton: {
+                        top: playRect.top,
+                        bottom: playRect.bottom,
+                        left: playRect.left,
+                        right: playRect.right,
+                        height: playRect.height,
+                        width: playRect.width,
+                        paddingTop: playStyles.paddingTop,
+                        paddingBottom: playStyles.paddingBottom,
+                        paddingLeft: playStyles.paddingLeft,
+                        paddingRight: playStyles.paddingRight,
+                        borderTop: playStyles.borderTopWidth,
+                        borderBottom: playStyles.borderBottomWidth,
+                        borderLeft: playStyles.borderLeftWidth,
+                        borderRight: playStyles.borderRightWidth,
+                        marginTop: playStyles.marginTop,
+                        marginBottom: playStyles.marginBottom,
+                        marginLeft: playStyles.marginLeft,
+                        marginRight: playStyles.marginRight,
+                        boxSizing: playStyles.boxSizing,
+                        lineHeight: playStyles.lineHeight
+                    },
+                    languageButton: {
+                        top: langRect.top,
+                        bottom: langRect.bottom,
+                        left: langRect.left,
+                        right: langRect.right,
+                        height: langRect.height,
+                        width: langRect.width,
+                        paddingTop: langStyles.paddingTop,
+                        paddingBottom: langStyles.paddingBottom,
+                        paddingLeft: langStyles.paddingLeft,
+                        paddingRight: langStyles.paddingRight,
+                        borderTop: langStyles.borderTopWidth,
+                        borderBottom: langStyles.borderBottomWidth,
+                        borderLeft: langStyles.borderLeftWidth,
+                        borderRight: langStyles.borderRightWidth,
+                        marginTop: langStyles.marginTop,
+                        marginBottom: langStyles.marginBottom,
+                        marginLeft: langStyles.marginLeft,
+                        marginRight: langStyles.marginRight,
+                        boxSizing: langStyles.boxSizing,
+                        lineHeight: langStyles.lineHeight,
+                        minHeight: langStyles.minHeight
+                    },
+                    controlRow: {
+                        top: rowRect.top,
+                        bottom: rowRect.bottom,
+                        height: rowRect.height,
+                        alignItems: window.getComputedStyle(controlRow).alignItems,
+                        justifyContent: window.getComputedStyle(controlRow).justifyContent
+                    },
+                    alignment: {
+                        topDiff: Math.abs(playRect.top - langRect.top),
+                        bottomDiff: Math.abs(playRect.bottom - langRect.bottom),
+                        heightDiff: Math.abs(playRect.height - langRect.height),
+                        rightDiff: Math.abs(playRect.right - langRect.right)
+                    }
+                };
+                
+                fetch('http://127.0.0.1:7242/ingest/8ee40e3b-ae49-4fda-94e5-0f3e0305f855', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        location: 'index.html:debug-control-alignment',
+                        message: 'Control button alignment check',
+                        data: data,
+                        timestamp: Date.now(),
+                        sessionId: 'debug-session',
+                        runId: 'run1',
+                        hypothesisId: 'H1,H2,H3,H4,H5'
+                    })
+                }).catch(() => {});
+            }
+            
+            // Log on load and resize
+            setTimeout(logControlButtonAlignment, 100);
+            window.addEventListener('resize', () => setTimeout(logControlButtonAlignment, 100));
+            // #endregion
         });
     </script>
 </body>
