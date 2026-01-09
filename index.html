@@ -1081,7 +1081,7 @@
                     logoImagePath: LOGOS_BASE_PATH + 'tcm-sinocare-logo.png',  // Logo image - bottom right corner
                     href: 'https://www.tcmsino.care',
                     name: 'TCM SinoCare',  // For alphabetical sorting
-                    theme: 'Doctor',  // Category: Doctor
+                    theme: 'Health & Medicine',  // Category: Health & Medicine
                     city: 'Berne',  // City for filtering
                     descriptions: {
                         en: {
@@ -1185,7 +1185,7 @@
                     logoImagePath: LOGOS_BASE_PATH + 'Hou Wei TCM Breitenbach.png',  // Logo image - bottom right corner
                     href: 'https://tcmbreitenbach.ch/',
                     name: 'Hou Wei TCM Praxis',  // For alphabetical sorting
-                    theme: 'Doctor',  // Category: Doctor (DE: Ärztinnen und Ärzte)
+                    theme: 'Health & Medicine',  // Category: Health & Medicine (DE: Ärztinnen und Ärzte)
                     city: 'Basel',  // City for filtering (locations: Breitenbach and Reinach, both in Basel region)
                     descriptions: {
                         en: {
@@ -1206,29 +1206,55 @@
                         }
                     }
                 },
+                hikelucerne: {
+                    backgroundImagePath: LOGOS_BASE_PATH + 'hikelucerne-background.jpeg',  // Background image for liquid blob effect
+                    logoImagePath: LOGOS_BASE_PATH + 'hikelucerne-logo.jpg',  // Logo image - bottom right corner
+                    href: 'https://www.hikelucerne.ch/',
+                    name: 'Hike Lucerne',  // For alphabetical sorting
+                    theme: 'Others',  // Category: Others
+                    city: 'Lucerne',  // Location for filtering
+                    descriptions: {
+                        en: {
+                            title: 'Hike Lucerne, Lucerne',
+                            text: 'The authentic experience with a local Swiss hiking guide from the region of Lucerne.'
+                        },
+                        de: {
+                            title: 'Hike Lucerne, Luzern',
+                            text: 'Das authentische Erlebnis mit einem lokalen Schweizer Wanderführer aus der Region Luzern.'
+                        },
+                        fr: {
+                            title: 'Hike Lucerne, Lucerne',
+                            text: 'L\'expérience authentique avec un guide de randonnée suisse local de la région de Lucerne.'
+                        },
+                        zh: {
+                            title: 'Hike Lucerne, 盧塞恩',
+                            text: '與來自盧塞恩地區的當地瑞士徒步導遊一起體驗真實的徒步之旅。'
+                        }
+                    }
+                },
                 onlineApotheke: {
                     backgroundImagePath: LOGOS_BASE_PATH + 'online-apotheke-background.png',  // Background image for liquid blob effect
                     logoImagePath: LOGOS_BASE_PATH + 'online-apotheke-logo.svg',  // Logo image - bottom right corner
                     href: 'https://www.online-apotheke.ch/',
                     name: 'Online-Apotheke.ch',  // For alphabetical sorting
-                    theme: 'Others',  // Category: Others
+                    theme: 'Health & Medicine',  // Category: Health & Medicine
                     city: 'CH-online',  // Location for filtering (subcategory under Switzerland)
                     descriptions: {
                         en: {
                             title: 'Online-Apotheke.ch, Switzerland',
-                            text: 'Swiss online pharmacy and drugstore. Fast delivery from Bern.'
+                            text: 'Swiss online pharmacy and drugstore. Fast delivery from Bern. Get 5% off with "Rebecca5".'
                         },
                         de: {
                             title: 'Online-Apotheke.ch, Schweiz',
-                            text: 'Schweizer Online-Apotheke und Drogerie. Schnelle Lieferung ab Bern.'
+                            text: 'Schweizer Online-Apotheke und Drogerie. Schnelle Lieferung ab Bern. Erhalte 5% Rabatt mit "Rebecca5".'
                         },
                         fr: {
                             title: 'Online-Apotheke.ch, Suisse',
-                            text: 'Pharmacie et droguerie en ligne suisse. Livraison rapide depuis Berne.'
+                            text: 'Pharmacie et droguerie en ligne suisse. Livraison rapide depuis Berne. Obtenez 5% de réduction avec "Rebecca5".'
                         },
                         zh: {
                             title: 'Online-Apotheke.ch, 瑞士',
-                            text: '瑞士线上药局与药妆店。从伯恩快速送达。'
+                            text: '瑞士线上药局与药妆店。从伯恩快速送达。使用"Rebecca5"可享受5%折扣。'
                         }
                     }
                 },
@@ -2030,11 +2056,6 @@
                     link.appendChild(img); // Logo as last child of logo-tile-link, after the liquid blob (imageWrapper)
                     tile.appendChild(link);
                     list.appendChild(tile);
-                    
-                    // Add small random offset to break grid alignment (like nebula)
-                    const randomOffsetX = (Math.random() - 0.5) * 20; // ±10px
-                    const randomOffsetY = (Math.random() - 0.5) * 20; // ±10px
-                    tile.style.transform = `translate(${randomOffsetX}px, ${randomOffsetY}px)`;
                     
                     // Update overlay content on language change
                     tile.dataset.tileKey = key;
