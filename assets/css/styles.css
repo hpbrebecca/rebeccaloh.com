@@ -102,10 +102,10 @@ html, body {
     --z-background: 1;
     --z-content: 10;
     --z-profile: 10001;
-    /* Navigation must appear above controls to prevent overlap issues */
+    /* Control panel must be above navigation so dropdown can appear above nav links */
+    --z-controls: 10006;
     --z-navigation: 10004;
-    --z-controls: 10003;
-    --z-dropdown: 10005;
+    --z-dropdown: 10007;
     --z-skip-link: 10005;
     
     /* ============================================
@@ -419,7 +419,7 @@ h1.name-corner {
    ============================================ */
 .main-navigation {
     position: fixed;
-    top: clamp(16px, 2vw, 24px);
+    top: clamp(24px, 3vw, 32px);
     bottom: auto;
     left: 50%; /* Perfect center - same distance to left and right edges */
     transform: translateX(-50%); /* Center based on element's own width */
@@ -2668,6 +2668,26 @@ h1.name-corner {
     transform: translateX(-50%) scaleX(1);
 }
 
+/* Touch Device Support: Show overlays by default on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch devices - show overlays by default */
+    .logo-tile-overlay {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1) translateZ(0);
+        animation: liquid-blob 8s ease-in-out infinite;
+    }
+    
+    .logo-tile-overlay-content {
+        opacity: 1;
+        transform: translateY(-10px) scale(1);
+    }
+    
+    .logo-tile-overlay-title::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+}
+
 .logo-tile-overlay-text {
     font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif TC', serif;
     font-size: clamp(0.8125rem, 1.3vw, 0.9375rem); /* Smaller text */
@@ -3202,7 +3222,7 @@ h1.name-corner {
     }
     
     .main-navigation {
-        top: clamp(16px, 2vw, 24px);
+        top: clamp(72px, 9vw, 88px);
         bottom: auto;
         left: 50%; /* Always centered */
         right: auto;
@@ -3211,7 +3231,7 @@ h1.name-corner {
         padding: clamp(4px, 0.6vw, 8px) clamp(10px, 1vw, 15px); /* Equal padding on both sides */
         max-width: calc(50vw - clamp(200px, 25vw, 300px)); /* Reduced to prevent overlap with control-panel */
         min-width: clamp(200px, 25vw, 300px);
-        z-index: var(--z-navigation); /* Ensure correct z-index - higher than control-panel */
+        z-index: var(--z-navigation); /* Ensure correct z-index - below control-panel for dropdown visibility */
     }
     
     .main-content-designer {
@@ -3662,7 +3682,7 @@ h1.name-corner {
     }
     
     .main-navigation {
-        top: clamp(64px, 8vw, 80px);
+        top: clamp(76px, 9.5vw, 92px);
         bottom: auto;
         left: 50%; /* Always centered */
         right: auto;
@@ -3717,7 +3737,7 @@ h1.name-corner {
     }
     
     .main-navigation {
-        top: clamp(70px, 8.5vw, 85px);
+        top: clamp(80px, 10vw, 96px);
         bottom: auto;
         left: 50%; /* Always centered */
         right: auto;
